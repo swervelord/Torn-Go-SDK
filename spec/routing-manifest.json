@@ -1,0 +1,5912 @@
+{
+  "capabilities": [
+    {
+      "resource": "company",
+      "name": "applications",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompanyApplications",
+          "path": "/company/applications",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompanyApplicationsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "companies",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getCompaniesList",
+          "path": "/company/{typeId}/companies",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "typeId"
+          ],
+          "schema": "CompaniesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "employees",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompanyEmployees",
+          "path": "/company/employees",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompanyEmployeesResponse"
+        },
+        {
+          "id": "getCompanyEmployees",
+          "path": "/company/{id}/employees",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "CompanyEmployeesResponseBasic"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getCompanyLookup",
+          "path": "/company/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompanyLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "news",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompanyNews",
+          "path": "/company/news",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "NewsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "profile",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompanyProfile",
+          "path": "/company/profile",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompanyProfileResponseMixed"
+        },
+        {
+          "id": "getCompanyProfile",
+          "path": "/company/{id}/profile",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "CompanyProfileResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "search",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getCompaniesSearch",
+          "path": "/company/search",
+          "parameters": [
+            "comment",
+            "filters",
+            "key",
+            "limit",
+            "name",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompaniesSearchResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "snapshot",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": true,
+      "endpoints": [
+        {
+          "id": "getCompaniesSnapshot",
+          "path": "/company/snapshot",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": ""
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "stock",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompanyStock",
+          "path": "/company/stock",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "CompanyStockResponse"
+        }
+      ]
+    },
+    {
+      "resource": "company",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getCompanyTimestamp",
+          "path": "/company/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "applications",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionApplications",
+          "path": "/faction/applications",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionApplicationsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "armor",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "attacks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionAttacks",
+          "path": "/faction/attacks",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "AttacksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "attacksfull",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionAttacksSimplified",
+          "path": "/faction/attacksfull",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "AttacksFullResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "balance",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionBalance",
+          "path": "/faction/balance",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionBalanceResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "basic",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionBasicInformation",
+          "path": "/faction/basic",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionBasicResponse"
+        },
+        {
+          "id": "getFactionBasicInformation",
+          "path": "/faction/{id}/basic",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionBasicResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "boosters",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "caches",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "cesium",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "chain",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionChain",
+          "path": "/faction/chain",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionOngoingChainResponse"
+        },
+        {
+          "id": "getFactionChain",
+          "path": "/faction/{id}/chain",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionOngoingChainResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "chainreport",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionLatestChainReport",
+          "path": "/faction/chainreport",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionChainReportResponse"
+        },
+        {
+          "id": "getChainReport",
+          "path": "/faction/{chainId}/chainreport",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "chainId"
+          ],
+          "schema": "FactionChainReportResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "chains",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionCompletedChains",
+          "path": "/faction/chains",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionChainsResponse"
+        },
+        {
+          "id": "getFactionCompletedChains",
+          "path": "/faction/{id}/chains",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionChainsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "contributors",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionContributors",
+          "path": "/faction/contributors",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "stat",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionContributorsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "crime",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionOrganizedCrime",
+          "path": "/faction/{crimeId}/crime",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "crimeId"
+          ],
+          "schema": "FactionCrimeResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "crimeexp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionCrimeExp",
+          "path": "/faction/crimeexp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionCrimeExpResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "crimes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionOrganizedCrimes",
+          "path": "/faction/crimes",
+          "parameters": [
+            "cat",
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionCrimesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "dirtbombs",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getFactionGeneric",
+          "path": "/faction",
+          "parameters": [
+            "cat",
+            "comment",
+            "filters",
+            "from",
+            "id",
+            "key",
+            "legacy",
+            "limit",
+            "offset",
+            "selections",
+            "sort",
+            "stat",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareDirtyBombsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "dirtybombs",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfareDirtyBombs",
+          "path": "/faction/dirtybombs",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionWarfareDirtyBombsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "drugs",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "hof",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionHoF",
+          "path": "/faction/hof",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionHofResponse"
+        },
+        {
+          "id": "getFactionHoF",
+          "path": "/faction/{id}/hof",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionHofResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "inventory",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionInventory",
+          "path": "/faction/inventory",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionInventoryResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getFactionLookup",
+          "path": "/faction/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "medical",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "members",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionMembers",
+          "path": "/faction/members",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionMembersResponse"
+        },
+        {
+          "id": "getFactionMembers",
+          "path": "/faction/{id}/members",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionMembersResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "news",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionNews",
+          "path": "/faction/news",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "NewsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "positions",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionPositions",
+          "path": "/faction/positions",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionPositionsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "rackets",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getFactionRackets",
+          "path": "/faction/rackets",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionRacketsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "raidreport",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRaidReport",
+          "path": "/faction/{raidWarId}/raidreport",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "raidWarId"
+          ],
+          "schema": "FactionRaidWarReportResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "raids",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionRaidsHistory",
+          "path": "/faction/raids",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionRaidsResponse"
+        },
+        {
+          "id": "getFactionRaidsHistory",
+          "path": "/faction/{id}/raids",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionRaidsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "rankedwarreport",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRankedWarReport",
+          "path": "/faction/{rankedWarId}/rankedwarreport",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "rankedWarId"
+          ],
+          "schema": "FactionRankedWarReportResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "rankedwars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionRankedWarsHistory",
+          "path": "/faction/rankedwars",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionRankedWarResponse"
+        },
+        {
+          "id": "getFactionRankedWarsHistory",
+          "path": "/faction/{id}/rankedwars",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionRankedWarResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "reports",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionReports",
+          "path": "/faction/reports",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "target",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "ReportsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "revives",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionRevives",
+          "path": "/faction/revives",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "RevivesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "revivesfull",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionRevivesSimplified",
+          "path": "/faction/revivesFull",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "RevivesFullResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "search",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getFactionSearch",
+          "path": "/faction/search",
+          "parameters": [
+            "comment",
+            "filters",
+            "key",
+            "limit",
+            "name",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionSearchResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "snapshot",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": true,
+      "endpoints": [
+        {
+          "id": "getFactionsSnapshot",
+          "path": "/faction/snapshot",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": ""
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "stats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionStats",
+          "path": "/faction/stats",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionStatsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "temporary",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "territory",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionTerritory",
+          "path": "/faction/territory",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionTerritoriesResponse"
+        },
+        {
+          "id": "getFactionTerritory",
+          "path": "/faction/{id}/territory",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionTerritoriesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "territoryownership",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTerritoryOwnership",
+          "path": "/faction/territoryownership",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionTerritoriesOwnershipResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "territorywarreport",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTerritoryWarReport",
+          "path": "/faction/{territoryWarId}/territorywarreport",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "territoryWarId"
+          ],
+          "schema": "FactionTerritoryWarReportResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "territorywars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionTerritoryWarsHistory",
+          "path": "/faction/territorywars",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionTerritoryWarsHistoryResponse"
+        },
+        {
+          "id": "getFactionTerritoryWarsHistory",
+          "path": "/faction/{id}/territorywars",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionTerritoryWarsHistoryResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getFactionTimestamp",
+          "path": "/faction/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "upgrades",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionUpgrades",
+          "path": "/faction/upgrades",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionUpgradesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "utilities",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "faction",
+      "name": "warfare",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfare",
+          "path": "/faction/warfare",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "warfarechains",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfareChains",
+          "path": "/faction/warfarechains",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareChainsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "warfareraids",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfareRaids",
+          "path": "/faction/warfareraids",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareRaidsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "warfareranked",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfareRankedWars",
+          "path": "/faction/warfareranked",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareRankedResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "warfareterritory",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getWarfareTerritoryWars",
+          "path": "/faction/warfareterritory",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "FactionWarfareTerritoryWarsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "wars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFactionWars",
+          "path": "/faction/wars",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "FactionWarsResponse"
+        },
+        {
+          "id": "getFactionWars",
+          "path": "/faction/{id}/wars",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "FactionWarsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "faction",
+      "name": "weapons",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "forum",
+      "name": "categories",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumCategories",
+          "path": "/forum/categories",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "ForumCategoriesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "forum",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumLookup",
+          "path": "/forum/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "ForumLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "forum",
+      "name": "posts",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumThreadPosts",
+          "path": "/forum/{threadId}/posts",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "offset",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "threadId"
+          ],
+          "schema": "ForumPostsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "forum",
+      "name": "thread",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumThread",
+          "path": "/forum/{threadId}/thread",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "threadId"
+          ],
+          "schema": "ForumThreadResponse"
+        }
+      ]
+    },
+    {
+      "resource": "forum",
+      "name": "threads",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumAllThreads",
+          "path": "/forum/threads",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "ForumThreadsResponse"
+        },
+        {
+          "id": "getForumThreads",
+          "path": "/forum/{categoryIds}/threads",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "categoryIds"
+          ],
+          "schema": "ForumThreadsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "forum",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getForumTimestamp",
+          "path": "/forum/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "key",
+      "name": "info",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getKeyInfo",
+          "path": "/key/info",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "KeyInfoResponse"
+        }
+      ]
+    },
+    {
+      "resource": "key",
+      "name": "log",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getKeyLog",
+          "path": "/key/log",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "KeyLogResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "auctionhouse",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketAuctionHouse",
+          "path": "/market/auctionhouse",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "AuctionHouseResponse"
+        },
+        {
+          "id": "getMarketAuctionHouseItem",
+          "path": "/market/{id}/auctionhouse",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "AuctionHouseResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "auctionhouselisting",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketAuctionHouseListing",
+          "path": "/market/{id}/auctionhouselisting",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "AuctionHouseListingResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "bazaar",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketBazaar",
+          "path": "/market/bazaar",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "BazaarResponse"
+        },
+        {
+          "id": "getMarketBazaarItem",
+          "path": "/market/{id}/bazaar",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "BazaarResponseSpecialized"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "itemmarket",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketItemMarketItem",
+          "path": "/market/{id}/itemmarket",
+          "parameters": [
+            "bonus",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "MarketItemMarketResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketLookup",
+          "path": "/market/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "MarketLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "pointsmarket",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketPoints",
+          "path": "/market/pointsmarket",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "PointsMarketResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "properties",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketProperties",
+          "path": "/market/{propertyTypeId}/properties",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "timestamp"
+          ],
+          "required": [
+            "propertyTypeId"
+          ],
+          "schema": "MarketPropertiesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "rentals",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketPropertiesRental",
+          "path": "/market/{propertyTypeId}/rentals",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "timestamp"
+          ],
+          "required": [
+            "propertyTypeId"
+          ],
+          "schema": "MarketRentalsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "market",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMarketTimestamp",
+          "path": "/market/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "property",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getPropertyLookup",
+          "path": "/property/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "PropertyLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "property",
+      "name": "property",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getProperty",
+          "path": "/property/{id}/property",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "PropertyPropertyResponse"
+        }
+      ]
+    },
+    {
+      "resource": "property",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getPropertyTimestamp",
+          "path": "/property/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "cars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingCars",
+          "path": "/racing/cars",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "RacingCarsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "carupgrades",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingCarUpgrades",
+          "path": "/racing/carupgrades",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "RacingCarUpgradesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingLookup",
+          "path": "/racing/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "RacingLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "race",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingRaceDetails",
+          "path": "/racing/{raceId}/race",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "raceId"
+          ],
+          "schema": "RacingRaceDetailsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "races",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingRaces",
+          "path": "/racing/races",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "RacingRacesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "records",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingTrackRecords",
+          "path": "/racing/{trackId}/records",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "trackId"
+          ],
+          "schema": "RacingTrackRecordsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingTimestamp",
+          "path": "/racing/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "racing",
+      "name": "tracks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getRacingTracks",
+          "path": "/racing/tracks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "RacingTracksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "attacklog",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornAttackLog",
+          "path": "/torn/attacklog",
+          "parameters": [
+            "comment",
+            "key",
+            "log",
+            "offset",
+            "sort",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "AttackLogResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "bank",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornBank",
+          "path": "/torn/bank",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornBankResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "bounties",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornBounties",
+          "path": "/torn/bounties",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornBountiesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "calendar",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCalendar",
+          "path": "/torn/calendar",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCalendarResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "cards",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCards",
+          "path": "/torn/cards",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCardsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "cityshops",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCityShops",
+          "path": "/torn/cityshops",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCityShopsResponse"
+        },
+        {
+          "id": "getTornCityShopSpecific",
+          "path": "/torn/{shopId}/cityshops",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "shopId"
+          ],
+          "schema": "TornCityShopsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "companies",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCompanies",
+          "path": "/torn/companies",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCompaniesResponse"
+        },
+        {
+          "id": "getTornCompaniesSpecific",
+          "path": "/torn/{typeId}/companies",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "typeId"
+          ],
+          "schema": "TornCompaniesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "competition",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "torn",
+      "name": "crimes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCrimes",
+          "path": "/torn/crimes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCrimesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "education",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornEducation",
+          "path": "/torn/education",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornEducationResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "elimination",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornElimination",
+          "path": "/torn/elimination",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornEliminationTeamsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "eliminationteam",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornEliminationTeam",
+          "path": "/torn/{id}/eliminationteam",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "TornEliminationTeamPlayersResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "factionhof",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornFactionHoF",
+          "path": "/torn/factionhof",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornFactionHofResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "factiontree",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornFactionTree",
+          "path": "/torn/factiontree",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornFactionTreeResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "gyms",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornGyms",
+          "path": "/torn/gyms",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornGymsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "hof",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornHoF",
+          "path": "/torn/hof",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornHofResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "honors",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornHonors",
+          "path": "/torn/honors",
+          "parameters": [
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornHonorsResponse"
+        },
+        {
+          "id": "getTornHonorsSpecific",
+          "path": "/torn/{ids}/honors",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "ids"
+          ],
+          "schema": "TornHonorsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "itemammo",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornItemAmmo",
+          "path": "/torn/itemammo",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornItemAmmoResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "itemdetails",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornItemDetails",
+          "path": "/torn/{ids}/itemdetails",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "ids"
+          ],
+          "schema": "TornItemDetailsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "itemmods",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornItemMods",
+          "path": "/torn/itemmods",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornItemModsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "items",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornItems",
+          "path": "/torn/items",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "sort",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornItemsResponse"
+        },
+        {
+          "id": "getTornItemsSpecific",
+          "path": "/torn/{ids}/items",
+          "parameters": [
+            "comment",
+            "key",
+            "sort",
+            "timestamp"
+          ],
+          "required": [
+            "ids"
+          ],
+          "schema": "TornItemsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "itemstats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornItemStats",
+          "path": "/torn/{ids}/itemstats",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "ids"
+          ],
+          "schema": "TornItemStatsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "logcategories",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornLogCategories",
+          "path": "/torn/logcategories",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornLogCategoriesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "logtypes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornLogTypes",
+          "path": "/torn/logtypes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornLogTypesResponse"
+        },
+        {
+          "id": "getTornLogTypesSpecific",
+          "path": "/torn/{logCategoryId}/logtypes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "logCategoryId"
+          ],
+          "schema": "TornLogTypesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornLookup",
+          "path": "/torn/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "medals",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornMedals",
+          "path": "/torn/medals",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornMedalsResponse"
+        },
+        {
+          "id": "getTornMedalsSpecific",
+          "path": "/torn/{ids}/medals",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "ids"
+          ],
+          "schema": "TornMedalsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "merits",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornMerits",
+          "path": "/torn/merits",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornMeritsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "museum",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornMuseum",
+          "path": "/torn/museum",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornMuseumResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "organisedcrimes",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "torn",
+      "name": "organizedcrimes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornOrganizedCrimes",
+          "path": "/torn/organizedcrimes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornOrganizedCrimeResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "pawnshop",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "torn",
+      "name": "pokertables",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornPokerTables",
+          "path": "/torn/pokertables",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornPokerTablesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "properties",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornProperties",
+          "path": "/torn/properties",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornProperties"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "rockpaperscissors",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornRps",
+          "path": "/torn/rockpaperscissors",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornRockPaperScissorsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "searchforcash",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornSearchForCash",
+          "path": "/torn/searchforcash",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornSearchForCashResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "shoplifting",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornShoplifting",
+          "path": "/torn/shoplifting",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornShopliftingResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "stats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornCityStats",
+          "path": "/torn/stats",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornCityStatsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "stocks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornStocks",
+          "path": "/torn/stocks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornStocksResponse"
+        },
+        {
+          "id": "getSpecificTornStock",
+          "path": "/torn/{stockId}/stocks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "stockId"
+          ],
+          "schema": "TornStockDetailedResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "subcrimes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornSubcrimes",
+          "path": "/torn/{crimeId}/subcrimes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "crimeId"
+          ],
+          "schema": "TornSubcrimesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "territory",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornTerritory",
+          "path": "/torn/territory",
+          "parameters": [
+            "comment",
+            "ids",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TornTerritoriesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "torn",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getTornTimestamp",
+          "path": "/torn/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "ammo",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyAmmo",
+          "path": "/user/ammo",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserAmmoResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "attacks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyAttacks",
+          "path": "/user/attacks",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "AttacksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "attacksfull",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyAttacksSimplified",
+          "path": "/user/attacksfull",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "AttacksFullResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "bars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyBars",
+          "path": "/user/bars",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserBarsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "basic",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyBasicInformation",
+          "path": "/user/basic",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserBasicResponse"
+        },
+        {
+          "id": "getUserBasicInformation",
+          "path": "/user/{id}/basic",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserBasicResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "battlestats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyBattlestats",
+          "path": "/user/battlestats",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserBattleStatsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "bazaar",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "user",
+      "name": "bounties",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyBounties",
+          "path": "/user/bounties",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserBountiesResponse"
+        },
+        {
+          "id": "getUserBounties",
+          "path": "/user/{id}/bounties",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserBountiesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "calendar",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCalendarTime",
+          "path": "/user/calendar",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserCalendarResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "casino",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCasinoStreak",
+          "path": "/user/casino",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserCasinoResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "competition",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCompetitionInfo",
+          "path": "/user/competition",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserCompetitionResponse"
+        },
+        {
+          "id": "getUserCompetitionInfo",
+          "path": "/user/{id}/competition",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserCompetitionResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "cooldowns",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCooldowns",
+          "path": "/user/cooldowns",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserCooldownsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "crimes",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyCrimes",
+          "path": "/user/{crimeId}/crimes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "crimeId"
+          ],
+          "schema": "UserCrimesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "criminalrecord",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "user",
+      "name": "discord",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyDiscord",
+          "path": "/user/discord",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserDiscordResponse"
+        },
+        {
+          "id": "getUserDiscord",
+          "path": "/user/{id}/discord",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserDiscordResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "display",
+      "generic": false,
+      "standalone": false,
+      "legacy": true,
+      "csv": false,
+      "endpoints": null
+    },
+    {
+      "resource": "user",
+      "name": "education",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyEducation",
+          "path": "/user/education",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserEducationResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "enlistedcars",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyEnlistedCars",
+          "path": "/user/enlistedcars",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserEnlistedCarsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "equipment",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyEquipment",
+          "path": "/user/equipment",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserEquipmentResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "events",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyEvents",
+          "path": "/user/events",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserEventsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "faction",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyFaction",
+          "path": "/user/faction",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserFactionResponse"
+        },
+        {
+          "id": "getUserFaction",
+          "path": "/user/{id}/faction",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserFactionResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "factionbalance",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getUserGeneric",
+          "path": "/user",
+          "parameters": [
+            "cat",
+            "comment",
+            "filters",
+            "from",
+            "id",
+            "key",
+            "legacy",
+            "limit",
+            "offset",
+            "selections",
+            "sort",
+            "stat",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserFactionBalanceResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "forumfeed",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyForumFeed",
+          "path": "/user/forumfeed",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserForumFeedResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "forumfriends",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyForumFriendsUpdates",
+          "path": "/user/forumfriends",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserForumFriendsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "forumposts",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyForumPosts",
+          "path": "/user/forumposts",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserForumPostsResponse"
+        },
+        {
+          "id": "getUserForumPosts",
+          "path": "/user/{id}/forumposts",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserForumPostsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "forumsubscribedthreads",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyForumSubscribedThreads",
+          "path": "/user/forumsubscribedthreads",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserForumSubscribedThreadsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "forumthreads",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyForumThreads",
+          "path": "/user/forumthreads",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserForumThreadsResponse"
+        },
+        {
+          "id": "getUserForumThreads",
+          "path": "/user/{id}/forumthreads",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserForumThreadsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "gym",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyGym",
+          "path": "/user/gym",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserGymResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "hof",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyHoF",
+          "path": "/user/hof",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserHofResponse"
+        },
+        {
+          "id": "getUserHoF",
+          "path": "/user/{id}/hof",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserHofResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "honors",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyHonors",
+          "path": "/user/honors",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserHonorsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "icons",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyIcons",
+          "path": "/user/icons",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserIconsResponse"
+        },
+        {
+          "id": "getUserIcons",
+          "path": "/user/{id}/icons",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserIconsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "inventory",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyInventory",
+          "path": "/user/inventory",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserInventoryResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "itemmarket",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyItemMarketListings",
+          "path": "/user/itemmarket",
+          "parameters": [
+            "comment",
+            "key",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserItemMarketResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "itemmod",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getUserGeneric",
+          "path": "/user",
+          "parameters": [
+            "cat",
+            "comment",
+            "filters",
+            "from",
+            "id",
+            "key",
+            "legacy",
+            "limit",
+            "offset",
+            "selections",
+            "sort",
+            "stat",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserItemModsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "itemmods",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyItemModsInformation",
+          "path": "/user/itemmods",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserItemModsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "job",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyJob",
+          "path": "/user/job",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserJobResponse"
+        },
+        {
+          "id": "getUserJob",
+          "path": "/user/{id}/job",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserJobResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "jobpoints",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyJobPoints",
+          "path": "/user/jobpoints",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserJobPointsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "jobranks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyJobRanks",
+          "path": "/user/jobranks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserJobRanksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "list",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyContactsList",
+          "path": "/user/list",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserListResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "log",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyLogs",
+          "path": "/user/log",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "log",
+            "nanostamp",
+            "target",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserLogsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "lookup",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getUserLookup",
+          "path": "/user/lookup",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserLookupResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "medals",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyMedals",
+          "path": "/user/medals",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserMedalsResponse"
+        },
+        {
+          "id": "getUserMedals",
+          "path": "/user/{id}/medals",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserMedalsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "merits",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyMerits",
+          "path": "/user/merits",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserMeritsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "messages",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyMessages",
+          "path": "/user/messages",
+          "parameters": [
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserMessagesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "missions",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyMissions",
+          "path": "/user/missions",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserMissionsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "money",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyMoney",
+          "path": "/user/money",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserMoneyResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "networth",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyNetworth",
+          "path": "/user/networth",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserNetworthResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "newevents",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyNewEvents",
+          "path": "/user/newevents",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserNewEventsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "newmessages",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyNewMessages",
+          "path": "/user/newmessages",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserNewMessagesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "notifications",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyNotifications",
+          "path": "/user/notifications",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserNotificationsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "organizedcrime",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyOrganizedCrime",
+          "path": "/user/organizedcrime",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserOrganizedCrimeResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "organizedcrimes",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyAvailableOrganizedCrimes",
+          "path": "/user/organizedcrimes",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserOrganizedCrimesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "perks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyPerks",
+          "path": "/user/perks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserPerksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "personalstats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyPersonalStats",
+          "path": "/user/personalstats",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "stat",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserPersonalStatsResponse"
+        },
+        {
+          "id": "getUserPersonalStats",
+          "path": "/user/{id}/personalstats",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "stat",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserPersonalStatsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "profile",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyProfile",
+          "path": "/user/profile",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserProfileResponse"
+        },
+        {
+          "id": "getUserProfile",
+          "path": "/user/{id}/profile",
+          "parameters": [
+            "comment",
+            "key",
+            "striptags",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserProfileResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "properties",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyProperties",
+          "path": "/user/properties",
+          "parameters": [
+            "comment",
+            "filters",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserPropertiesResponse"
+        },
+        {
+          "id": "getUserProperties",
+          "path": "/user/{id}/properties",
+          "parameters": [
+            "comment",
+            "filters",
+            "key",
+            "limit",
+            "offset",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserPropertiesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "property",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyProperty",
+          "path": "/user/property",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserPropertyResponse"
+        },
+        {
+          "id": "getUserProperty",
+          "path": "/user/{id}/property",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "id"
+          ],
+          "schema": "UserPropertyResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "races",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyRaces",
+          "path": "/user/races",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserRacesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "racingrecords",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyRacingRecords",
+          "path": "/user/racingrecords",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserRacingRecordsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "refills",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyRefills",
+          "path": "/user/refills",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserRefillsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "reports",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyReports",
+          "path": "/user/reports",
+          "parameters": [
+            "cat",
+            "comment",
+            "key",
+            "limit",
+            "offset",
+            "sort",
+            "target",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "ReportsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "revives",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyRevives",
+          "path": "/user/revives",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "RevivesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "revivesfull",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyRevivesSimplified",
+          "path": "/user/revivesFull",
+          "parameters": [
+            "comment",
+            "filters",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "striptags",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "RevivesFullResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "search",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getUsersSearch",
+          "path": "/user/search",
+          "parameters": [
+            "comment",
+            "cursor",
+            "filters",
+            "key",
+            "name",
+            "offset",
+            "sort",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserSearchResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "skills",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMySkills",
+          "path": "/user/skills",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserSkillsResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "snapshot",
+      "generic": false,
+      "standalone": true,
+      "legacy": false,
+      "csv": true,
+      "endpoints": [
+        {
+          "id": "getUsersSnapshot",
+          "path": "/user/snapshot",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": ""
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "stocks",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyStocks",
+          "path": "/user/stocks",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserStocksResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "timestamp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getUserTimestamp",
+          "path": "/user/timestamp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "TimestampResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "trade",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyDetailedTrade",
+          "path": "/user/{tradeId}/trade",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": [
+            "tradeId"
+          ],
+          "schema": "UserTradeResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "trades",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyTrades",
+          "path": "/user/trades",
+          "parameters": [
+            "cat",
+            "comment",
+            "from",
+            "key",
+            "limit",
+            "sort",
+            "timestamp",
+            "to"
+          ],
+          "required": null,
+          "schema": "UserTradesResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "travel",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyTravelInformation",
+          "path": "/user/travel",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserTravelResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "virus",
+      "generic": false,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyVirusCodingInformation",
+          "path": "/user/virus",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserVirusResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "weaponexp",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyWeaponExp",
+          "path": "/user/weaponexp",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserWeaponExpResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
+      "name": "workstats",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyWorkstats",
+          "path": "/user/workstats",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserWorkStatsResponse"
+        }
+      ]
+    }
+  ],
+  "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint.",
+  "raw_helpers": 202,
+  "source": "https://www.torn.com/swagger/openapi.json",
+  "typed_helpers": 207,
+  "v1_catalog": [
+    {
+      "resource": "company",
+      "name": "companies",
+      "legacy_only": false
+    },
+    {
+      "resource": "company",
+      "name": "news",
+      "legacy_only": false
+    },
+    {
+      "resource": "company",
+      "name": "search",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "applications",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "armor",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "armorynews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "attacknews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "attacks",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "attacksfull",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "balance",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "basic",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "boosters",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "caches",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "cesium",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "chain",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "chainreport",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "chains",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "contributors",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "crime",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "crimeexp",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "crimenews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "crimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "currency",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "donations",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "drugs",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "fundsnews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "hof",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "lookup",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "mainnews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "medical",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "members",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "membershipnews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "news",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "positions",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "rackets",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "raidreport",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "raids",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "rankedwarreport",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "rankedwars",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "reports",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "revives",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "revivesfull",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "search",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "stats",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "temporary",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "territory",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "territorynews",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "territoryownership",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "territorywarreport",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "territorywars",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "timestamp",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "upgrades",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "utilities",
+      "legacy_only": true
+    },
+    {
+      "resource": "faction",
+      "name": "warfare",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "wars",
+      "legacy_only": false
+    },
+    {
+      "resource": "faction",
+      "name": "weapons",
+      "legacy_only": true
+    },
+    {
+      "resource": "market",
+      "name": "auctionhouse",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "auctionhouselisting",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "bazaar",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "itemmarket",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "lookup",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "pointsmarket",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "properties",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "rentals",
+      "legacy_only": false
+    },
+    {
+      "resource": "market",
+      "name": "timestamp",
+      "legacy_only": false
+    },
+    {
+      "resource": "property",
+      "name": "lookup",
+      "legacy_only": false
+    },
+    {
+      "resource": "property",
+      "name": "property",
+      "legacy_only": false
+    },
+    {
+      "resource": "property",
+      "name": "timestamp",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "attacklog",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "bank",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "bounties",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "calendar",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "cards",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "chainreport",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "cityshops",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "companies",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "competition",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "crimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "dirtybombs",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "education",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "elimination",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "eliminationteam",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "factionhof",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "factiontree",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "gyms",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "hof",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "honors",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "itemammo",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "itemdetails",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "itemmods",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "items",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "itemstats",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "logcategories",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "logtypes",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "lookup",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "medals",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "merits",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "organisedcrimes",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "organizedcrimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "pawnshop",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "pokertables",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "properties",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "rackets",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "raidreport",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "raids",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "rankedwarreport",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "rankedwars",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "rockpaperscissors",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "searchforcash",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "shoplifting",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "stats",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "stocks",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "subcrimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "territory",
+      "legacy_only": false
+    },
+    {
+      "resource": "torn",
+      "name": "territorynames",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "territorywarreport",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "territorywars",
+      "legacy_only": true
+    },
+    {
+      "resource": "torn",
+      "name": "timestamp",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "ammo",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "attacks",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "attacksfull",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "bars",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "basic",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "battlestats",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "bazaar",
+      "legacy_only": true
+    },
+    {
+      "resource": "user",
+      "name": "bounties",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "calendar",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "competition",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "cooldowns",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "crimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "criminalrecord",
+      "legacy_only": true
+    },
+    {
+      "resource": "user",
+      "name": "discord",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "display",
+      "legacy_only": true
+    },
+    {
+      "resource": "user",
+      "name": "education",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "enlistedcars",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "equipment",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "events",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "faction",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "forumfeed",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "forumfriends",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "forumposts",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "forumsubscribedthreads",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "forumthreads",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "gym",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "hof",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "honors",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "icons",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "inventory",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "itemmarket",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "job",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "jobpoints",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "jobranks",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "list",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "log",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "lookup",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "medals",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "merits",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "messages",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "missions",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "money",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "networth",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "newevents",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "newmessages",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "notifications",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "organizedcrime",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "organizedcrimes",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "perks",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "personalstats",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "profile",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "properties",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "property",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "races",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "racingrecords",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "refills",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "reports",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "revives",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "revivesfull",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "skills",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "stocks",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "timestamp",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "travel",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "virus",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "weaponexp",
+      "legacy_only": false
+    },
+    {
+      "resource": "user",
+      "name": "workstats",
+      "legacy_only": false
+    }
+  ],
+  "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
+  "version": "6.13.8"
+}

@@ -1,0 +1,42 @@
+{
+  "sources": [
+    "https://www.torn.com/swagger/openapi.json",
+    "https://github.com/swervelord/Torn-API/blob/main/Torn%20API/01%20Combining%20Selections.md"
+  ],
+  "notes": [
+    "Generic-only response associations join enum names to generic anyOf branches where no exact endpoint exists.",
+    "These legacy selections are explicitly named unavailable in v2 in the official selection schema descriptions. They use v1 raw payloads because no authoritative complete v1 payload schemas are supplied.",
+    "Company companies is conservatively direct because the current /company 200 schema omits CompanyCompaniesResponse, despite enum membership. Other company selections with generic response branches can combine.",
+    "Generic batching requires both enum membership and an associated response branch; exact paths take precedence over stale legacy descriptions."
+  ],
+  "generic_only_responses": {
+    "user/factionbalance": "UserFactionBalanceResponse",
+    "user/itemmod": "UserItemModsResponse",
+    "faction/dirtbombs": "FactionWarfareDirtyBombsResponse"
+  },
+  "legacy_selections": {
+    "faction": ["armor", "boosters", "caches", "cesium", "drugs", "medical", "temporary", "utilities", "weapons"],
+    "torn": ["pawnshop"]
+  },
+  "compatibility_types": {
+    "company/employees":"CompanyEmployeesBundle",
+    "company/profile":"CompanyProfileBundle",
+    "market/bazaar":"MarketBazaarBundle",
+    "torn/stocks":"TornStocksBundle",
+    "faction/armor":"FactionArmorBundle",
+    "faction/boosters":"FactionBoostersBundle",
+    "faction/caches":"FactionCachesBundle",
+    "faction/cesium":"FactionCesiumBundle",
+    "faction/drugs":"FactionDrugsBundle",
+    "faction/medical":"FactionMedicalBundle",
+    "faction/temporary":"FactionTemporaryBundle",
+    "faction/utilities":"FactionUtilitiesBundle",
+    "faction/weapons":"FactionWeaponsBundle",
+    "torn/competition":"TornCompetitionBundle",
+    "torn/organisedcrimes":"TornOrganisedCrimesBundle",
+    "torn/pawnshop":"TornPawnshopBundle",
+    "user/bazaar":"UserBazaarBundle",
+    "user/criminalrecord":"UserCriminalRecordBundle",
+    "user/display":"UserDisplayBundle"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "source_url": "https://www.torn.com/swagger/openapi.json",
+  "snapshots": [
+    {
+      "version": "6.13.8",
+      "file": "spec/openapi-6.13.8.json",
+      "sha256": "7c4930218f15066a7d44c3666c3212ebc2a3b777e40754493ca89d092aef76d6",
+      "retrieved_date": "2026-10-23",
+      "operations": 234,
+      "schemas": 712
+    },
+    {
+      "version": "6.13.6",
+      "file": "spec/openapi-6.13.6.json",
+      "sha256": "dc04c6a03424da1d0361f29e80971d830115a23ddb1c47fbe5824fb54bb46ec4",
+      "operations": 234,
+      "schemas": 711,
+      "historical_evidence": "Semantically equal to refs/specs/torn-openapi.json at https://github.com/swervelord/Torn-API/tree/ac4ba829bbdbdc4ef5e058b48aae5088b9d5fd22; documentation provenance identifies official source and version. Byte formatting differs.",
+      "canonical_go_json_sha256": "16530fa1587216e8e21e727e92ef613e34544f6b196d0a77ff1b6256b4758351"
+    }
+  ]
+}

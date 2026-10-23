@@ -1,0 +1,6 @@
+Torn-Go-SDK is maintained by swervelord.
+
+API specifications originate from the official Torn API:
+https://www.torn.com/swagger/openapi.json
+Versioned snapshots and their provenance are recorded under spec/.
+Torn and its API remain the property of their respective owners.
