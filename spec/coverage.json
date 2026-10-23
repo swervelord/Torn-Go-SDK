@@ -550,6 +550,4305 @@
     "UserWorkStats": "compat.UserWorkStats",
     "UserWorkStatsBundle": "compat.UserWorkStatsBundle"
   },
+  "convenience_helpers": [
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyApplications",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "applications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyApplications",
+      "resource": "company",
+      "returns": [
+        "models.CompanyApplicationsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "applications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyCompanies",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "companies"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyCompanies",
+      "resource": "company",
+      "returns": [
+        "models.CompaniesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "companies"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyEmployees",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "employees"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyEmployees",
+      "resource": "company",
+      "returns": [
+        "compat.CompanyEmployeesBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "employees"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyLookup",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyLookup",
+      "resource": "company",
+      "returns": [
+        "models.CompanyLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyNews",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "news"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyNews",
+      "resource": "company",
+      "returns": [
+        "models.NewsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "news"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyProfile",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "profile"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyProfile",
+      "resource": "company",
+      "returns": [
+        "compat.CompanyProfileBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "profile"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanySearch",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanySearch",
+      "resource": "company",
+      "returns": [
+        "models.CompaniesSearchResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": true,
+      "public_api": "(*torn.Client).CompanySnapshot",
+      "resource": "company",
+      "returns": [
+        "string",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "snapshot"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyStock",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "stock"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyStock",
+      "resource": "company",
+      "returns": [
+        "models.CompanyStockResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stock"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawCompanyTimestamp",
+      "resource": "company",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).CompanyTimestamp",
+      "resource": "company",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionApplications",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "applications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionApplications",
+      "resource": "faction",
+      "returns": [
+        "models.FactionApplicationsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "applications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionArmor",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "armor"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionArmor",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionArmorBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "armor"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionAttacks",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "attacks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionAttacks",
+      "resource": "faction",
+      "returns": [
+        "models.AttacksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "attacks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionAttacksfull",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "attacksfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionAttacksfull",
+      "resource": "faction",
+      "returns": [
+        "models.AttacksFullResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "attacksfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionBalance",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "balance"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionBalance",
+      "resource": "faction",
+      "returns": [
+        "models.FactionBalanceResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "balance"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionBasic",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "basic"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionBasic",
+      "resource": "faction",
+      "returns": [
+        "models.FactionBasicResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "basic"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionBoosters",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "boosters"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionBoosters",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionBoostersBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "boosters"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionCaches",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "caches"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionCaches",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionCachesBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "caches"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionCesium",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "cesium"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionCesium",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionCesiumBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "cesium"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionChain",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "chain"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionChain",
+      "resource": "faction",
+      "returns": [
+        "models.FactionOngoingChainResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "chain"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionChainreport",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "chainreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionChainreport",
+      "resource": "faction",
+      "returns": [
+        "models.FactionChainReportResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "chainreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionChains",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "chains"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionChains",
+      "resource": "faction",
+      "returns": [
+        "models.FactionChainsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "chains"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionContributors",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "contributors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionContributors",
+      "resource": "faction",
+      "returns": [
+        "models.FactionContributorsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "contributors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionCrime",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "crime"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionCrime",
+      "resource": "faction",
+      "returns": [
+        "models.FactionCrimeResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "crime"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionCrimeexp",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "crimeexp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionCrimeexp",
+      "resource": "faction",
+      "returns": [
+        "models.FactionCrimeExpResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "crimeexp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionCrimes",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionCrimes",
+      "resource": "faction",
+      "returns": [
+        "models.FactionCrimesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionDirtbombs",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "dirtbombs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionDirtbombs",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareDirtyBombsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "dirtbombs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionDirtybombs",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "dirtybombs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionDirtybombs",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareDirtyBombsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "dirtybombs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionDrugs",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "drugs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionDrugs",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionDrugsBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "drugs"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionHof",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionHof",
+      "resource": "faction",
+      "returns": [
+        "models.FactionHofResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionInventory",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "inventory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionInventory",
+      "resource": "faction",
+      "returns": [
+        "models.FactionInventoryResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "inventory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionLookup",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionLookup",
+      "resource": "faction",
+      "returns": [
+        "models.FactionLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionMedical",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "medical"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionMedical",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionMedicalBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "medical"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionMembers",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "members"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionMembers",
+      "resource": "faction",
+      "returns": [
+        "models.FactionMembersResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "members"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionNews",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "news"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionNews",
+      "resource": "faction",
+      "returns": [
+        "models.NewsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "news"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionPositions",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "positions"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionPositions",
+      "resource": "faction",
+      "returns": [
+        "models.FactionPositionsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "positions"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRackets",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "rackets"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRackets",
+      "resource": "faction",
+      "returns": [
+        "models.FactionRacketsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "rackets"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRaidreport",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "raidreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRaidreport",
+      "resource": "faction",
+      "returns": [
+        "models.FactionRaidWarReportResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "raidreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRaids",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "raids"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRaids",
+      "resource": "faction",
+      "returns": [
+        "models.FactionRaidsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "raids"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRankedwarreport",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "rankedwarreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRankedwarreport",
+      "resource": "faction",
+      "returns": [
+        "models.FactionRankedWarReportResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "rankedwarreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRankedwars",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "rankedwars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRankedwars",
+      "resource": "faction",
+      "returns": [
+        "models.FactionRankedWarResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "rankedwars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionReports",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "reports"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionReports",
+      "resource": "faction",
+      "returns": [
+        "models.ReportsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "reports"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRevives",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "revives"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRevives",
+      "resource": "faction",
+      "returns": [
+        "models.RevivesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "revives"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionRevivesfull",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "revivesfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionRevivesfull",
+      "resource": "faction",
+      "returns": [
+        "models.RevivesFullResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "revivesfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionSearch",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionSearch",
+      "resource": "faction",
+      "returns": [
+        "models.FactionSearchResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": true,
+      "public_api": "(*torn.Client).FactionSnapshot",
+      "resource": "faction",
+      "returns": [
+        "string",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "snapshot"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionStats",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "stats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionStats",
+      "resource": "faction",
+      "returns": [
+        "models.FactionStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTemporary",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "temporary"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTemporary",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionTemporaryBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "temporary"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTerritory",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "territory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTerritory",
+      "resource": "faction",
+      "returns": [
+        "models.FactionTerritoriesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "territory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTerritoryownership",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "territoryownership"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTerritoryownership",
+      "resource": "faction",
+      "returns": [
+        "models.FactionTerritoriesOwnershipResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "territoryownership"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTerritorywarreport",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "territorywarreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTerritorywarreport",
+      "resource": "faction",
+      "returns": [
+        "models.FactionTerritoryWarReportResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "territorywarreport"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTerritorywars",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "territorywars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTerritorywars",
+      "resource": "faction",
+      "returns": [
+        "models.FactionTerritoryWarsHistoryResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "territorywars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionTimestamp",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionTimestamp",
+      "resource": "faction",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionUpgrades",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "upgrades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionUpgrades",
+      "resource": "faction",
+      "returns": [
+        "models.FactionUpgradesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "upgrades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionUtilities",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "utilities"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionUtilities",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionUtilitiesBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "utilities"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWarfare",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "warfare"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWarfare",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "warfare"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWarfarechains",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "warfarechains"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWarfarechains",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareChainsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "warfarechains"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWarfareraids",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "warfareraids"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWarfareraids",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareRaidsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "warfareraids"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWarfareranked",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "warfareranked"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWarfareranked",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareRankedResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "warfareranked"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWarfareterritory",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "warfareterritory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWarfareterritory",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarfareTerritoryWarsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "warfareterritory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWars",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "wars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWars",
+      "resource": "faction",
+      "returns": [
+        "models.FactionWarsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "wars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawFactionWeapons",
+      "resource": "faction",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "weapons"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).FactionWeapons",
+      "resource": "faction",
+      "returns": [
+        "compat.FactionWeaponsBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "weapons"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumCategories",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "categories"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumCategories",
+      "resource": "forum",
+      "returns": [
+        "models.ForumCategoriesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "categories"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumLookup",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumLookup",
+      "resource": "forum",
+      "returns": [
+        "models.ForumLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumPosts",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "posts"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumPosts",
+      "resource": "forum",
+      "returns": [
+        "models.ForumPostsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "posts"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumThread",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "thread"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumThread",
+      "resource": "forum",
+      "returns": [
+        "models.ForumThreadResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "thread"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumThreads",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "threads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumThreads",
+      "resource": "forum",
+      "returns": [
+        "models.ForumThreadsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "threads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawForumTimestamp",
+      "resource": "forum",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).ForumTimestamp",
+      "resource": "forum",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawKeyInfo",
+      "resource": "key",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "info"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).KeyInfo",
+      "resource": "key",
+      "returns": [
+        "models.KeyInfoResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "info"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawKeyLog",
+      "resource": "key",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "log"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).KeyLog",
+      "resource": "key",
+      "returns": [
+        "models.KeyLogResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "log"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketAuctionhouse",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "auctionhouse"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketAuctionhouse",
+      "resource": "market",
+      "returns": [
+        "models.AuctionHouseResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "auctionhouse"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketAuctionhouselisting",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "auctionhouselisting"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketAuctionhouselisting",
+      "resource": "market",
+      "returns": [
+        "models.AuctionHouseListingResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "auctionhouselisting"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketBazaar",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bazaar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketBazaar",
+      "resource": "market",
+      "returns": [
+        "compat.MarketBazaarBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bazaar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketItemmarket",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketItemmarket",
+      "resource": "market",
+      "returns": [
+        "models.MarketItemMarketResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketLookup",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketLookup",
+      "resource": "market",
+      "returns": [
+        "models.MarketLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketPointsmarket",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "pointsmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketPointsmarket",
+      "resource": "market",
+      "returns": [
+        "models.PointsMarketResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "pointsmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketProperties",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketProperties",
+      "resource": "market",
+      "returns": [
+        "models.MarketPropertiesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketRentals",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "rentals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketRentals",
+      "resource": "market",
+      "returns": [
+        "models.MarketRentalsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "rentals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawMarketTimestamp",
+      "resource": "market",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).MarketTimestamp",
+      "resource": "market",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawPropertyLookup",
+      "resource": "property",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).PropertyLookup",
+      "resource": "property",
+      "returns": [
+        "models.PropertyLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawPropertyProperty",
+      "resource": "property",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "property"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).PropertyProperty",
+      "resource": "property",
+      "returns": [
+        "models.PropertyPropertyResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "property"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawPropertyTimestamp",
+      "resource": "property",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).PropertyTimestamp",
+      "resource": "property",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingCars",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "cars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingCars",
+      "resource": "racing",
+      "returns": [
+        "models.RacingCarsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "cars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingCarupgrades",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "carupgrades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingCarupgrades",
+      "resource": "racing",
+      "returns": [
+        "models.RacingCarUpgradesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "carupgrades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingLookup",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingLookup",
+      "resource": "racing",
+      "returns": [
+        "models.RacingLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingRace",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "race"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingRace",
+      "resource": "racing",
+      "returns": [
+        "models.RacingRaceDetailsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "race"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingRaces",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "races"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingRaces",
+      "resource": "racing",
+      "returns": [
+        "models.RacingRacesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "races"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingRecords",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "records"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingRecords",
+      "resource": "racing",
+      "returns": [
+        "models.RacingTrackRecordsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "records"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingTimestamp",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingTimestamp",
+      "resource": "racing",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawRacingTracks",
+      "resource": "racing",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "tracks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RacingTracks",
+      "resource": "racing",
+      "returns": [
+        "models.RacingTracksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "tracks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornAttacklog",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "attacklog"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornAttacklog",
+      "resource": "torn",
+      "returns": [
+        "models.AttackLogResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "attacklog"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornBank",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bank"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornBank",
+      "resource": "torn",
+      "returns": [
+        "models.TornBankResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bank"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornBounties",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bounties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornBounties",
+      "resource": "torn",
+      "returns": [
+        "models.TornBountiesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bounties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCalendar",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "calendar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCalendar",
+      "resource": "torn",
+      "returns": [
+        "models.TornCalendarResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "calendar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCards",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "cards"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCards",
+      "resource": "torn",
+      "returns": [
+        "models.TornCardsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "cards"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCityshops",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "cityshops"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCityshops",
+      "resource": "torn",
+      "returns": [
+        "models.TornCityShopsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "cityshops"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCompanies",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "companies"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCompanies",
+      "resource": "torn",
+      "returns": [
+        "models.TornCompaniesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "companies"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCompetition",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "competition"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCompetition",
+      "resource": "torn",
+      "returns": [
+        "compat.TornCompetitionBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "competition"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornCrimes",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornCrimes",
+      "resource": "torn",
+      "returns": [
+        "models.TornCrimesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornEducation",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "education"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornEducation",
+      "resource": "torn",
+      "returns": [
+        "models.TornEducationResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "education"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornElimination",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "elimination"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornElimination",
+      "resource": "torn",
+      "returns": [
+        "models.TornEliminationTeamsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "elimination"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornEliminationteam",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "eliminationteam"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornEliminationteam",
+      "resource": "torn",
+      "returns": [
+        "models.TornEliminationTeamPlayersResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "eliminationteam"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornFactionhof",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "factionhof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornFactionhof",
+      "resource": "torn",
+      "returns": [
+        "models.TornFactionHofResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "factionhof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornFactiontree",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "factiontree"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornFactiontree",
+      "resource": "torn",
+      "returns": [
+        "models.TornFactionTreeResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "factiontree"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornGyms",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "gyms"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornGyms",
+      "resource": "torn",
+      "returns": [
+        "models.TornGymsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "gyms"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornHof",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornHof",
+      "resource": "torn",
+      "returns": [
+        "models.TornHofResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornHonors",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "honors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornHonors",
+      "resource": "torn",
+      "returns": [
+        "models.TornHonorsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "honors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornItemammo",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemammo"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornItemammo",
+      "resource": "torn",
+      "returns": [
+        "models.TornItemAmmoResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemammo"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornItemdetails",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemdetails"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornItemdetails",
+      "resource": "torn",
+      "returns": [
+        "models.TornItemDetailsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemdetails"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornItemmods",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemmods"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornItemmods",
+      "resource": "torn",
+      "returns": [
+        "models.TornItemModsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemmods"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornItems",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "items"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornItems",
+      "resource": "torn",
+      "returns": [
+        "models.TornItemsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "items"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornItemstats",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemstats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornItemstats",
+      "resource": "torn",
+      "returns": [
+        "models.TornItemStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemstats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornLogcategories",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "logcategories"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornLogcategories",
+      "resource": "torn",
+      "returns": [
+        "models.TornLogCategoriesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "logcategories"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornLogtypes",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "logtypes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornLogtypes",
+      "resource": "torn",
+      "returns": [
+        "models.TornLogTypesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "logtypes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornLookup",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornLookup",
+      "resource": "torn",
+      "returns": [
+        "models.TornLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornMedals",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "medals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornMedals",
+      "resource": "torn",
+      "returns": [
+        "models.TornMedalsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "medals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornMerits",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "merits"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornMerits",
+      "resource": "torn",
+      "returns": [
+        "models.TornMeritsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "merits"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornMuseum",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "museum"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornMuseum",
+      "resource": "torn",
+      "returns": [
+        "models.TornMuseumResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "museum"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornOrganisedcrimes",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "organisedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornOrganisedcrimes",
+      "resource": "torn",
+      "returns": [
+        "compat.TornOrganisedCrimesBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "organisedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornOrganizedcrimes",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "organizedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornOrganizedcrimes",
+      "resource": "torn",
+      "returns": [
+        "models.TornOrganizedCrimeResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "organizedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornPawnshop",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "pawnshop"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornPawnshop",
+      "resource": "torn",
+      "returns": [
+        "compat.TornPawnshopBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "pawnshop"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornPokertables",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "pokertables"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornPokertables",
+      "resource": "torn",
+      "returns": [
+        "models.TornPokerTablesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "pokertables"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornProperties",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornProperties",
+      "resource": "torn",
+      "returns": [
+        "models.TornProperties",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornRockpaperscissors",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "rockpaperscissors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornRockpaperscissors",
+      "resource": "torn",
+      "returns": [
+        "models.TornRockPaperScissorsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "rockpaperscissors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornSearchforcash",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "searchforcash"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornSearchforcash",
+      "resource": "torn",
+      "returns": [
+        "models.TornSearchForCashResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "searchforcash"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornShoplifting",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "shoplifting"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornShoplifting",
+      "resource": "torn",
+      "returns": [
+        "models.TornShopliftingResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "shoplifting"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornStats",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "stats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornStats",
+      "resource": "torn",
+      "returns": [
+        "models.TornCityStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornStocks",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "stocks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornStocks",
+      "resource": "torn",
+      "returns": [
+        "compat.TornStocksBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stocks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornSubcrimes",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "subcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornSubcrimes",
+      "resource": "torn",
+      "returns": [
+        "models.TornSubcrimesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "subcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornTerritory",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "territory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornTerritory",
+      "resource": "torn",
+      "returns": [
+        "models.TornTerritoriesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "territory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawTornTimestamp",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornTimestamp",
+      "resource": "torn",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserAmmo",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "ammo"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserAmmo",
+      "resource": "user",
+      "returns": [
+        "models.UserAmmoResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "ammo"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserAttacks",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "attacks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserAttacks",
+      "resource": "user",
+      "returns": [
+        "models.AttacksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "attacks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserAttacksfull",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "attacksfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserAttacksfull",
+      "resource": "user",
+      "returns": [
+        "models.AttacksFullResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "attacksfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserBars",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserBars",
+      "resource": "user",
+      "returns": [
+        "models.UserBarsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserBasic",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "basic"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserBasic",
+      "resource": "user",
+      "returns": [
+        "models.UserBasicResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "basic"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserBattlestats",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "battlestats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserBattlestats",
+      "resource": "user",
+      "returns": [
+        "models.UserBattleStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "battlestats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserBazaar",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bazaar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserBazaar",
+      "resource": "user",
+      "returns": [
+        "compat.UserBazaarBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bazaar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserBounties",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "bounties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserBounties",
+      "resource": "user",
+      "returns": [
+        "models.UserBountiesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "bounties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCalendar",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "calendar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCalendar",
+      "resource": "user",
+      "returns": [
+        "models.UserCalendarResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "calendar"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCasino",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "casino"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCasino",
+      "resource": "user",
+      "returns": [
+        "models.UserCasinoResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "casino"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCompetition",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "competition"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCompetition",
+      "resource": "user",
+      "returns": [
+        "models.UserCompetitionResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "competition"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCooldowns",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "cooldowns"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCooldowns",
+      "resource": "user",
+      "returns": [
+        "models.UserCooldownsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "cooldowns"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCrimes",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCrimes",
+      "resource": "user",
+      "returns": [
+        "models.UserCrimesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "crimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserCriminalrecord",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "criminalrecord"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserCriminalrecord",
+      "resource": "user",
+      "returns": [
+        "compat.UserCriminalRecordBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "criminalrecord"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserDiscord",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "discord"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserDiscord",
+      "resource": "user",
+      "returns": [
+        "models.UserDiscordResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "discord"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserDisplay",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "display"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserDisplay",
+      "resource": "user",
+      "returns": [
+        "compat.UserDisplayBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "display"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserEducation",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "education"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserEducation",
+      "resource": "user",
+      "returns": [
+        "models.UserEducationResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "education"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserEnlistedcars",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "enlistedcars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserEnlistedcars",
+      "resource": "user",
+      "returns": [
+        "models.UserEnlistedCarsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "enlistedcars"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserEquipment",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "equipment"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserEquipment",
+      "resource": "user",
+      "returns": [
+        "models.UserEquipmentResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "equipment"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserEvents",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "events"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserEvents",
+      "resource": "user",
+      "returns": [
+        "models.UserEventsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "events"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserFaction",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "faction"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserFaction",
+      "resource": "user",
+      "returns": [
+        "models.UserFactionResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "faction"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserFactionbalance",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "factionbalance"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserFactionbalance",
+      "resource": "user",
+      "returns": [
+        "models.UserFactionBalanceResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "factionbalance"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserForumfeed",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "forumfeed"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserForumfeed",
+      "resource": "user",
+      "returns": [
+        "models.UserForumFeedResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "forumfeed"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserForumfriends",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "forumfriends"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserForumfriends",
+      "resource": "user",
+      "returns": [
+        "models.UserForumFriendsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "forumfriends"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserForumposts",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "forumposts"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserForumposts",
+      "resource": "user",
+      "returns": [
+        "models.UserForumPostsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "forumposts"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserForumsubscribedthreads",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "forumsubscribedthreads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserForumsubscribedthreads",
+      "resource": "user",
+      "returns": [
+        "models.UserForumSubscribedThreadsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "forumsubscribedthreads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserForumthreads",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "forumthreads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserForumthreads",
+      "resource": "user",
+      "returns": [
+        "models.UserForumThreadsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "forumthreads"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserGym",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "gym"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserGym",
+      "resource": "user",
+      "returns": [
+        "models.UserGymResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "gym"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserHof",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserHof",
+      "resource": "user",
+      "returns": [
+        "models.UserHofResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "hof"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserHonors",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "honors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserHonors",
+      "resource": "user",
+      "returns": [
+        "models.UserHonorsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "honors"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserIcons",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "icons"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserIcons",
+      "resource": "user",
+      "returns": [
+        "models.UserIconsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "icons"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserInventory",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "inventory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserInventory",
+      "resource": "user",
+      "returns": [
+        "models.UserInventoryResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "inventory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserItemmarket",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserItemmarket",
+      "resource": "user",
+      "returns": [
+        "models.UserItemMarketResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemmarket"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserItemmod",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemmod"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserItemmod",
+      "resource": "user",
+      "returns": [
+        "models.UserItemModsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemmod"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserItemmods",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "itemmods"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserItemmods",
+      "resource": "user",
+      "returns": [
+        "models.UserItemModsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "itemmods"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserJob",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "job"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserJob",
+      "resource": "user",
+      "returns": [
+        "models.UserJobResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "job"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserJobpoints",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "jobpoints"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserJobpoints",
+      "resource": "user",
+      "returns": [
+        "models.UserJobPointsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "jobpoints"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserJobranks",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "jobranks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserJobranks",
+      "resource": "user",
+      "returns": [
+        "models.UserJobRanksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "jobranks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserList",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "list"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserList",
+      "resource": "user",
+      "returns": [
+        "models.UserListResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "list"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserLog",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "log"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserLog",
+      "resource": "user",
+      "returns": [
+        "models.UserLogsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "log"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserLookup",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserLookup",
+      "resource": "user",
+      "returns": [
+        "models.UserLookupResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "lookup"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserMedals",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "medals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserMedals",
+      "resource": "user",
+      "returns": [
+        "models.UserMedalsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "medals"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserMerits",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "merits"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserMerits",
+      "resource": "user",
+      "returns": [
+        "models.UserMeritsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "merits"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserMessages",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "messages"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserMessages",
+      "resource": "user",
+      "returns": [
+        "models.UserMessagesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "messages"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserMissions",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "missions"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserMissions",
+      "resource": "user",
+      "returns": [
+        "models.UserMissionsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "missions"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserMoney",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "money"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserMoney",
+      "resource": "user",
+      "returns": [
+        "models.UserMoneyResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "money"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserNetworth",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "networth"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserNetworth",
+      "resource": "user",
+      "returns": [
+        "models.UserNetworthResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "networth"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserNewevents",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "newevents"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserNewevents",
+      "resource": "user",
+      "returns": [
+        "models.UserNewEventsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "newevents"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserNewmessages",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "newmessages"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserNewmessages",
+      "resource": "user",
+      "returns": [
+        "models.UserNewMessagesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "newmessages"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserNotifications",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "notifications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserNotifications",
+      "resource": "user",
+      "returns": [
+        "models.UserNotificationsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "notifications"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserOrganizedcrime",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "organizedcrime"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserOrganizedcrime",
+      "resource": "user",
+      "returns": [
+        "models.UserOrganizedCrimeResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "organizedcrime"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserOrganizedcrimes",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "organizedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserOrganizedcrimes",
+      "resource": "user",
+      "returns": [
+        "models.UserOrganizedCrimesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "organizedcrimes"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserPerks",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "perks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserPerks",
+      "resource": "user",
+      "returns": [
+        "models.UserPerksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "perks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserPersonalstats",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "personalstats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserPersonalstats",
+      "resource": "user",
+      "returns": [
+        "models.UserPersonalStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "personalstats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserProfile",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "profile"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserProfile",
+      "resource": "user",
+      "returns": [
+        "models.UserProfileResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "profile"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserProperties",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserProperties",
+      "resource": "user",
+      "returns": [
+        "models.UserPropertiesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "properties"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserProperty",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "property"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserProperty",
+      "resource": "user",
+      "returns": [
+        "models.UserPropertyResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "property"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserRaces",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "races"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserRaces",
+      "resource": "user",
+      "returns": [
+        "models.UserRacesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "races"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserRacingrecords",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "racingrecords"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserRacingrecords",
+      "resource": "user",
+      "returns": [
+        "models.UserRacingRecordsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "racingrecords"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserRefills",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "refills"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserRefills",
+      "resource": "user",
+      "returns": [
+        "models.UserRefillsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "refills"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserReports",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "reports"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserReports",
+      "resource": "user",
+      "returns": [
+        "models.ReportsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "reports"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserRevives",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "revives"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserRevives",
+      "resource": "user",
+      "returns": [
+        "models.RevivesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "revives"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserRevivesfull",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "revivesfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserRevivesfull",
+      "resource": "user",
+      "returns": [
+        "models.RevivesFullResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "revivesfull"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserSearch",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserSearch",
+      "resource": "user",
+      "returns": [
+        "models.UserSearchResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "search"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserSkills",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "skills"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserSkills",
+      "resource": "user",
+      "returns": [
+        "models.UserSkillsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "skills"
+    },
+    {
+      "csv": true,
+      "public_api": "(*torn.Client).UserSnapshot",
+      "resource": "user",
+      "returns": [
+        "string",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "snapshot"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserStocks",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "stocks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserStocks",
+      "resource": "user",
+      "returns": [
+        "models.UserStocksResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stocks"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserTimestamp",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserTimestamp",
+      "resource": "user",
+      "returns": [
+        "models.TimestampResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "timestamp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserTrade",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "trade"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserTrade",
+      "resource": "user",
+      "returns": [
+        "models.UserTradeResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "trade"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserTrades",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "trades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserTrades",
+      "resource": "user",
+      "returns": [
+        "models.UserTradesResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "trades"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserTravel",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "travel"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserTravel",
+      "resource": "user",
+      "returns": [
+        "models.UserTravelResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "travel"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserVirus",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "virus"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserVirus",
+      "resource": "user",
+      "returns": [
+        "models.UserVirusResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "virus"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserWeaponexp",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "weaponexp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserWeaponexp",
+      "resource": "user",
+      "returns": [
+        "models.UserWeaponExpResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "weaponexp"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).RawUserWorkstats",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "workstats"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserWorkstats",
+      "resource": "user",
+      "returns": [
+        "models.UserWorkStatsResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "workstats"
+    },
+    {
+      "alias": true,
+      "public_api": "(*torn.Client).CompanyDetailed",
+      "resource": "company",
+      "returns": [
+        "compat.CompanyDetailedBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "profile"
+    },
+    {
+      "alias": true,
+      "public_api": "(*torn.Client).TornStock",
+      "resource": "torn",
+      "returns": [
+        "compat.TornStockBundle",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "stocks"
+    }
+  ],
   "current": {
     "componentSchemaCount": 712,
     "operationCount": 234,
@@ -560,6 +4859,7 @@
         "operationId": "getCompanyGeneric",
         "params": "GetCompanyGenericParams",
         "path": "/company",
+        "public_api": "(*torn.Client).GetCompanyGeneric",
         "response": "GetCompanyGenericResponse"
       },
       {
@@ -568,6 +4868,7 @@
         "operationId": "getMyCompanyApplications",
         "params": "GetMyCompanyApplicationsParams",
         "path": "/company/applications",
+        "public_api": "(*torn.Client).GetMyCompanyApplications",
         "response": "GetMyCompanyApplicationsResponse"
       },
       {
@@ -576,6 +4877,7 @@
         "operationId": "getMyCompanyEmployees",
         "params": "GetMyCompanyEmployeesParams",
         "path": "/company/employees",
+        "public_api": "(*torn.Client).GetMyCompanyEmployees",
         "response": "GetMyCompanyEmployeesResponse"
       },
       {
@@ -584,6 +4886,7 @@
         "operationId": "getCompanyLookup",
         "params": "GetCompanyLookupParams",
         "path": "/company/lookup",
+        "public_api": "(*torn.Client).GetCompanyLookup",
         "response": "GetCompanyLookupResponse"
       },
       {
@@ -592,6 +4895,7 @@
         "operationId": "getMyCompanyNews",
         "params": "GetMyCompanyNewsParams",
         "path": "/company/news",
+        "public_api": "(*torn.Client).GetMyCompanyNews",
         "response": "GetMyCompanyNewsResponse"
       },
       {
@@ -600,6 +4904,7 @@
         "operationId": "getMyCompanyProfile",
         "params": "GetMyCompanyProfileParams",
         "path": "/company/profile",
+        "public_api": "(*torn.Client).GetMyCompanyProfile",
         "response": "GetMyCompanyProfileResponse"
       },
       {
@@ -608,6 +4913,7 @@
         "operationId": "getCompaniesSearch",
         "params": "GetCompaniesSearchParams",
         "path": "/company/search",
+        "public_api": "(*torn.Client).GetCompaniesSearch",
         "response": "GetCompaniesSearchResponse"
       },
       {
@@ -616,6 +4922,7 @@
         "operationId": "getCompaniesSnapshot",
         "params": "GetCompaniesSnapshotParams",
         "path": "/company/snapshot",
+        "public_api": "(*torn.Client).GetCompaniesSnapshot",
         "response": "GetCompaniesSnapshotResponse"
       },
       {
@@ -624,6 +4931,7 @@
         "operationId": "getMyCompanyStock",
         "params": "GetMyCompanyStockParams",
         "path": "/company/stock",
+        "public_api": "(*torn.Client).GetMyCompanyStock",
         "response": "GetMyCompanyStockResponse"
       },
       {
@@ -632,6 +4940,7 @@
         "operationId": "getCompanyTimestamp",
         "params": "GetCompanyTimestampParams",
         "path": "/company/timestamp",
+        "public_api": "(*torn.Client).GetCompanyTimestamp",
         "response": "GetCompanyTimestampResponse"
       },
       {
@@ -640,6 +4949,7 @@
         "operationId": "getCompanyEmployees",
         "params": "GetCompanyEmployeesParams",
         "path": "/company/{id}/employees",
+        "public_api": "(*torn.Client).GetCompanyEmployees",
         "response": "GetCompanyEmployeesResponse"
       },
       {
@@ -648,6 +4958,7 @@
         "operationId": "getCompanyProfile",
         "params": "GetCompanyProfileParams",
         "path": "/company/{id}/profile",
+        "public_api": "(*torn.Client).GetCompanyProfile",
         "response": "GetCompanyProfileResponse"
       },
       {
@@ -656,6 +4967,7 @@
         "operationId": "getCompaniesList",
         "params": "GetCompaniesListParams",
         "path": "/company/{typeId}/companies",
+        "public_api": "(*torn.Client).GetCompaniesList",
         "response": "GetCompaniesListResponse"
       },
       {
@@ -664,6 +4976,7 @@
         "operationId": "getFactionGeneric",
         "params": "GetFactionGenericParams",
         "path": "/faction",
+        "public_api": "(*torn.Client).GetFactionGeneric",
         "response": "GetFactionGenericResponse"
       },
       {
@@ -672,6 +4985,7 @@
         "operationId": "getMyFactionApplications",
         "params": "GetMyFactionApplicationsParams",
         "path": "/faction/applications",
+        "public_api": "(*torn.Client).GetMyFactionApplications",
         "response": "GetMyFactionApplicationsResponse"
       },
       {
@@ -680,6 +4994,7 @@
         "operationId": "getMyFactionAttacks",
         "params": "GetMyFactionAttacksParams",
         "path": "/faction/attacks",
+        "public_api": "(*torn.Client).GetMyFactionAttacks",
         "response": "GetMyFactionAttacksResponse"
       },
       {
@@ -688,6 +5003,7 @@
         "operationId": "getMyFactionAttacksSimplified",
         "params": "GetMyFactionAttacksSimplifiedParams",
         "path": "/faction/attacksfull",
+        "public_api": "(*torn.Client).GetMyFactionAttacksSimplified",
         "response": "GetMyFactionAttacksSimplifiedResponse"
       },
       {
@@ -696,6 +5012,7 @@
         "operationId": "getMyFactionBalance",
         "params": "GetMyFactionBalanceParams",
         "path": "/faction/balance",
+        "public_api": "(*torn.Client).GetMyFactionBalance",
         "response": "GetMyFactionBalanceResponse"
       },
       {
@@ -704,6 +5021,7 @@
         "operationId": "getMyFactionBasicInformation",
         "params": "GetMyFactionBasicInformationParams",
         "path": "/faction/basic",
+        "public_api": "(*torn.Client).GetMyFactionBasicInformation",
         "response": "GetMyFactionBasicInformationResponse"
       },
       {
@@ -712,6 +5030,7 @@
         "operationId": "getMyFactionChain",
         "params": "GetMyFactionChainParams",
         "path": "/faction/chain",
+        "public_api": "(*torn.Client).GetMyFactionChain",
         "response": "GetMyFactionChainResponse"
       },
       {
@@ -720,6 +5039,7 @@
         "operationId": "getMyFactionLatestChainReport",
         "params": "GetMyFactionLatestChainReportParams",
         "path": "/faction/chainreport",
+        "public_api": "(*torn.Client).GetMyFactionLatestChainReport",
         "response": "GetMyFactionLatestChainReportResponse"
       },
       {
@@ -728,6 +5048,7 @@
         "operationId": "getMyFactionCompletedChains",
         "params": "GetMyFactionCompletedChainsParams",
         "path": "/faction/chains",
+        "public_api": "(*torn.Client).GetMyFactionCompletedChains",
         "response": "GetMyFactionCompletedChainsResponse"
       },
       {
@@ -736,6 +5057,7 @@
         "operationId": "getMyFactionContributors",
         "params": "GetMyFactionContributorsParams",
         "path": "/faction/contributors",
+        "public_api": "(*torn.Client).GetMyFactionContributors",
         "response": "GetMyFactionContributorsResponse"
       },
       {
@@ -744,6 +5066,7 @@
         "operationId": "getMyFactionCrimeExp",
         "params": "GetMyFactionCrimeExpParams",
         "path": "/faction/crimeexp",
+        "public_api": "(*torn.Client).GetMyFactionCrimeExp",
         "response": "GetMyFactionCrimeExpResponse"
       },
       {
@@ -752,6 +5075,7 @@
         "operationId": "getMyFactionOrganizedCrimes",
         "params": "GetMyFactionOrganizedCrimesParams",
         "path": "/faction/crimes",
+        "public_api": "(*torn.Client).GetMyFactionOrganizedCrimes",
         "response": "GetMyFactionOrganizedCrimesResponse"
       },
       {
@@ -760,6 +5084,7 @@
         "operationId": "getWarfareDirtyBombs",
         "params": "GetWarfareDirtyBombsParams",
         "path": "/faction/dirtybombs",
+        "public_api": "(*torn.Client).GetWarfareDirtyBombs",
         "response": "GetWarfareDirtyBombsResponse"
       },
       {
@@ -768,6 +5093,7 @@
         "operationId": "getMyFactionHoF",
         "params": "GetMyFactionHoFParams",
         "path": "/faction/hof",
+        "public_api": "(*torn.Client).GetMyFactionHoF",
         "response": "GetMyFactionHoFResponse"
       },
       {
@@ -776,6 +5102,7 @@
         "operationId": "getMyFactionInventory",
         "params": "GetMyFactionInventoryParams",
         "path": "/faction/inventory",
+        "public_api": "(*torn.Client).GetMyFactionInventory",
         "response": "GetMyFactionInventoryResponse"
       },
       {
@@ -784,6 +5111,7 @@
         "operationId": "getFactionLookup",
         "params": "GetFactionLookupParams",
         "path": "/faction/lookup",
+        "public_api": "(*torn.Client).GetFactionLookup",
         "response": "GetFactionLookupResponse"
       },
       {
@@ -792,6 +5120,7 @@
         "operationId": "getMyFactionMembers",
         "params": "GetMyFactionMembersParams",
         "path": "/faction/members",
+        "public_api": "(*torn.Client).GetMyFactionMembers",
         "response": "GetMyFactionMembersResponse"
       },
       {
@@ -800,6 +5129,7 @@
         "operationId": "getMyFactionNews",
         "params": "GetMyFactionNewsParams",
         "path": "/faction/news",
+        "public_api": "(*torn.Client).GetMyFactionNews",
         "response": "GetMyFactionNewsResponse"
       },
       {
@@ -808,6 +5138,7 @@
         "operationId": "getMyFactionPositions",
         "params": "GetMyFactionPositionsParams",
         "path": "/faction/positions",
+        "public_api": "(*torn.Client).GetMyFactionPositions",
         "response": "GetMyFactionPositionsResponse"
       },
       {
@@ -816,6 +5147,7 @@
         "operationId": "getFactionRackets",
         "params": "GetFactionRacketsParams",
         "path": "/faction/rackets",
+        "public_api": "(*torn.Client).GetFactionRackets",
         "response": "GetFactionRacketsResponse"
       },
       {
@@ -824,6 +5156,7 @@
         "operationId": "getMyFactionRaidsHistory",
         "params": "GetMyFactionRaidsHistoryParams",
         "path": "/faction/raids",
+        "public_api": "(*torn.Client).GetMyFactionRaidsHistory",
         "response": "GetMyFactionRaidsHistoryResponse"
       },
       {
@@ -832,6 +5165,7 @@
         "operationId": "getMyFactionRankedWarsHistory",
         "params": "GetMyFactionRankedWarsHistoryParams",
         "path": "/faction/rankedwars",
+        "public_api": "(*torn.Client).GetMyFactionRankedWarsHistory",
         "response": "GetMyFactionRankedWarsHistoryResponse"
       },
       {
@@ -840,6 +5174,7 @@
         "operationId": "getMyFactionReports",
         "params": "GetMyFactionReportsParams",
         "path": "/faction/reports",
+        "public_api": "(*torn.Client).GetMyFactionReports",
         "response": "GetMyFactionReportsResponse"
       },
       {
@@ -848,6 +5183,7 @@
         "operationId": "getMyFactionRevives",
         "params": "GetMyFactionRevivesParams",
         "path": "/faction/revives",
+        "public_api": "(*torn.Client).GetMyFactionRevives",
         "response": "GetMyFactionRevivesResponse"
       },
       {
@@ -856,6 +5192,7 @@
         "operationId": "getMyFactionRevivesSimplified",
         "params": "GetMyFactionRevivesSimplifiedParams",
         "path": "/faction/revivesFull",
+        "public_api": "(*torn.Client).GetMyFactionRevivesSimplified",
         "response": "GetMyFactionRevivesSimplifiedResponse"
       },
       {
@@ -864,6 +5201,7 @@
         "operationId": "getFactionSearch",
         "params": "GetFactionSearchParams",
         "path": "/faction/search",
+        "public_api": "(*torn.Client).GetFactionSearch",
         "response": "GetFactionSearchResponse"
       },
       {
@@ -872,6 +5210,7 @@
         "operationId": "getFactionsSnapshot",
         "params": "GetFactionsSnapshotParams",
         "path": "/faction/snapshot",
+        "public_api": "(*torn.Client).GetFactionsSnapshot",
         "response": "GetFactionsSnapshotResponse"
       },
       {
@@ -880,6 +5219,7 @@
         "operationId": "getMyFactionStats",
         "params": "GetMyFactionStatsParams",
         "path": "/faction/stats",
+        "public_api": "(*torn.Client).GetMyFactionStats",
         "response": "GetMyFactionStatsResponse"
       },
       {
@@ -888,6 +5228,7 @@
         "operationId": "getMyFactionTerritory",
         "params": "GetMyFactionTerritoryParams",
         "path": "/faction/territory",
+        "public_api": "(*torn.Client).GetMyFactionTerritory",
         "response": "GetMyFactionTerritoryResponse"
       },
       {
@@ -896,6 +5237,7 @@
         "operationId": "getTerritoryOwnership",
         "params": "GetTerritoryOwnershipParams",
         "path": "/faction/territoryownership",
+        "public_api": "(*torn.Client).GetTerritoryOwnership",
         "response": "GetTerritoryOwnershipResponse"
       },
       {
@@ -904,6 +5246,7 @@
         "operationId": "getMyFactionTerritoryWarsHistory",
         "params": "GetMyFactionTerritoryWarsHistoryParams",
         "path": "/faction/territorywars",
+        "public_api": "(*torn.Client).GetMyFactionTerritoryWarsHistory",
         "response": "GetMyFactionTerritoryWarsHistoryResponse"
       },
       {
@@ -912,6 +5255,7 @@
         "operationId": "getFactionTimestamp",
         "params": "GetFactionTimestampParams",
         "path": "/faction/timestamp",
+        "public_api": "(*torn.Client).GetFactionTimestamp",
         "response": "GetFactionTimestampResponse"
       },
       {
@@ -920,6 +5264,7 @@
         "operationId": "getMyFactionUpgrades",
         "params": "GetMyFactionUpgradesParams",
         "path": "/faction/upgrades",
+        "public_api": "(*torn.Client).GetMyFactionUpgrades",
         "response": "GetMyFactionUpgradesResponse"
       },
       {
@@ -928,6 +5273,7 @@
         "operationId": "getWarfare",
         "params": "GetWarfareParams",
         "path": "/faction/warfare",
+        "public_api": "(*torn.Client).GetWarfare",
         "response": "GetWarfareResponse"
       },
       {
@@ -936,6 +5282,7 @@
         "operationId": "getWarfareChains",
         "params": "GetWarfareChainsParams",
         "path": "/faction/warfarechains",
+        "public_api": "(*torn.Client).GetWarfareChains",
         "response": "GetWarfareChainsResponse"
       },
       {
@@ -944,6 +5291,7 @@
         "operationId": "getWarfareRaids",
         "params": "GetWarfareRaidsParams",
         "path": "/faction/warfareraids",
+        "public_api": "(*torn.Client).GetWarfareRaids",
         "response": "GetWarfareRaidsResponse"
       },
       {
@@ -952,6 +5300,7 @@
         "operationId": "getWarfareRankedWars",
         "params": "GetWarfareRankedWarsParams",
         "path": "/faction/warfareranked",
+        "public_api": "(*torn.Client).GetWarfareRankedWars",
         "response": "GetWarfareRankedWarsResponse"
       },
       {
@@ -960,6 +5309,7 @@
         "operationId": "getWarfareTerritoryWars",
         "params": "GetWarfareTerritoryWarsParams",
         "path": "/faction/warfareterritory",
+        "public_api": "(*torn.Client).GetWarfareTerritoryWars",
         "response": "GetWarfareTerritoryWarsResponse"
       },
       {
@@ -968,6 +5318,7 @@
         "operationId": "getMyFactionWars",
         "params": "GetMyFactionWarsParams",
         "path": "/faction/wars",
+        "public_api": "(*torn.Client).GetMyFactionWars",
         "response": "GetMyFactionWarsResponse"
       },
       {
@@ -976,6 +5327,7 @@
         "operationId": "getChainReport",
         "params": "GetChainReportParams",
         "path": "/faction/{chainId}/chainreport",
+        "public_api": "(*torn.Client).GetChainReport",
         "response": "GetChainReportResponse"
       },
       {
@@ -984,6 +5336,7 @@
         "operationId": "getMyFactionOrganizedCrime",
         "params": "GetMyFactionOrganizedCrimeParams",
         "path": "/faction/{crimeId}/crime",
+        "public_api": "(*torn.Client).GetMyFactionOrganizedCrime",
         "response": "GetMyFactionOrganizedCrimeResponse"
       },
       {
@@ -992,6 +5345,7 @@
         "operationId": "getFactionBasicInformation",
         "params": "GetFactionBasicInformationParams",
         "path": "/faction/{id}/basic",
+        "public_api": "(*torn.Client).GetFactionBasicInformation",
         "response": "GetFactionBasicInformationResponse"
       },
       {
@@ -1000,6 +5354,7 @@
         "operationId": "getFactionChain",
         "params": "GetFactionChainParams",
         "path": "/faction/{id}/chain",
+        "public_api": "(*torn.Client).GetFactionChain",
         "response": "GetFactionChainResponse"
       },
       {
@@ -1008,6 +5363,7 @@
         "operationId": "getFactionCompletedChains",
         "params": "GetFactionCompletedChainsParams",
         "path": "/faction/{id}/chains",
+        "public_api": "(*torn.Client).GetFactionCompletedChains",
         "response": "GetFactionCompletedChainsResponse"
       },
       {
@@ -1016,6 +5372,7 @@
         "operationId": "getFactionHoF",
         "params": "GetFactionHoFParams",
         "path": "/faction/{id}/hof",
+        "public_api": "(*torn.Client).GetFactionHoF",
         "response": "GetFactionHoFResponse"
       },
       {
@@ -1024,6 +5381,7 @@
         "operationId": "getFactionMembers",
         "params": "GetFactionMembersParams",
         "path": "/faction/{id}/members",
+        "public_api": "(*torn.Client).GetFactionMembers",
         "response": "GetFactionMembersResponse"
       },
       {
@@ -1032,6 +5390,7 @@
         "operationId": "getFactionRaidsHistory",
         "params": "GetFactionRaidsHistoryParams",
         "path": "/faction/{id}/raids",
+        "public_api": "(*torn.Client).GetFactionRaidsHistory",
         "response": "GetFactionRaidsHistoryResponse"
       },
       {
@@ -1040,6 +5399,7 @@
         "operationId": "getFactionRankedWarsHistory",
         "params": "GetFactionRankedWarsHistoryParams",
         "path": "/faction/{id}/rankedwars",
+        "public_api": "(*torn.Client).GetFactionRankedWarsHistory",
         "response": "GetFactionRankedWarsHistoryResponse"
       },
       {
@@ -1048,6 +5408,7 @@
         "operationId": "getFactionTerritory",
         "params": "GetFactionTerritoryParams",
         "path": "/faction/{id}/territory",
+        "public_api": "(*torn.Client).GetFactionTerritory",
         "response": "GetFactionTerritoryResponse"
       },
       {
@@ -1056,6 +5417,7 @@
         "operationId": "getFactionTerritoryWarsHistory",
         "params": "GetFactionTerritoryWarsHistoryParams",
         "path": "/faction/{id}/territorywars",
+        "public_api": "(*torn.Client).GetFactionTerritoryWarsHistory",
         "response": "GetFactionTerritoryWarsHistoryResponse"
       },
       {
@@ -1064,6 +5426,7 @@
         "operationId": "getFactionWars",
         "params": "GetFactionWarsParams",
         "path": "/faction/{id}/wars",
+        "public_api": "(*torn.Client).GetFactionWars",
         "response": "GetFactionWarsResponse"
       },
       {
@@ -1072,6 +5435,7 @@
         "operationId": "getRaidReport",
         "params": "GetRaidReportParams",
         "path": "/faction/{raidWarId}/raidreport",
+        "public_api": "(*torn.Client).GetRaidReport",
         "response": "GetRaidReportResponse"
       },
       {
@@ -1080,6 +5444,7 @@
         "operationId": "getRankedWarReport",
         "params": "GetRankedWarReportParams",
         "path": "/faction/{rankedWarId}/rankedwarreport",
+        "public_api": "(*torn.Client).GetRankedWarReport",
         "response": "GetRankedWarReportResponse"
       },
       {
@@ -1088,6 +5453,7 @@
         "operationId": "getTerritoryWarReport",
         "params": "GetTerritoryWarReportParams",
         "path": "/faction/{territoryWarId}/territorywarreport",
+        "public_api": "(*torn.Client).GetTerritoryWarReport",
         "response": "GetTerritoryWarReportResponse"
       },
       {
@@ -1096,6 +5462,7 @@
         "operationId": "getForumGeneric",
         "params": "GetForumGenericParams",
         "path": "/forum",
+        "public_api": "(*torn.Client).GetForumGeneric",
         "response": "GetForumGenericResponse"
       },
       {
@@ -1104,6 +5471,7 @@
         "operationId": "getForumCategories",
         "params": "GetForumCategoriesParams",
         "path": "/forum/categories",
+        "public_api": "(*torn.Client).GetForumCategories",
         "response": "GetForumCategoriesResponse"
       },
       {
@@ -1112,6 +5480,7 @@
         "operationId": "getForumLookup",
         "params": "GetForumLookupParams",
         "path": "/forum/lookup",
+        "public_api": "(*torn.Client).GetForumLookup",
         "response": "GetForumLookupResponse"
       },
       {
@@ -1120,6 +5489,7 @@
         "operationId": "getForumAllThreads",
         "params": "GetForumAllThreadsParams",
         "path": "/forum/threads",
+        "public_api": "(*torn.Client).GetForumAllThreads",
         "response": "GetForumAllThreadsResponse"
       },
       {
@@ -1128,6 +5498,7 @@
         "operationId": "getForumTimestamp",
         "params": "GetForumTimestampParams",
         "path": "/forum/timestamp",
+        "public_api": "(*torn.Client).GetForumTimestamp",
         "response": "GetForumTimestampResponse"
       },
       {
@@ -1136,6 +5507,7 @@
         "operationId": "getForumThreads",
         "params": "GetForumThreadsParams",
         "path": "/forum/{categoryIds}/threads",
+        "public_api": "(*torn.Client).GetForumThreads",
         "response": "GetForumThreadsResponse"
       },
       {
@@ -1144,6 +5516,7 @@
         "operationId": "getForumThreadPosts",
         "params": "GetForumThreadPostsParams",
         "path": "/forum/{threadId}/posts",
+        "public_api": "(*torn.Client).GetForumThreadPosts",
         "response": "GetForumThreadPostsResponse"
       },
       {
@@ -1152,6 +5525,7 @@
         "operationId": "getForumThread",
         "params": "GetForumThreadParams",
         "path": "/forum/{threadId}/thread",
+        "public_api": "(*torn.Client).GetForumThread",
         "response": "GetForumThreadResponse"
       },
       {
@@ -1160,6 +5534,7 @@
         "operationId": "getKeyGeneric",
         "params": "GetKeyGenericParams",
         "path": "/key",
+        "public_api": "(*torn.Client).GetKeyGeneric",
         "response": "GetKeyGenericResponse"
       },
       {
@@ -1168,6 +5543,7 @@
         "operationId": "getKeyInfo",
         "params": "GetKeyInfoParams",
         "path": "/key/info",
+        "public_api": "(*torn.Client).GetKeyInfo",
         "response": "GetKeyInfoResponse"
       },
       {
@@ -1176,6 +5552,7 @@
         "operationId": "getKeyLog",
         "params": "GetKeyLogParams",
         "path": "/key/log",
+        "public_api": "(*torn.Client).GetKeyLog",
         "response": "GetKeyLogResponse"
       },
       {
@@ -1184,6 +5561,7 @@
         "operationId": "getMarketGeneric",
         "params": "GetMarketGenericParams",
         "path": "/market",
+        "public_api": "(*torn.Client).GetMarketGeneric",
         "response": "GetMarketGenericResponse"
       },
       {
@@ -1192,6 +5570,7 @@
         "operationId": "getMarketAuctionHouse",
         "params": "GetMarketAuctionHouseParams",
         "path": "/market/auctionhouse",
+        "public_api": "(*torn.Client).GetMarketAuctionHouse",
         "response": "GetMarketAuctionHouseResponse"
       },
       {
@@ -1200,6 +5579,7 @@
         "operationId": "getMarketBazaar",
         "params": "GetMarketBazaarParams",
         "path": "/market/bazaar",
+        "public_api": "(*torn.Client).GetMarketBazaar",
         "response": "GetMarketBazaarResponse"
       },
       {
@@ -1208,6 +5588,7 @@
         "operationId": "getMarketLookup",
         "params": "GetMarketLookupParams",
         "path": "/market/lookup",
+        "public_api": "(*torn.Client).GetMarketLookup",
         "response": "GetMarketLookupResponse"
       },
       {
@@ -1216,6 +5597,7 @@
         "operationId": "getMarketPoints",
         "params": "GetMarketPointsParams",
         "path": "/market/pointsmarket",
+        "public_api": "(*torn.Client).GetMarketPoints",
         "response": "GetMarketPointsResponse"
       },
       {
@@ -1224,6 +5606,7 @@
         "operationId": "getMarketTimestamp",
         "params": "GetMarketTimestampParams",
         "path": "/market/timestamp",
+        "public_api": "(*torn.Client).GetMarketTimestamp",
         "response": "GetMarketTimestampResponse"
       },
       {
@@ -1232,6 +5615,7 @@
         "operationId": "getMarketAuctionHouseItem",
         "params": "GetMarketAuctionHouseItemParams",
         "path": "/market/{id}/auctionhouse",
+        "public_api": "(*torn.Client).GetMarketAuctionHouseItem",
         "response": "GetMarketAuctionHouseItemResponse"
       },
       {
@@ -1240,6 +5624,7 @@
         "operationId": "getMarketAuctionHouseListing",
         "params": "GetMarketAuctionHouseListingParams",
         "path": "/market/{id}/auctionhouselisting",
+        "public_api": "(*torn.Client).GetMarketAuctionHouseListing",
         "response": "GetMarketAuctionHouseListingResponse"
       },
       {
@@ -1248,6 +5633,7 @@
         "operationId": "getMarketBazaarItem",
         "params": "GetMarketBazaarItemParams",
         "path": "/market/{id}/bazaar",
+        "public_api": "(*torn.Client).GetMarketBazaarItem",
         "response": "GetMarketBazaarItemResponse"
       },
       {
@@ -1256,6 +5642,7 @@
         "operationId": "getMarketItemMarketItem",
         "params": "GetMarketItemMarketItemParams",
         "path": "/market/{id}/itemmarket",
+        "public_api": "(*torn.Client).GetMarketItemMarketItem",
         "response": "GetMarketItemMarketItemResponse"
       },
       {
@@ -1264,6 +5651,7 @@
         "operationId": "getMarketProperties",
         "params": "GetMarketPropertiesParams",
         "path": "/market/{propertyTypeId}/properties",
+        "public_api": "(*torn.Client).GetMarketProperties",
         "response": "GetMarketPropertiesResponse"
       },
       {
@@ -1272,6 +5660,7 @@
         "operationId": "getMarketPropertiesRental",
         "params": "GetMarketPropertiesRentalParams",
         "path": "/market/{propertyTypeId}/rentals",
+        "public_api": "(*torn.Client).GetMarketPropertiesRental",
         "response": "GetMarketPropertiesRentalResponse"
       },
       {
@@ -1280,6 +5669,7 @@
         "operationId": "getPropertyGeneric",
         "params": "GetPropertyGenericParams",
         "path": "/property",
+        "public_api": "(*torn.Client).GetPropertyGeneric",
         "response": "GetPropertyGenericResponse"
       },
       {
@@ -1288,6 +5678,7 @@
         "operationId": "getPropertyLookup",
         "params": "GetPropertyLookupParams",
         "path": "/property/lookup",
+        "public_api": "(*torn.Client).GetPropertyLookup",
         "response": "GetPropertyLookupResponse"
       },
       {
@@ -1296,6 +5687,7 @@
         "operationId": "getPropertyTimestamp",
         "params": "GetPropertyTimestampParams",
         "path": "/property/timestamp",
+        "public_api": "(*torn.Client).GetPropertyTimestamp",
         "response": "GetPropertyTimestampResponse"
       },
       {
@@ -1304,6 +5696,7 @@
         "operationId": "getProperty",
         "params": "GetPropertyParams",
         "path": "/property/{id}/property",
+        "public_api": "(*torn.Client).GetProperty",
         "response": "GetPropertyResponse"
       },
       {
@@ -1312,6 +5705,7 @@
         "operationId": "getRacingGeneric",
         "params": "GetRacingGenericParams",
         "path": "/racing",
+        "public_api": "(*torn.Client).GetRacingGeneric",
         "response": "GetRacingGenericResponse"
       },
       {
@@ -1320,6 +5714,7 @@
         "operationId": "getRacingCars",
         "params": "GetRacingCarsParams",
         "path": "/racing/cars",
+        "public_api": "(*torn.Client).GetRacingCars",
         "response": "GetRacingCarsResponse"
       },
       {
@@ -1328,6 +5723,7 @@
         "operationId": "getRacingCarUpgrades",
         "params": "GetRacingCarUpgradesParams",
         "path": "/racing/carupgrades",
+        "public_api": "(*torn.Client).GetRacingCarUpgrades",
         "response": "GetRacingCarUpgradesResponse"
       },
       {
@@ -1336,6 +5732,7 @@
         "operationId": "getRacingLookup",
         "params": "GetRacingLookupParams",
         "path": "/racing/lookup",
+        "public_api": "(*torn.Client).GetRacingLookup",
         "response": "GetRacingLookupResponse"
       },
       {
@@ -1344,6 +5741,7 @@
         "operationId": "getRacingRaces",
         "params": "GetRacingRacesParams",
         "path": "/racing/races",
+        "public_api": "(*torn.Client).GetRacingRaces",
         "response": "GetRacingRacesResponse"
       },
       {
@@ -1352,6 +5750,7 @@
         "operationId": "getRacingTimestamp",
         "params": "GetRacingTimestampParams",
         "path": "/racing/timestamp",
+        "public_api": "(*torn.Client).GetRacingTimestamp",
         "response": "GetRacingTimestampResponse"
       },
       {
@@ -1360,6 +5759,7 @@
         "operationId": "getRacingTracks",
         "params": "GetRacingTracksParams",
         "path": "/racing/tracks",
+        "public_api": "(*torn.Client).GetRacingTracks",
         "response": "GetRacingTracksResponse"
       },
       {
@@ -1368,6 +5768,7 @@
         "operationId": "getRacingRaceDetails",
         "params": "GetRacingRaceDetailsParams",
         "path": "/racing/{raceId}/race",
+        "public_api": "(*torn.Client).GetRacingRaceDetails",
         "response": "GetRacingRaceDetailsResponse"
       },
       {
@@ -1376,6 +5777,7 @@
         "operationId": "getRacingTrackRecords",
         "params": "GetRacingTrackRecordsParams",
         "path": "/racing/{trackId}/records",
+        "public_api": "(*torn.Client).GetRacingTrackRecords",
         "response": "GetRacingTrackRecordsResponse"
       },
       {
@@ -1384,6 +5786,7 @@
         "operationId": "getTornGeneric",
         "params": "GetTornGenericParams",
         "path": "/torn",
+        "public_api": "(*torn.Client).GetTornGeneric",
         "response": "GetTornGenericResponse"
       },
       {
@@ -1392,6 +5795,7 @@
         "operationId": "getTornAttackLog",
         "params": "GetTornAttackLogParams",
         "path": "/torn/attacklog",
+        "public_api": "(*torn.Client).GetTornAttackLog",
         "response": "GetTornAttackLogResponse"
       },
       {
@@ -1400,6 +5804,7 @@
         "operationId": "getTornBank",
         "params": "GetTornBankParams",
         "path": "/torn/bank",
+        "public_api": "(*torn.Client).GetTornBank",
         "response": "GetTornBankResponse"
       },
       {
@@ -1408,6 +5813,7 @@
         "operationId": "getTornBounties",
         "params": "GetTornBountiesParams",
         "path": "/torn/bounties",
+        "public_api": "(*torn.Client).GetTornBounties",
         "response": "GetTornBountiesResponse"
       },
       {
@@ -1416,6 +5822,7 @@
         "operationId": "getTornCalendar",
         "params": "GetTornCalendarParams",
         "path": "/torn/calendar",
+        "public_api": "(*torn.Client).GetTornCalendar",
         "response": "GetTornCalendarResponse"
       },
       {
@@ -1424,6 +5831,7 @@
         "operationId": "getTornCards",
         "params": "GetTornCardsParams",
         "path": "/torn/cards",
+        "public_api": "(*torn.Client).GetTornCards",
         "response": "GetTornCardsResponse"
       },
       {
@@ -1432,6 +5840,7 @@
         "operationId": "getTornCityShops",
         "params": "GetTornCityShopsParams",
         "path": "/torn/cityshops",
+        "public_api": "(*torn.Client).GetTornCityShops",
         "response": "GetTornCityShopsResponse"
       },
       {
@@ -1440,6 +5849,7 @@
         "operationId": "getTornCompanies",
         "params": "GetTornCompaniesParams",
         "path": "/torn/companies",
+        "public_api": "(*torn.Client).GetTornCompanies",
         "response": "GetTornCompaniesResponse"
       },
       {
@@ -1448,6 +5858,7 @@
         "operationId": "getTornCrimes",
         "params": "GetTornCrimesParams",
         "path": "/torn/crimes",
+        "public_api": "(*torn.Client).GetTornCrimes",
         "response": "GetTornCrimesResponse"
       },
       {
@@ -1456,6 +5867,7 @@
         "operationId": "getTornEducation",
         "params": "GetTornEducationParams",
         "path": "/torn/education",
+        "public_api": "(*torn.Client).GetTornEducation",
         "response": "GetTornEducationResponse"
       },
       {
@@ -1464,6 +5876,7 @@
         "operationId": "getTornElimination",
         "params": "GetTornEliminationParams",
         "path": "/torn/elimination",
+        "public_api": "(*torn.Client).GetTornElimination",
         "response": "GetTornEliminationResponse"
       },
       {
@@ -1472,6 +5885,7 @@
         "operationId": "getTornFactionHoF",
         "params": "GetTornFactionHoFParams",
         "path": "/torn/factionhof",
+        "public_api": "(*torn.Client).GetTornFactionHoF",
         "response": "GetTornFactionHoFResponse"
       },
       {
@@ -1480,6 +5894,7 @@
         "operationId": "getTornFactionTree",
         "params": "GetTornFactionTreeParams",
         "path": "/torn/factiontree",
+        "public_api": "(*torn.Client).GetTornFactionTree",
         "response": "GetTornFactionTreeResponse"
       },
       {
@@ -1488,6 +5903,7 @@
         "operationId": "getTornGyms",
         "params": "GetTornGymsParams",
         "path": "/torn/gyms",
+        "public_api": "(*torn.Client).GetTornGyms",
         "response": "GetTornGymsResponse"
       },
       {
@@ -1496,6 +5912,7 @@
         "operationId": "getTornHoF",
         "params": "GetTornHoFParams",
         "path": "/torn/hof",
+        "public_api": "(*torn.Client).GetTornHoF",
         "response": "GetTornHoFResponse"
       },
       {
@@ -1504,6 +5921,7 @@
         "operationId": "getTornHonors",
         "params": "GetTornHonorsParams",
         "path": "/torn/honors",
+        "public_api": "(*torn.Client).GetTornHonors",
         "response": "GetTornHonorsResponse"
       },
       {
@@ -1512,6 +5930,7 @@
         "operationId": "getTornItemAmmo",
         "params": "GetTornItemAmmoParams",
         "path": "/torn/itemammo",
+        "public_api": "(*torn.Client).GetTornItemAmmo",
         "response": "GetTornItemAmmoResponse"
       },
       {
@@ -1520,6 +5939,7 @@
         "operationId": "getTornItemMods",
         "params": "GetTornItemModsParams",
         "path": "/torn/itemmods",
+        "public_api": "(*torn.Client).GetTornItemMods",
         "response": "GetTornItemModsResponse"
       },
       {
@@ -1528,6 +5948,7 @@
         "operationId": "getTornItems",
         "params": "GetTornItemsParams",
         "path": "/torn/items",
+        "public_api": "(*torn.Client).GetTornItems",
         "response": "GetTornItemsResponse"
       },
       {
@@ -1536,6 +5957,7 @@
         "operationId": "getTornLogCategories",
         "params": "GetTornLogCategoriesParams",
         "path": "/torn/logcategories",
+        "public_api": "(*torn.Client).GetTornLogCategories",
         "response": "GetTornLogCategoriesResponse"
       },
       {
@@ -1544,6 +5966,7 @@
         "operationId": "getTornLogTypes",
         "params": "GetTornLogTypesParams",
         "path": "/torn/logtypes",
+        "public_api": "(*torn.Client).GetTornLogTypes",
         "response": "GetTornLogTypesResponse"
       },
       {
@@ -1552,6 +5975,7 @@
         "operationId": "getTornLookup",
         "params": "GetTornLookupParams",
         "path": "/torn/lookup",
+        "public_api": "(*torn.Client).GetTornLookup",
         "response": "GetTornLookupResponse"
       },
       {
@@ -1560,6 +5984,7 @@
         "operationId": "getTornMedals",
         "params": "GetTornMedalsParams",
         "path": "/torn/medals",
+        "public_api": "(*torn.Client).GetTornMedals",
         "response": "GetTornMedalsResponse"
       },
       {
@@ -1568,6 +5993,7 @@
         "operationId": "getTornMerits",
         "params": "GetTornMeritsParams",
         "path": "/torn/merits",
+        "public_api": "(*torn.Client).GetTornMerits",
         "response": "GetTornMeritsResponse"
       },
       {
@@ -1576,6 +6002,7 @@
         "operationId": "getTornMuseum",
         "params": "GetTornMuseumParams",
         "path": "/torn/museum",
+        "public_api": "(*torn.Client).GetTornMuseum",
         "response": "GetTornMuseumResponse"
       },
       {
@@ -1584,6 +6011,7 @@
         "operationId": "getTornOrganizedCrimes",
         "params": "GetTornOrganizedCrimesParams",
         "path": "/torn/organizedcrimes",
+        "public_api": "(*torn.Client).GetTornOrganizedCrimes",
         "response": "GetTornOrganizedCrimesResponse"
       },
       {
@@ -1592,6 +6020,7 @@
         "operationId": "getTornPokerTables",
         "params": "GetTornPokerTablesParams",
         "path": "/torn/pokertables",
+        "public_api": "(*torn.Client).GetTornPokerTables",
         "response": "GetTornPokerTablesResponse"
       },
       {
@@ -1600,6 +6029,7 @@
         "operationId": "getTornProperties",
         "params": "GetTornPropertiesParams",
         "path": "/torn/properties",
+        "public_api": "(*torn.Client).GetTornProperties",
         "response": "GetTornPropertiesResponse"
       },
       {
@@ -1608,6 +6038,7 @@
         "operationId": "getTornRps",
         "params": "GetTornRpsParams",
         "path": "/torn/rockpaperscissors",
+        "public_api": "(*torn.Client).GetTornRps",
         "response": "GetTornRpsResponse"
       },
       {
@@ -1616,6 +6047,7 @@
         "operationId": "getTornSearchForCash",
         "params": "GetTornSearchForCashParams",
         "path": "/torn/searchforcash",
+        "public_api": "(*torn.Client).GetTornSearchForCash",
         "response": "GetTornSearchForCashResponse"
       },
       {
@@ -1624,6 +6056,7 @@
         "operationId": "getTornShoplifting",
         "params": "GetTornShopliftingParams",
         "path": "/torn/shoplifting",
+        "public_api": "(*torn.Client).GetTornShoplifting",
         "response": "GetTornShopliftingResponse"
       },
       {
@@ -1632,6 +6065,7 @@
         "operationId": "getTornCityStats",
         "params": "GetTornCityStatsParams",
         "path": "/torn/stats",
+        "public_api": "(*torn.Client).GetTornCityStats",
         "response": "GetTornCityStatsResponse"
       },
       {
@@ -1640,6 +6074,7 @@
         "operationId": "getTornStocks",
         "params": "GetTornStocksParams",
         "path": "/torn/stocks",
+        "public_api": "(*torn.Client).GetTornStocks",
         "response": "GetTornStocksResponse"
       },
       {
@@ -1648,6 +6083,7 @@
         "operationId": "getTornTerritory",
         "params": "GetTornTerritoryParams",
         "path": "/torn/territory",
+        "public_api": "(*torn.Client).GetTornTerritory",
         "response": "GetTornTerritoryResponse"
       },
       {
@@ -1656,6 +6092,7 @@
         "operationId": "getTornTimestamp",
         "params": "GetTornTimestampParams",
         "path": "/torn/timestamp",
+        "public_api": "(*torn.Client).GetTornTimestamp",
         "response": "GetTornTimestampResponse"
       },
       {
@@ -1664,6 +6101,7 @@
         "operationId": "getTornSubcrimes",
         "params": "GetTornSubcrimesParams",
         "path": "/torn/{crimeId}/subcrimes",
+        "public_api": "(*torn.Client).GetTornSubcrimes",
         "response": "GetTornSubcrimesResponse"
       },
       {
@@ -1672,6 +6110,7 @@
         "operationId": "getTornHonorsSpecific",
         "params": "GetTornHonorsSpecificParams",
         "path": "/torn/{ids}/honors",
+        "public_api": "(*torn.Client).GetTornHonorsSpecific",
         "response": "GetTornHonorsSpecificResponse"
       },
       {
@@ -1680,6 +6119,7 @@
         "operationId": "getTornItemDetails",
         "params": "GetTornItemDetailsParams",
         "path": "/torn/{ids}/itemdetails",
+        "public_api": "(*torn.Client).GetTornItemDetails",
         "response": "GetTornItemDetailsResponse"
       },
       {
@@ -1688,6 +6128,7 @@
         "operationId": "getTornItemsSpecific",
         "params": "GetTornItemsSpecificParams",
         "path": "/torn/{ids}/items",
+        "public_api": "(*torn.Client).GetTornItemsSpecific",
         "response": "GetTornItemsSpecificResponse"
       },
       {
@@ -1696,6 +6137,7 @@
         "operationId": "getTornItemStats",
         "params": "GetTornItemStatsParams",
         "path": "/torn/{ids}/itemstats",
+        "public_api": "(*torn.Client).GetTornItemStats",
         "response": "GetTornItemStatsResponse"
       },
       {
@@ -1704,6 +6146,7 @@
         "operationId": "getTornMedalsSpecific",
         "params": "GetTornMedalsSpecificParams",
         "path": "/torn/{ids}/medals",
+        "public_api": "(*torn.Client).GetTornMedalsSpecific",
         "response": "GetTornMedalsSpecificResponse"
       },
       {
@@ -1712,6 +6155,7 @@
         "operationId": "getTornEliminationTeam",
         "params": "GetTornEliminationTeamParams",
         "path": "/torn/{id}/eliminationteam",
+        "public_api": "(*torn.Client).GetTornEliminationTeam",
         "response": "GetTornEliminationTeamResponse"
       },
       {
@@ -1720,6 +6164,7 @@
         "operationId": "getTornLogTypesSpecific",
         "params": "GetTornLogTypesSpecificParams",
         "path": "/torn/{logCategoryId}/logtypes",
+        "public_api": "(*torn.Client).GetTornLogTypesSpecific",
         "response": "GetTornLogTypesSpecificResponse"
       },
       {
@@ -1728,6 +6173,7 @@
         "operationId": "getTornCityShopSpecific",
         "params": "GetTornCityShopSpecificParams",
         "path": "/torn/{shopId}/cityshops",
+        "public_api": "(*torn.Client).GetTornCityShopSpecific",
         "response": "GetTornCityShopSpecificResponse"
       },
       {
@@ -1736,6 +6182,7 @@
         "operationId": "getSpecificTornStock",
         "params": "GetSpecificTornStockParams",
         "path": "/torn/{stockId}/stocks",
+        "public_api": "(*torn.Client).GetSpecificTornStock",
         "response": "GetSpecificTornStockResponse"
       },
       {
@@ -1744,6 +6191,7 @@
         "operationId": "getTornCompaniesSpecific",
         "params": "GetTornCompaniesSpecificParams",
         "path": "/torn/{typeId}/companies",
+        "public_api": "(*torn.Client).GetTornCompaniesSpecific",
         "response": "GetTornCompaniesSpecificResponse"
       },
       {
@@ -1752,6 +6200,7 @@
         "operationId": "getUserGeneric",
         "params": "GetUserGenericParams",
         "path": "/user",
+        "public_api": "(*torn.Client).GetUserGeneric",
         "response": "GetUserGenericResponse"
       },
       {
@@ -1760,6 +6209,7 @@
         "operationId": "getMyAmmo",
         "params": "GetMyAmmoParams",
         "path": "/user/ammo",
+        "public_api": "(*torn.Client).GetMyAmmo",
         "response": "GetMyAmmoResponse"
       },
       {
@@ -1768,6 +6218,7 @@
         "operationId": "getMyAttacks",
         "params": "GetMyAttacksParams",
         "path": "/user/attacks",
+        "public_api": "(*torn.Client).GetMyAttacks",
         "response": "GetMyAttacksResponse"
       },
       {
@@ -1776,6 +6227,7 @@
         "operationId": "getMyAttacksSimplified",
         "params": "GetMyAttacksSimplifiedParams",
         "path": "/user/attacksfull",
+        "public_api": "(*torn.Client).GetMyAttacksSimplified",
         "response": "GetMyAttacksSimplifiedResponse"
       },
       {
@@ -1784,6 +6236,7 @@
         "operationId": "getMyBars",
         "params": "GetMyBarsParams",
         "path": "/user/bars",
+        "public_api": "(*torn.Client).GetMyBars",
         "response": "GetMyBarsResponse"
       },
       {
@@ -1792,6 +6245,7 @@
         "operationId": "getMyBasicInformation",
         "params": "GetMyBasicInformationParams",
         "path": "/user/basic",
+        "public_api": "(*torn.Client).GetMyBasicInformation",
         "response": "GetMyBasicInformationResponse"
       },
       {
@@ -1800,6 +6254,7 @@
         "operationId": "getMyBattlestats",
         "params": "GetMyBattlestatsParams",
         "path": "/user/battlestats",
+        "public_api": "(*torn.Client).GetMyBattlestats",
         "response": "GetMyBattlestatsResponse"
       },
       {
@@ -1808,6 +6263,7 @@
         "operationId": "getMyBounties",
         "params": "GetMyBountiesParams",
         "path": "/user/bounties",
+        "public_api": "(*torn.Client).GetMyBounties",
         "response": "GetMyBountiesResponse"
       },
       {
@@ -1816,6 +6272,7 @@
         "operationId": "getMyCalendarTime",
         "params": "GetMyCalendarTimeParams",
         "path": "/user/calendar",
+        "public_api": "(*torn.Client).GetMyCalendarTime",
         "response": "GetMyCalendarTimeResponse"
       },
       {
@@ -1824,6 +6281,7 @@
         "operationId": "getMyCasinoStreak",
         "params": "GetMyCasinoStreakParams",
         "path": "/user/casino",
+        "public_api": "(*torn.Client).GetMyCasinoStreak",
         "response": "GetMyCasinoStreakResponse"
       },
       {
@@ -1832,6 +6290,7 @@
         "operationId": "getMyCompetitionInfo",
         "params": "GetMyCompetitionInfoParams",
         "path": "/user/competition",
+        "public_api": "(*torn.Client).GetMyCompetitionInfo",
         "response": "GetMyCompetitionInfoResponse"
       },
       {
@@ -1840,6 +6299,7 @@
         "operationId": "getMyCooldowns",
         "params": "GetMyCooldownsParams",
         "path": "/user/cooldowns",
+        "public_api": "(*torn.Client).GetMyCooldowns",
         "response": "GetMyCooldownsResponse"
       },
       {
@@ -1848,6 +6308,7 @@
         "operationId": "getMyDiscord",
         "params": "GetMyDiscordParams",
         "path": "/user/discord",
+        "public_api": "(*torn.Client).GetMyDiscord",
         "response": "GetMyDiscordResponse"
       },
       {
@@ -1856,6 +6317,7 @@
         "operationId": "getMyEducation",
         "params": "GetMyEducationParams",
         "path": "/user/education",
+        "public_api": "(*torn.Client).GetMyEducation",
         "response": "GetMyEducationResponse"
       },
       {
@@ -1864,6 +6326,7 @@
         "operationId": "getMyEnlistedCars",
         "params": "GetMyEnlistedCarsParams",
         "path": "/user/enlistedcars",
+        "public_api": "(*torn.Client).GetMyEnlistedCars",
         "response": "GetMyEnlistedCarsResponse"
       },
       {
@@ -1872,6 +6335,7 @@
         "operationId": "getMyEquipment",
         "params": "GetMyEquipmentParams",
         "path": "/user/equipment",
+        "public_api": "(*torn.Client).GetMyEquipment",
         "response": "GetMyEquipmentResponse"
       },
       {
@@ -1880,6 +6344,7 @@
         "operationId": "getMyEvents",
         "params": "GetMyEventsParams",
         "path": "/user/events",
+        "public_api": "(*torn.Client).GetMyEvents",
         "response": "GetMyEventsResponse"
       },
       {
@@ -1888,6 +6353,7 @@
         "operationId": "getMyFaction",
         "params": "GetMyFactionParams",
         "path": "/user/faction",
+        "public_api": "(*torn.Client).GetMyFaction",
         "response": "GetMyFactionResponse"
       },
       {
@@ -1896,6 +6362,7 @@
         "operationId": "getMyForumFeed",
         "params": "GetMyForumFeedParams",
         "path": "/user/forumfeed",
+        "public_api": "(*torn.Client).GetMyForumFeed",
         "response": "GetMyForumFeedResponse"
       },
       {
@@ -1904,6 +6371,7 @@
         "operationId": "getMyForumFriendsUpdates",
         "params": "GetMyForumFriendsUpdatesParams",
         "path": "/user/forumfriends",
+        "public_api": "(*torn.Client).GetMyForumFriendsUpdates",
         "response": "GetMyForumFriendsUpdatesResponse"
       },
       {
@@ -1912,6 +6380,7 @@
         "operationId": "getMyForumPosts",
         "params": "GetMyForumPostsParams",
         "path": "/user/forumposts",
+        "public_api": "(*torn.Client).GetMyForumPosts",
         "response": "GetMyForumPostsResponse"
       },
       {
@@ -1920,6 +6389,7 @@
         "operationId": "getMyForumSubscribedThreads",
         "params": "GetMyForumSubscribedThreadsParams",
         "path": "/user/forumsubscribedthreads",
+        "public_api": "(*torn.Client).GetMyForumSubscribedThreads",
         "response": "GetMyForumSubscribedThreadsResponse"
       },
       {
@@ -1928,6 +6398,7 @@
         "operationId": "getMyForumThreads",
         "params": "GetMyForumThreadsParams",
         "path": "/user/forumthreads",
+        "public_api": "(*torn.Client).GetMyForumThreads",
         "response": "GetMyForumThreadsResponse"
       },
       {
@@ -1936,6 +6407,7 @@
         "operationId": "getMyGym",
         "params": "GetMyGymParams",
         "path": "/user/gym",
+        "public_api": "(*torn.Client).GetMyGym",
         "response": "GetMyGymResponse"
       },
       {
@@ -1944,6 +6416,7 @@
         "operationId": "getMyHoF",
         "params": "GetMyHoFParams",
         "path": "/user/hof",
+        "public_api": "(*torn.Client).GetMyHoF",
         "response": "GetMyHoFResponse"
       },
       {
@@ -1952,6 +6425,7 @@
         "operationId": "getMyHonors",
         "params": "GetMyHonorsParams",
         "path": "/user/honors",
+        "public_api": "(*torn.Client).GetMyHonors",
         "response": "GetMyHonorsResponse"
       },
       {
@@ -1960,6 +6434,7 @@
         "operationId": "getMyIcons",
         "params": "GetMyIconsParams",
         "path": "/user/icons",
+        "public_api": "(*torn.Client).GetMyIcons",
         "response": "GetMyIconsResponse"
       },
       {
@@ -1968,6 +6443,7 @@
         "operationId": "getMyInventory",
         "params": "GetMyInventoryParams",
         "path": "/user/inventory",
+        "public_api": "(*torn.Client).GetMyInventory",
         "response": "GetMyInventoryResponse"
       },
       {
@@ -1976,6 +6452,7 @@
         "operationId": "getMyItemMarketListings",
         "params": "GetMyItemMarketListingsParams",
         "path": "/user/itemmarket",
+        "public_api": "(*torn.Client).GetMyItemMarketListings",
         "response": "GetMyItemMarketListingsResponse"
       },
       {
@@ -1984,6 +6461,7 @@
         "operationId": "getMyItemModsInformation",
         "params": "GetMyItemModsInformationParams",
         "path": "/user/itemmods",
+        "public_api": "(*torn.Client).GetMyItemModsInformation",
         "response": "GetMyItemModsInformationResponse"
       },
       {
@@ -1992,6 +6470,7 @@
         "operationId": "getMyJob",
         "params": "GetMyJobParams",
         "path": "/user/job",
+        "public_api": "(*torn.Client).GetMyJob",
         "response": "GetMyJobResponse"
       },
       {
@@ -2000,6 +6479,7 @@
         "operationId": "getMyJobPoints",
         "params": "GetMyJobPointsParams",
         "path": "/user/jobpoints",
+        "public_api": "(*torn.Client).GetMyJobPoints",
         "response": "GetMyJobPointsResponse"
       },
       {
@@ -2008,6 +6488,7 @@
         "operationId": "getMyJobRanks",
         "params": "GetMyJobRanksParams",
         "path": "/user/jobranks",
+        "public_api": "(*torn.Client).GetMyJobRanks",
         "response": "GetMyJobRanksResponse"
       },
       {
@@ -2016,6 +6497,7 @@
         "operationId": "getMyContactsList",
         "params": "GetMyContactsListParams",
         "path": "/user/list",
+        "public_api": "(*torn.Client).GetMyContactsList",
         "response": "GetMyContactsListResponse"
       },
       {
@@ -2024,6 +6506,7 @@
         "operationId": "getMyLogs",
         "params": "GetMyLogsParams",
         "path": "/user/log",
+        "public_api": "(*torn.Client).GetMyLogs",
         "response": "GetMyLogsResponse"
       },
       {
@@ -2032,6 +6515,7 @@
         "operationId": "getUserLookup",
         "params": "GetUserLookupParams",
         "path": "/user/lookup",
+        "public_api": "(*torn.Client).GetUserLookup",
         "response": "GetUserLookupResponse"
       },
       {
@@ -2040,6 +6524,7 @@
         "operationId": "getMyMedals",
         "params": "GetMyMedalsParams",
         "path": "/user/medals",
+        "public_api": "(*torn.Client).GetMyMedals",
         "response": "GetMyMedalsResponse"
       },
       {
@@ -2048,6 +6533,7 @@
         "operationId": "getMyMerits",
         "params": "GetMyMeritsParams",
         "path": "/user/merits",
+        "public_api": "(*torn.Client).GetMyMerits",
         "response": "GetMyMeritsResponse"
       },
       {
@@ -2056,6 +6542,7 @@
         "operationId": "getMyMessages",
         "params": "GetMyMessagesParams",
         "path": "/user/messages",
+        "public_api": "(*torn.Client).GetMyMessages",
         "response": "GetMyMessagesResponse"
       },
       {
@@ -2064,6 +6551,7 @@
         "operationId": "getMyMissions",
         "params": "GetMyMissionsParams",
         "path": "/user/missions",
+        "public_api": "(*torn.Client).GetMyMissions",
         "response": "GetMyMissionsResponse"
       },
       {
@@ -2072,6 +6560,7 @@
         "operationId": "getMyMoney",
         "params": "GetMyMoneyParams",
         "path": "/user/money",
+        "public_api": "(*torn.Client).GetMyMoney",
         "response": "GetMyMoneyResponse"
       },
       {
@@ -2080,6 +6569,7 @@
         "operationId": "getMyNetworth",
         "params": "GetMyNetworthParams",
         "path": "/user/networth",
+        "public_api": "(*torn.Client).GetMyNetworth",
         "response": "GetMyNetworthResponse"
       },
       {
@@ -2088,6 +6578,7 @@
         "operationId": "getMyNewEvents",
         "params": "GetMyNewEventsParams",
         "path": "/user/newevents",
+        "public_api": "(*torn.Client).GetMyNewEvents",
         "response": "GetMyNewEventsResponse"
       },
       {
@@ -2096,6 +6587,7 @@
         "operationId": "getMyNewMessages",
         "params": "GetMyNewMessagesParams",
         "path": "/user/newmessages",
+        "public_api": "(*torn.Client).GetMyNewMessages",
         "response": "GetMyNewMessagesResponse"
       },
       {
@@ -2104,6 +6596,7 @@
         "operationId": "getMyNotifications",
         "params": "GetMyNotificationsParams",
         "path": "/user/notifications",
+        "public_api": "(*torn.Client).GetMyNotifications",
         "response": "GetMyNotificationsResponse"
       },
       {
@@ -2112,6 +6605,7 @@
         "operationId": "getMyOrganizedCrime",
         "params": "GetMyOrganizedCrimeParams",
         "path": "/user/organizedcrime",
+        "public_api": "(*torn.Client).GetMyOrganizedCrime",
         "response": "GetMyOrganizedCrimeResponse"
       },
       {
@@ -2120,6 +6614,7 @@
         "operationId": "getMyAvailableOrganizedCrimes",
         "params": "GetMyAvailableOrganizedCrimesParams",
         "path": "/user/organizedcrimes",
+        "public_api": "(*torn.Client).GetMyAvailableOrganizedCrimes",
         "response": "GetMyAvailableOrganizedCrimesResponse"
       },
       {
@@ -2128,6 +6623,7 @@
         "operationId": "getMyPerks",
         "params": "GetMyPerksParams",
         "path": "/user/perks",
+        "public_api": "(*torn.Client).GetMyPerks",
         "response": "GetMyPerksResponse"
       },
       {
@@ -2136,6 +6632,7 @@
         "operationId": "getMyPersonalStats",
         "params": "GetMyPersonalStatsParams",
         "path": "/user/personalstats",
+        "public_api": "(*torn.Client).GetMyPersonalStats",
         "response": "GetMyPersonalStatsResponse"
       },
       {
@@ -2144,6 +6641,7 @@
         "operationId": "getMyProfile",
         "params": "GetMyProfileParams",
         "path": "/user/profile",
+        "public_api": "(*torn.Client).GetMyProfile",
         "response": "GetMyProfileResponse"
       },
       {
@@ -2152,6 +6650,7 @@
         "operationId": "getMyProperties",
         "params": "GetMyPropertiesParams",
         "path": "/user/properties",
+        "public_api": "(*torn.Client).GetMyProperties",
         "response": "GetMyPropertiesResponse"
       },
       {
@@ -2160,6 +6659,7 @@
         "operationId": "getMyProperty",
         "params": "GetMyPropertyParams",
         "path": "/user/property",
+        "public_api": "(*torn.Client).GetMyProperty",
         "response": "GetMyPropertyResponse"
       },
       {
@@ -2168,6 +6668,7 @@
         "operationId": "getMyRaces",
         "params": "GetMyRacesParams",
         "path": "/user/races",
+        "public_api": "(*torn.Client).GetMyRaces",
         "response": "GetMyRacesResponse"
       },
       {
@@ -2176,6 +6677,7 @@
         "operationId": "getMyRacingRecords",
         "params": "GetMyRacingRecordsParams",
         "path": "/user/racingrecords",
+        "public_api": "(*torn.Client).GetMyRacingRecords",
         "response": "GetMyRacingRecordsResponse"
       },
       {
@@ -2184,6 +6686,7 @@
         "operationId": "getMyRefills",
         "params": "GetMyRefillsParams",
         "path": "/user/refills",
+        "public_api": "(*torn.Client).GetMyRefills",
         "response": "GetMyRefillsResponse"
       },
       {
@@ -2192,6 +6695,7 @@
         "operationId": "getMyReports",
         "params": "GetMyReportsParams",
         "path": "/user/reports",
+        "public_api": "(*torn.Client).GetMyReports",
         "response": "GetMyReportsResponse"
       },
       {
@@ -2200,6 +6704,7 @@
         "operationId": "getMyRevives",
         "params": "GetMyRevivesParams",
         "path": "/user/revives",
+        "public_api": "(*torn.Client).GetMyRevives",
         "response": "GetMyRevivesResponse"
       },
       {
@@ -2208,6 +6713,7 @@
         "operationId": "getMyRevivesSimplified",
         "params": "GetMyRevivesSimplifiedParams",
         "path": "/user/revivesFull",
+        "public_api": "(*torn.Client).GetMyRevivesSimplified",
         "response": "GetMyRevivesSimplifiedResponse"
       },
       {
@@ -2216,6 +6722,7 @@
         "operationId": "getUsersSearch",
         "params": "GetUsersSearchParams",
         "path": "/user/search",
+        "public_api": "(*torn.Client).GetUsersSearch",
         "response": "GetUsersSearchResponse"
       },
       {
@@ -2224,6 +6731,7 @@
         "operationId": "getMySkills",
         "params": "GetMySkillsParams",
         "path": "/user/skills",
+        "public_api": "(*torn.Client).GetMySkills",
         "response": "GetMySkillsResponse"
       },
       {
@@ -2232,6 +6740,7 @@
         "operationId": "getUsersSnapshot",
         "params": "GetUsersSnapshotParams",
         "path": "/user/snapshot",
+        "public_api": "(*torn.Client).GetUsersSnapshot",
         "response": "GetUsersSnapshotResponse"
       },
       {
@@ -2240,6 +6749,7 @@
         "operationId": "getMyStocks",
         "params": "GetMyStocksParams",
         "path": "/user/stocks",
+        "public_api": "(*torn.Client).GetMyStocks",
         "response": "GetMyStocksResponse"
       },
       {
@@ -2248,6 +6758,7 @@
         "operationId": "getUserTimestamp",
         "params": "GetUserTimestampParams",
         "path": "/user/timestamp",
+        "public_api": "(*torn.Client).GetUserTimestamp",
         "response": "GetUserTimestampResponse"
       },
       {
@@ -2256,6 +6767,7 @@
         "operationId": "getMyTrades",
         "params": "GetMyTradesParams",
         "path": "/user/trades",
+        "public_api": "(*torn.Client).GetMyTrades",
         "response": "GetMyTradesResponse"
       },
       {
@@ -2264,6 +6776,7 @@
         "operationId": "getMyTravelInformation",
         "params": "GetMyTravelInformationParams",
         "path": "/user/travel",
+        "public_api": "(*torn.Client).GetMyTravelInformation",
         "response": "GetMyTravelInformationResponse"
       },
       {
@@ -2272,6 +6785,7 @@
         "operationId": "getMyVirusCodingInformation",
         "params": "GetMyVirusCodingInformationParams",
         "path": "/user/virus",
+        "public_api": "(*torn.Client).GetMyVirusCodingInformation",
         "response": "GetMyVirusCodingInformationResponse"
       },
       {
@@ -2280,6 +6794,7 @@
         "operationId": "getMyWeaponExp",
         "params": "GetMyWeaponExpParams",
         "path": "/user/weaponexp",
+        "public_api": "(*torn.Client).GetMyWeaponExp",
         "response": "GetMyWeaponExpResponse"
       },
       {
@@ -2288,6 +6803,7 @@
         "operationId": "getMyWorkstats",
         "params": "GetMyWorkstatsParams",
         "path": "/user/workstats",
+        "public_api": "(*torn.Client).GetMyWorkstats",
         "response": "GetMyWorkstatsResponse"
       },
       {
@@ -2296,6 +6812,7 @@
         "operationId": "getMyCrimes",
         "params": "GetMyCrimesParams",
         "path": "/user/{crimeId}/crimes",
+        "public_api": "(*torn.Client).GetMyCrimes",
         "response": "GetMyCrimesResponse"
       },
       {
@@ -2304,6 +6821,7 @@
         "operationId": "getUserBasicInformation",
         "params": "GetUserBasicInformationParams",
         "path": "/user/{id}/basic",
+        "public_api": "(*torn.Client).GetUserBasicInformation",
         "response": "GetUserBasicInformationResponse"
       },
       {
@@ -2312,6 +6830,7 @@
         "operationId": "getUserBounties",
         "params": "GetUserBountiesParams",
         "path": "/user/{id}/bounties",
+        "public_api": "(*torn.Client).GetUserBounties",
         "response": "GetUserBountiesResponse"
       },
       {
@@ -2320,6 +6839,7 @@
         "operationId": "getUserCompetitionInfo",
         "params": "GetUserCompetitionInfoParams",
         "path": "/user/{id}/competition",
+        "public_api": "(*torn.Client).GetUserCompetitionInfo",
         "response": "GetUserCompetitionInfoResponse"
       },
       {
@@ -2328,6 +6848,7 @@
         "operationId": "getUserDiscord",
         "params": "GetUserDiscordParams",
         "path": "/user/{id}/discord",
+        "public_api": "(*torn.Client).GetUserDiscord",
         "response": "GetUserDiscordResponse"
       },
       {
@@ -2336,6 +6857,7 @@
         "operationId": "getUserFaction",
         "params": "GetUserFactionParams",
         "path": "/user/{id}/faction",
+        "public_api": "(*torn.Client).GetUserFaction",
         "response": "GetUserFactionResponse"
       },
       {
@@ -2344,6 +6866,7 @@
         "operationId": "getUserForumPosts",
         "params": "GetUserForumPostsParams",
         "path": "/user/{id}/forumposts",
+        "public_api": "(*torn.Client).GetUserForumPosts",
         "response": "GetUserForumPostsResponse"
       },
       {
@@ -2352,6 +6875,7 @@
         "operationId": "getUserForumThreads",
         "params": "GetUserForumThreadsParams",
         "path": "/user/{id}/forumthreads",
+        "public_api": "(*torn.Client).GetUserForumThreads",
         "response": "GetUserForumThreadsResponse"
       },
       {
@@ -2360,6 +6884,7 @@
         "operationId": "getUserHoF",
         "params": "GetUserHoFParams",
         "path": "/user/{id}/hof",
+        "public_api": "(*torn.Client).GetUserHoF",
         "response": "GetUserHoFResponse"
       },
       {
@@ -2368,6 +6893,7 @@
         "operationId": "getUserIcons",
         "params": "GetUserIconsParams",
         "path": "/user/{id}/icons",
+        "public_api": "(*torn.Client).GetUserIcons",
         "response": "GetUserIconsResponse"
       },
       {
@@ -2376,6 +6902,7 @@
         "operationId": "getUserJob",
         "params": "GetUserJobParams",
         "path": "/user/{id}/job",
+        "public_api": "(*torn.Client).GetUserJob",
         "response": "GetUserJobResponse"
       },
       {
@@ -2384,6 +6911,7 @@
         "operationId": "getUserMedals",
         "params": "GetUserMedalsParams",
         "path": "/user/{id}/medals",
+        "public_api": "(*torn.Client).GetUserMedals",
         "response": "GetUserMedalsResponse"
       },
       {
@@ -2392,6 +6920,7 @@
         "operationId": "getUserPersonalStats",
         "params": "GetUserPersonalStatsParams",
         "path": "/user/{id}/personalstats",
+        "public_api": "(*torn.Client).GetUserPersonalStats",
         "response": "GetUserPersonalStatsResponse"
       },
       {
@@ -2400,6 +6929,7 @@
         "operationId": "getUserProfile",
         "params": "GetUserProfileParams",
         "path": "/user/{id}/profile",
+        "public_api": "(*torn.Client).GetUserProfile",
         "response": "GetUserProfileResponse"
       },
       {
@@ -2408,6 +6938,7 @@
         "operationId": "getUserProperties",
         "params": "GetUserPropertiesParams",
         "path": "/user/{id}/properties",
+        "public_api": "(*torn.Client).GetUserProperties",
         "response": "GetUserPropertiesResponse"
       },
       {
@@ -2416,6 +6947,7 @@
         "operationId": "getUserProperty",
         "params": "GetUserPropertyParams",
         "path": "/user/{id}/property",
+        "public_api": "(*torn.Client).GetUserProperty",
         "response": "GetUserPropertyResponse"
       },
       {
@@ -2424,6 +6956,7 @@
         "operationId": "getMyDetailedTrade",
         "params": "GetMyDetailedTradeParams",
         "path": "/user/{tradeId}/trade",
+        "public_api": "(*torn.Client).GetMyDetailedTrade",
         "response": "GetMyDetailedTradeResponse"
       }
     ],

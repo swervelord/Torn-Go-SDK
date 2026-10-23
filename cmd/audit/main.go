@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	"go/ast"
+	"go/format"
 	"go/parser"
 	"go/token"
 	"os"
@@ -163,7 +164,57 @@ func main() {
 		compatMap[name] = "compat." + name
 	}
 	routing := load("spec/routing-manifest.json")
-	coverage := map[string]any{"current": model, "historical": map[string]any{"version": "6.13.6", "schemas": legacyMap}, "compatibility": compatMap, "routing": routing, "limits": "Inventory coverage is distinct from code branch coverage and all possible live game states. See spec/typing-report.json for unspecified values."}
+	// Record literal Go API names and return types, including aliases and CSV,
+	// so consumers do not need to infer names from a selection spelling.
+	helpers := []map[string]any{}
+	selectionFile, err := parser.ParseFile(token.NewFileSet(), "selections_generated.go", nil, 0)
+	if err != nil {
+		panic(err)
+	}
+	for _, decl := range selectionFile.Decls {
+		fn, ok := decl.(*ast.FuncDecl)
+		if !ok || fn.Recv == nil {
+			continue
+		}
+		entry := map[string]any{"public_api": "(*torn.Client)." + fn.Name.Name}
+		var returns []string
+		for _, field := range fn.Type.Results.List {
+			var b bytes.Buffer
+			if err := format.Node(&b, token.NewFileSet(), field.Type); err != nil {
+				panic(err)
+			}
+			returns = append(returns, b.String())
+		}
+		entry["returns"] = returns
+		for _, raw := range routing["capabilities"].([]any) {
+			cap := raw.(map[string]any)
+			resource := cap["resource"].(string)
+			selection := cap["name"].(string)
+			public := strings.ToUpper(resource[:1]) + resource[1:] + strings.ToUpper(selection[:1]) + selection[1:]
+			if fn.Name.Name == public || fn.Name.Name == "Raw"+public {
+				entry["resource"] = resource
+				entry["selection"] = selection
+				entry["csv"] = cap["csv"]
+				break
+			}
+		}
+		if fn.Name.Name == "CompanyDetailed" {
+			entry["resource"] = "company"
+			entry["selection"] = "profile"
+			entry["alias"] = true
+		}
+		if fn.Name.Name == "TornStock" {
+			entry["resource"] = "torn"
+			entry["selection"] = "stocks"
+			entry["alias"] = true
+		}
+		helpers = append(helpers, entry)
+	}
+	for _, raw := range model["operations"].([]any) {
+		entry := raw.(map[string]any)
+		entry["public_api"] = "(*torn.Client)." + strings.TrimSuffix(entry["params"].(string), "Params")
+	}
+	coverage := map[string]any{"current": model, "historical": map[string]any{"version": "6.13.6", "schemas": legacyMap}, "compatibility": compatMap, "routing": routing, "convenience_helpers": helpers, "limits": "Inventory coverage is distinct from code branch coverage and all possible live game states. See spec/typing-report.json for unspecified values."}
 	covered, e := json.MarshalIndent(coverage, "", "  ")
 	if e != nil {
 		panic(e)
