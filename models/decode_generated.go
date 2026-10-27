@@ -532,6 +532,8 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(GymClassEnum)
 	case "GymId":
 		out = new(GymId)
+	case "HalloweenBasketUpgradeId":
+		out = new(HalloweenBasketUpgradeId)
 	case "HofValue":
 		out = new(HofValue)
 	case "HofValueFloat":
@@ -918,6 +920,12 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(TornGymModifiers)
 	case "TornGymsResponse":
 		out = new(TornGymsResponse)
+	case "TornHalloween":
+		out = new(TornHalloween)
+	case "TornHalloweenResponse":
+		out = new(TornHalloweenResponse)
+	case "TornHalloweenUpgrade":
+		out = new(TornHalloweenUpgrade)
 	case "TornHof":
 		out = new(TornHof)
 	case "TornHofBasic":
@@ -1230,6 +1238,12 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(UserGenderEnum)
 	case "UserGymResponse":
 		out = new(UserGymResponse)
+	case "UserHalloween":
+		out = new(UserHalloween)
+	case "UserHalloweenBasketUpgrade":
+		out = new(UserHalloweenBasketUpgrade)
+	case "UserHalloweenResponse":
+		out = new(UserHalloweenResponse)
 	case "UserHofResponse":
 		out = new(UserHofResponse)
 	case "UserHofStats":

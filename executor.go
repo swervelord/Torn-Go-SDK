@@ -108,7 +108,10 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		for k, v := range q {
 			query[k] = append([]string(nil), v...)
 		}
-		query.Set("key", c.cfg.APIKeys[key])
+		if version == "v1" {
+			// The legacy v1 API has no documented header authentication.
+			query.Set("key", c.cfg.APIKeys[key])
+		}
 		target := strings.TrimRight(base, "/") + path + "?" + query.Encode()
 		requestCtx, cancel := context.WithTimeout(ctx, timeout)
 		req, err := http.NewRequestWithContext(requestCtx, method, target, nil)
@@ -119,6 +122,9 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		}
 		req.Header.Set("Accept", "application/json")
 		req.Header.Set("User-Agent", c.cfg.UserAgent)
+		if version != "v1" {
+			req.Header.Set("Authorization", "ApiKey "+c.cfg.APIKeys[key])
+		}
 		if op.CSV {
 			req.Header.Set("Accept", "text/csv")
 		}
@@ -172,6 +178,7 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 				last = &APIError{Code: envelope.Error.Code, Message: msg}
 				retry = envelope.Error.Code == 5 || envelope.Error.Code == 8 || envelope.Error.Code == 9
 				if envelope.Error.Code == 5 {
+					c.exhaust(key, route, mentionsIP(msg))
 					now := c.cfg.Scheduler.Now()
 					until := time.Unix((now.Unix()/60+1)*60, 0).Sub(now)
 					if until > delay {
@@ -218,8 +225,9 @@ func (c *Client) Execute(ctx context.Context, plan Plan, opts RequestOptions) (E
 		if e != nil && !opts.DisableFallback {
 			var api *APIError
 			var httpErr *HTTPError
-			unsupported := errors.As(e, &api) && api.Code == 4 || errors.As(e, &httpErr) && (httpErr.StatusCode == 400 || httpErr.StatusCode == 404 || httpErr.StatusCode == 501)
-			if unsupported && len(call.Selections) > 1 {
+			isAPI := errors.As(e, &api)
+			unsupported := isAPI && api.Code == 4 || errors.As(e, &httpErr) && (httpErr.StatusCode == 400 || httpErr.StatusCode == 404 || httpErr.StatusCode == 501)
+			if (unsupported || isAPI && rejectsCombination(api.Message)) && len(call.Selections) > 1 {
 				for _, s := range call.Selections {
 					single := call
 					single.Selections = []string{s}
@@ -238,7 +246,7 @@ func (c *Client) Execute(ctx context.Context, plan Plan, opts RequestOptions) (E
 				}
 				return nil
 			}
-			if unsupported && opts.AllowLegacyFallback && len(call.FallbackCalls) > 0 {
+			if (unsupported || isAPI && requestsV1(api.Message)) && opts.AllowLegacyFallback && len(call.FallbackCalls) > 0 {
 				for _, f := range call.FallbackCalls {
 					f.Fallback = true
 					if e := run(f); e != nil {
@@ -291,4 +299,44 @@ func MergeJSON(a, b json.RawMessage) (json.RawMessage, error) {
 		}
 	}
 	return json.Marshal(left)
+}
+
+// exhaust spends the rest of this minute's local budget for a key that Torn
+// rate limited (code 5), and for its route when the limit is attributed to the
+// IP, so concurrent and later calls rotate instead of repeating the rejection.
+func (c *Client) exhaust(key, route int, ip bool) {
+	minute := c.cfg.Scheduler.Now().Unix() / 60
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.keys[key] = quotaBucket{minute: minute, count: c.cfg.KeyPerMinute}
+	if ip {
+		c.routeQuotas[route] = quotaBucket{minute: minute, count: c.cfg.RoutePerMinute}
+	}
+}
+
+// mentionsIP matches "IP" as a whole word so messages such as "multiple" do not
+// spend a route.
+func mentionsIP(message string) bool {
+	for _, word := range strings.FieldsFunc(message, func(r rune) bool {
+		return !(r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9')
+	}) {
+		if strings.EqualFold(word, "ip") {
+			return true
+		}
+	}
+	return false
+}
+
+// rejectsCombination recognizes Torn messages that reject a selection
+// combination independent of the error code; the call is split per selection.
+func rejectsCombination(message string) bool {
+	m := strings.ToLower(message)
+	return strings.Contains(m, "selection") && strings.Contains(m, "cannot") || strings.Contains(m, "cannot be used together") || strings.Contains(m, "standalone")
+}
+
+// requestsV1 recognizes Torn messages directing a v2 selection to API v1, which
+// makes opt-in legacy fallback eligible.
+func requestsV1(message string) bool {
+	m := strings.ToLower(message)
+	return strings.Contains(m, "not available in api v2") || strings.Contains(m, "fallback to api v1") || strings.Contains(m, "fall back to api v1") || strings.Contains(m, "api v1") && strings.Contains(m, "selection")
 }

@@ -13,7 +13,7 @@ import (
 )
 
 func TestArbitraryTypedBatchAtTransport(t *testing.T) {
-	doc := loadContract(t, "6.13.8")
+	doc := loadContract(t, "6.14.0")
 	payload := map[string]any{}
 	for _, name := range []string{"UserProfileResponse", "UserJobResponse", "UserDiscordResponse"} {
 		s := contractSample(doc.Components.Schemas[name], doc.Components.Schemas, 1, 0).(map[string]any)

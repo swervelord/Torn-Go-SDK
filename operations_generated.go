@@ -4482,6 +4482,42 @@ func (c *Client) GetTornGyms(ctx context.Context, params GetTornGymsParams, opts
 	return out, report, nil
 }
 
+// GetTornHalloweenParams contains documented parameters for GET /torn/halloween.
+type GetTornHalloweenParams struct {
+	Timestamp *models.GetTornHalloweenParamTimestamp `json:"timestamp,omitempty"`
+	Comment   *string                                `json:"comment,omitempty"`
+	Key       *string                                `json:"key,omitempty"`
+}
+type GetTornHalloweenResponse = models.TornHalloweenResponse
+
+// GetTornHalloween executes operation getTornHalloween using its exact documented path.
+func (c *Client) GetTornHalloween(ctx context.Context, params GetTornHalloweenParams, opts ...RequestOptions) (GetTornHalloweenResponse, ExecutionReport, error) {
+	var out GetTornHalloweenResponse
+	var report ExecutionReport
+	if len(opts) > 1 {
+		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
+	}
+	var options RequestOptions
+	if len(opts) == 1 {
+		options = opts[0]
+	}
+	encoded, err := json.Marshal(params)
+	if err != nil {
+		return out, report, err
+	}
+	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
+		return out, report, fmt.Errorf("getTornHalloween parameters: %w", err)
+	}
+	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornHalloween", Path: "/torn/halloween", Method: "GET", CSV: false}, params, options)
+	if err != nil {
+		return out, report, err
+	}
+	if err = json.Unmarshal(raw, &out); err != nil {
+		return out, report, err
+	}
+	return out, report, nil
+}
+
 // GetTornHoFParams contains documented parameters for GET /torn/hof.
 type GetTornHoFParams struct {
 	Limit     *int64                           `json:"limit,omitempty"`
@@ -6550,6 +6586,42 @@ func (c *Client) GetMyGym(ctx context.Context, params GetMyGymParams, opts ...Re
 		return out, report, fmt.Errorf("getMyGym parameters: %w", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyGym", Path: "/user/gym", Method: "GET", CSV: false}, params, options)
+	if err != nil {
+		return out, report, err
+	}
+	if err = json.Unmarshal(raw, &out); err != nil {
+		return out, report, err
+	}
+	return out, report, nil
+}
+
+// GetMyHalloweenParams contains documented parameters for GET /user/halloween.
+type GetMyHalloweenParams struct {
+	Timestamp *models.GetMyHalloweenParamTimestamp `json:"timestamp,omitempty"`
+	Comment   *string                              `json:"comment,omitempty"`
+	Key       *string                              `json:"key,omitempty"`
+}
+type GetMyHalloweenResponse = models.UserHalloweenResponse
+
+// GetMyHalloween executes operation getMyHalloween using its exact documented path.
+func (c *Client) GetMyHalloween(ctx context.Context, params GetMyHalloweenParams, opts ...RequestOptions) (GetMyHalloweenResponse, ExecutionReport, error) {
+	var out GetMyHalloweenResponse
+	var report ExecutionReport
+	if len(opts) > 1 {
+		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
+	}
+	var options RequestOptions
+	if len(opts) == 1 {
+		options = opts[0]
+	}
+	encoded, err := json.Marshal(params)
+	if err != nil {
+		return out, report, err
+	}
+	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
+		return out, report, fmt.Errorf("getMyHalloween parameters: %w", err)
+	}
+	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyHalloween", Path: "/user/halloween", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
@@ -8966,6 +9038,7 @@ var Operations = []Operation{
 	{ID: "getTornFactionHoF", Path: "/torn/factionhof", Method: "GET", CSV: false},
 	{ID: "getTornFactionTree", Path: "/torn/factiontree", Method: "GET", CSV: false},
 	{ID: "getTornGyms", Path: "/torn/gyms", Method: "GET", CSV: false},
+	{ID: "getTornHalloween", Path: "/torn/halloween", Method: "GET", CSV: false},
 	{ID: "getTornHoF", Path: "/torn/hof", Method: "GET", CSV: false},
 	{ID: "getTornHonors", Path: "/torn/honors", Method: "GET", CSV: false},
 	{ID: "getTornItemAmmo", Path: "/torn/itemammo", Method: "GET", CSV: false},
@@ -9022,6 +9095,7 @@ var Operations = []Operation{
 	{ID: "getMyForumSubscribedThreads", Path: "/user/forumsubscribedthreads", Method: "GET", CSV: false},
 	{ID: "getMyForumThreads", Path: "/user/forumthreads", Method: "GET", CSV: false},
 	{ID: "getMyGym", Path: "/user/gym", Method: "GET", CSV: false},
+	{ID: "getMyHalloween", Path: "/user/halloween", Method: "GET", CSV: false},
 	{ID: "getMyHoF", Path: "/user/hof", Method: "GET", CSV: false},
 	{ID: "getMyHonors", Path: "/user/honors", Method: "GET", CSV: false},
 	{ID: "getMyIcons", Path: "/user/icons", Method: "GET", CSV: false},
@@ -9083,4 +9157,242 @@ var Operations = []Operation{
 	{ID: "getUserProperties", Path: "/user/{id}/properties", Method: "GET", CSV: false},
 	{ID: "getUserProperty", Path: "/user/{id}/property", Method: "GET", CSV: false},
 	{ID: "getMyDetailedTrade", Path: "/user/{tradeId}/trade", Method: "GET", CSV: false},
+}
+var operationMetadata = map[string]OperationMetadata{
+	"getCompanyGeneric":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompanyApplications":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompanyEmployees":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompanyLookup":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompanyNews":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompanyProfile":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompaniesSearch":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompaniesSnapshot":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompanyStock":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompanyTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompanyEmployees":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompanyProfile":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getCompaniesList":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionGeneric":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionApplications":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionAttacks":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionAttacksSimplified":    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionBalance":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionBasicInformation":     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionChain":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionLatestChainReport":    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionCompletedChains":      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionContributors":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionCrimeExp":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionOrganizedCrimes":      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfareDirtyBombs":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionHoF":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionInventory":            {Stability: "Stable", CacheTTLSeconds: 300},
+	"getFactionLookup":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionMembers":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionNews":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionPositions":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionRackets":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionRaidsHistory":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionRankedWarsHistory":    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionReports":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionRevives":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionRevivesSimplified":    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionSearch":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionsSnapshot":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionStats":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionTerritory":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTerritoryOwnership":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionTerritoryWarsHistory": {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfare":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfareChains":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfareRaids":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfareRankedWars":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getWarfareTerritoryWars":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionWars":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getChainReport":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFactionOrganizedCrime":       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionBasicInformation":       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionChain":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionCompletedChains":        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionHoF":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionMembers":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionRaidsHistory":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionRankedWarsHistory":      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionTerritory":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionTerritoryWarsHistory":   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getFactionWars":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRaidReport":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRankedWarReport":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTerritoryWarReport":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumGeneric":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumCategories":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumLookup":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumAllThreads":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumTimestamp":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumThreads":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumThreadPosts":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getForumThread":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getKeyGeneric":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getKeyInfo":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getKeyLog":                        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketAuctionHouse":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketBazaar":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketLookup":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketPoints":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketAuctionHouseItem":        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketAuctionHouseListing":     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketBazaarItem":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketItemMarketItem":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketProperties":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMarketPropertiesRental":        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getPropertyGeneric":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getPropertyLookup":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getPropertyTimestamp":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getProperty":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingCars":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingCarUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingLookup":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingRaces":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingTracks":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingRaceDetails":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getRacingTrackRecords":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornAttackLog":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornBank":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornBounties":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCalendar":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCards":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCityShops":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCompanies":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCrimes":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornEducation":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornElimination":               {Stability: "Unstable", CacheTTLSeconds: 0},
+	"getTornFactionHoF":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornFactionTree":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornGyms":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornHalloween":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornHoF":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornHonors":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItemAmmo":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItemMods":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItems":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornLogCategories":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornLogTypes":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornLookup":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornMedals":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornMerits":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornMuseum":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornOrganizedCrimes":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornPokerTables":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornProperties":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornRps":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornSearchForCash":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornShoplifting":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCityStats":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornStocks":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornTerritory":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornSubcrimes":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornHonorsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItemDetails":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItemsSpecific":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornItemStats":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornMedalsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornEliminationTeam":           {Stability: "Unstable", CacheTTLSeconds: 0},
+	"getTornLogTypesSpecific":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCityShopSpecific":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getSpecificTornStock":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getTornCompaniesSpecific":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyAmmo":                        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyAttacks":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyAttacksSimplified":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyBars":                        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyBasicInformation":            {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyBattlestats":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyBounties":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCalendarTime":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCasinoStreak":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCompetitionInfo":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCooldowns":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyDiscord":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyEducation":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyEnlistedCars":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyEquipment":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyEvents":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyFaction":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyForumFeed":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyForumFriendsUpdates":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyForumPosts":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyForumSubscribedThreads":      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyForumThreads":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyGym":                         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyHalloween":                   {Stability: "Untable", CacheTTLSeconds: 0},
+	"getMyHoF":                         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyHonors":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyIcons":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyInventory":                   {Stability: "Stable", CacheTTLSeconds: 900},
+	"getMyItemMarketListings":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyItemModsInformation":         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyJob":                         {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyJobPoints":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyJobRanks":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyContactsList":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyLogs":                        {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserLookup":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyMedals":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyMerits":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyMessages":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyMissions":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyMoney":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyNetworth":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyNewEvents":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyNewMessages":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyNotifications":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyOrganizedCrime":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyAvailableOrganizedCrimes":    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyPerks":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyPersonalStats":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyProfile":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyProperties":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyProperty":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyRaces":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyRacingRecords":               {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyRefills":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyReports":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyRevives":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyRevivesSimplified":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUsersSearch":                   {Stability: "Unstable", CacheTTLSeconds: 0},
+	"getMySkills":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUsersSnapshot":                 {Stability: "Unstable", CacheTTLSeconds: 0},
+	"getMyStocks":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyTrades":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyTravelInformation":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyVirusCodingInformation":      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyWeaponExp":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyWorkstats":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyCrimes":                      {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserBasicInformation":          {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserBounties":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserCompetitionInfo":           {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserDiscord":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserFaction":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserForumPosts":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserForumThreads":              {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserHoF":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserIcons":                     {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserJob":                       {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserMedals":                    {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserPersonalStats":             {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserProfile":                   {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserProperties":                {Stability: "Stable", CacheTTLSeconds: 0},
+	"getUserProperty":                  {Stability: "Stable", CacheTTLSeconds: 0},
+	"getMyDetailedTrade":               {Stability: "Stable", CacheTTLSeconds: 0},
 }

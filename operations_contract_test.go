@@ -25,7 +25,7 @@ func (f operationTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 // independently from the committed official specification, never from Operations
 // or generated metadata. The public typed method itself is invoked reflectively.
 func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
-	data, e := os.ReadFile("spec/openapi-6.13.8.json")
+	data, e := os.ReadFile("spec/openapi-6.14.0.json")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -36,7 +36,7 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 		t.Fatal(e)
 	}
 	components := doc["components"].(map[string]any)
-	definitions := loadContract(t, "6.13.8").Components.Schemas
+	definitions := loadContract(t, "6.14.0").Components.Schemas
 	paths := doc["paths"].(map[string]any)
 	ordered := make([]string, 0, len(paths))
 	for p := range paths {
@@ -115,7 +115,9 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 						t.Errorf("path got %q want %q", req.URL.EscapedPath(), expectedPath)
 					}
 					q := req.URL.Query()
-					q.Del("key")
+					if q.Has("key") || req.Header.Get("Authorization") == "" {
+						t.Error("v2 credential must travel only in the Authorization header")
+					}
 					if !reflect.DeepEqual(q, expectedQuery) {
 						t.Errorf("query got %v want %v", q, expectedQuery)
 					}
@@ -153,7 +155,7 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 			})
 		}
 	}
-	if checked != 234 || csvCount != 3 {
+	if checked != 236 || csvCount != 3 {
 		t.Fatalf("operation inventory %d CSV %d", checked, csvCount)
 	}
 }

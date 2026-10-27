@@ -22211,6 +22211,24 @@ func (v *GymId) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// HalloweenBasketUpgradeId is generated from the pinned official Torn contract.
+type HalloweenBasketUpgradeId int64
+
+func (v *HalloweenBasketUpgradeId) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("HalloweenBasketUpgradeId", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain HalloweenBasketUpgradeId
+	var out plain
+	if err := json.Unmarshal(data, &out); err != nil {
+		return err
+	}
+	*v = HalloweenBasketUpgradeId(out)
+	return nil
+}
+
 // HofValue is generated from the pinned official Torn contract.
 type HofValue struct {
 	Rank                 int64                      `json:"rank"`
@@ -32838,6 +32856,207 @@ func (v TornGymsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fields)
 }
 
+// TornHalloween is generated from the pinned official Torn contract.
+type TornHalloween struct {
+	BasketUpgrades       []TornHalloweenUpgrade     `json:"basket_upgrades"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *TornHalloween) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("TornHalloween", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain TornHalloween
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["basket_upgrades"]; ok {
+		if err := json.Unmarshal(raw, &out.BasketUpgrades); err != nil {
+			return err
+		}
+	}
+	delete(fields, "basket_upgrades")
+	out.AdditionalProperties = fields
+	*v = TornHalloween(out)
+	return nil
+}
+func (v TornHalloween) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+1)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.BasketUpgrades)
+	if err != nil {
+		return nil, err
+	}
+	fields["basket_upgrades"] = data
+	return json.Marshal(fields)
+}
+
+// TornHalloweenResponse is generated from the pinned official Torn contract.
+type TornHalloweenResponse struct {
+	Halloween            TornHalloween              `json:"halloween"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *TornHalloweenResponse) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("TornHalloweenResponse", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain TornHalloweenResponse
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["halloween"]; ok {
+		if err := json.Unmarshal(raw, &out.Halloween); err != nil {
+			return err
+		}
+	}
+	delete(fields, "halloween")
+	out.AdditionalProperties = fields
+	*v = TornHalloweenResponse(out)
+	return nil
+}
+func (v TornHalloweenResponse) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+1)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Halloween)
+	if err != nil {
+		return nil, err
+	}
+	fields["halloween"] = data
+	return json.Marshal(fields)
+}
+
+// TornHalloweenUpgrade is generated from the pinned official Torn contract.
+type TornHalloweenUpgrade struct {
+	Cost                 int64                      `json:"cost"`
+	Description          string                     `json:"description"`
+	Flavor               string                     `json:"flavor"`
+	ID                   HalloweenBasketUpgradeId   `json:"id"`
+	Name                 string                     `json:"name"`
+	Requirement          int64                      `json:"requirement"`
+	Type                 json.RawMessage            `json:"type"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *TornHalloweenUpgrade) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("TornHalloweenUpgrade", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain TornHalloweenUpgrade
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["cost"]; ok {
+		if err := json.Unmarshal(raw, &out.Cost); err != nil {
+			return err
+		}
+	}
+	delete(fields, "cost")
+	if raw, ok := fields["description"]; ok {
+		if err := json.Unmarshal(raw, &out.Description); err != nil {
+			return err
+		}
+	}
+	delete(fields, "description")
+	if raw, ok := fields["flavor"]; ok {
+		if err := json.Unmarshal(raw, &out.Flavor); err != nil {
+			return err
+		}
+	}
+	delete(fields, "flavor")
+	if raw, ok := fields["id"]; ok {
+		if err := json.Unmarshal(raw, &out.ID); err != nil {
+			return err
+		}
+	}
+	delete(fields, "id")
+	if raw, ok := fields["name"]; ok {
+		if err := json.Unmarshal(raw, &out.Name); err != nil {
+			return err
+		}
+	}
+	delete(fields, "name")
+	if raw, ok := fields["requirement"]; ok {
+		if err := json.Unmarshal(raw, &out.Requirement); err != nil {
+			return err
+		}
+	}
+	delete(fields, "requirement")
+	if raw, ok := fields["type"]; ok {
+		if err := json.Unmarshal(raw, &out.Type); err != nil {
+			return err
+		}
+	}
+	delete(fields, "type")
+	out.AdditionalProperties = fields
+	*v = TornHalloweenUpgrade(out)
+	return nil
+}
+func (v TornHalloweenUpgrade) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+7)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Cost)
+	if err != nil {
+		return nil, err
+	}
+	fields["cost"] = data
+	data, err = json.Marshal(v.Description)
+	if err != nil {
+		return nil, err
+	}
+	fields["description"] = data
+	data, err = json.Marshal(v.Flavor)
+	if err != nil {
+		return nil, err
+	}
+	fields["flavor"] = data
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
+	data, err = json.Marshal(v.Requirement)
+	if err != nil {
+		return nil, err
+	}
+	fields["requirement"] = data
+	data, err = json.Marshal(v.Type)
+	if err != nil {
+		return nil, err
+	}
+	fields["type"] = data
+	return json.Marshal(fields)
+}
+
 // TornHof is generated from the pinned official Torn contract.
 type TornHof struct{ raw json.RawMessage }
 
@@ -36784,7 +37003,7 @@ func (v TornSelectionName) MarshalJSON() ([]byte, error) {
 func (v TornSelectionName) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
 func (v TornSelectionName) AsVariant1() (TornSelectionNameVariant1, error) {
 	var out TornSelectionNameVariant1
-	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time:'competition','organisedcrimes'.\\n *   The following selections are not available in API v2: 'dirtybombs','raidreport','raids', 'chainreport', 'rackets', 'rankedwarreport', 'rankedwars', 'territorynames', 'territorywarreport', 'territorywars', 'pawnshop'.\",\"enum\":[\"attacklog\",\"bank\",\"bounties\",\"calendar\",\"cards\",\"cityshops\",\"companies\",\"crimes\",\"education\",\"elimination\",\"eliminationteam\",\"factionhof\",\"factiontree\",\"gyms\",\"hof\",\"honors\",\"itemammo\",\"itemdetails\",\"itemmods\",\"itemstats\",\"items\",\"logcategories\",\"logtypes\",\"lookup\",\"medals\",\"merits\",\"museum\",\"organizedcrimes\",\"pokertables\",\"properties\",\"rockpaperscissors\",\"searchforcash\",\"shoplifting\",\"stats\",\"stocks\",\"subcrimes\",\"territory\",\"timestamp\",\"competition\",\"organisedcrimes\"],\"type\":\"string\"}")), v.raw); err != nil {
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time:'competition','organisedcrimes'.\\n *   The following selections are not available in API v2: 'dirtybombs','raidreport','raids', 'chainreport', 'rackets', 'rankedwarreport', 'rankedwars', 'territorynames', 'territorywarreport', 'territorywars', 'pawnshop'.\",\"enum\":[\"attacklog\",\"bank\",\"bounties\",\"calendar\",\"cards\",\"cityshops\",\"companies\",\"crimes\",\"education\",\"elimination\",\"eliminationteam\",\"factionhof\",\"factiontree\",\"gyms\",\"halloween\",\"hof\",\"honors\",\"itemammo\",\"itemdetails\",\"itemmods\",\"itemstats\",\"items\",\"logcategories\",\"logtypes\",\"lookup\",\"medals\",\"merits\",\"museum\",\"organizedcrimes\",\"pokertables\",\"properties\",\"rockpaperscissors\",\"searchforcash\",\"shoplifting\",\"stats\",\"stocks\",\"subcrimes\",\"territory\",\"timestamp\",\"competition\",\"organisedcrimes\"],\"type\":\"string\"}")), v.raw); err != nil {
 		return out, err
 	}
 	err := json.Unmarshal(v.raw, &out)
@@ -36794,7 +37013,7 @@ func NewTornSelectionNameVariant1(value TornSelectionNameVariant1) (TornSelectio
 	var out TornSelectionName
 	data, err := json.Marshal(value)
 	if err == nil {
-		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time:'competition','organisedcrimes'.\\n *   The following selections are not available in API v2: 'dirtybombs','raidreport','raids', 'chainreport', 'rackets', 'rankedwarreport', 'rankedwars', 'territorynames', 'territorywarreport', 'territorywars', 'pawnshop'.\",\"enum\":[\"attacklog\",\"bank\",\"bounties\",\"calendar\",\"cards\",\"cityshops\",\"companies\",\"crimes\",\"education\",\"elimination\",\"eliminationteam\",\"factionhof\",\"factiontree\",\"gyms\",\"hof\",\"honors\",\"itemammo\",\"itemdetails\",\"itemmods\",\"itemstats\",\"items\",\"logcategories\",\"logtypes\",\"lookup\",\"medals\",\"merits\",\"museum\",\"organizedcrimes\",\"pokertables\",\"properties\",\"rockpaperscissors\",\"searchforcash\",\"shoplifting\",\"stats\",\"stocks\",\"subcrimes\",\"territory\",\"timestamp\",\"competition\",\"organisedcrimes\"],\"type\":\"string\"}")), data)
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time:'competition','organisedcrimes'.\\n *   The following selections are not available in API v2: 'dirtybombs','raidreport','raids', 'chainreport', 'rackets', 'rankedwarreport', 'rankedwars', 'territorynames', 'territorywarreport', 'territorywars', 'pawnshop'.\",\"enum\":[\"attacklog\",\"bank\",\"bounties\",\"calendar\",\"cards\",\"cityshops\",\"companies\",\"crimes\",\"education\",\"elimination\",\"eliminationteam\",\"factionhof\",\"factiontree\",\"gyms\",\"halloween\",\"hof\",\"honors\",\"itemammo\",\"itemdetails\",\"itemmods\",\"itemstats\",\"items\",\"logcategories\",\"logtypes\",\"lookup\",\"medals\",\"merits\",\"museum\",\"organizedcrimes\",\"pokertables\",\"properties\",\"rockpaperscissors\",\"searchforcash\",\"shoplifting\",\"stats\",\"stocks\",\"subcrimes\",\"territory\",\"timestamp\",\"competition\",\"organisedcrimes\"],\"type\":\"string\"}")), data)
 	}
 	if err == nil {
 		err = out.UnmarshalJSON(data)
@@ -42655,6 +42874,159 @@ func (v UserGymResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fields)
 }
 
+// UserHalloween is generated from the pinned official Torn contract.
+type UserHalloween struct {
+	BasketUpgrades       []UserHalloweenBasketUpgrade `json:"basket_upgrades"`
+	Treats               UserHalloweenTreats          `json:"treats"`
+	AdditionalProperties map[string]json.RawMessage   `json:"-"`
+}
+
+func (v *UserHalloween) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserHalloween", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserHalloween
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["basket_upgrades"]; ok {
+		if err := json.Unmarshal(raw, &out.BasketUpgrades); err != nil {
+			return err
+		}
+	}
+	delete(fields, "basket_upgrades")
+	if raw, ok := fields["treats"]; ok {
+		if err := json.Unmarshal(raw, &out.Treats); err != nil {
+			return err
+		}
+	}
+	delete(fields, "treats")
+	out.AdditionalProperties = fields
+	*v = UserHalloween(out)
+	return nil
+}
+func (v UserHalloween) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.BasketUpgrades)
+	if err != nil {
+		return nil, err
+	}
+	fields["basket_upgrades"] = data
+	data, err = json.Marshal(v.Treats)
+	if err != nil {
+		return nil, err
+	}
+	fields["treats"] = data
+	return json.Marshal(fields)
+}
+
+// UserHalloweenBasketUpgrade is generated from the pinned official Torn contract.
+type UserHalloweenBasketUpgrade struct {
+	ID                   HalloweenBasketUpgradeId   `json:"id"`
+	Timestamp            int64                      `json:"timestamp"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserHalloweenBasketUpgrade) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserHalloweenBasketUpgrade", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserHalloweenBasketUpgrade
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["id"]; ok {
+		if err := json.Unmarshal(raw, &out.ID); err != nil {
+			return err
+		}
+	}
+	delete(fields, "id")
+	if raw, ok := fields["timestamp"]; ok {
+		if err := json.Unmarshal(raw, &out.Timestamp); err != nil {
+			return err
+		}
+	}
+	delete(fields, "timestamp")
+	out.AdditionalProperties = fields
+	*v = UserHalloweenBasketUpgrade(out)
+	return nil
+}
+func (v UserHalloweenBasketUpgrade) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Timestamp)
+	if err != nil {
+		return nil, err
+	}
+	fields["timestamp"] = data
+	return json.Marshal(fields)
+}
+
+// UserHalloweenResponse is generated from the pinned official Torn contract.
+type UserHalloweenResponse struct {
+	Halloween            UserHalloween              `json:"halloween"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserHalloweenResponse) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserHalloweenResponse", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserHalloweenResponse
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["halloween"]; ok {
+		if err := json.Unmarshal(raw, &out.Halloween); err != nil {
+			return err
+		}
+	}
+	delete(fields, "halloween")
+	out.AdditionalProperties = fields
+	*v = UserHalloweenResponse(out)
+	return nil
+}
+func (v UserHalloweenResponse) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+1)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Halloween)
+	if err != nil {
+		return nil, err
+	}
+	fields["halloween"] = data
+	return json.Marshal(fields)
+}
+
 // UserHofResponse is generated from the pinned official Torn contract.
 type UserHofResponse struct {
 	Hof                  UserHofStats               `json:"hof"`
@@ -48169,7 +48541,7 @@ func (v UserSelectionName) MarshalJSON() ([]byte, error) {
 func (v UserSelectionName) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
 func (v UserSelectionName) AsVariant1() (UserSelectionNameVariant1, error) {
 	var out UserSelectionNameVariant1
-	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), v.raw); err != nil {
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), v.raw); err != nil {
 		return out, err
 	}
 	err := json.Unmarshal(v.raw, &out)
@@ -48179,7 +48551,7 @@ func NewUserSelectionNameVariant1(value UserSelectionNameVariant1) (UserSelectio
 	var out UserSelectionName
 	data, err := json.Marshal(value)
 	if err == nil {
-		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), data)
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), data)
 	}
 	if err == nil {
 		err = out.UnmarshalJSON(data)
@@ -64714,6 +65086,7 @@ const TornSelectionNameVariant1Eliminationteam TornSelectionNameVariant1 = "elim
 const TornSelectionNameVariant1Factionhof TornSelectionNameVariant1 = "factionhof"
 const TornSelectionNameVariant1Factiontree TornSelectionNameVariant1 = "factiontree"
 const TornSelectionNameVariant1Gyms TornSelectionNameVariant1 = "gyms"
+const TornSelectionNameVariant1Halloween TornSelectionNameVariant1 = "halloween"
 const TornSelectionNameVariant1Hof TornSelectionNameVariant1 = "hof"
 const TornSelectionNameVariant1Honors TornSelectionNameVariant1 = "honors"
 const TornSelectionNameVariant1Itemammo TornSelectionNameVariant1 = "itemammo"
@@ -67923,6 +68296,61 @@ func (v UserGymResponseGym) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["name"] = data
+	return json.Marshal(fields)
+}
+
+// UserHalloweenTreats is generated from the pinned official Torn contract.
+type UserHalloweenTreats struct {
+	Current              int64                      `json:"current"`
+	Total                int64                      `json:"total"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserHalloweenTreats) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserHalloweenTreats", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserHalloweenTreats
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["current"]; ok {
+		if err := json.Unmarshal(raw, &out.Current); err != nil {
+			return err
+		}
+	}
+	delete(fields, "current")
+	if raw, ok := fields["total"]; ok {
+		if err := json.Unmarshal(raw, &out.Total); err != nil {
+			return err
+		}
+	}
+	delete(fields, "total")
+	out.AdditionalProperties = fields
+	*v = UserHalloweenTreats(out)
+	return nil
+}
+func (v UserHalloweenTreats) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Current)
+	if err != nil {
+		return nil, err
+	}
+	fields["current"] = data
+	data, err = json.Marshal(v.Total)
+	if err != nil {
+		return nil, err
+	}
+	fields["total"] = data
 	return json.Marshal(fields)
 }
 
@@ -72445,6 +72873,7 @@ const UserSelectionNameVariant1Forumposts UserSelectionNameVariant1 = "forumpost
 const UserSelectionNameVariant1Forumsubscribedthreads UserSelectionNameVariant1 = "forumsubscribedthreads"
 const UserSelectionNameVariant1Forumthreads UserSelectionNameVariant1 = "forumthreads"
 const UserSelectionNameVariant1Gym UserSelectionNameVariant1 = "gym"
+const UserSelectionNameVariant1Halloween UserSelectionNameVariant1 = "halloween"
 const UserSelectionNameVariant1Hof UserSelectionNameVariant1 = "hof"
 const UserSelectionNameVariant1Honors UserSelectionNameVariant1 = "honors"
 const UserSelectionNameVariant1Icons UserSelectionNameVariant1 = "icons"
@@ -79021,6 +79450,9 @@ type TornCityStatsResponseStatsAttacking struct {
 	MoneyMugged          int64                      `json:"money_mugged"`
 	RespectGained        int64                      `json:"respect_gained"`
 	RoundsFired          int64                      `json:"rounds_fired"`
+	WarsRaid             int64                      `json:"wars_raid"`
+	WarsRanked           int64                      `json:"wars_ranked"`
+	WarsTerritory        int64                      `json:"wars_territory"`
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
 
@@ -79102,12 +79534,30 @@ func (v *TornCityStatsResponseStatsAttacking) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "rounds_fired")
+	if raw, ok := fields["wars_raid"]; ok {
+		if err := json.Unmarshal(raw, &out.WarsRaid); err != nil {
+			return err
+		}
+	}
+	delete(fields, "wars_raid")
+	if raw, ok := fields["wars_ranked"]; ok {
+		if err := json.Unmarshal(raw, &out.WarsRanked); err != nil {
+			return err
+		}
+	}
+	delete(fields, "wars_ranked")
+	if raw, ok := fields["wars_territory"]; ok {
+		if err := json.Unmarshal(raw, &out.WarsTerritory); err != nil {
+			return err
+		}
+	}
+	delete(fields, "wars_territory")
 	out.AdditionalProperties = fields
 	*v = TornCityStatsResponseStatsAttacking(out)
 	return nil
 }
 func (v TornCityStatsResponseStatsAttacking) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+11)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+14)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -79168,6 +79618,21 @@ func (v TornCityStatsResponseStatsAttacking) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["rounds_fired"] = data
+	data, err = json.Marshal(v.WarsRaid)
+	if err != nil {
+		return nil, err
+	}
+	fields["wars_raid"] = data
+	data, err = json.Marshal(v.WarsRanked)
+	if err != nil {
+		return nil, err
+	}
+	fields["wars_ranked"] = data
+	data, err = json.Marshal(v.WarsTerritory)
+	if err != nil {
+		return nil, err
+	}
+	fields["wars_territory"] = data
 	return json.Marshal(fields)
 }
 
@@ -79228,11 +79693,27 @@ func (v TornCityStatsResponseStatsBounties) MarshalJSON() ([]byte, error) {
 
 // TornCityStatsResponseStatsCommunication is generated from the pinned official Torn contract.
 type TornCityStatsResponseStatsCommunication struct {
+	ArticleReads         int64                      `json:"article_reads"`
+	ArticleViews         int64                      `json:"article_views"`
+	Articles             int64                      `json:"articles"`
+	Chats                int64                      `json:"chats"`
 	ClassifiedAdsPlaced  int64                      `json:"classified_ads_placed"`
-	Coworkers            int64                      `json:"coworkers"`
-	Friends              int64                      `json:"friends"`
+	Coworkers            Optional[int64]            `json:"coworkers"`
+	Events               int64                      `json:"events"`
+	ForumDislikes        int64                      `json:"forum_dislikes"`
+	ForumLikes           int64                      `json:"forum_likes"`
+	ForumPosts           int64                      `json:"forum_posts"`
+	ForumThreads         int64                      `json:"forum_threads"`
+	Friends              Optional[int64]            `json:"friends"`
+	MailsCoworkers       int64                      `json:"mails_coworkers"`
+	MailsFaction         int64                      `json:"mails_faction"`
+	MailsFriends         int64                      `json:"mails_friends"`
+	MailsSpouses         int64                      `json:"mails_spouses"`
+	MailsTotal           int64                      `json:"mails_total"`
+	Messages             int64                      `json:"messages"`
 	PersonalsPlaced      int64                      `json:"personals_placed"`
-	Spouses              int64                      `json:"spouses"`
+	Spouses              Optional[int64]            `json:"spouses"`
+	TotalEvents          int64                      `json:"total_events"`
 	TotalMessages        int64                      `json:"total_messages"`
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -79249,6 +79730,30 @@ func (v *TornCityStatsResponseStatsCommunication) UnmarshalJSON(data []byte) err
 	if err := json.Unmarshal(data, &fields); err != nil {
 		return err
 	}
+	if raw, ok := fields["article_reads"]; ok {
+		if err := json.Unmarshal(raw, &out.ArticleReads); err != nil {
+			return err
+		}
+	}
+	delete(fields, "article_reads")
+	if raw, ok := fields["article_views"]; ok {
+		if err := json.Unmarshal(raw, &out.ArticleViews); err != nil {
+			return err
+		}
+	}
+	delete(fields, "article_views")
+	if raw, ok := fields["articles"]; ok {
+		if err := json.Unmarshal(raw, &out.Articles); err != nil {
+			return err
+		}
+	}
+	delete(fields, "articles")
+	if raw, ok := fields["chats"]; ok {
+		if err := json.Unmarshal(raw, &out.Chats); err != nil {
+			return err
+		}
+	}
+	delete(fields, "chats")
 	if raw, ok := fields["classified_ads_placed"]; ok {
 		if err := json.Unmarshal(raw, &out.ClassifiedAdsPlaced); err != nil {
 			return err
@@ -79261,12 +79766,78 @@ func (v *TornCityStatsResponseStatsCommunication) UnmarshalJSON(data []byte) err
 		}
 	}
 	delete(fields, "coworkers")
+	if raw, ok := fields["events"]; ok {
+		if err := json.Unmarshal(raw, &out.Events); err != nil {
+			return err
+		}
+	}
+	delete(fields, "events")
+	if raw, ok := fields["forum_dislikes"]; ok {
+		if err := json.Unmarshal(raw, &out.ForumDislikes); err != nil {
+			return err
+		}
+	}
+	delete(fields, "forum_dislikes")
+	if raw, ok := fields["forum_likes"]; ok {
+		if err := json.Unmarshal(raw, &out.ForumLikes); err != nil {
+			return err
+		}
+	}
+	delete(fields, "forum_likes")
+	if raw, ok := fields["forum_posts"]; ok {
+		if err := json.Unmarshal(raw, &out.ForumPosts); err != nil {
+			return err
+		}
+	}
+	delete(fields, "forum_posts")
+	if raw, ok := fields["forum_threads"]; ok {
+		if err := json.Unmarshal(raw, &out.ForumThreads); err != nil {
+			return err
+		}
+	}
+	delete(fields, "forum_threads")
 	if raw, ok := fields["friends"]; ok {
 		if err := json.Unmarshal(raw, &out.Friends); err != nil {
 			return err
 		}
 	}
 	delete(fields, "friends")
+	if raw, ok := fields["mails_coworkers"]; ok {
+		if err := json.Unmarshal(raw, &out.MailsCoworkers); err != nil {
+			return err
+		}
+	}
+	delete(fields, "mails_coworkers")
+	if raw, ok := fields["mails_faction"]; ok {
+		if err := json.Unmarshal(raw, &out.MailsFaction); err != nil {
+			return err
+		}
+	}
+	delete(fields, "mails_faction")
+	if raw, ok := fields["mails_friends"]; ok {
+		if err := json.Unmarshal(raw, &out.MailsFriends); err != nil {
+			return err
+		}
+	}
+	delete(fields, "mails_friends")
+	if raw, ok := fields["mails_spouses"]; ok {
+		if err := json.Unmarshal(raw, &out.MailsSpouses); err != nil {
+			return err
+		}
+	}
+	delete(fields, "mails_spouses")
+	if raw, ok := fields["mails_total"]; ok {
+		if err := json.Unmarshal(raw, &out.MailsTotal); err != nil {
+			return err
+		}
+	}
+	delete(fields, "mails_total")
+	if raw, ok := fields["messages"]; ok {
+		if err := json.Unmarshal(raw, &out.Messages); err != nil {
+			return err
+		}
+	}
+	delete(fields, "messages")
 	if raw, ok := fields["personals_placed"]; ok {
 		if err := json.Unmarshal(raw, &out.PersonalsPlaced); err != nil {
 			return err
@@ -79279,6 +79850,12 @@ func (v *TornCityStatsResponseStatsCommunication) UnmarshalJSON(data []byte) err
 		}
 	}
 	delete(fields, "spouses")
+	if raw, ok := fields["total_events"]; ok {
+		if err := json.Unmarshal(raw, &out.TotalEvents); err != nil {
+			return err
+		}
+	}
+	delete(fields, "total_events")
 	if raw, ok := fields["total_messages"]; ok {
 		if err := json.Unmarshal(raw, &out.TotalMessages); err != nil {
 			return err
@@ -79290,37 +79867,123 @@ func (v *TornCityStatsResponseStatsCommunication) UnmarshalJSON(data []byte) err
 	return nil
 }
 func (v TornCityStatsResponseStatsCommunication) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+6)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+22)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
 	var data []byte
 	var err error
+	data, err = json.Marshal(v.ArticleReads)
+	if err != nil {
+		return nil, err
+	}
+	fields["article_reads"] = data
+	data, err = json.Marshal(v.ArticleViews)
+	if err != nil {
+		return nil, err
+	}
+	fields["article_views"] = data
+	data, err = json.Marshal(v.Articles)
+	if err != nil {
+		return nil, err
+	}
+	fields["articles"] = data
+	data, err = json.Marshal(v.Chats)
+	if err != nil {
+		return nil, err
+	}
+	fields["chats"] = data
 	data, err = json.Marshal(v.ClassifiedAdsPlaced)
 	if err != nil {
 		return nil, err
 	}
 	fields["classified_ads_placed"] = data
-	data, err = json.Marshal(v.Coworkers)
+	if v.Coworkers.Present {
+		data, err = json.Marshal(v.Coworkers)
+		if err != nil {
+			return nil, err
+		}
+		fields["coworkers"] = data
+	}
+	data, err = json.Marshal(v.Events)
 	if err != nil {
 		return nil, err
 	}
-	fields["coworkers"] = data
-	data, err = json.Marshal(v.Friends)
+	fields["events"] = data
+	data, err = json.Marshal(v.ForumDislikes)
 	if err != nil {
 		return nil, err
 	}
-	fields["friends"] = data
+	fields["forum_dislikes"] = data
+	data, err = json.Marshal(v.ForumLikes)
+	if err != nil {
+		return nil, err
+	}
+	fields["forum_likes"] = data
+	data, err = json.Marshal(v.ForumPosts)
+	if err != nil {
+		return nil, err
+	}
+	fields["forum_posts"] = data
+	data, err = json.Marshal(v.ForumThreads)
+	if err != nil {
+		return nil, err
+	}
+	fields["forum_threads"] = data
+	if v.Friends.Present {
+		data, err = json.Marshal(v.Friends)
+		if err != nil {
+			return nil, err
+		}
+		fields["friends"] = data
+	}
+	data, err = json.Marshal(v.MailsCoworkers)
+	if err != nil {
+		return nil, err
+	}
+	fields["mails_coworkers"] = data
+	data, err = json.Marshal(v.MailsFaction)
+	if err != nil {
+		return nil, err
+	}
+	fields["mails_faction"] = data
+	data, err = json.Marshal(v.MailsFriends)
+	if err != nil {
+		return nil, err
+	}
+	fields["mails_friends"] = data
+	data, err = json.Marshal(v.MailsSpouses)
+	if err != nil {
+		return nil, err
+	}
+	fields["mails_spouses"] = data
+	data, err = json.Marshal(v.MailsTotal)
+	if err != nil {
+		return nil, err
+	}
+	fields["mails_total"] = data
+	data, err = json.Marshal(v.Messages)
+	if err != nil {
+		return nil, err
+	}
+	fields["messages"] = data
 	data, err = json.Marshal(v.PersonalsPlaced)
 	if err != nil {
 		return nil, err
 	}
 	fields["personals_placed"] = data
-	data, err = json.Marshal(v.Spouses)
+	if v.Spouses.Present {
+		data, err = json.Marshal(v.Spouses)
+		if err != nil {
+			return nil, err
+		}
+		fields["spouses"] = data
+	}
+	data, err = json.Marshal(v.TotalEvents)
 	if err != nil {
 		return nil, err
 	}
-	fields["spouses"] = data
+	fields["total_events"] = data
 	data, err = json.Marshal(v.TotalMessages)
 	if err != nil {
 		return nil, err
@@ -79332,6 +79995,7 @@ func (v TornCityStatsResponseStatsCommunication) MarshalJSON() ([]byte, error) {
 // TornCityStatsResponseStatsCrimes is generated from the pinned official Torn contract.
 type TornCityStatsResponseStatsCrimes struct {
 	JailSentences        int64                      `json:"jail_sentences"`
+	Today                int64                      `json:"today"`
 	Total                int64                      `json:"total"`
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -79354,6 +80018,12 @@ func (v *TornCityStatsResponseStatsCrimes) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "jail_sentences")
+	if raw, ok := fields["today"]; ok {
+		if err := json.Unmarshal(raw, &out.Today); err != nil {
+			return err
+		}
+	}
+	delete(fields, "today")
 	if raw, ok := fields["total"]; ok {
 		if err := json.Unmarshal(raw, &out.Total); err != nil {
 			return err
@@ -79365,7 +80035,7 @@ func (v *TornCityStatsResponseStatsCrimes) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (v TornCityStatsResponseStatsCrimes) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+3)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -79376,6 +80046,11 @@ func (v TornCityStatsResponseStatsCrimes) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["jail_sentences"] = data
+	data, err = json.Marshal(v.Today)
+	if err != nil {
+		return nil, err
+	}
+	fields["today"] = data
 	data, err = json.Marshal(v.Total)
 	if err != nil {
 		return nil, err
@@ -79389,6 +80064,8 @@ type TornCityStatsResponseStatsCurrency struct {
 	MoneyInBank          int64                      `json:"money_in_bank"`
 	MoneyOnHand          int64                      `json:"money_on_hand"`
 	MoneyOnHandAverage   int64                      `json:"money_on_hand_average"`
+	PointsAverageCost    int64                      `json:"points_average_cost"`
+	PointsBought         int64                      `json:"points_bought"`
 	PointsFactions       int64                      `json:"points_factions"`
 	PointsMarket         int64                      `json:"points_market"`
 	PointsPlayers        int64                      `json:"points_players"`
@@ -79427,6 +80104,18 @@ func (v *TornCityStatsResponseStatsCurrency) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "money_on_hand_average")
+	if raw, ok := fields["points_average_cost"]; ok {
+		if err := json.Unmarshal(raw, &out.PointsAverageCost); err != nil {
+			return err
+		}
+	}
+	delete(fields, "points_average_cost")
+	if raw, ok := fields["points_bought"]; ok {
+		if err := json.Unmarshal(raw, &out.PointsBought); err != nil {
+			return err
+		}
+	}
+	delete(fields, "points_bought")
 	if raw, ok := fields["points_factions"]; ok {
 		if err := json.Unmarshal(raw, &out.PointsFactions); err != nil {
 			return err
@@ -79462,7 +80151,7 @@ func (v *TornCityStatsResponseStatsCurrency) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (v TornCityStatsResponseStatsCurrency) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+8)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+10)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -79483,6 +80172,16 @@ func (v TornCityStatsResponseStatsCurrency) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["money_on_hand_average"] = data
+	data, err = json.Marshal(v.PointsAverageCost)
+	if err != nil {
+		return nil, err
+	}
+	fields["points_average_cost"] = data
+	data, err = json.Marshal(v.PointsBought)
+	if err != nil {
+		return nil, err
+	}
+	fields["points_bought"] = data
 	data, err = json.Marshal(v.PointsFactions)
 	if err != nil {
 		return nil, err
@@ -80054,9 +80753,11 @@ func (v TornCityStatsResponseStatsJobs) MarshalJSON() ([]byte, error) {
 type TornCityStatsResponseStatsOther struct {
 	CompanyTrains        int64                      `json:"company_trains"`
 	EnergyRefills        int64                      `json:"energy_refills"`
+	GymTrains            int64                      `json:"gym_trains"`
 	Logins               int64                      `json:"logins"`
 	MeritsBought         int64                      `json:"merits_bought"`
 	StatEnhancersUsed    int64                      `json:"stat_enhancers_used"`
+	UsersDaily           int64                      `json:"users_daily"`
 	YearsPlayed          int64                      `json:"years_played"`
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -80085,6 +80786,12 @@ func (v *TornCityStatsResponseStatsOther) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "energy_refills")
+	if raw, ok := fields["gym_trains"]; ok {
+		if err := json.Unmarshal(raw, &out.GymTrains); err != nil {
+			return err
+		}
+	}
+	delete(fields, "gym_trains")
 	if raw, ok := fields["logins"]; ok {
 		if err := json.Unmarshal(raw, &out.Logins); err != nil {
 			return err
@@ -80103,6 +80810,12 @@ func (v *TornCityStatsResponseStatsOther) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "stat_enhancers_used")
+	if raw, ok := fields["users_daily"]; ok {
+		if err := json.Unmarshal(raw, &out.UsersDaily); err != nil {
+			return err
+		}
+	}
+	delete(fields, "users_daily")
 	if raw, ok := fields["years_played"]; ok {
 		if err := json.Unmarshal(raw, &out.YearsPlayed); err != nil {
 			return err
@@ -80114,7 +80827,7 @@ func (v *TornCityStatsResponseStatsOther) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (v TornCityStatsResponseStatsOther) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+6)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+8)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -80130,6 +80843,11 @@ func (v TornCityStatsResponseStatsOther) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["energy_refills"] = data
+	data, err = json.Marshal(v.GymTrains)
+	if err != nil {
+		return nil, err
+	}
+	fields["gym_trains"] = data
 	data, err = json.Marshal(v.Logins)
 	if err != nil {
 		return nil, err
@@ -80145,6 +80863,11 @@ func (v TornCityStatsResponseStatsOther) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["stat_enhancers_used"] = data
+	data, err = json.Marshal(v.UsersDaily)
+	if err != nil {
+		return nil, err
+	}
+	fields["users_daily"] = data
 	data, err = json.Marshal(v.YearsPlayed)
 	if err != nil {
 		return nil, err
@@ -80271,6 +80994,7 @@ func (v TornCityStatsResponseStatsTrading) MarshalJSON() ([]byte, error) {
 // TornCityStatsResponseStatsTraveling is generated from the pinned official Torn contract.
 type TornCityStatsResponseStatsTraveling struct {
 	Argentina            int64                      `json:"argentina"`
+	Canada               int64                      `json:"canada"`
 	CaymanIslands        int64                      `json:"cayman_islands"`
 	China                int64                      `json:"china"`
 	Hawaii               int64                      `json:"hawaii"`
@@ -80303,6 +81027,12 @@ func (v *TornCityStatsResponseStatsTraveling) UnmarshalJSON(data []byte) error {
 		}
 	}
 	delete(fields, "argentina")
+	if raw, ok := fields["canada"]; ok {
+		if err := json.Unmarshal(raw, &out.Canada); err != nil {
+			return err
+		}
+	}
+	delete(fields, "canada")
 	if raw, ok := fields["cayman_islands"]; ok {
 		if err := json.Unmarshal(raw, &out.CaymanIslands); err != nil {
 			return err
@@ -80374,7 +81104,7 @@ func (v *TornCityStatsResponseStatsTraveling) UnmarshalJSON(data []byte) error {
 	return nil
 }
 func (v TornCityStatsResponseStatsTraveling) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+12)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+13)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -80385,6 +81115,11 @@ func (v TornCityStatsResponseStatsTraveling) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["argentina"] = data
+	data, err = json.Marshal(v.Canada)
+	if err != nil {
+		return nil, err
+	}
+	fields["canada"] = data
 	data, err = json.Marshal(v.CaymanIslands)
 	if err != nil {
 		return nil, err
@@ -105919,7 +106654,26 @@ func NewGetTornGenericResponseBodyVariant22(value TornBankResponse) (GetTornGene
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant23() (TornBountiesResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant23() (TornHalloweenResponse, error) {
+	var out TornHalloweenResponse
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornHalloweenResponse\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetTornGenericResponseBodyVariant23(value TornHalloweenResponse) (GetTornGenericResponseBody, error) {
+	var out GetTornGenericResponseBody
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornHalloweenResponse\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetTornGenericResponseBody) AsVariant24() (TornBountiesResponse, error) {
 	var out TornBountiesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornBountiesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -105927,7 +106681,7 @@ func (v GetTornGenericResponseBody) AsVariant23() (TornBountiesResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant23(value TornBountiesResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant24(value TornBountiesResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -105938,7 +106692,7 @@ func NewGetTornGenericResponseBodyVariant23(value TornBountiesResponse) (GetTorn
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant24() (TornGymsResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant25() (TornGymsResponse, error) {
 	var out TornGymsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornGymsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -105946,7 +106700,7 @@ func (v GetTornGenericResponseBody) AsVariant24() (TornGymsResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant24(value TornGymsResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant25(value TornGymsResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -105957,7 +106711,7 @@ func NewGetTornGenericResponseBodyVariant24(value TornGymsResponse) (GetTornGene
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant25() (TornPokerTablesResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant26() (TornPokerTablesResponse, error) {
 	var out TornPokerTablesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornPokerTablesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -105965,7 +106719,7 @@ func (v GetTornGenericResponseBody) AsVariant25() (TornPokerTablesResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant25(value TornPokerTablesResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant26(value TornPokerTablesResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -105976,7 +106730,7 @@ func NewGetTornGenericResponseBodyVariant25(value TornPokerTablesResponse) (GetT
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant26() (TornItemAmmoResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant27() (TornItemAmmoResponse, error) {
 	var out TornItemAmmoResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornItemAmmoResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -105984,7 +106738,7 @@ func (v GetTornGenericResponseBody) AsVariant26() (TornItemAmmoResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant26(value TornItemAmmoResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant27(value TornItemAmmoResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -105995,7 +106749,7 @@ func NewGetTornGenericResponseBodyVariant26(value TornItemAmmoResponse) (GetTorn
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant27() (TornProperties, error) {
+func (v GetTornGenericResponseBody) AsVariant28() (TornProperties, error) {
 	var out TornProperties
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornProperties\"}")), v.raw); err != nil {
 		return out, err
@@ -106003,7 +106757,7 @@ func (v GetTornGenericResponseBody) AsVariant27() (TornProperties, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant27(value TornProperties) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant28(value TornProperties) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106014,7 +106768,7 @@ func NewGetTornGenericResponseBodyVariant27(value TornProperties) (GetTornGeneri
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant28() (TornFactionTreeResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant29() (TornFactionTreeResponse, error) {
 	var out TornFactionTreeResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornFactionTreeResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106022,7 +106776,7 @@ func (v GetTornGenericResponseBody) AsVariant28() (TornFactionTreeResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant28(value TornFactionTreeResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant29(value TornFactionTreeResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106033,7 +106787,7 @@ func NewGetTornGenericResponseBodyVariant28(value TornFactionTreeResponse) (GetT
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant29() (AttackLogResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant30() (AttackLogResponse, error) {
 	var out AttackLogResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/AttackLogResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106041,7 +106795,7 @@ func (v GetTornGenericResponseBody) AsVariant29() (AttackLogResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant29(value AttackLogResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant30(value AttackLogResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106052,7 +106806,7 @@ func NewGetTornGenericResponseBodyVariant29(value AttackLogResponse) (GetTornGen
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant30() (TornMuseumResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant31() (TornMuseumResponse, error) {
 	var out TornMuseumResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornMuseumResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106060,7 +106814,7 @@ func (v GetTornGenericResponseBody) AsVariant30() (TornMuseumResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant30(value TornMuseumResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant31(value TornMuseumResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106071,7 +106825,7 @@ func NewGetTornGenericResponseBodyVariant30(value TornMuseumResponse) (GetTornGe
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant31() (TornStockDetailedResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant32() (TornStockDetailedResponse, error) {
 	var out TornStockDetailedResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornStockDetailedResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106079,7 +106833,7 @@ func (v GetTornGenericResponseBody) AsVariant31() (TornStockDetailedResponse, er
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant31(value TornStockDetailedResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant32(value TornStockDetailedResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106090,7 +106844,7 @@ func NewGetTornGenericResponseBodyVariant31(value TornStockDetailedResponse) (Ge
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant32() (TornStocksResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant33() (TornStocksResponse, error) {
 	var out TornStocksResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornStocksResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106098,7 +106852,7 @@ func (v GetTornGenericResponseBody) AsVariant32() (TornStocksResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant32(value TornStocksResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant33(value TornStocksResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106109,7 +106863,7 @@ func NewGetTornGenericResponseBodyVariant32(value TornStocksResponse) (GetTornGe
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant33() (TornTerritoriesResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant34() (TornTerritoriesResponse, error) {
 	var out TornTerritoriesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornTerritoriesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106117,7 +106871,7 @@ func (v GetTornGenericResponseBody) AsVariant33() (TornTerritoriesResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant33(value TornTerritoriesResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant34(value TornTerritoriesResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106128,7 +106882,7 @@ func NewGetTornGenericResponseBodyVariant33(value TornTerritoriesResponse) (GetT
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant34() (TornTerritoriesNoLinksResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant35() (TornTerritoriesNoLinksResponse, error) {
 	var out TornTerritoriesNoLinksResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornTerritoriesNoLinksResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106136,7 +106890,7 @@ func (v GetTornGenericResponseBody) AsVariant34() (TornTerritoriesNoLinksRespons
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant34(value TornTerritoriesNoLinksResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant35(value TornTerritoriesNoLinksResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106147,7 +106901,7 @@ func NewGetTornGenericResponseBodyVariant34(value TornTerritoriesNoLinksResponse
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant35() (TornItemModsResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant36() (TornItemModsResponse, error) {
 	var out TornItemModsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornItemModsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106155,7 +106909,7 @@ func (v GetTornGenericResponseBody) AsVariant35() (TornItemModsResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant35(value TornItemModsResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant36(value TornItemModsResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106166,7 +106920,7 @@ func NewGetTornGenericResponseBodyVariant35(value TornItemModsResponse) (GetTorn
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant36() (TornLookupResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant37() (TornLookupResponse, error) {
 	var out TornLookupResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TornLookupResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106174,7 +106928,7 @@ func (v GetTornGenericResponseBody) AsVariant36() (TornLookupResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant36(value TornLookupResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant37(value TornLookupResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -106185,7 +106939,7 @@ func NewGetTornGenericResponseBodyVariant36(value TornLookupResponse) (GetTornGe
 	}
 	return out, err
 }
-func (v GetTornGenericResponseBody) AsVariant37() (TimestampResponse, error) {
+func (v GetTornGenericResponseBody) AsVariant38() (TimestampResponse, error) {
 	var out TimestampResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TimestampResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -106193,7 +106947,7 @@ func (v GetTornGenericResponseBody) AsVariant37() (TimestampResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetTornGenericResponseBodyVariant37(value TimestampResponse) (GetTornGenericResponseBody, error) {
+func NewGetTornGenericResponseBodyVariant38(value TimestampResponse) (GetTornGenericResponseBody, error) {
 	var out GetTornGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -107017,6 +107771,66 @@ func (v GetTornGymsParamTimestamp) AsVariant2() (string, error) {
 }
 func NewGetTornGymsParamTimestampVariant2(value string) (GetTornGymsParamTimestamp, error) {
 	var out GetTornGymsParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+
+// GetTornHalloweenParamTimestamp is generated from the pinned official Torn contract.
+type GetTornHalloweenParamTimestamp struct{ raw json.RawMessage }
+
+func (v *GetTornHalloweenParamTimestamp) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("GetTornHalloweenParamTimestamp", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	v.raw = append(v.raw[:0], data...)
+	return nil
+}
+func (v GetTornHalloweenParamTimestamp) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+func (v GetTornHalloweenParamTimestamp) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+func (v GetTornHalloweenParamTimestamp) AsVariant1() (int64, error) {
+	var out int64
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetTornHalloweenParamTimestampVariant1(value int64) (GetTornHalloweenParamTimestamp, error) {
+	var out GetTornHalloweenParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetTornHalloweenParamTimestamp) AsVariant2() (string, error) {
+	var out string
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetTornHalloweenParamTimestampVariant2(value string) (GetTornHalloweenParamTimestamp, error) {
+	var out GetTornHalloweenParamTimestamp
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)
@@ -110340,7 +111154,26 @@ func NewGetUserGenericResponseBodyVariant50(value UserCasinoResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant51() (UserNetworthResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant51() (UserHalloweenResponse, error) {
+	var out UserHalloweenResponse
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserHalloweenResponse\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetUserGenericResponseBodyVariant51(value UserHalloweenResponse) (GetUserGenericResponseBody, error) {
+	var out GetUserGenericResponseBody
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserHalloweenResponse\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetUserGenericResponseBody) AsVariant52() (UserNetworthResponse, error) {
 	var out UserNetworthResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNetworthResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110348,7 +111181,7 @@ func (v GetUserGenericResponseBody) AsVariant51() (UserNetworthResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant51(value UserNetworthResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant52(value UserNetworthResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110359,7 +111192,7 @@ func NewGetUserGenericResponseBodyVariant51(value UserNetworthResponse) (GetUser
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant52() (UserMoneyResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant53() (UserMoneyResponse, error) {
 	var out UserMoneyResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserMoneyResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110367,7 +111200,7 @@ func (v GetUserGenericResponseBody) AsVariant52() (UserMoneyResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant52(value UserMoneyResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant53(value UserMoneyResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110378,7 +111211,7 @@ func NewGetUserGenericResponseBodyVariant52(value UserMoneyResponse) (GetUserGen
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant53() (UserJobPointsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant54() (UserJobPointsResponse, error) {
 	var out UserJobPointsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserJobPointsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110386,7 +111219,7 @@ func (v GetUserGenericResponseBody) AsVariant53() (UserJobPointsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant53(value UserJobPointsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant54(value UserJobPointsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110397,7 +111230,7 @@ func NewGetUserGenericResponseBodyVariant53(value UserJobPointsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant54() (UserWorkStatsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant55() (UserWorkStatsResponse, error) {
 	var out UserWorkStatsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserWorkStatsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110405,7 +111238,7 @@ func (v GetUserGenericResponseBody) AsVariant54() (UserWorkStatsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant54(value UserWorkStatsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant55(value UserWorkStatsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110416,7 +111249,7 @@ func NewGetUserGenericResponseBodyVariant54(value UserWorkStatsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant55() (UserSkillsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant56() (UserSkillsResponse, error) {
 	var out UserSkillsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserSkillsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110424,7 +111257,7 @@ func (v GetUserGenericResponseBody) AsVariant55() (UserSkillsResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant55(value UserSkillsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant56(value UserSkillsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110435,7 +111268,7 @@ func NewGetUserGenericResponseBodyVariant55(value UserSkillsResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant56() (UserBattleStatsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant57() (UserBattleStatsResponse, error) {
 	var out UserBattleStatsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserBattleStatsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110443,7 +111276,7 @@ func (v GetUserGenericResponseBody) AsVariant56() (UserBattleStatsResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant56(value UserBattleStatsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant57(value UserBattleStatsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110454,7 +111287,7 @@ func NewGetUserGenericResponseBodyVariant56(value UserBattleStatsResponse) (GetU
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant57() (UserGymResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant58() (UserGymResponse, error) {
 	var out UserGymResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserGymResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110462,7 +111295,7 @@ func (v GetUserGenericResponseBody) AsVariant57() (UserGymResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant57(value UserGymResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant58(value UserGymResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110473,7 +111306,7 @@ func NewGetUserGenericResponseBodyVariant57(value UserGymResponse) (GetUserGener
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant58() (UserTradeResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant59() (UserTradeResponse, error) {
 	var out UserTradeResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTradeResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110481,7 +111314,7 @@ func (v GetUserGenericResponseBody) AsVariant58() (UserTradeResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant58(value UserTradeResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant59(value UserTradeResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110492,7 +111325,7 @@ func NewGetUserGenericResponseBodyVariant58(value UserTradeResponse) (GetUserGen
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant59() (UserTradesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant60() (UserTradesResponse, error) {
 	var out UserTradesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTradesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110500,7 +111333,7 @@ func (v GetUserGenericResponseBody) AsVariant59() (UserTradesResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant59(value UserTradesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant60(value UserTradesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110511,7 +111344,7 @@ func NewGetUserGenericResponseBodyVariant59(value UserTradesResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant60() (UserNewEventsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant61() (UserNewEventsResponse, error) {
 	var out UserNewEventsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNewEventsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110519,7 +111352,7 @@ func (v GetUserGenericResponseBody) AsVariant60() (UserNewEventsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant60(value UserNewEventsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant61(value UserNewEventsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110530,7 +111363,7 @@ func NewGetUserGenericResponseBodyVariant60(value UserNewEventsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant61() (UserEventsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant62() (UserEventsResponse, error) {
 	var out UserEventsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserEventsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110538,7 +111371,7 @@ func (v GetUserGenericResponseBody) AsVariant61() (UserEventsResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant61(value UserEventsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant62(value UserEventsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110549,7 +111382,7 @@ func NewGetUserGenericResponseBodyVariant61(value UserEventsResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant62() (UserMessagesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant63() (UserMessagesResponse, error) {
 	var out UserMessagesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserMessagesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110557,7 +111390,7 @@ func (v GetUserGenericResponseBody) AsVariant62() (UserMessagesResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant62(value UserMessagesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant63(value UserMessagesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110568,7 +111401,7 @@ func NewGetUserGenericResponseBodyVariant62(value UserMessagesResponse) (GetUser
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant63() (UserNewMessagesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant64() (UserNewMessagesResponse, error) {
 	var out UserNewMessagesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNewMessagesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110576,7 +111409,7 @@ func (v GetUserGenericResponseBody) AsVariant63() (UserNewMessagesResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant63(value UserNewMessagesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant64(value UserNewMessagesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110587,7 +111420,7 @@ func NewGetUserGenericResponseBodyVariant63(value UserNewMessagesResponse) (GetU
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant64() (UserLookupResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant65() (UserLookupResponse, error) {
 	var out UserLookupResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserLookupResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110595,7 +111428,7 @@ func (v GetUserGenericResponseBody) AsVariant64() (UserLookupResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant64(value UserLookupResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant65(value UserLookupResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110606,7 +111439,7 @@ func NewGetUserGenericResponseBodyVariant64(value UserLookupResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant65() (UserInventoryResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant66() (UserInventoryResponse, error) {
 	var out UserInventoryResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserInventoryResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110614,7 +111447,7 @@ func (v GetUserGenericResponseBody) AsVariant65() (UserInventoryResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant65(value UserInventoryResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant66(value UserInventoryResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -110625,7 +111458,7 @@ func NewGetUserGenericResponseBodyVariant65(value UserInventoryResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant66() (TimestampResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant67() (TimestampResponse, error) {
 	var out TimestampResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TimestampResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -110633,7 +111466,7 @@ func (v GetUserGenericResponseBody) AsVariant66() (TimestampResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant66(value TimestampResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant67(value TimestampResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -112162,6 +112995,66 @@ func (v GetMyGymParamTimestamp) AsVariant2() (string, error) {
 }
 func NewGetMyGymParamTimestampVariant2(value string) (GetMyGymParamTimestamp, error) {
 	var out GetMyGymParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+
+// GetMyHalloweenParamTimestamp is generated from the pinned official Torn contract.
+type GetMyHalloweenParamTimestamp struct{ raw json.RawMessage }
+
+func (v *GetMyHalloweenParamTimestamp) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("GetMyHalloweenParamTimestamp", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	v.raw = append(v.raw[:0], data...)
+	return nil
+}
+func (v GetMyHalloweenParamTimestamp) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+func (v GetMyHalloweenParamTimestamp) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+func (v GetMyHalloweenParamTimestamp) AsVariant1() (int64, error) {
+	var out int64
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetMyHalloweenParamTimestampVariant1(value int64) (GetMyHalloweenParamTimestamp, error) {
+	var out GetMyHalloweenParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetMyHalloweenParamTimestamp) AsVariant2() (string, error) {
+	var out string
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetMyHalloweenParamTimestampVariant2(value string) (GetMyHalloweenParamTimestamp, error) {
+	var out GetMyHalloweenParamTimestamp
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)
