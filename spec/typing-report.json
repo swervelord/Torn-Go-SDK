@@ -372,6 +372,10 @@
       "reason": "Official required property has no property schema; its value remains exact raw JSON."
     },
     {
+      "path": "#/components/schemas/TornHalloweenUpgrade/type",
+      "reason": "Official required property has no property schema; its value remains exact raw JSON."
+    },
+    {
       "path": "#/components/schemas/UserCrimeDetailsBootlegging/dvd_copies",
       "reason": "Official required property has no property schema; its value remains exact raw JSON."
     },
@@ -382,5 +386,5 @@
   ],
   "scope": "All audited official v2 schemas and operations; historical 6.13.6 schemas; documented selection routing. Unspecified v1 payloads and open log maps cannot be claimed fully statically typed.",
   "source": "https://www.torn.com/swagger/openapi.json",
-  "version": "6.13.8"
+  "version": "6.14.0"
 }

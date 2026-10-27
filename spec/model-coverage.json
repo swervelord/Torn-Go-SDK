@@ -1,6 +1,6 @@
 {
-  "componentSchemaCount": 712,
-  "operationCount": 234,
+  "componentSchemaCount": 719,
+  "operationCount": 236,
   "operations": [
     {
       "operationId": "getCompanyGeneric",
@@ -8,7 +8,8 @@
       "method": "GET",
       "params": "GetCompanyGenericParams",
       "response": "GetCompanyGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompanyApplications",
@@ -16,7 +17,8 @@
       "method": "GET",
       "params": "GetMyCompanyApplicationsParams",
       "response": "GetMyCompanyApplicationsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompanyEmployees",
@@ -24,7 +26,8 @@
       "method": "GET",
       "params": "GetMyCompanyEmployeesParams",
       "response": "GetMyCompanyEmployeesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompanyLookup",
@@ -32,7 +35,8 @@
       "method": "GET",
       "params": "GetCompanyLookupParams",
       "response": "GetCompanyLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompanyNews",
@@ -40,7 +44,8 @@
       "method": "GET",
       "params": "GetMyCompanyNewsParams",
       "response": "GetMyCompanyNewsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompanyProfile",
@@ -48,7 +53,8 @@
       "method": "GET",
       "params": "GetMyCompanyProfileParams",
       "response": "GetMyCompanyProfileResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompaniesSearch",
@@ -56,7 +62,8 @@
       "method": "GET",
       "params": "GetCompaniesSearchParams",
       "response": "GetCompaniesSearchResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompaniesSnapshot",
@@ -64,7 +71,8 @@
       "method": "GET",
       "params": "GetCompaniesSnapshotParams",
       "response": "GetCompaniesSnapshotResponse",
-      "csv": true
+      "csv": true,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompanyStock",
@@ -72,7 +80,8 @@
       "method": "GET",
       "params": "GetMyCompanyStockParams",
       "response": "GetMyCompanyStockResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompanyTimestamp",
@@ -80,7 +89,8 @@
       "method": "GET",
       "params": "GetCompanyTimestampParams",
       "response": "GetCompanyTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompanyEmployees",
@@ -88,7 +98,8 @@
       "method": "GET",
       "params": "GetCompanyEmployeesParams",
       "response": "GetCompanyEmployeesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompanyProfile",
@@ -96,7 +107,8 @@
       "method": "GET",
       "params": "GetCompanyProfileParams",
       "response": "GetCompanyProfileResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getCompaniesList",
@@ -104,7 +116,8 @@
       "method": "GET",
       "params": "GetCompaniesListParams",
       "response": "GetCompaniesListResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionGeneric",
@@ -112,7 +125,8 @@
       "method": "GET",
       "params": "GetFactionGenericParams",
       "response": "GetFactionGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionApplications",
@@ -120,7 +134,8 @@
       "method": "GET",
       "params": "GetMyFactionApplicationsParams",
       "response": "GetMyFactionApplicationsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionAttacks",
@@ -128,7 +143,8 @@
       "method": "GET",
       "params": "GetMyFactionAttacksParams",
       "response": "GetMyFactionAttacksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionAttacksSimplified",
@@ -136,7 +152,8 @@
       "method": "GET",
       "params": "GetMyFactionAttacksSimplifiedParams",
       "response": "GetMyFactionAttacksSimplifiedResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionBalance",
@@ -144,7 +161,8 @@
       "method": "GET",
       "params": "GetMyFactionBalanceParams",
       "response": "GetMyFactionBalanceResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionBasicInformation",
@@ -152,7 +170,8 @@
       "method": "GET",
       "params": "GetMyFactionBasicInformationParams",
       "response": "GetMyFactionBasicInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionChain",
@@ -160,7 +179,8 @@
       "method": "GET",
       "params": "GetMyFactionChainParams",
       "response": "GetMyFactionChainResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionLatestChainReport",
@@ -168,7 +188,8 @@
       "method": "GET",
       "params": "GetMyFactionLatestChainReportParams",
       "response": "GetMyFactionLatestChainReportResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionCompletedChains",
@@ -176,7 +197,8 @@
       "method": "GET",
       "params": "GetMyFactionCompletedChainsParams",
       "response": "GetMyFactionCompletedChainsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionContributors",
@@ -184,7 +206,8 @@
       "method": "GET",
       "params": "GetMyFactionContributorsParams",
       "response": "GetMyFactionContributorsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionCrimeExp",
@@ -192,7 +215,8 @@
       "method": "GET",
       "params": "GetMyFactionCrimeExpParams",
       "response": "GetMyFactionCrimeExpResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionOrganizedCrimes",
@@ -200,7 +224,8 @@
       "method": "GET",
       "params": "GetMyFactionOrganizedCrimesParams",
       "response": "GetMyFactionOrganizedCrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfareDirtyBombs",
@@ -208,7 +233,8 @@
       "method": "GET",
       "params": "GetWarfareDirtyBombsParams",
       "response": "GetWarfareDirtyBombsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionHoF",
@@ -216,7 +242,8 @@
       "method": "GET",
       "params": "GetMyFactionHoFParams",
       "response": "GetMyFactionHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionInventory",
@@ -224,7 +251,9 @@
       "method": "GET",
       "params": "GetMyFactionInventoryParams",
       "response": "GetMyFactionInventoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable",
+      "cacheTTLSeconds": 300
     },
     {
       "operationId": "getFactionLookup",
@@ -232,7 +261,8 @@
       "method": "GET",
       "params": "GetFactionLookupParams",
       "response": "GetFactionLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionMembers",
@@ -240,7 +270,8 @@
       "method": "GET",
       "params": "GetMyFactionMembersParams",
       "response": "GetMyFactionMembersResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionNews",
@@ -248,7 +279,8 @@
       "method": "GET",
       "params": "GetMyFactionNewsParams",
       "response": "GetMyFactionNewsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionPositions",
@@ -256,7 +288,8 @@
       "method": "GET",
       "params": "GetMyFactionPositionsParams",
       "response": "GetMyFactionPositionsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionRackets",
@@ -264,7 +297,8 @@
       "method": "GET",
       "params": "GetFactionRacketsParams",
       "response": "GetFactionRacketsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionRaidsHistory",
@@ -272,7 +306,8 @@
       "method": "GET",
       "params": "GetMyFactionRaidsHistoryParams",
       "response": "GetMyFactionRaidsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionRankedWarsHistory",
@@ -280,7 +315,8 @@
       "method": "GET",
       "params": "GetMyFactionRankedWarsHistoryParams",
       "response": "GetMyFactionRankedWarsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionReports",
@@ -288,7 +324,8 @@
       "method": "GET",
       "params": "GetMyFactionReportsParams",
       "response": "GetMyFactionReportsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionRevives",
@@ -296,7 +333,8 @@
       "method": "GET",
       "params": "GetMyFactionRevivesParams",
       "response": "GetMyFactionRevivesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionRevivesSimplified",
@@ -304,7 +342,8 @@
       "method": "GET",
       "params": "GetMyFactionRevivesSimplifiedParams",
       "response": "GetMyFactionRevivesSimplifiedResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionSearch",
@@ -312,7 +351,8 @@
       "method": "GET",
       "params": "GetFactionSearchParams",
       "response": "GetFactionSearchResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionsSnapshot",
@@ -320,7 +360,8 @@
       "method": "GET",
       "params": "GetFactionsSnapshotParams",
       "response": "GetFactionsSnapshotResponse",
-      "csv": true
+      "csv": true,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionStats",
@@ -328,7 +369,8 @@
       "method": "GET",
       "params": "GetMyFactionStatsParams",
       "response": "GetMyFactionStatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionTerritory",
@@ -336,7 +378,8 @@
       "method": "GET",
       "params": "GetMyFactionTerritoryParams",
       "response": "GetMyFactionTerritoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTerritoryOwnership",
@@ -344,7 +387,8 @@
       "method": "GET",
       "params": "GetTerritoryOwnershipParams",
       "response": "GetTerritoryOwnershipResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionTerritoryWarsHistory",
@@ -352,7 +396,8 @@
       "method": "GET",
       "params": "GetMyFactionTerritoryWarsHistoryParams",
       "response": "GetMyFactionTerritoryWarsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionTimestamp",
@@ -360,7 +405,8 @@
       "method": "GET",
       "params": "GetFactionTimestampParams",
       "response": "GetFactionTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionUpgrades",
@@ -368,7 +414,8 @@
       "method": "GET",
       "params": "GetMyFactionUpgradesParams",
       "response": "GetMyFactionUpgradesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfare",
@@ -376,7 +423,8 @@
       "method": "GET",
       "params": "GetWarfareParams",
       "response": "GetWarfareResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfareChains",
@@ -384,7 +432,8 @@
       "method": "GET",
       "params": "GetWarfareChainsParams",
       "response": "GetWarfareChainsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfareRaids",
@@ -392,7 +441,8 @@
       "method": "GET",
       "params": "GetWarfareRaidsParams",
       "response": "GetWarfareRaidsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfareRankedWars",
@@ -400,7 +450,8 @@
       "method": "GET",
       "params": "GetWarfareRankedWarsParams",
       "response": "GetWarfareRankedWarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getWarfareTerritoryWars",
@@ -408,7 +459,8 @@
       "method": "GET",
       "params": "GetWarfareTerritoryWarsParams",
       "response": "GetWarfareTerritoryWarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionWars",
@@ -416,7 +468,8 @@
       "method": "GET",
       "params": "GetMyFactionWarsParams",
       "response": "GetMyFactionWarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getChainReport",
@@ -424,7 +477,8 @@
       "method": "GET",
       "params": "GetChainReportParams",
       "response": "GetChainReportResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFactionOrganizedCrime",
@@ -432,7 +486,8 @@
       "method": "GET",
       "params": "GetMyFactionOrganizedCrimeParams",
       "response": "GetMyFactionOrganizedCrimeResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionBasicInformation",
@@ -440,7 +495,8 @@
       "method": "GET",
       "params": "GetFactionBasicInformationParams",
       "response": "GetFactionBasicInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionChain",
@@ -448,7 +504,8 @@
       "method": "GET",
       "params": "GetFactionChainParams",
       "response": "GetFactionChainResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionCompletedChains",
@@ -456,7 +513,8 @@
       "method": "GET",
       "params": "GetFactionCompletedChainsParams",
       "response": "GetFactionCompletedChainsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionHoF",
@@ -464,7 +522,8 @@
       "method": "GET",
       "params": "GetFactionHoFParams",
       "response": "GetFactionHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionMembers",
@@ -472,7 +531,8 @@
       "method": "GET",
       "params": "GetFactionMembersParams",
       "response": "GetFactionMembersResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionRaidsHistory",
@@ -480,7 +540,8 @@
       "method": "GET",
       "params": "GetFactionRaidsHistoryParams",
       "response": "GetFactionRaidsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionRankedWarsHistory",
@@ -488,7 +549,8 @@
       "method": "GET",
       "params": "GetFactionRankedWarsHistoryParams",
       "response": "GetFactionRankedWarsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionTerritory",
@@ -496,7 +558,8 @@
       "method": "GET",
       "params": "GetFactionTerritoryParams",
       "response": "GetFactionTerritoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionTerritoryWarsHistory",
@@ -504,7 +567,8 @@
       "method": "GET",
       "params": "GetFactionTerritoryWarsHistoryParams",
       "response": "GetFactionTerritoryWarsHistoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getFactionWars",
@@ -512,7 +576,8 @@
       "method": "GET",
       "params": "GetFactionWarsParams",
       "response": "GetFactionWarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRaidReport",
@@ -520,7 +585,8 @@
       "method": "GET",
       "params": "GetRaidReportParams",
       "response": "GetRaidReportResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRankedWarReport",
@@ -528,7 +594,8 @@
       "method": "GET",
       "params": "GetRankedWarReportParams",
       "response": "GetRankedWarReportResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTerritoryWarReport",
@@ -536,7 +603,8 @@
       "method": "GET",
       "params": "GetTerritoryWarReportParams",
       "response": "GetTerritoryWarReportResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumGeneric",
@@ -544,7 +612,8 @@
       "method": "GET",
       "params": "GetForumGenericParams",
       "response": "GetForumGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumCategories",
@@ -552,7 +621,8 @@
       "method": "GET",
       "params": "GetForumCategoriesParams",
       "response": "GetForumCategoriesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumLookup",
@@ -560,7 +630,8 @@
       "method": "GET",
       "params": "GetForumLookupParams",
       "response": "GetForumLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumAllThreads",
@@ -568,7 +639,8 @@
       "method": "GET",
       "params": "GetForumAllThreadsParams",
       "response": "GetForumAllThreadsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumTimestamp",
@@ -576,7 +648,8 @@
       "method": "GET",
       "params": "GetForumTimestampParams",
       "response": "GetForumTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumThreads",
@@ -584,7 +657,8 @@
       "method": "GET",
       "params": "GetForumThreadsParams",
       "response": "GetForumThreadsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumThreadPosts",
@@ -592,7 +666,8 @@
       "method": "GET",
       "params": "GetForumThreadPostsParams",
       "response": "GetForumThreadPostsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getForumThread",
@@ -600,7 +675,8 @@
       "method": "GET",
       "params": "GetForumThreadParams",
       "response": "GetForumThreadResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getKeyGeneric",
@@ -608,7 +684,8 @@
       "method": "GET",
       "params": "GetKeyGenericParams",
       "response": "GetKeyGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getKeyInfo",
@@ -616,7 +693,8 @@
       "method": "GET",
       "params": "GetKeyInfoParams",
       "response": "GetKeyInfoResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getKeyLog",
@@ -624,7 +702,8 @@
       "method": "GET",
       "params": "GetKeyLogParams",
       "response": "GetKeyLogResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketGeneric",
@@ -632,7 +711,8 @@
       "method": "GET",
       "params": "GetMarketGenericParams",
       "response": "GetMarketGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketAuctionHouse",
@@ -640,7 +720,8 @@
       "method": "GET",
       "params": "GetMarketAuctionHouseParams",
       "response": "GetMarketAuctionHouseResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketBazaar",
@@ -648,7 +729,8 @@
       "method": "GET",
       "params": "GetMarketBazaarParams",
       "response": "GetMarketBazaarResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketLookup",
@@ -656,7 +738,8 @@
       "method": "GET",
       "params": "GetMarketLookupParams",
       "response": "GetMarketLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketPoints",
@@ -664,7 +747,8 @@
       "method": "GET",
       "params": "GetMarketPointsParams",
       "response": "GetMarketPointsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketTimestamp",
@@ -672,7 +756,8 @@
       "method": "GET",
       "params": "GetMarketTimestampParams",
       "response": "GetMarketTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketAuctionHouseItem",
@@ -680,7 +765,8 @@
       "method": "GET",
       "params": "GetMarketAuctionHouseItemParams",
       "response": "GetMarketAuctionHouseItemResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketAuctionHouseListing",
@@ -688,7 +774,8 @@
       "method": "GET",
       "params": "GetMarketAuctionHouseListingParams",
       "response": "GetMarketAuctionHouseListingResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketBazaarItem",
@@ -696,7 +783,8 @@
       "method": "GET",
       "params": "GetMarketBazaarItemParams",
       "response": "GetMarketBazaarItemResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketItemMarketItem",
@@ -704,7 +792,8 @@
       "method": "GET",
       "params": "GetMarketItemMarketItemParams",
       "response": "GetMarketItemMarketItemResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketProperties",
@@ -712,7 +801,8 @@
       "method": "GET",
       "params": "GetMarketPropertiesParams",
       "response": "GetMarketPropertiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMarketPropertiesRental",
@@ -720,7 +810,8 @@
       "method": "GET",
       "params": "GetMarketPropertiesRentalParams",
       "response": "GetMarketPropertiesRentalResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getPropertyGeneric",
@@ -728,7 +819,8 @@
       "method": "GET",
       "params": "GetPropertyGenericParams",
       "response": "GetPropertyGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getPropertyLookup",
@@ -736,7 +828,8 @@
       "method": "GET",
       "params": "GetPropertyLookupParams",
       "response": "GetPropertyLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getPropertyTimestamp",
@@ -744,7 +837,8 @@
       "method": "GET",
       "params": "GetPropertyTimestampParams",
       "response": "GetPropertyTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getProperty",
@@ -752,7 +846,8 @@
       "method": "GET",
       "params": "GetPropertyParams",
       "response": "GetPropertyResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingGeneric",
@@ -760,7 +855,8 @@
       "method": "GET",
       "params": "GetRacingGenericParams",
       "response": "GetRacingGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingCars",
@@ -768,7 +864,8 @@
       "method": "GET",
       "params": "GetRacingCarsParams",
       "response": "GetRacingCarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingCarUpgrades",
@@ -776,7 +873,8 @@
       "method": "GET",
       "params": "GetRacingCarUpgradesParams",
       "response": "GetRacingCarUpgradesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingLookup",
@@ -784,7 +882,8 @@
       "method": "GET",
       "params": "GetRacingLookupParams",
       "response": "GetRacingLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingRaces",
@@ -792,7 +891,8 @@
       "method": "GET",
       "params": "GetRacingRacesParams",
       "response": "GetRacingRacesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingTimestamp",
@@ -800,7 +900,8 @@
       "method": "GET",
       "params": "GetRacingTimestampParams",
       "response": "GetRacingTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingTracks",
@@ -808,7 +909,8 @@
       "method": "GET",
       "params": "GetRacingTracksParams",
       "response": "GetRacingTracksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingRaceDetails",
@@ -816,7 +918,8 @@
       "method": "GET",
       "params": "GetRacingRaceDetailsParams",
       "response": "GetRacingRaceDetailsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getRacingTrackRecords",
@@ -824,7 +927,8 @@
       "method": "GET",
       "params": "GetRacingTrackRecordsParams",
       "response": "GetRacingTrackRecordsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornGeneric",
@@ -832,7 +936,8 @@
       "method": "GET",
       "params": "GetTornGenericParams",
       "response": "GetTornGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornAttackLog",
@@ -840,7 +945,8 @@
       "method": "GET",
       "params": "GetTornAttackLogParams",
       "response": "GetTornAttackLogResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornBank",
@@ -848,7 +954,8 @@
       "method": "GET",
       "params": "GetTornBankParams",
       "response": "GetTornBankResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornBounties",
@@ -856,7 +963,8 @@
       "method": "GET",
       "params": "GetTornBountiesParams",
       "response": "GetTornBountiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCalendar",
@@ -864,7 +972,8 @@
       "method": "GET",
       "params": "GetTornCalendarParams",
       "response": "GetTornCalendarResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCards",
@@ -872,7 +981,8 @@
       "method": "GET",
       "params": "GetTornCardsParams",
       "response": "GetTornCardsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCityShops",
@@ -880,7 +990,8 @@
       "method": "GET",
       "params": "GetTornCityShopsParams",
       "response": "GetTornCityShopsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCompanies",
@@ -888,7 +999,8 @@
       "method": "GET",
       "params": "GetTornCompaniesParams",
       "response": "GetTornCompaniesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCrimes",
@@ -896,7 +1008,8 @@
       "method": "GET",
       "params": "GetTornCrimesParams",
       "response": "GetTornCrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornEducation",
@@ -904,7 +1017,8 @@
       "method": "GET",
       "params": "GetTornEducationParams",
       "response": "GetTornEducationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornElimination",
@@ -912,7 +1026,8 @@
       "method": "GET",
       "params": "GetTornEliminationParams",
       "response": "GetTornEliminationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Unstable"
     },
     {
       "operationId": "getTornFactionHoF",
@@ -920,7 +1035,8 @@
       "method": "GET",
       "params": "GetTornFactionHoFParams",
       "response": "GetTornFactionHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornFactionTree",
@@ -928,7 +1044,8 @@
       "method": "GET",
       "params": "GetTornFactionTreeParams",
       "response": "GetTornFactionTreeResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornGyms",
@@ -936,7 +1053,17 @@
       "method": "GET",
       "params": "GetTornGymsParams",
       "response": "GetTornGymsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
+    },
+    {
+      "operationId": "getTornHalloween",
+      "path": "/torn/halloween",
+      "method": "GET",
+      "params": "GetTornHalloweenParams",
+      "response": "GetTornHalloweenResponse",
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornHoF",
@@ -944,7 +1071,8 @@
       "method": "GET",
       "params": "GetTornHoFParams",
       "response": "GetTornHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornHonors",
@@ -952,7 +1080,8 @@
       "method": "GET",
       "params": "GetTornHonorsParams",
       "response": "GetTornHonorsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItemAmmo",
@@ -960,7 +1089,8 @@
       "method": "GET",
       "params": "GetTornItemAmmoParams",
       "response": "GetTornItemAmmoResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItemMods",
@@ -968,7 +1098,8 @@
       "method": "GET",
       "params": "GetTornItemModsParams",
       "response": "GetTornItemModsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItems",
@@ -976,7 +1107,8 @@
       "method": "GET",
       "params": "GetTornItemsParams",
       "response": "GetTornItemsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornLogCategories",
@@ -984,7 +1116,8 @@
       "method": "GET",
       "params": "GetTornLogCategoriesParams",
       "response": "GetTornLogCategoriesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornLogTypes",
@@ -992,7 +1125,8 @@
       "method": "GET",
       "params": "GetTornLogTypesParams",
       "response": "GetTornLogTypesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornLookup",
@@ -1000,7 +1134,8 @@
       "method": "GET",
       "params": "GetTornLookupParams",
       "response": "GetTornLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornMedals",
@@ -1008,7 +1143,8 @@
       "method": "GET",
       "params": "GetTornMedalsParams",
       "response": "GetTornMedalsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornMerits",
@@ -1016,7 +1152,8 @@
       "method": "GET",
       "params": "GetTornMeritsParams",
       "response": "GetTornMeritsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornMuseum",
@@ -1024,7 +1161,8 @@
       "method": "GET",
       "params": "GetTornMuseumParams",
       "response": "GetTornMuseumResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornOrganizedCrimes",
@@ -1032,7 +1170,8 @@
       "method": "GET",
       "params": "GetTornOrganizedCrimesParams",
       "response": "GetTornOrganizedCrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornPokerTables",
@@ -1040,7 +1179,8 @@
       "method": "GET",
       "params": "GetTornPokerTablesParams",
       "response": "GetTornPokerTablesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornProperties",
@@ -1048,7 +1188,8 @@
       "method": "GET",
       "params": "GetTornPropertiesParams",
       "response": "GetTornPropertiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornRps",
@@ -1056,7 +1197,8 @@
       "method": "GET",
       "params": "GetTornRpsParams",
       "response": "GetTornRpsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornSearchForCash",
@@ -1064,7 +1206,8 @@
       "method": "GET",
       "params": "GetTornSearchForCashParams",
       "response": "GetTornSearchForCashResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornShoplifting",
@@ -1072,7 +1215,8 @@
       "method": "GET",
       "params": "GetTornShopliftingParams",
       "response": "GetTornShopliftingResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCityStats",
@@ -1080,7 +1224,8 @@
       "method": "GET",
       "params": "GetTornCityStatsParams",
       "response": "GetTornCityStatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornStocks",
@@ -1088,7 +1233,8 @@
       "method": "GET",
       "params": "GetTornStocksParams",
       "response": "GetTornStocksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornTerritory",
@@ -1096,7 +1242,8 @@
       "method": "GET",
       "params": "GetTornTerritoryParams",
       "response": "GetTornTerritoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornTimestamp",
@@ -1104,7 +1251,8 @@
       "method": "GET",
       "params": "GetTornTimestampParams",
       "response": "GetTornTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornSubcrimes",
@@ -1112,7 +1260,8 @@
       "method": "GET",
       "params": "GetTornSubcrimesParams",
       "response": "GetTornSubcrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornHonorsSpecific",
@@ -1120,7 +1269,8 @@
       "method": "GET",
       "params": "GetTornHonorsSpecificParams",
       "response": "GetTornHonorsSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItemDetails",
@@ -1128,7 +1278,8 @@
       "method": "GET",
       "params": "GetTornItemDetailsParams",
       "response": "GetTornItemDetailsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItemsSpecific",
@@ -1136,7 +1287,8 @@
       "method": "GET",
       "params": "GetTornItemsSpecificParams",
       "response": "GetTornItemsSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornItemStats",
@@ -1144,7 +1296,8 @@
       "method": "GET",
       "params": "GetTornItemStatsParams",
       "response": "GetTornItemStatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornMedalsSpecific",
@@ -1152,7 +1305,8 @@
       "method": "GET",
       "params": "GetTornMedalsSpecificParams",
       "response": "GetTornMedalsSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornEliminationTeam",
@@ -1160,7 +1314,8 @@
       "method": "GET",
       "params": "GetTornEliminationTeamParams",
       "response": "GetTornEliminationTeamResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Unstable"
     },
     {
       "operationId": "getTornLogTypesSpecific",
@@ -1168,7 +1323,8 @@
       "method": "GET",
       "params": "GetTornLogTypesSpecificParams",
       "response": "GetTornLogTypesSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCityShopSpecific",
@@ -1176,7 +1332,8 @@
       "method": "GET",
       "params": "GetTornCityShopSpecificParams",
       "response": "GetTornCityShopSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getSpecificTornStock",
@@ -1184,7 +1341,8 @@
       "method": "GET",
       "params": "GetSpecificTornStockParams",
       "response": "GetSpecificTornStockResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getTornCompaniesSpecific",
@@ -1192,7 +1350,8 @@
       "method": "GET",
       "params": "GetTornCompaniesSpecificParams",
       "response": "GetTornCompaniesSpecificResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserGeneric",
@@ -1200,7 +1359,8 @@
       "method": "GET",
       "params": "GetUserGenericParams",
       "response": "GetUserGenericResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyAmmo",
@@ -1208,7 +1368,8 @@
       "method": "GET",
       "params": "GetMyAmmoParams",
       "response": "GetMyAmmoResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyAttacks",
@@ -1216,7 +1377,8 @@
       "method": "GET",
       "params": "GetMyAttacksParams",
       "response": "GetMyAttacksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyAttacksSimplified",
@@ -1224,7 +1386,8 @@
       "method": "GET",
       "params": "GetMyAttacksSimplifiedParams",
       "response": "GetMyAttacksSimplifiedResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyBars",
@@ -1232,7 +1395,8 @@
       "method": "GET",
       "params": "GetMyBarsParams",
       "response": "GetMyBarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyBasicInformation",
@@ -1240,7 +1404,8 @@
       "method": "GET",
       "params": "GetMyBasicInformationParams",
       "response": "GetMyBasicInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyBattlestats",
@@ -1248,7 +1413,8 @@
       "method": "GET",
       "params": "GetMyBattlestatsParams",
       "response": "GetMyBattlestatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyBounties",
@@ -1256,7 +1422,8 @@
       "method": "GET",
       "params": "GetMyBountiesParams",
       "response": "GetMyBountiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCalendarTime",
@@ -1264,7 +1431,8 @@
       "method": "GET",
       "params": "GetMyCalendarTimeParams",
       "response": "GetMyCalendarTimeResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCasinoStreak",
@@ -1272,7 +1440,8 @@
       "method": "GET",
       "params": "GetMyCasinoStreakParams",
       "response": "GetMyCasinoStreakResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCompetitionInfo",
@@ -1280,7 +1449,8 @@
       "method": "GET",
       "params": "GetMyCompetitionInfoParams",
       "response": "GetMyCompetitionInfoResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCooldowns",
@@ -1288,7 +1458,8 @@
       "method": "GET",
       "params": "GetMyCooldownsParams",
       "response": "GetMyCooldownsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyDiscord",
@@ -1296,7 +1467,8 @@
       "method": "GET",
       "params": "GetMyDiscordParams",
       "response": "GetMyDiscordResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyEducation",
@@ -1304,7 +1476,8 @@
       "method": "GET",
       "params": "GetMyEducationParams",
       "response": "GetMyEducationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyEnlistedCars",
@@ -1312,7 +1485,8 @@
       "method": "GET",
       "params": "GetMyEnlistedCarsParams",
       "response": "GetMyEnlistedCarsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyEquipment",
@@ -1320,7 +1494,8 @@
       "method": "GET",
       "params": "GetMyEquipmentParams",
       "response": "GetMyEquipmentResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyEvents",
@@ -1328,7 +1503,8 @@
       "method": "GET",
       "params": "GetMyEventsParams",
       "response": "GetMyEventsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyFaction",
@@ -1336,7 +1512,8 @@
       "method": "GET",
       "params": "GetMyFactionParams",
       "response": "GetMyFactionResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyForumFeed",
@@ -1344,7 +1521,8 @@
       "method": "GET",
       "params": "GetMyForumFeedParams",
       "response": "GetMyForumFeedResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyForumFriendsUpdates",
@@ -1352,7 +1530,8 @@
       "method": "GET",
       "params": "GetMyForumFriendsUpdatesParams",
       "response": "GetMyForumFriendsUpdatesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyForumPosts",
@@ -1360,7 +1539,8 @@
       "method": "GET",
       "params": "GetMyForumPostsParams",
       "response": "GetMyForumPostsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyForumSubscribedThreads",
@@ -1368,7 +1548,8 @@
       "method": "GET",
       "params": "GetMyForumSubscribedThreadsParams",
       "response": "GetMyForumSubscribedThreadsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyForumThreads",
@@ -1376,7 +1557,8 @@
       "method": "GET",
       "params": "GetMyForumThreadsParams",
       "response": "GetMyForumThreadsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyGym",
@@ -1384,7 +1566,17 @@
       "method": "GET",
       "params": "GetMyGymParams",
       "response": "GetMyGymResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
+    },
+    {
+      "operationId": "getMyHalloween",
+      "path": "/user/halloween",
+      "method": "GET",
+      "params": "GetMyHalloweenParams",
+      "response": "GetMyHalloweenResponse",
+      "csv": false,
+      "stability": "Untable"
     },
     {
       "operationId": "getMyHoF",
@@ -1392,7 +1584,8 @@
       "method": "GET",
       "params": "GetMyHoFParams",
       "response": "GetMyHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyHonors",
@@ -1400,7 +1593,8 @@
       "method": "GET",
       "params": "GetMyHonorsParams",
       "response": "GetMyHonorsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyIcons",
@@ -1408,7 +1602,8 @@
       "method": "GET",
       "params": "GetMyIconsParams",
       "response": "GetMyIconsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyInventory",
@@ -1416,7 +1611,9 @@
       "method": "GET",
       "params": "GetMyInventoryParams",
       "response": "GetMyInventoryResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable",
+      "cacheTTLSeconds": 900
     },
     {
       "operationId": "getMyItemMarketListings",
@@ -1424,7 +1621,8 @@
       "method": "GET",
       "params": "GetMyItemMarketListingsParams",
       "response": "GetMyItemMarketListingsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyItemModsInformation",
@@ -1432,7 +1630,8 @@
       "method": "GET",
       "params": "GetMyItemModsInformationParams",
       "response": "GetMyItemModsInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyJob",
@@ -1440,7 +1639,8 @@
       "method": "GET",
       "params": "GetMyJobParams",
       "response": "GetMyJobResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyJobPoints",
@@ -1448,7 +1648,8 @@
       "method": "GET",
       "params": "GetMyJobPointsParams",
       "response": "GetMyJobPointsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyJobRanks",
@@ -1456,7 +1657,8 @@
       "method": "GET",
       "params": "GetMyJobRanksParams",
       "response": "GetMyJobRanksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyContactsList",
@@ -1464,7 +1666,8 @@
       "method": "GET",
       "params": "GetMyContactsListParams",
       "response": "GetMyContactsListResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyLogs",
@@ -1472,7 +1675,8 @@
       "method": "GET",
       "params": "GetMyLogsParams",
       "response": "GetMyLogsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserLookup",
@@ -1480,7 +1684,8 @@
       "method": "GET",
       "params": "GetUserLookupParams",
       "response": "GetUserLookupResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyMedals",
@@ -1488,7 +1693,8 @@
       "method": "GET",
       "params": "GetMyMedalsParams",
       "response": "GetMyMedalsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyMerits",
@@ -1496,7 +1702,8 @@
       "method": "GET",
       "params": "GetMyMeritsParams",
       "response": "GetMyMeritsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyMessages",
@@ -1504,7 +1711,8 @@
       "method": "GET",
       "params": "GetMyMessagesParams",
       "response": "GetMyMessagesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyMissions",
@@ -1512,7 +1720,8 @@
       "method": "GET",
       "params": "GetMyMissionsParams",
       "response": "GetMyMissionsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyMoney",
@@ -1520,7 +1729,8 @@
       "method": "GET",
       "params": "GetMyMoneyParams",
       "response": "GetMyMoneyResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyNetworth",
@@ -1528,7 +1738,8 @@
       "method": "GET",
       "params": "GetMyNetworthParams",
       "response": "GetMyNetworthResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyNewEvents",
@@ -1536,7 +1747,8 @@
       "method": "GET",
       "params": "GetMyNewEventsParams",
       "response": "GetMyNewEventsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyNewMessages",
@@ -1544,7 +1756,8 @@
       "method": "GET",
       "params": "GetMyNewMessagesParams",
       "response": "GetMyNewMessagesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyNotifications",
@@ -1552,7 +1765,8 @@
       "method": "GET",
       "params": "GetMyNotificationsParams",
       "response": "GetMyNotificationsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyOrganizedCrime",
@@ -1560,7 +1774,8 @@
       "method": "GET",
       "params": "GetMyOrganizedCrimeParams",
       "response": "GetMyOrganizedCrimeResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyAvailableOrganizedCrimes",
@@ -1568,7 +1783,8 @@
       "method": "GET",
       "params": "GetMyAvailableOrganizedCrimesParams",
       "response": "GetMyAvailableOrganizedCrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyPerks",
@@ -1576,7 +1792,8 @@
       "method": "GET",
       "params": "GetMyPerksParams",
       "response": "GetMyPerksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyPersonalStats",
@@ -1584,7 +1801,8 @@
       "method": "GET",
       "params": "GetMyPersonalStatsParams",
       "response": "GetMyPersonalStatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyProfile",
@@ -1592,7 +1810,8 @@
       "method": "GET",
       "params": "GetMyProfileParams",
       "response": "GetMyProfileResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyProperties",
@@ -1600,7 +1819,8 @@
       "method": "GET",
       "params": "GetMyPropertiesParams",
       "response": "GetMyPropertiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyProperty",
@@ -1608,7 +1828,8 @@
       "method": "GET",
       "params": "GetMyPropertyParams",
       "response": "GetMyPropertyResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyRaces",
@@ -1616,7 +1837,8 @@
       "method": "GET",
       "params": "GetMyRacesParams",
       "response": "GetMyRacesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyRacingRecords",
@@ -1624,7 +1846,8 @@
       "method": "GET",
       "params": "GetMyRacingRecordsParams",
       "response": "GetMyRacingRecordsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyRefills",
@@ -1632,7 +1855,8 @@
       "method": "GET",
       "params": "GetMyRefillsParams",
       "response": "GetMyRefillsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyReports",
@@ -1640,7 +1864,8 @@
       "method": "GET",
       "params": "GetMyReportsParams",
       "response": "GetMyReportsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyRevives",
@@ -1648,7 +1873,8 @@
       "method": "GET",
       "params": "GetMyRevivesParams",
       "response": "GetMyRevivesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyRevivesSimplified",
@@ -1656,7 +1882,8 @@
       "method": "GET",
       "params": "GetMyRevivesSimplifiedParams",
       "response": "GetMyRevivesSimplifiedResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUsersSearch",
@@ -1664,7 +1891,8 @@
       "method": "GET",
       "params": "GetUsersSearchParams",
       "response": "GetUsersSearchResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Unstable"
     },
     {
       "operationId": "getMySkills",
@@ -1672,7 +1900,8 @@
       "method": "GET",
       "params": "GetMySkillsParams",
       "response": "GetMySkillsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUsersSnapshot",
@@ -1680,7 +1909,8 @@
       "method": "GET",
       "params": "GetUsersSnapshotParams",
       "response": "GetUsersSnapshotResponse",
-      "csv": true
+      "csv": true,
+      "stability": "Unstable"
     },
     {
       "operationId": "getMyStocks",
@@ -1688,7 +1918,8 @@
       "method": "GET",
       "params": "GetMyStocksParams",
       "response": "GetMyStocksResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserTimestamp",
@@ -1696,7 +1927,8 @@
       "method": "GET",
       "params": "GetUserTimestampParams",
       "response": "GetUserTimestampResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyTrades",
@@ -1704,7 +1936,8 @@
       "method": "GET",
       "params": "GetMyTradesParams",
       "response": "GetMyTradesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyTravelInformation",
@@ -1712,7 +1945,8 @@
       "method": "GET",
       "params": "GetMyTravelInformationParams",
       "response": "GetMyTravelInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyVirusCodingInformation",
@@ -1720,7 +1954,8 @@
       "method": "GET",
       "params": "GetMyVirusCodingInformationParams",
       "response": "GetMyVirusCodingInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyWeaponExp",
@@ -1728,7 +1963,8 @@
       "method": "GET",
       "params": "GetMyWeaponExpParams",
       "response": "GetMyWeaponExpResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyWorkstats",
@@ -1736,7 +1972,8 @@
       "method": "GET",
       "params": "GetMyWorkstatsParams",
       "response": "GetMyWorkstatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyCrimes",
@@ -1744,7 +1981,8 @@
       "method": "GET",
       "params": "GetMyCrimesParams",
       "response": "GetMyCrimesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserBasicInformation",
@@ -1752,7 +1990,8 @@
       "method": "GET",
       "params": "GetUserBasicInformationParams",
       "response": "GetUserBasicInformationResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserBounties",
@@ -1760,7 +1999,8 @@
       "method": "GET",
       "params": "GetUserBountiesParams",
       "response": "GetUserBountiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserCompetitionInfo",
@@ -1768,7 +2008,8 @@
       "method": "GET",
       "params": "GetUserCompetitionInfoParams",
       "response": "GetUserCompetitionInfoResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserDiscord",
@@ -1776,7 +2017,8 @@
       "method": "GET",
       "params": "GetUserDiscordParams",
       "response": "GetUserDiscordResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserFaction",
@@ -1784,7 +2026,8 @@
       "method": "GET",
       "params": "GetUserFactionParams",
       "response": "GetUserFactionResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserForumPosts",
@@ -1792,7 +2035,8 @@
       "method": "GET",
       "params": "GetUserForumPostsParams",
       "response": "GetUserForumPostsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserForumThreads",
@@ -1800,7 +2044,8 @@
       "method": "GET",
       "params": "GetUserForumThreadsParams",
       "response": "GetUserForumThreadsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserHoF",
@@ -1808,7 +2053,8 @@
       "method": "GET",
       "params": "GetUserHoFParams",
       "response": "GetUserHoFResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserIcons",
@@ -1816,7 +2062,8 @@
       "method": "GET",
       "params": "GetUserIconsParams",
       "response": "GetUserIconsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserJob",
@@ -1824,7 +2071,8 @@
       "method": "GET",
       "params": "GetUserJobParams",
       "response": "GetUserJobResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserMedals",
@@ -1832,7 +2080,8 @@
       "method": "GET",
       "params": "GetUserMedalsParams",
       "response": "GetUserMedalsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserPersonalStats",
@@ -1840,7 +2089,8 @@
       "method": "GET",
       "params": "GetUserPersonalStatsParams",
       "response": "GetUserPersonalStatsResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserProfile",
@@ -1848,7 +2098,8 @@
       "method": "GET",
       "params": "GetUserProfileParams",
       "response": "GetUserProfileResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserProperties",
@@ -1856,7 +2107,8 @@
       "method": "GET",
       "params": "GetUserPropertiesParams",
       "response": "GetUserPropertiesResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getUserProperty",
@@ -1864,7 +2116,8 @@
       "method": "GET",
       "params": "GetUserPropertyParams",
       "response": "GetUserPropertyResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     },
     {
       "operationId": "getMyDetailedTrade",
@@ -1872,7 +2125,8 @@
       "method": "GET",
       "params": "GetMyDetailedTradeParams",
       "response": "GetMyDetailedTradeResponse",
-      "csv": false
+      "csv": false,
+      "stability": "Stable"
     }
   ],
   "schemas": {
@@ -2137,6 +2391,7 @@
     "ForumThreadsResponse": "models.ForumThreadsResponse",
     "GymClassEnum": "models.GymClassEnum",
     "GymId": "models.GymId",
+    "HalloweenBasketUpgradeId": "models.HalloweenBasketUpgradeId",
     "HofValue": "models.HofValue",
     "HofValueFloat": "models.HofValueFloat",
     "HofValueString": "models.HofValueString",
@@ -2330,6 +2585,9 @@
     "TornGym": "models.TornGym",
     "TornGymModifiers": "models.TornGymModifiers",
     "TornGymsResponse": "models.TornGymsResponse",
+    "TornHalloween": "models.TornHalloween",
+    "TornHalloweenResponse": "models.TornHalloweenResponse",
+    "TornHalloweenUpgrade": "models.TornHalloweenUpgrade",
     "TornHof": "models.TornHof",
     "TornHofBasic": "models.TornHofBasic",
     "TornHofCategory": "models.TornHofCategory",
@@ -2486,6 +2744,9 @@
     "UserForumThreadsResponse": "models.UserForumThreadsResponse",
     "UserGenderEnum": "models.UserGenderEnum",
     "UserGymResponse": "models.UserGymResponse",
+    "UserHalloween": "models.UserHalloween",
+    "UserHalloweenBasketUpgrade": "models.UserHalloweenBasketUpgrade",
+    "UserHalloweenResponse": "models.UserHalloweenResponse",
     "UserHofResponse": "models.UserHofResponse",
     "UserHofStats": "models.UserHofStats",
     "UserHonor": "models.UserHonor",
@@ -2589,5 +2850,5 @@
     "UserWorkStatsResponse": "models.UserWorkStatsResponse",
     "WeaponBonusEnum": "models.WeaponBonusEnum"
   },
-  "version": "6.13.8"
+  "version": "6.14.0"
 }

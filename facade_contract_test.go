@@ -19,8 +19,8 @@ import (
 // custom decoders, mixed-shape endpoints, aliases, and CSV helpers. Response
 // acceptance remains covered independently by model/compatibility contract tests.
 func TestEveryTypedFacadeReachesTransport(t *testing.T) {
-	definitions := loadContract(t, "6.13.8").Components.Schemas
-	data, e := os.ReadFile("spec/openapi-6.13.8.json")
+	definitions := loadContract(t, "6.14.0").Components.Schemas
+	data, e := os.ReadFile("spec/openapi-6.14.0.json")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -100,7 +100,7 @@ func TestEveryTypedFacadeReachesTransport(t *testing.T) {
 			}
 		})
 	}
-	if count != 207 {
+	if count != 209 {
 		t.Fatal(fmt.Sprintf("typed facade inventory%d", count))
 	}
 }

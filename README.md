@@ -10,9 +10,19 @@ for development and CI.
 go get github.com/swervelord/Torn-Go-SDK
 ```
 
-The pinned current contract is Torn **6.13.8**: **234 exact operations**, **712
-component schemas**, **205 selection capabilities**, **207 typed convenience
-helpers**, **202 raw selection helpers**, and **3 dedicated CSV operations**.
+The pinned current contract is Torn **6.14.0**: **236 exact operations**, **719
+component schemas**, **207 selection capabilities**, **209 typed convenience
+helpers**, **204 raw selection helpers**, and **3 dedicated CSV operations**.
+`GetMyHalloween` / `UserHalloween` and `GetTornHalloween` / `TornHalloween`
+expose the current treats and basket upgrade models. The official spelling is
+`halloween`. Both require a Minimal access key; both support the generic selection
+endpoints, so compatible same-resource batches combine them.
+`UserInventoryCacheTTLSeconds` is 900 (per category) and
+`FactionInventoryCacheTTLSeconds` is 300 (all armory items). These describe
+Torn's server caches; the SDK does not cache responses. `MetadataForOperation`
+returns the upstream stability string and documented inventory cache lifetime.
+The pinned spec spells user Halloween stability `Untable`; it is retained verbatim.
+
 An explicit **184-selection v1 catalog** supports controlled legacy routing.
 The `legacy` package independently preserves **711** historical **6.13.6**
 components. The `compat` package contains **549** compatibility declarations,

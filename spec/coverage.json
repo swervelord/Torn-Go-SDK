@@ -2738,6 +2738,27 @@
     },
     {
       "csv": false,
+      "public_api": "(*torn.Client).RawTornHalloween",
+      "resource": "torn",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "halloween"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).TornHalloween",
+      "resource": "torn",
+      "returns": [
+        "models.TornHalloweenResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "halloween"
+    },
+    {
+      "csv": false,
       "public_api": "(*torn.Client).RawTornHof",
       "resource": "torn",
       "returns": [
@@ -3872,6 +3893,27 @@
     },
     {
       "csv": false,
+      "public_api": "(*torn.Client).RawUserHalloween",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "halloween"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserHalloween",
+      "resource": "user",
+      "returns": [
+        "models.UserHalloweenResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "halloween"
+    },
+    {
+      "csv": false,
       "public_api": "(*torn.Client).RawUserHof",
       "resource": "user",
       "returns": [
@@ -4850,8 +4892,8 @@
     }
   ],
   "current": {
-    "componentSchemaCount": 712,
-    "operationCount": 234,
+    "componentSchemaCount": 719,
+    "operationCount": 236,
     "operations": [
       {
         "csv": false,
@@ -4860,7 +4902,8 @@
         "params": "GetCompanyGenericParams",
         "path": "/company",
         "public_api": "(*torn.Client).GetCompanyGeneric",
-        "response": "GetCompanyGenericResponse"
+        "response": "GetCompanyGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4869,7 +4912,8 @@
         "params": "GetMyCompanyApplicationsParams",
         "path": "/company/applications",
         "public_api": "(*torn.Client).GetMyCompanyApplications",
-        "response": "GetMyCompanyApplicationsResponse"
+        "response": "GetMyCompanyApplicationsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4878,7 +4922,8 @@
         "params": "GetMyCompanyEmployeesParams",
         "path": "/company/employees",
         "public_api": "(*torn.Client).GetMyCompanyEmployees",
-        "response": "GetMyCompanyEmployeesResponse"
+        "response": "GetMyCompanyEmployeesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4887,7 +4932,8 @@
         "params": "GetCompanyLookupParams",
         "path": "/company/lookup",
         "public_api": "(*torn.Client).GetCompanyLookup",
-        "response": "GetCompanyLookupResponse"
+        "response": "GetCompanyLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4896,7 +4942,8 @@
         "params": "GetMyCompanyNewsParams",
         "path": "/company/news",
         "public_api": "(*torn.Client).GetMyCompanyNews",
-        "response": "GetMyCompanyNewsResponse"
+        "response": "GetMyCompanyNewsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4905,7 +4952,8 @@
         "params": "GetMyCompanyProfileParams",
         "path": "/company/profile",
         "public_api": "(*torn.Client).GetMyCompanyProfile",
-        "response": "GetMyCompanyProfileResponse"
+        "response": "GetMyCompanyProfileResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4914,7 +4962,8 @@
         "params": "GetCompaniesSearchParams",
         "path": "/company/search",
         "public_api": "(*torn.Client).GetCompaniesSearch",
-        "response": "GetCompaniesSearchResponse"
+        "response": "GetCompaniesSearchResponse",
+        "stability": "Stable"
       },
       {
         "csv": true,
@@ -4923,7 +4972,8 @@
         "params": "GetCompaniesSnapshotParams",
         "path": "/company/snapshot",
         "public_api": "(*torn.Client).GetCompaniesSnapshot",
-        "response": "GetCompaniesSnapshotResponse"
+        "response": "GetCompaniesSnapshotResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4932,7 +4982,8 @@
         "params": "GetMyCompanyStockParams",
         "path": "/company/stock",
         "public_api": "(*torn.Client).GetMyCompanyStock",
-        "response": "GetMyCompanyStockResponse"
+        "response": "GetMyCompanyStockResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4941,7 +4992,8 @@
         "params": "GetCompanyTimestampParams",
         "path": "/company/timestamp",
         "public_api": "(*torn.Client).GetCompanyTimestamp",
-        "response": "GetCompanyTimestampResponse"
+        "response": "GetCompanyTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4950,7 +5002,8 @@
         "params": "GetCompanyEmployeesParams",
         "path": "/company/{id}/employees",
         "public_api": "(*torn.Client).GetCompanyEmployees",
-        "response": "GetCompanyEmployeesResponse"
+        "response": "GetCompanyEmployeesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4959,7 +5012,8 @@
         "params": "GetCompanyProfileParams",
         "path": "/company/{id}/profile",
         "public_api": "(*torn.Client).GetCompanyProfile",
-        "response": "GetCompanyProfileResponse"
+        "response": "GetCompanyProfileResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4968,7 +5022,8 @@
         "params": "GetCompaniesListParams",
         "path": "/company/{typeId}/companies",
         "public_api": "(*torn.Client).GetCompaniesList",
-        "response": "GetCompaniesListResponse"
+        "response": "GetCompaniesListResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4977,7 +5032,8 @@
         "params": "GetFactionGenericParams",
         "path": "/faction",
         "public_api": "(*torn.Client).GetFactionGeneric",
-        "response": "GetFactionGenericResponse"
+        "response": "GetFactionGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4986,7 +5042,8 @@
         "params": "GetMyFactionApplicationsParams",
         "path": "/faction/applications",
         "public_api": "(*torn.Client).GetMyFactionApplications",
-        "response": "GetMyFactionApplicationsResponse"
+        "response": "GetMyFactionApplicationsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -4995,7 +5052,8 @@
         "params": "GetMyFactionAttacksParams",
         "path": "/faction/attacks",
         "public_api": "(*torn.Client).GetMyFactionAttacks",
-        "response": "GetMyFactionAttacksResponse"
+        "response": "GetMyFactionAttacksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5004,7 +5062,8 @@
         "params": "GetMyFactionAttacksSimplifiedParams",
         "path": "/faction/attacksfull",
         "public_api": "(*torn.Client).GetMyFactionAttacksSimplified",
-        "response": "GetMyFactionAttacksSimplifiedResponse"
+        "response": "GetMyFactionAttacksSimplifiedResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5013,7 +5072,8 @@
         "params": "GetMyFactionBalanceParams",
         "path": "/faction/balance",
         "public_api": "(*torn.Client).GetMyFactionBalance",
-        "response": "GetMyFactionBalanceResponse"
+        "response": "GetMyFactionBalanceResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5022,7 +5082,8 @@
         "params": "GetMyFactionBasicInformationParams",
         "path": "/faction/basic",
         "public_api": "(*torn.Client).GetMyFactionBasicInformation",
-        "response": "GetMyFactionBasicInformationResponse"
+        "response": "GetMyFactionBasicInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5031,7 +5092,8 @@
         "params": "GetMyFactionChainParams",
         "path": "/faction/chain",
         "public_api": "(*torn.Client).GetMyFactionChain",
-        "response": "GetMyFactionChainResponse"
+        "response": "GetMyFactionChainResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5040,7 +5102,8 @@
         "params": "GetMyFactionLatestChainReportParams",
         "path": "/faction/chainreport",
         "public_api": "(*torn.Client).GetMyFactionLatestChainReport",
-        "response": "GetMyFactionLatestChainReportResponse"
+        "response": "GetMyFactionLatestChainReportResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5049,7 +5112,8 @@
         "params": "GetMyFactionCompletedChainsParams",
         "path": "/faction/chains",
         "public_api": "(*torn.Client).GetMyFactionCompletedChains",
-        "response": "GetMyFactionCompletedChainsResponse"
+        "response": "GetMyFactionCompletedChainsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5058,7 +5122,8 @@
         "params": "GetMyFactionContributorsParams",
         "path": "/faction/contributors",
         "public_api": "(*torn.Client).GetMyFactionContributors",
-        "response": "GetMyFactionContributorsResponse"
+        "response": "GetMyFactionContributorsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5067,7 +5132,8 @@
         "params": "GetMyFactionCrimeExpParams",
         "path": "/faction/crimeexp",
         "public_api": "(*torn.Client).GetMyFactionCrimeExp",
-        "response": "GetMyFactionCrimeExpResponse"
+        "response": "GetMyFactionCrimeExpResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5076,7 +5142,8 @@
         "params": "GetMyFactionOrganizedCrimesParams",
         "path": "/faction/crimes",
         "public_api": "(*torn.Client).GetMyFactionOrganizedCrimes",
-        "response": "GetMyFactionOrganizedCrimesResponse"
+        "response": "GetMyFactionOrganizedCrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5085,7 +5152,8 @@
         "params": "GetWarfareDirtyBombsParams",
         "path": "/faction/dirtybombs",
         "public_api": "(*torn.Client).GetWarfareDirtyBombs",
-        "response": "GetWarfareDirtyBombsResponse"
+        "response": "GetWarfareDirtyBombsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5094,16 +5162,19 @@
         "params": "GetMyFactionHoFParams",
         "path": "/faction/hof",
         "public_api": "(*torn.Client).GetMyFactionHoF",
-        "response": "GetMyFactionHoFResponse"
+        "response": "GetMyFactionHoFResponse",
+        "stability": "Stable"
       },
       {
+        "cacheTTLSeconds": 300,
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionInventory",
         "params": "GetMyFactionInventoryParams",
         "path": "/faction/inventory",
         "public_api": "(*torn.Client).GetMyFactionInventory",
-        "response": "GetMyFactionInventoryResponse"
+        "response": "GetMyFactionInventoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5112,7 +5183,8 @@
         "params": "GetFactionLookupParams",
         "path": "/faction/lookup",
         "public_api": "(*torn.Client).GetFactionLookup",
-        "response": "GetFactionLookupResponse"
+        "response": "GetFactionLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5121,7 +5193,8 @@
         "params": "GetMyFactionMembersParams",
         "path": "/faction/members",
         "public_api": "(*torn.Client).GetMyFactionMembers",
-        "response": "GetMyFactionMembersResponse"
+        "response": "GetMyFactionMembersResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5130,7 +5203,8 @@
         "params": "GetMyFactionNewsParams",
         "path": "/faction/news",
         "public_api": "(*torn.Client).GetMyFactionNews",
-        "response": "GetMyFactionNewsResponse"
+        "response": "GetMyFactionNewsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5139,7 +5213,8 @@
         "params": "GetMyFactionPositionsParams",
         "path": "/faction/positions",
         "public_api": "(*torn.Client).GetMyFactionPositions",
-        "response": "GetMyFactionPositionsResponse"
+        "response": "GetMyFactionPositionsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5148,7 +5223,8 @@
         "params": "GetFactionRacketsParams",
         "path": "/faction/rackets",
         "public_api": "(*torn.Client).GetFactionRackets",
-        "response": "GetFactionRacketsResponse"
+        "response": "GetFactionRacketsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5157,7 +5233,8 @@
         "params": "GetMyFactionRaidsHistoryParams",
         "path": "/faction/raids",
         "public_api": "(*torn.Client).GetMyFactionRaidsHistory",
-        "response": "GetMyFactionRaidsHistoryResponse"
+        "response": "GetMyFactionRaidsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5166,7 +5243,8 @@
         "params": "GetMyFactionRankedWarsHistoryParams",
         "path": "/faction/rankedwars",
         "public_api": "(*torn.Client).GetMyFactionRankedWarsHistory",
-        "response": "GetMyFactionRankedWarsHistoryResponse"
+        "response": "GetMyFactionRankedWarsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5175,7 +5253,8 @@
         "params": "GetMyFactionReportsParams",
         "path": "/faction/reports",
         "public_api": "(*torn.Client).GetMyFactionReports",
-        "response": "GetMyFactionReportsResponse"
+        "response": "GetMyFactionReportsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5184,7 +5263,8 @@
         "params": "GetMyFactionRevivesParams",
         "path": "/faction/revives",
         "public_api": "(*torn.Client).GetMyFactionRevives",
-        "response": "GetMyFactionRevivesResponse"
+        "response": "GetMyFactionRevivesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5193,7 +5273,8 @@
         "params": "GetMyFactionRevivesSimplifiedParams",
         "path": "/faction/revivesFull",
         "public_api": "(*torn.Client).GetMyFactionRevivesSimplified",
-        "response": "GetMyFactionRevivesSimplifiedResponse"
+        "response": "GetMyFactionRevivesSimplifiedResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5202,7 +5283,8 @@
         "params": "GetFactionSearchParams",
         "path": "/faction/search",
         "public_api": "(*torn.Client).GetFactionSearch",
-        "response": "GetFactionSearchResponse"
+        "response": "GetFactionSearchResponse",
+        "stability": "Stable"
       },
       {
         "csv": true,
@@ -5211,7 +5293,8 @@
         "params": "GetFactionsSnapshotParams",
         "path": "/faction/snapshot",
         "public_api": "(*torn.Client).GetFactionsSnapshot",
-        "response": "GetFactionsSnapshotResponse"
+        "response": "GetFactionsSnapshotResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5220,7 +5303,8 @@
         "params": "GetMyFactionStatsParams",
         "path": "/faction/stats",
         "public_api": "(*torn.Client).GetMyFactionStats",
-        "response": "GetMyFactionStatsResponse"
+        "response": "GetMyFactionStatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5229,7 +5313,8 @@
         "params": "GetMyFactionTerritoryParams",
         "path": "/faction/territory",
         "public_api": "(*torn.Client).GetMyFactionTerritory",
-        "response": "GetMyFactionTerritoryResponse"
+        "response": "GetMyFactionTerritoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5238,7 +5323,8 @@
         "params": "GetTerritoryOwnershipParams",
         "path": "/faction/territoryownership",
         "public_api": "(*torn.Client).GetTerritoryOwnership",
-        "response": "GetTerritoryOwnershipResponse"
+        "response": "GetTerritoryOwnershipResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5247,7 +5333,8 @@
         "params": "GetMyFactionTerritoryWarsHistoryParams",
         "path": "/faction/territorywars",
         "public_api": "(*torn.Client).GetMyFactionTerritoryWarsHistory",
-        "response": "GetMyFactionTerritoryWarsHistoryResponse"
+        "response": "GetMyFactionTerritoryWarsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5256,7 +5343,8 @@
         "params": "GetFactionTimestampParams",
         "path": "/faction/timestamp",
         "public_api": "(*torn.Client).GetFactionTimestamp",
-        "response": "GetFactionTimestampResponse"
+        "response": "GetFactionTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5265,7 +5353,8 @@
         "params": "GetMyFactionUpgradesParams",
         "path": "/faction/upgrades",
         "public_api": "(*torn.Client).GetMyFactionUpgrades",
-        "response": "GetMyFactionUpgradesResponse"
+        "response": "GetMyFactionUpgradesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5274,7 +5363,8 @@
         "params": "GetWarfareParams",
         "path": "/faction/warfare",
         "public_api": "(*torn.Client).GetWarfare",
-        "response": "GetWarfareResponse"
+        "response": "GetWarfareResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5283,7 +5373,8 @@
         "params": "GetWarfareChainsParams",
         "path": "/faction/warfarechains",
         "public_api": "(*torn.Client).GetWarfareChains",
-        "response": "GetWarfareChainsResponse"
+        "response": "GetWarfareChainsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5292,7 +5383,8 @@
         "params": "GetWarfareRaidsParams",
         "path": "/faction/warfareraids",
         "public_api": "(*torn.Client).GetWarfareRaids",
-        "response": "GetWarfareRaidsResponse"
+        "response": "GetWarfareRaidsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5301,7 +5393,8 @@
         "params": "GetWarfareRankedWarsParams",
         "path": "/faction/warfareranked",
         "public_api": "(*torn.Client).GetWarfareRankedWars",
-        "response": "GetWarfareRankedWarsResponse"
+        "response": "GetWarfareRankedWarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5310,7 +5403,8 @@
         "params": "GetWarfareTerritoryWarsParams",
         "path": "/faction/warfareterritory",
         "public_api": "(*torn.Client).GetWarfareTerritoryWars",
-        "response": "GetWarfareTerritoryWarsResponse"
+        "response": "GetWarfareTerritoryWarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5319,7 +5413,8 @@
         "params": "GetMyFactionWarsParams",
         "path": "/faction/wars",
         "public_api": "(*torn.Client).GetMyFactionWars",
-        "response": "GetMyFactionWarsResponse"
+        "response": "GetMyFactionWarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5328,7 +5423,8 @@
         "params": "GetChainReportParams",
         "path": "/faction/{chainId}/chainreport",
         "public_api": "(*torn.Client).GetChainReport",
-        "response": "GetChainReportResponse"
+        "response": "GetChainReportResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5337,7 +5433,8 @@
         "params": "GetMyFactionOrganizedCrimeParams",
         "path": "/faction/{crimeId}/crime",
         "public_api": "(*torn.Client).GetMyFactionOrganizedCrime",
-        "response": "GetMyFactionOrganizedCrimeResponse"
+        "response": "GetMyFactionOrganizedCrimeResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5346,7 +5443,8 @@
         "params": "GetFactionBasicInformationParams",
         "path": "/faction/{id}/basic",
         "public_api": "(*torn.Client).GetFactionBasicInformation",
-        "response": "GetFactionBasicInformationResponse"
+        "response": "GetFactionBasicInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5355,7 +5453,8 @@
         "params": "GetFactionChainParams",
         "path": "/faction/{id}/chain",
         "public_api": "(*torn.Client).GetFactionChain",
-        "response": "GetFactionChainResponse"
+        "response": "GetFactionChainResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5364,7 +5463,8 @@
         "params": "GetFactionCompletedChainsParams",
         "path": "/faction/{id}/chains",
         "public_api": "(*torn.Client).GetFactionCompletedChains",
-        "response": "GetFactionCompletedChainsResponse"
+        "response": "GetFactionCompletedChainsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5373,7 +5473,8 @@
         "params": "GetFactionHoFParams",
         "path": "/faction/{id}/hof",
         "public_api": "(*torn.Client).GetFactionHoF",
-        "response": "GetFactionHoFResponse"
+        "response": "GetFactionHoFResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5382,7 +5483,8 @@
         "params": "GetFactionMembersParams",
         "path": "/faction/{id}/members",
         "public_api": "(*torn.Client).GetFactionMembers",
-        "response": "GetFactionMembersResponse"
+        "response": "GetFactionMembersResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5391,7 +5493,8 @@
         "params": "GetFactionRaidsHistoryParams",
         "path": "/faction/{id}/raids",
         "public_api": "(*torn.Client).GetFactionRaidsHistory",
-        "response": "GetFactionRaidsHistoryResponse"
+        "response": "GetFactionRaidsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5400,7 +5503,8 @@
         "params": "GetFactionRankedWarsHistoryParams",
         "path": "/faction/{id}/rankedwars",
         "public_api": "(*torn.Client).GetFactionRankedWarsHistory",
-        "response": "GetFactionRankedWarsHistoryResponse"
+        "response": "GetFactionRankedWarsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5409,7 +5513,8 @@
         "params": "GetFactionTerritoryParams",
         "path": "/faction/{id}/territory",
         "public_api": "(*torn.Client).GetFactionTerritory",
-        "response": "GetFactionTerritoryResponse"
+        "response": "GetFactionTerritoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5418,7 +5523,8 @@
         "params": "GetFactionTerritoryWarsHistoryParams",
         "path": "/faction/{id}/territorywars",
         "public_api": "(*torn.Client).GetFactionTerritoryWarsHistory",
-        "response": "GetFactionTerritoryWarsHistoryResponse"
+        "response": "GetFactionTerritoryWarsHistoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5427,7 +5533,8 @@
         "params": "GetFactionWarsParams",
         "path": "/faction/{id}/wars",
         "public_api": "(*torn.Client).GetFactionWars",
-        "response": "GetFactionWarsResponse"
+        "response": "GetFactionWarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5436,7 +5543,8 @@
         "params": "GetRaidReportParams",
         "path": "/faction/{raidWarId}/raidreport",
         "public_api": "(*torn.Client).GetRaidReport",
-        "response": "GetRaidReportResponse"
+        "response": "GetRaidReportResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5445,7 +5553,8 @@
         "params": "GetRankedWarReportParams",
         "path": "/faction/{rankedWarId}/rankedwarreport",
         "public_api": "(*torn.Client).GetRankedWarReport",
-        "response": "GetRankedWarReportResponse"
+        "response": "GetRankedWarReportResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5454,7 +5563,8 @@
         "params": "GetTerritoryWarReportParams",
         "path": "/faction/{territoryWarId}/territorywarreport",
         "public_api": "(*torn.Client).GetTerritoryWarReport",
-        "response": "GetTerritoryWarReportResponse"
+        "response": "GetTerritoryWarReportResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5463,7 +5573,8 @@
         "params": "GetForumGenericParams",
         "path": "/forum",
         "public_api": "(*torn.Client).GetForumGeneric",
-        "response": "GetForumGenericResponse"
+        "response": "GetForumGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5472,7 +5583,8 @@
         "params": "GetForumCategoriesParams",
         "path": "/forum/categories",
         "public_api": "(*torn.Client).GetForumCategories",
-        "response": "GetForumCategoriesResponse"
+        "response": "GetForumCategoriesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5481,7 +5593,8 @@
         "params": "GetForumLookupParams",
         "path": "/forum/lookup",
         "public_api": "(*torn.Client).GetForumLookup",
-        "response": "GetForumLookupResponse"
+        "response": "GetForumLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5490,7 +5603,8 @@
         "params": "GetForumAllThreadsParams",
         "path": "/forum/threads",
         "public_api": "(*torn.Client).GetForumAllThreads",
-        "response": "GetForumAllThreadsResponse"
+        "response": "GetForumAllThreadsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5499,7 +5613,8 @@
         "params": "GetForumTimestampParams",
         "path": "/forum/timestamp",
         "public_api": "(*torn.Client).GetForumTimestamp",
-        "response": "GetForumTimestampResponse"
+        "response": "GetForumTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5508,7 +5623,8 @@
         "params": "GetForumThreadsParams",
         "path": "/forum/{categoryIds}/threads",
         "public_api": "(*torn.Client).GetForumThreads",
-        "response": "GetForumThreadsResponse"
+        "response": "GetForumThreadsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5517,7 +5633,8 @@
         "params": "GetForumThreadPostsParams",
         "path": "/forum/{threadId}/posts",
         "public_api": "(*torn.Client).GetForumThreadPosts",
-        "response": "GetForumThreadPostsResponse"
+        "response": "GetForumThreadPostsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5526,7 +5643,8 @@
         "params": "GetForumThreadParams",
         "path": "/forum/{threadId}/thread",
         "public_api": "(*torn.Client).GetForumThread",
-        "response": "GetForumThreadResponse"
+        "response": "GetForumThreadResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5535,7 +5653,8 @@
         "params": "GetKeyGenericParams",
         "path": "/key",
         "public_api": "(*torn.Client).GetKeyGeneric",
-        "response": "GetKeyGenericResponse"
+        "response": "GetKeyGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5544,7 +5663,8 @@
         "params": "GetKeyInfoParams",
         "path": "/key/info",
         "public_api": "(*torn.Client).GetKeyInfo",
-        "response": "GetKeyInfoResponse"
+        "response": "GetKeyInfoResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5553,7 +5673,8 @@
         "params": "GetKeyLogParams",
         "path": "/key/log",
         "public_api": "(*torn.Client).GetKeyLog",
-        "response": "GetKeyLogResponse"
+        "response": "GetKeyLogResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5562,7 +5683,8 @@
         "params": "GetMarketGenericParams",
         "path": "/market",
         "public_api": "(*torn.Client).GetMarketGeneric",
-        "response": "GetMarketGenericResponse"
+        "response": "GetMarketGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5571,7 +5693,8 @@
         "params": "GetMarketAuctionHouseParams",
         "path": "/market/auctionhouse",
         "public_api": "(*torn.Client).GetMarketAuctionHouse",
-        "response": "GetMarketAuctionHouseResponse"
+        "response": "GetMarketAuctionHouseResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5580,7 +5703,8 @@
         "params": "GetMarketBazaarParams",
         "path": "/market/bazaar",
         "public_api": "(*torn.Client).GetMarketBazaar",
-        "response": "GetMarketBazaarResponse"
+        "response": "GetMarketBazaarResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5589,7 +5713,8 @@
         "params": "GetMarketLookupParams",
         "path": "/market/lookup",
         "public_api": "(*torn.Client).GetMarketLookup",
-        "response": "GetMarketLookupResponse"
+        "response": "GetMarketLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5598,7 +5723,8 @@
         "params": "GetMarketPointsParams",
         "path": "/market/pointsmarket",
         "public_api": "(*torn.Client).GetMarketPoints",
-        "response": "GetMarketPointsResponse"
+        "response": "GetMarketPointsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5607,7 +5733,8 @@
         "params": "GetMarketTimestampParams",
         "path": "/market/timestamp",
         "public_api": "(*torn.Client).GetMarketTimestamp",
-        "response": "GetMarketTimestampResponse"
+        "response": "GetMarketTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5616,7 +5743,8 @@
         "params": "GetMarketAuctionHouseItemParams",
         "path": "/market/{id}/auctionhouse",
         "public_api": "(*torn.Client).GetMarketAuctionHouseItem",
-        "response": "GetMarketAuctionHouseItemResponse"
+        "response": "GetMarketAuctionHouseItemResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5625,7 +5753,8 @@
         "params": "GetMarketAuctionHouseListingParams",
         "path": "/market/{id}/auctionhouselisting",
         "public_api": "(*torn.Client).GetMarketAuctionHouseListing",
-        "response": "GetMarketAuctionHouseListingResponse"
+        "response": "GetMarketAuctionHouseListingResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5634,7 +5763,8 @@
         "params": "GetMarketBazaarItemParams",
         "path": "/market/{id}/bazaar",
         "public_api": "(*torn.Client).GetMarketBazaarItem",
-        "response": "GetMarketBazaarItemResponse"
+        "response": "GetMarketBazaarItemResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5643,7 +5773,8 @@
         "params": "GetMarketItemMarketItemParams",
         "path": "/market/{id}/itemmarket",
         "public_api": "(*torn.Client).GetMarketItemMarketItem",
-        "response": "GetMarketItemMarketItemResponse"
+        "response": "GetMarketItemMarketItemResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5652,7 +5783,8 @@
         "params": "GetMarketPropertiesParams",
         "path": "/market/{propertyTypeId}/properties",
         "public_api": "(*torn.Client).GetMarketProperties",
-        "response": "GetMarketPropertiesResponse"
+        "response": "GetMarketPropertiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5661,7 +5793,8 @@
         "params": "GetMarketPropertiesRentalParams",
         "path": "/market/{propertyTypeId}/rentals",
         "public_api": "(*torn.Client).GetMarketPropertiesRental",
-        "response": "GetMarketPropertiesRentalResponse"
+        "response": "GetMarketPropertiesRentalResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5670,7 +5803,8 @@
         "params": "GetPropertyGenericParams",
         "path": "/property",
         "public_api": "(*torn.Client).GetPropertyGeneric",
-        "response": "GetPropertyGenericResponse"
+        "response": "GetPropertyGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5679,7 +5813,8 @@
         "params": "GetPropertyLookupParams",
         "path": "/property/lookup",
         "public_api": "(*torn.Client).GetPropertyLookup",
-        "response": "GetPropertyLookupResponse"
+        "response": "GetPropertyLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5688,7 +5823,8 @@
         "params": "GetPropertyTimestampParams",
         "path": "/property/timestamp",
         "public_api": "(*torn.Client).GetPropertyTimestamp",
-        "response": "GetPropertyTimestampResponse"
+        "response": "GetPropertyTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5697,7 +5833,8 @@
         "params": "GetPropertyParams",
         "path": "/property/{id}/property",
         "public_api": "(*torn.Client).GetProperty",
-        "response": "GetPropertyResponse"
+        "response": "GetPropertyResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5706,7 +5843,8 @@
         "params": "GetRacingGenericParams",
         "path": "/racing",
         "public_api": "(*torn.Client).GetRacingGeneric",
-        "response": "GetRacingGenericResponse"
+        "response": "GetRacingGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5715,7 +5853,8 @@
         "params": "GetRacingCarsParams",
         "path": "/racing/cars",
         "public_api": "(*torn.Client).GetRacingCars",
-        "response": "GetRacingCarsResponse"
+        "response": "GetRacingCarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5724,7 +5863,8 @@
         "params": "GetRacingCarUpgradesParams",
         "path": "/racing/carupgrades",
         "public_api": "(*torn.Client).GetRacingCarUpgrades",
-        "response": "GetRacingCarUpgradesResponse"
+        "response": "GetRacingCarUpgradesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5733,7 +5873,8 @@
         "params": "GetRacingLookupParams",
         "path": "/racing/lookup",
         "public_api": "(*torn.Client).GetRacingLookup",
-        "response": "GetRacingLookupResponse"
+        "response": "GetRacingLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5742,7 +5883,8 @@
         "params": "GetRacingRacesParams",
         "path": "/racing/races",
         "public_api": "(*torn.Client).GetRacingRaces",
-        "response": "GetRacingRacesResponse"
+        "response": "GetRacingRacesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5751,7 +5893,8 @@
         "params": "GetRacingTimestampParams",
         "path": "/racing/timestamp",
         "public_api": "(*torn.Client).GetRacingTimestamp",
-        "response": "GetRacingTimestampResponse"
+        "response": "GetRacingTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5760,7 +5903,8 @@
         "params": "GetRacingTracksParams",
         "path": "/racing/tracks",
         "public_api": "(*torn.Client).GetRacingTracks",
-        "response": "GetRacingTracksResponse"
+        "response": "GetRacingTracksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5769,7 +5913,8 @@
         "params": "GetRacingRaceDetailsParams",
         "path": "/racing/{raceId}/race",
         "public_api": "(*torn.Client).GetRacingRaceDetails",
-        "response": "GetRacingRaceDetailsResponse"
+        "response": "GetRacingRaceDetailsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5778,7 +5923,8 @@
         "params": "GetRacingTrackRecordsParams",
         "path": "/racing/{trackId}/records",
         "public_api": "(*torn.Client).GetRacingTrackRecords",
-        "response": "GetRacingTrackRecordsResponse"
+        "response": "GetRacingTrackRecordsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5787,7 +5933,8 @@
         "params": "GetTornGenericParams",
         "path": "/torn",
         "public_api": "(*torn.Client).GetTornGeneric",
-        "response": "GetTornGenericResponse"
+        "response": "GetTornGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5796,7 +5943,8 @@
         "params": "GetTornAttackLogParams",
         "path": "/torn/attacklog",
         "public_api": "(*torn.Client).GetTornAttackLog",
-        "response": "GetTornAttackLogResponse"
+        "response": "GetTornAttackLogResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5805,7 +5953,8 @@
         "params": "GetTornBankParams",
         "path": "/torn/bank",
         "public_api": "(*torn.Client).GetTornBank",
-        "response": "GetTornBankResponse"
+        "response": "GetTornBankResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5814,7 +5963,8 @@
         "params": "GetTornBountiesParams",
         "path": "/torn/bounties",
         "public_api": "(*torn.Client).GetTornBounties",
-        "response": "GetTornBountiesResponse"
+        "response": "GetTornBountiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5823,7 +5973,8 @@
         "params": "GetTornCalendarParams",
         "path": "/torn/calendar",
         "public_api": "(*torn.Client).GetTornCalendar",
-        "response": "GetTornCalendarResponse"
+        "response": "GetTornCalendarResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5832,7 +5983,8 @@
         "params": "GetTornCardsParams",
         "path": "/torn/cards",
         "public_api": "(*torn.Client).GetTornCards",
-        "response": "GetTornCardsResponse"
+        "response": "GetTornCardsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5841,7 +5993,8 @@
         "params": "GetTornCityShopsParams",
         "path": "/torn/cityshops",
         "public_api": "(*torn.Client).GetTornCityShops",
-        "response": "GetTornCityShopsResponse"
+        "response": "GetTornCityShopsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5850,7 +6003,8 @@
         "params": "GetTornCompaniesParams",
         "path": "/torn/companies",
         "public_api": "(*torn.Client).GetTornCompanies",
-        "response": "GetTornCompaniesResponse"
+        "response": "GetTornCompaniesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5859,7 +6013,8 @@
         "params": "GetTornCrimesParams",
         "path": "/torn/crimes",
         "public_api": "(*torn.Client).GetTornCrimes",
-        "response": "GetTornCrimesResponse"
+        "response": "GetTornCrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5868,7 +6023,8 @@
         "params": "GetTornEducationParams",
         "path": "/torn/education",
         "public_api": "(*torn.Client).GetTornEducation",
-        "response": "GetTornEducationResponse"
+        "response": "GetTornEducationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5877,7 +6033,8 @@
         "params": "GetTornEliminationParams",
         "path": "/torn/elimination",
         "public_api": "(*torn.Client).GetTornElimination",
-        "response": "GetTornEliminationResponse"
+        "response": "GetTornEliminationResponse",
+        "stability": "Unstable"
       },
       {
         "csv": false,
@@ -5886,7 +6043,8 @@
         "params": "GetTornFactionHoFParams",
         "path": "/torn/factionhof",
         "public_api": "(*torn.Client).GetTornFactionHoF",
-        "response": "GetTornFactionHoFResponse"
+        "response": "GetTornFactionHoFResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5895,7 +6053,8 @@
         "params": "GetTornFactionTreeParams",
         "path": "/torn/factiontree",
         "public_api": "(*torn.Client).GetTornFactionTree",
-        "response": "GetTornFactionTreeResponse"
+        "response": "GetTornFactionTreeResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5904,7 +6063,18 @@
         "params": "GetTornGymsParams",
         "path": "/torn/gyms",
         "public_api": "(*torn.Client).GetTornGyms",
-        "response": "GetTornGymsResponse"
+        "response": "GetTornGymsResponse",
+        "stability": "Stable"
+      },
+      {
+        "csv": false,
+        "method": "GET",
+        "operationId": "getTornHalloween",
+        "params": "GetTornHalloweenParams",
+        "path": "/torn/halloween",
+        "public_api": "(*torn.Client).GetTornHalloween",
+        "response": "GetTornHalloweenResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5913,7 +6083,8 @@
         "params": "GetTornHoFParams",
         "path": "/torn/hof",
         "public_api": "(*torn.Client).GetTornHoF",
-        "response": "GetTornHoFResponse"
+        "response": "GetTornHoFResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5922,7 +6093,8 @@
         "params": "GetTornHonorsParams",
         "path": "/torn/honors",
         "public_api": "(*torn.Client).GetTornHonors",
-        "response": "GetTornHonorsResponse"
+        "response": "GetTornHonorsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5931,7 +6103,8 @@
         "params": "GetTornItemAmmoParams",
         "path": "/torn/itemammo",
         "public_api": "(*torn.Client).GetTornItemAmmo",
-        "response": "GetTornItemAmmoResponse"
+        "response": "GetTornItemAmmoResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5940,7 +6113,8 @@
         "params": "GetTornItemModsParams",
         "path": "/torn/itemmods",
         "public_api": "(*torn.Client).GetTornItemMods",
-        "response": "GetTornItemModsResponse"
+        "response": "GetTornItemModsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5949,7 +6123,8 @@
         "params": "GetTornItemsParams",
         "path": "/torn/items",
         "public_api": "(*torn.Client).GetTornItems",
-        "response": "GetTornItemsResponse"
+        "response": "GetTornItemsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5958,7 +6133,8 @@
         "params": "GetTornLogCategoriesParams",
         "path": "/torn/logcategories",
         "public_api": "(*torn.Client).GetTornLogCategories",
-        "response": "GetTornLogCategoriesResponse"
+        "response": "GetTornLogCategoriesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5967,7 +6143,8 @@
         "params": "GetTornLogTypesParams",
         "path": "/torn/logtypes",
         "public_api": "(*torn.Client).GetTornLogTypes",
-        "response": "GetTornLogTypesResponse"
+        "response": "GetTornLogTypesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5976,7 +6153,8 @@
         "params": "GetTornLookupParams",
         "path": "/torn/lookup",
         "public_api": "(*torn.Client).GetTornLookup",
-        "response": "GetTornLookupResponse"
+        "response": "GetTornLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5985,7 +6163,8 @@
         "params": "GetTornMedalsParams",
         "path": "/torn/medals",
         "public_api": "(*torn.Client).GetTornMedals",
-        "response": "GetTornMedalsResponse"
+        "response": "GetTornMedalsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -5994,7 +6173,8 @@
         "params": "GetTornMeritsParams",
         "path": "/torn/merits",
         "public_api": "(*torn.Client).GetTornMerits",
-        "response": "GetTornMeritsResponse"
+        "response": "GetTornMeritsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6003,7 +6183,8 @@
         "params": "GetTornMuseumParams",
         "path": "/torn/museum",
         "public_api": "(*torn.Client).GetTornMuseum",
-        "response": "GetTornMuseumResponse"
+        "response": "GetTornMuseumResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6012,7 +6193,8 @@
         "params": "GetTornOrganizedCrimesParams",
         "path": "/torn/organizedcrimes",
         "public_api": "(*torn.Client).GetTornOrganizedCrimes",
-        "response": "GetTornOrganizedCrimesResponse"
+        "response": "GetTornOrganizedCrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6021,7 +6203,8 @@
         "params": "GetTornPokerTablesParams",
         "path": "/torn/pokertables",
         "public_api": "(*torn.Client).GetTornPokerTables",
-        "response": "GetTornPokerTablesResponse"
+        "response": "GetTornPokerTablesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6030,7 +6213,8 @@
         "params": "GetTornPropertiesParams",
         "path": "/torn/properties",
         "public_api": "(*torn.Client).GetTornProperties",
-        "response": "GetTornPropertiesResponse"
+        "response": "GetTornPropertiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6039,7 +6223,8 @@
         "params": "GetTornRpsParams",
         "path": "/torn/rockpaperscissors",
         "public_api": "(*torn.Client).GetTornRps",
-        "response": "GetTornRpsResponse"
+        "response": "GetTornRpsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6048,7 +6233,8 @@
         "params": "GetTornSearchForCashParams",
         "path": "/torn/searchforcash",
         "public_api": "(*torn.Client).GetTornSearchForCash",
-        "response": "GetTornSearchForCashResponse"
+        "response": "GetTornSearchForCashResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6057,7 +6243,8 @@
         "params": "GetTornShopliftingParams",
         "path": "/torn/shoplifting",
         "public_api": "(*torn.Client).GetTornShoplifting",
-        "response": "GetTornShopliftingResponse"
+        "response": "GetTornShopliftingResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6066,7 +6253,8 @@
         "params": "GetTornCityStatsParams",
         "path": "/torn/stats",
         "public_api": "(*torn.Client).GetTornCityStats",
-        "response": "GetTornCityStatsResponse"
+        "response": "GetTornCityStatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6075,7 +6263,8 @@
         "params": "GetTornStocksParams",
         "path": "/torn/stocks",
         "public_api": "(*torn.Client).GetTornStocks",
-        "response": "GetTornStocksResponse"
+        "response": "GetTornStocksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6084,7 +6273,8 @@
         "params": "GetTornTerritoryParams",
         "path": "/torn/territory",
         "public_api": "(*torn.Client).GetTornTerritory",
-        "response": "GetTornTerritoryResponse"
+        "response": "GetTornTerritoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6093,7 +6283,8 @@
         "params": "GetTornTimestampParams",
         "path": "/torn/timestamp",
         "public_api": "(*torn.Client).GetTornTimestamp",
-        "response": "GetTornTimestampResponse"
+        "response": "GetTornTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6102,7 +6293,8 @@
         "params": "GetTornSubcrimesParams",
         "path": "/torn/{crimeId}/subcrimes",
         "public_api": "(*torn.Client).GetTornSubcrimes",
-        "response": "GetTornSubcrimesResponse"
+        "response": "GetTornSubcrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6111,7 +6303,8 @@
         "params": "GetTornHonorsSpecificParams",
         "path": "/torn/{ids}/honors",
         "public_api": "(*torn.Client).GetTornHonorsSpecific",
-        "response": "GetTornHonorsSpecificResponse"
+        "response": "GetTornHonorsSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6120,7 +6313,8 @@
         "params": "GetTornItemDetailsParams",
         "path": "/torn/{ids}/itemdetails",
         "public_api": "(*torn.Client).GetTornItemDetails",
-        "response": "GetTornItemDetailsResponse"
+        "response": "GetTornItemDetailsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6129,7 +6323,8 @@
         "params": "GetTornItemsSpecificParams",
         "path": "/torn/{ids}/items",
         "public_api": "(*torn.Client).GetTornItemsSpecific",
-        "response": "GetTornItemsSpecificResponse"
+        "response": "GetTornItemsSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6138,7 +6333,8 @@
         "params": "GetTornItemStatsParams",
         "path": "/torn/{ids}/itemstats",
         "public_api": "(*torn.Client).GetTornItemStats",
-        "response": "GetTornItemStatsResponse"
+        "response": "GetTornItemStatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6147,7 +6343,8 @@
         "params": "GetTornMedalsSpecificParams",
         "path": "/torn/{ids}/medals",
         "public_api": "(*torn.Client).GetTornMedalsSpecific",
-        "response": "GetTornMedalsSpecificResponse"
+        "response": "GetTornMedalsSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6156,7 +6353,8 @@
         "params": "GetTornEliminationTeamParams",
         "path": "/torn/{id}/eliminationteam",
         "public_api": "(*torn.Client).GetTornEliminationTeam",
-        "response": "GetTornEliminationTeamResponse"
+        "response": "GetTornEliminationTeamResponse",
+        "stability": "Unstable"
       },
       {
         "csv": false,
@@ -6165,7 +6363,8 @@
         "params": "GetTornLogTypesSpecificParams",
         "path": "/torn/{logCategoryId}/logtypes",
         "public_api": "(*torn.Client).GetTornLogTypesSpecific",
-        "response": "GetTornLogTypesSpecificResponse"
+        "response": "GetTornLogTypesSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6174,7 +6373,8 @@
         "params": "GetTornCityShopSpecificParams",
         "path": "/torn/{shopId}/cityshops",
         "public_api": "(*torn.Client).GetTornCityShopSpecific",
-        "response": "GetTornCityShopSpecificResponse"
+        "response": "GetTornCityShopSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6183,7 +6383,8 @@
         "params": "GetSpecificTornStockParams",
         "path": "/torn/{stockId}/stocks",
         "public_api": "(*torn.Client).GetSpecificTornStock",
-        "response": "GetSpecificTornStockResponse"
+        "response": "GetSpecificTornStockResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6192,7 +6393,8 @@
         "params": "GetTornCompaniesSpecificParams",
         "path": "/torn/{typeId}/companies",
         "public_api": "(*torn.Client).GetTornCompaniesSpecific",
-        "response": "GetTornCompaniesSpecificResponse"
+        "response": "GetTornCompaniesSpecificResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6201,7 +6403,8 @@
         "params": "GetUserGenericParams",
         "path": "/user",
         "public_api": "(*torn.Client).GetUserGeneric",
-        "response": "GetUserGenericResponse"
+        "response": "GetUserGenericResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6210,7 +6413,8 @@
         "params": "GetMyAmmoParams",
         "path": "/user/ammo",
         "public_api": "(*torn.Client).GetMyAmmo",
-        "response": "GetMyAmmoResponse"
+        "response": "GetMyAmmoResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6219,7 +6423,8 @@
         "params": "GetMyAttacksParams",
         "path": "/user/attacks",
         "public_api": "(*torn.Client).GetMyAttacks",
-        "response": "GetMyAttacksResponse"
+        "response": "GetMyAttacksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6228,7 +6433,8 @@
         "params": "GetMyAttacksSimplifiedParams",
         "path": "/user/attacksfull",
         "public_api": "(*torn.Client).GetMyAttacksSimplified",
-        "response": "GetMyAttacksSimplifiedResponse"
+        "response": "GetMyAttacksSimplifiedResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6237,7 +6443,8 @@
         "params": "GetMyBarsParams",
         "path": "/user/bars",
         "public_api": "(*torn.Client).GetMyBars",
-        "response": "GetMyBarsResponse"
+        "response": "GetMyBarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6246,7 +6453,8 @@
         "params": "GetMyBasicInformationParams",
         "path": "/user/basic",
         "public_api": "(*torn.Client).GetMyBasicInformation",
-        "response": "GetMyBasicInformationResponse"
+        "response": "GetMyBasicInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6255,7 +6463,8 @@
         "params": "GetMyBattlestatsParams",
         "path": "/user/battlestats",
         "public_api": "(*torn.Client).GetMyBattlestats",
-        "response": "GetMyBattlestatsResponse"
+        "response": "GetMyBattlestatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6264,7 +6473,8 @@
         "params": "GetMyBountiesParams",
         "path": "/user/bounties",
         "public_api": "(*torn.Client).GetMyBounties",
-        "response": "GetMyBountiesResponse"
+        "response": "GetMyBountiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6273,7 +6483,8 @@
         "params": "GetMyCalendarTimeParams",
         "path": "/user/calendar",
         "public_api": "(*torn.Client).GetMyCalendarTime",
-        "response": "GetMyCalendarTimeResponse"
+        "response": "GetMyCalendarTimeResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6282,7 +6493,8 @@
         "params": "GetMyCasinoStreakParams",
         "path": "/user/casino",
         "public_api": "(*torn.Client).GetMyCasinoStreak",
-        "response": "GetMyCasinoStreakResponse"
+        "response": "GetMyCasinoStreakResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6291,7 +6503,8 @@
         "params": "GetMyCompetitionInfoParams",
         "path": "/user/competition",
         "public_api": "(*torn.Client).GetMyCompetitionInfo",
-        "response": "GetMyCompetitionInfoResponse"
+        "response": "GetMyCompetitionInfoResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6300,7 +6513,8 @@
         "params": "GetMyCooldownsParams",
         "path": "/user/cooldowns",
         "public_api": "(*torn.Client).GetMyCooldowns",
-        "response": "GetMyCooldownsResponse"
+        "response": "GetMyCooldownsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6309,7 +6523,8 @@
         "params": "GetMyDiscordParams",
         "path": "/user/discord",
         "public_api": "(*torn.Client).GetMyDiscord",
-        "response": "GetMyDiscordResponse"
+        "response": "GetMyDiscordResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6318,7 +6533,8 @@
         "params": "GetMyEducationParams",
         "path": "/user/education",
         "public_api": "(*torn.Client).GetMyEducation",
-        "response": "GetMyEducationResponse"
+        "response": "GetMyEducationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6327,7 +6543,8 @@
         "params": "GetMyEnlistedCarsParams",
         "path": "/user/enlistedcars",
         "public_api": "(*torn.Client).GetMyEnlistedCars",
-        "response": "GetMyEnlistedCarsResponse"
+        "response": "GetMyEnlistedCarsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6336,7 +6553,8 @@
         "params": "GetMyEquipmentParams",
         "path": "/user/equipment",
         "public_api": "(*torn.Client).GetMyEquipment",
-        "response": "GetMyEquipmentResponse"
+        "response": "GetMyEquipmentResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6345,7 +6563,8 @@
         "params": "GetMyEventsParams",
         "path": "/user/events",
         "public_api": "(*torn.Client).GetMyEvents",
-        "response": "GetMyEventsResponse"
+        "response": "GetMyEventsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6354,7 +6573,8 @@
         "params": "GetMyFactionParams",
         "path": "/user/faction",
         "public_api": "(*torn.Client).GetMyFaction",
-        "response": "GetMyFactionResponse"
+        "response": "GetMyFactionResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6363,7 +6583,8 @@
         "params": "GetMyForumFeedParams",
         "path": "/user/forumfeed",
         "public_api": "(*torn.Client).GetMyForumFeed",
-        "response": "GetMyForumFeedResponse"
+        "response": "GetMyForumFeedResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6372,7 +6593,8 @@
         "params": "GetMyForumFriendsUpdatesParams",
         "path": "/user/forumfriends",
         "public_api": "(*torn.Client).GetMyForumFriendsUpdates",
-        "response": "GetMyForumFriendsUpdatesResponse"
+        "response": "GetMyForumFriendsUpdatesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6381,7 +6603,8 @@
         "params": "GetMyForumPostsParams",
         "path": "/user/forumposts",
         "public_api": "(*torn.Client).GetMyForumPosts",
-        "response": "GetMyForumPostsResponse"
+        "response": "GetMyForumPostsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6390,7 +6613,8 @@
         "params": "GetMyForumSubscribedThreadsParams",
         "path": "/user/forumsubscribedthreads",
         "public_api": "(*torn.Client).GetMyForumSubscribedThreads",
-        "response": "GetMyForumSubscribedThreadsResponse"
+        "response": "GetMyForumSubscribedThreadsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6399,7 +6623,8 @@
         "params": "GetMyForumThreadsParams",
         "path": "/user/forumthreads",
         "public_api": "(*torn.Client).GetMyForumThreads",
-        "response": "GetMyForumThreadsResponse"
+        "response": "GetMyForumThreadsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6408,7 +6633,18 @@
         "params": "GetMyGymParams",
         "path": "/user/gym",
         "public_api": "(*torn.Client).GetMyGym",
-        "response": "GetMyGymResponse"
+        "response": "GetMyGymResponse",
+        "stability": "Stable"
+      },
+      {
+        "csv": false,
+        "method": "GET",
+        "operationId": "getMyHalloween",
+        "params": "GetMyHalloweenParams",
+        "path": "/user/halloween",
+        "public_api": "(*torn.Client).GetMyHalloween",
+        "response": "GetMyHalloweenResponse",
+        "stability": "Untable"
       },
       {
         "csv": false,
@@ -6417,7 +6653,8 @@
         "params": "GetMyHoFParams",
         "path": "/user/hof",
         "public_api": "(*torn.Client).GetMyHoF",
-        "response": "GetMyHoFResponse"
+        "response": "GetMyHoFResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6426,7 +6663,8 @@
         "params": "GetMyHonorsParams",
         "path": "/user/honors",
         "public_api": "(*torn.Client).GetMyHonors",
-        "response": "GetMyHonorsResponse"
+        "response": "GetMyHonorsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6435,16 +6673,19 @@
         "params": "GetMyIconsParams",
         "path": "/user/icons",
         "public_api": "(*torn.Client).GetMyIcons",
-        "response": "GetMyIconsResponse"
+        "response": "GetMyIconsResponse",
+        "stability": "Stable"
       },
       {
+        "cacheTTLSeconds": 900,
         "csv": false,
         "method": "GET",
         "operationId": "getMyInventory",
         "params": "GetMyInventoryParams",
         "path": "/user/inventory",
         "public_api": "(*torn.Client).GetMyInventory",
-        "response": "GetMyInventoryResponse"
+        "response": "GetMyInventoryResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6453,7 +6694,8 @@
         "params": "GetMyItemMarketListingsParams",
         "path": "/user/itemmarket",
         "public_api": "(*torn.Client).GetMyItemMarketListings",
-        "response": "GetMyItemMarketListingsResponse"
+        "response": "GetMyItemMarketListingsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6462,7 +6704,8 @@
         "params": "GetMyItemModsInformationParams",
         "path": "/user/itemmods",
         "public_api": "(*torn.Client).GetMyItemModsInformation",
-        "response": "GetMyItemModsInformationResponse"
+        "response": "GetMyItemModsInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6471,7 +6714,8 @@
         "params": "GetMyJobParams",
         "path": "/user/job",
         "public_api": "(*torn.Client).GetMyJob",
-        "response": "GetMyJobResponse"
+        "response": "GetMyJobResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6480,7 +6724,8 @@
         "params": "GetMyJobPointsParams",
         "path": "/user/jobpoints",
         "public_api": "(*torn.Client).GetMyJobPoints",
-        "response": "GetMyJobPointsResponse"
+        "response": "GetMyJobPointsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6489,7 +6734,8 @@
         "params": "GetMyJobRanksParams",
         "path": "/user/jobranks",
         "public_api": "(*torn.Client).GetMyJobRanks",
-        "response": "GetMyJobRanksResponse"
+        "response": "GetMyJobRanksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6498,7 +6744,8 @@
         "params": "GetMyContactsListParams",
         "path": "/user/list",
         "public_api": "(*torn.Client).GetMyContactsList",
-        "response": "GetMyContactsListResponse"
+        "response": "GetMyContactsListResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6507,7 +6754,8 @@
         "params": "GetMyLogsParams",
         "path": "/user/log",
         "public_api": "(*torn.Client).GetMyLogs",
-        "response": "GetMyLogsResponse"
+        "response": "GetMyLogsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6516,7 +6764,8 @@
         "params": "GetUserLookupParams",
         "path": "/user/lookup",
         "public_api": "(*torn.Client).GetUserLookup",
-        "response": "GetUserLookupResponse"
+        "response": "GetUserLookupResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6525,7 +6774,8 @@
         "params": "GetMyMedalsParams",
         "path": "/user/medals",
         "public_api": "(*torn.Client).GetMyMedals",
-        "response": "GetMyMedalsResponse"
+        "response": "GetMyMedalsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6534,7 +6784,8 @@
         "params": "GetMyMeritsParams",
         "path": "/user/merits",
         "public_api": "(*torn.Client).GetMyMerits",
-        "response": "GetMyMeritsResponse"
+        "response": "GetMyMeritsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6543,7 +6794,8 @@
         "params": "GetMyMessagesParams",
         "path": "/user/messages",
         "public_api": "(*torn.Client).GetMyMessages",
-        "response": "GetMyMessagesResponse"
+        "response": "GetMyMessagesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6552,7 +6804,8 @@
         "params": "GetMyMissionsParams",
         "path": "/user/missions",
         "public_api": "(*torn.Client).GetMyMissions",
-        "response": "GetMyMissionsResponse"
+        "response": "GetMyMissionsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6561,7 +6814,8 @@
         "params": "GetMyMoneyParams",
         "path": "/user/money",
         "public_api": "(*torn.Client).GetMyMoney",
-        "response": "GetMyMoneyResponse"
+        "response": "GetMyMoneyResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6570,7 +6824,8 @@
         "params": "GetMyNetworthParams",
         "path": "/user/networth",
         "public_api": "(*torn.Client).GetMyNetworth",
-        "response": "GetMyNetworthResponse"
+        "response": "GetMyNetworthResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6579,7 +6834,8 @@
         "params": "GetMyNewEventsParams",
         "path": "/user/newevents",
         "public_api": "(*torn.Client).GetMyNewEvents",
-        "response": "GetMyNewEventsResponse"
+        "response": "GetMyNewEventsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6588,7 +6844,8 @@
         "params": "GetMyNewMessagesParams",
         "path": "/user/newmessages",
         "public_api": "(*torn.Client).GetMyNewMessages",
-        "response": "GetMyNewMessagesResponse"
+        "response": "GetMyNewMessagesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6597,7 +6854,8 @@
         "params": "GetMyNotificationsParams",
         "path": "/user/notifications",
         "public_api": "(*torn.Client).GetMyNotifications",
-        "response": "GetMyNotificationsResponse"
+        "response": "GetMyNotificationsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6606,7 +6864,8 @@
         "params": "GetMyOrganizedCrimeParams",
         "path": "/user/organizedcrime",
         "public_api": "(*torn.Client).GetMyOrganizedCrime",
-        "response": "GetMyOrganizedCrimeResponse"
+        "response": "GetMyOrganizedCrimeResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6615,7 +6874,8 @@
         "params": "GetMyAvailableOrganizedCrimesParams",
         "path": "/user/organizedcrimes",
         "public_api": "(*torn.Client).GetMyAvailableOrganizedCrimes",
-        "response": "GetMyAvailableOrganizedCrimesResponse"
+        "response": "GetMyAvailableOrganizedCrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6624,7 +6884,8 @@
         "params": "GetMyPerksParams",
         "path": "/user/perks",
         "public_api": "(*torn.Client).GetMyPerks",
-        "response": "GetMyPerksResponse"
+        "response": "GetMyPerksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6633,7 +6894,8 @@
         "params": "GetMyPersonalStatsParams",
         "path": "/user/personalstats",
         "public_api": "(*torn.Client).GetMyPersonalStats",
-        "response": "GetMyPersonalStatsResponse"
+        "response": "GetMyPersonalStatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6642,7 +6904,8 @@
         "params": "GetMyProfileParams",
         "path": "/user/profile",
         "public_api": "(*torn.Client).GetMyProfile",
-        "response": "GetMyProfileResponse"
+        "response": "GetMyProfileResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6651,7 +6914,8 @@
         "params": "GetMyPropertiesParams",
         "path": "/user/properties",
         "public_api": "(*torn.Client).GetMyProperties",
-        "response": "GetMyPropertiesResponse"
+        "response": "GetMyPropertiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6660,7 +6924,8 @@
         "params": "GetMyPropertyParams",
         "path": "/user/property",
         "public_api": "(*torn.Client).GetMyProperty",
-        "response": "GetMyPropertyResponse"
+        "response": "GetMyPropertyResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6669,7 +6934,8 @@
         "params": "GetMyRacesParams",
         "path": "/user/races",
         "public_api": "(*torn.Client).GetMyRaces",
-        "response": "GetMyRacesResponse"
+        "response": "GetMyRacesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6678,7 +6944,8 @@
         "params": "GetMyRacingRecordsParams",
         "path": "/user/racingrecords",
         "public_api": "(*torn.Client).GetMyRacingRecords",
-        "response": "GetMyRacingRecordsResponse"
+        "response": "GetMyRacingRecordsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6687,7 +6954,8 @@
         "params": "GetMyRefillsParams",
         "path": "/user/refills",
         "public_api": "(*torn.Client).GetMyRefills",
-        "response": "GetMyRefillsResponse"
+        "response": "GetMyRefillsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6696,7 +6964,8 @@
         "params": "GetMyReportsParams",
         "path": "/user/reports",
         "public_api": "(*torn.Client).GetMyReports",
-        "response": "GetMyReportsResponse"
+        "response": "GetMyReportsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6705,7 +6974,8 @@
         "params": "GetMyRevivesParams",
         "path": "/user/revives",
         "public_api": "(*torn.Client).GetMyRevives",
-        "response": "GetMyRevivesResponse"
+        "response": "GetMyRevivesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6714,7 +6984,8 @@
         "params": "GetMyRevivesSimplifiedParams",
         "path": "/user/revivesFull",
         "public_api": "(*torn.Client).GetMyRevivesSimplified",
-        "response": "GetMyRevivesSimplifiedResponse"
+        "response": "GetMyRevivesSimplifiedResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6723,7 +6994,8 @@
         "params": "GetUsersSearchParams",
         "path": "/user/search",
         "public_api": "(*torn.Client).GetUsersSearch",
-        "response": "GetUsersSearchResponse"
+        "response": "GetUsersSearchResponse",
+        "stability": "Unstable"
       },
       {
         "csv": false,
@@ -6732,7 +7004,8 @@
         "params": "GetMySkillsParams",
         "path": "/user/skills",
         "public_api": "(*torn.Client).GetMySkills",
-        "response": "GetMySkillsResponse"
+        "response": "GetMySkillsResponse",
+        "stability": "Stable"
       },
       {
         "csv": true,
@@ -6741,7 +7014,8 @@
         "params": "GetUsersSnapshotParams",
         "path": "/user/snapshot",
         "public_api": "(*torn.Client).GetUsersSnapshot",
-        "response": "GetUsersSnapshotResponse"
+        "response": "GetUsersSnapshotResponse",
+        "stability": "Unstable"
       },
       {
         "csv": false,
@@ -6750,7 +7024,8 @@
         "params": "GetMyStocksParams",
         "path": "/user/stocks",
         "public_api": "(*torn.Client).GetMyStocks",
-        "response": "GetMyStocksResponse"
+        "response": "GetMyStocksResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6759,7 +7034,8 @@
         "params": "GetUserTimestampParams",
         "path": "/user/timestamp",
         "public_api": "(*torn.Client).GetUserTimestamp",
-        "response": "GetUserTimestampResponse"
+        "response": "GetUserTimestampResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6768,7 +7044,8 @@
         "params": "GetMyTradesParams",
         "path": "/user/trades",
         "public_api": "(*torn.Client).GetMyTrades",
-        "response": "GetMyTradesResponse"
+        "response": "GetMyTradesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6777,7 +7054,8 @@
         "params": "GetMyTravelInformationParams",
         "path": "/user/travel",
         "public_api": "(*torn.Client).GetMyTravelInformation",
-        "response": "GetMyTravelInformationResponse"
+        "response": "GetMyTravelInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6786,7 +7064,8 @@
         "params": "GetMyVirusCodingInformationParams",
         "path": "/user/virus",
         "public_api": "(*torn.Client).GetMyVirusCodingInformation",
-        "response": "GetMyVirusCodingInformationResponse"
+        "response": "GetMyVirusCodingInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6795,7 +7074,8 @@
         "params": "GetMyWeaponExpParams",
         "path": "/user/weaponexp",
         "public_api": "(*torn.Client).GetMyWeaponExp",
-        "response": "GetMyWeaponExpResponse"
+        "response": "GetMyWeaponExpResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6804,7 +7084,8 @@
         "params": "GetMyWorkstatsParams",
         "path": "/user/workstats",
         "public_api": "(*torn.Client).GetMyWorkstats",
-        "response": "GetMyWorkstatsResponse"
+        "response": "GetMyWorkstatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6813,7 +7094,8 @@
         "params": "GetMyCrimesParams",
         "path": "/user/{crimeId}/crimes",
         "public_api": "(*torn.Client).GetMyCrimes",
-        "response": "GetMyCrimesResponse"
+        "response": "GetMyCrimesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6822,7 +7104,8 @@
         "params": "GetUserBasicInformationParams",
         "path": "/user/{id}/basic",
         "public_api": "(*torn.Client).GetUserBasicInformation",
-        "response": "GetUserBasicInformationResponse"
+        "response": "GetUserBasicInformationResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6831,7 +7114,8 @@
         "params": "GetUserBountiesParams",
         "path": "/user/{id}/bounties",
         "public_api": "(*torn.Client).GetUserBounties",
-        "response": "GetUserBountiesResponse"
+        "response": "GetUserBountiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6840,7 +7124,8 @@
         "params": "GetUserCompetitionInfoParams",
         "path": "/user/{id}/competition",
         "public_api": "(*torn.Client).GetUserCompetitionInfo",
-        "response": "GetUserCompetitionInfoResponse"
+        "response": "GetUserCompetitionInfoResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6849,7 +7134,8 @@
         "params": "GetUserDiscordParams",
         "path": "/user/{id}/discord",
         "public_api": "(*torn.Client).GetUserDiscord",
-        "response": "GetUserDiscordResponse"
+        "response": "GetUserDiscordResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6858,7 +7144,8 @@
         "params": "GetUserFactionParams",
         "path": "/user/{id}/faction",
         "public_api": "(*torn.Client).GetUserFaction",
-        "response": "GetUserFactionResponse"
+        "response": "GetUserFactionResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6867,7 +7154,8 @@
         "params": "GetUserForumPostsParams",
         "path": "/user/{id}/forumposts",
         "public_api": "(*torn.Client).GetUserForumPosts",
-        "response": "GetUserForumPostsResponse"
+        "response": "GetUserForumPostsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6876,7 +7164,8 @@
         "params": "GetUserForumThreadsParams",
         "path": "/user/{id}/forumthreads",
         "public_api": "(*torn.Client).GetUserForumThreads",
-        "response": "GetUserForumThreadsResponse"
+        "response": "GetUserForumThreadsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6885,7 +7174,8 @@
         "params": "GetUserHoFParams",
         "path": "/user/{id}/hof",
         "public_api": "(*torn.Client).GetUserHoF",
-        "response": "GetUserHoFResponse"
+        "response": "GetUserHoFResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6894,7 +7184,8 @@
         "params": "GetUserIconsParams",
         "path": "/user/{id}/icons",
         "public_api": "(*torn.Client).GetUserIcons",
-        "response": "GetUserIconsResponse"
+        "response": "GetUserIconsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6903,7 +7194,8 @@
         "params": "GetUserJobParams",
         "path": "/user/{id}/job",
         "public_api": "(*torn.Client).GetUserJob",
-        "response": "GetUserJobResponse"
+        "response": "GetUserJobResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6912,7 +7204,8 @@
         "params": "GetUserMedalsParams",
         "path": "/user/{id}/medals",
         "public_api": "(*torn.Client).GetUserMedals",
-        "response": "GetUserMedalsResponse"
+        "response": "GetUserMedalsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6921,7 +7214,8 @@
         "params": "GetUserPersonalStatsParams",
         "path": "/user/{id}/personalstats",
         "public_api": "(*torn.Client).GetUserPersonalStats",
-        "response": "GetUserPersonalStatsResponse"
+        "response": "GetUserPersonalStatsResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6930,7 +7224,8 @@
         "params": "GetUserProfileParams",
         "path": "/user/{id}/profile",
         "public_api": "(*torn.Client).GetUserProfile",
-        "response": "GetUserProfileResponse"
+        "response": "GetUserProfileResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6939,7 +7234,8 @@
         "params": "GetUserPropertiesParams",
         "path": "/user/{id}/properties",
         "public_api": "(*torn.Client).GetUserProperties",
-        "response": "GetUserPropertiesResponse"
+        "response": "GetUserPropertiesResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6948,7 +7244,8 @@
         "params": "GetUserPropertyParams",
         "path": "/user/{id}/property",
         "public_api": "(*torn.Client).GetUserProperty",
-        "response": "GetUserPropertyResponse"
+        "response": "GetUserPropertyResponse",
+        "stability": "Stable"
       },
       {
         "csv": false,
@@ -6957,7 +7254,8 @@
         "params": "GetMyDetailedTradeParams",
         "path": "/user/{tradeId}/trade",
         "public_api": "(*torn.Client).GetMyDetailedTrade",
-        "response": "GetMyDetailedTradeResponse"
+        "response": "GetMyDetailedTradeResponse",
+        "stability": "Stable"
       }
     ],
     "schemas": {
@@ -7222,6 +7520,7 @@
       "ForumThreadsResponse": "models.ForumThreadsResponse",
       "GymClassEnum": "models.GymClassEnum",
       "GymId": "models.GymId",
+      "HalloweenBasketUpgradeId": "models.HalloweenBasketUpgradeId",
       "HofValue": "models.HofValue",
       "HofValueFloat": "models.HofValueFloat",
       "HofValueString": "models.HofValueString",
@@ -7415,6 +7714,9 @@
       "TornGym": "models.TornGym",
       "TornGymModifiers": "models.TornGymModifiers",
       "TornGymsResponse": "models.TornGymsResponse",
+      "TornHalloween": "models.TornHalloween",
+      "TornHalloweenResponse": "models.TornHalloweenResponse",
+      "TornHalloweenUpgrade": "models.TornHalloweenUpgrade",
       "TornHof": "models.TornHof",
       "TornHofBasic": "models.TornHofBasic",
       "TornHofCategory": "models.TornHofCategory",
@@ -7571,6 +7873,9 @@
       "UserForumThreadsResponse": "models.UserForumThreadsResponse",
       "UserGenderEnum": "models.UserGenderEnum",
       "UserGymResponse": "models.UserGymResponse",
+      "UserHalloween": "models.UserHalloween",
+      "UserHalloweenBasketUpgrade": "models.UserHalloweenBasketUpgrade",
+      "UserHalloweenResponse": "models.UserHalloweenResponse",
       "UserHofResponse": "models.UserHofResponse",
       "UserHofStats": "models.UserHofStats",
       "UserHonor": "models.UserHonor",
@@ -7674,7 +7979,7 @@
       "UserWorkStatsResponse": "models.UserWorkStatsResponse",
       "WeaponBonusEnum": "models.WeaponBonusEnum"
     },
-    "version": "6.13.8"
+    "version": "6.14.0"
   },
   "historical": {
     "schemas": {
@@ -10934,6 +11239,27 @@
         "csv": false,
         "endpoints": [
           {
+            "id": "getTornHalloween",
+            "parameters": [
+              "comment",
+              "key",
+              "timestamp"
+            ],
+            "path": "/torn/halloween",
+            "required": null,
+            "schema": "TornHalloweenResponse"
+          }
+        ],
+        "generic": true,
+        "legacy": false,
+        "name": "halloween",
+        "resource": "torn",
+        "standalone": false
+      },
+      {
+        "csv": false,
+        "endpoints": [
+          {
             "id": "getTornHoF",
             "parameters": [
               "cat",
@@ -12230,6 +12556,27 @@
         "csv": false,
         "endpoints": [
           {
+            "id": "getMyHalloween",
+            "parameters": [
+              "comment",
+              "key",
+              "timestamp"
+            ],
+            "path": "/user/halloween",
+            "required": null,
+            "schema": "UserHalloweenResponse"
+          }
+        ],
+        "generic": true,
+        "legacy": false,
+        "name": "halloween",
+        "resource": "user",
+        "standalone": false
+      },
+      {
+        "csv": false,
+        "endpoints": [
+          {
             "id": "getMyHoF",
             "parameters": [
               "comment",
@@ -13377,9 +13724,9 @@
       }
     ],
     "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint.",
-    "raw_helpers": 202,
+    "raw_helpers": 204,
     "source": "https://www.torn.com/swagger/openapi.json",
-    "typed_helpers": 207,
+    "typed_helpers": 209,
     "v1_catalog": [
       {
         "legacy_only": false,
@@ -14303,6 +14650,6 @@
       }
     ],
     "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
-    "version": "6.13.8"
+    "version": "6.14.0"
   }
 }
