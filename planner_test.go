@@ -96,8 +96,12 @@ func TestOfficialCurrentAndFrozenSelectionTransport(t *testing.T) {
 					if !strings.Contains(req.URL.Path, "/"+resource) {
 						t.Fatal(req.URL.Path)
 					}
-					if req.URL.Query().Get("key") != "fixture-only-key" {
-						t.Fatal("authentication missing")
+					if p.Calls[0].Version == "v1" {
+						if req.URL.Query().Get("key") != "fixture-only-key" || req.Header.Get("Authorization") != "" {
+							t.Fatal("v1 authentication")
+						}
+					} else if req.Header.Get("Authorization") != "ApiKey fixture-only-key" || req.URL.Query().Has("key") {
+						t.Fatal("v2 authentication must use only the Authorization header")
 					}
 				})
 			}

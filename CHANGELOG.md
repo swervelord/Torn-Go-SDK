@@ -17,8 +17,9 @@
   official contract omits its value schema. The typing report records this fourth
   upstream gap; no narrower type is invented.
 - Spend a key's remaining minute budget after Torn code 5, and the route's budget
-  when the message attributes the limit to the IP, matching the Rust,
-  TypeScript and Zig SDKs.
+  when the message attributes the limit to the IP, so other calls rotate.
+- Send the API key in the `Authorization: ApiKey` header for v2 requests instead
+  of the URL query string. Legacy v1 fallback calls keep the `key` parameter.
 - Recognize Torn combination-rejection and v1-migration messages for split
   recovery and opt-in v1 fallback, in addition to code 4 and HTTP 400/404/501.
 - Current inventory: 236 exact operations, 719 component schemas, 207 selection

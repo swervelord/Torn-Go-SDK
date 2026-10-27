@@ -52,7 +52,11 @@ Execution reports include successful contributing calls only, with operation,
 path, route, selections, version and fallback status. Failed attempts do not
 appear. A failed multi-call execution returns its partial successful data and
 report alongside the error. API errors, HTTP status errors and transport errors
-are structured. API messages redact configured keys; network errors deliberately
+are structured. API v2 requests send the key only in the documented
+`Authorization: ApiKey <key>` header, keeping it out of URLs that proxies and
+servers commonly log. Legacy v1 fallback calls still use the `key` query
+parameter because no header authentication is documented for v1. API messages
+redact configured keys; network errors deliberately
 exclude potentially credential-bearing URL text. Client and configuration
 formatting and JSON serialization omit credentials. Configured API keys remain
 explicitly accessible through the configuration supplied by the caller.

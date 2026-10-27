@@ -103,7 +103,7 @@ func TestRuntimeQuotaRotationAndSpillover(t *testing.T) {
 	var usage []RouteUsage
 	var keys []string
 	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
-		keys = append(keys, r.URL.Query().Get("key"))
+		keys = append(keys, strings.TrimPrefix(r.Header.Get("Authorization"), "ApiKey "))
 		fmt.Fprint(w, `{}`)
 	}, func(c *Config) {
 		c.Scheduler = clock
@@ -420,5 +420,23 @@ func TestRuntimeMessageClassifiedRecovery(t *testing.T) {
 	}
 	if requestsV1("Key is invalid") || rejectsCombination("Incorrect ID") || mentionsIP("Multiple requests") || !mentionsIP("Too many requests (IP)") {
 		t.Fatal("message classification")
+	}
+}
+func TestRuntimeCredentialTransport(t *testing.T) {
+	var seen []string
+	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
+		seen = append(seen, r.Header.Get("Authorization")+"|"+r.URL.Query().Get("key"))
+		fmt.Fprint(w, `{}`)
+	}, nil)
+	p := Plan{Calls: []PlannedCall{
+		{Operation: Operation{Path: "/user"}, Selections: []string{"profile"}, Params: map[string]any{"selections": "profile"}, Version: "v2"},
+		{Operation: Operation{Path: "/user/7"}, Selections: []string{"profile"}, Params: map[string]any{"selections": "profile"}, Version: "v1"},
+	}}
+	if _, e := c.Execute(context.Background(), p, RequestOptions{}); e != nil {
+		t.Fatal(e)
+	}
+	// v2 uses the documented header; legacy v1 keeps its query parameter.
+	if strings.Join(seen, ",") != "ApiKey private-test-key|,|private-test-key" {
+		t.Fatalf("%q", seen)
 	}
 }

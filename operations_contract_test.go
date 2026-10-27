@@ -115,7 +115,9 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 						t.Errorf("path got %q want %q", req.URL.EscapedPath(), expectedPath)
 					}
 					q := req.URL.Query()
-					q.Del("key")
+					if q.Has("key") || req.Header.Get("Authorization") == "" {
+						t.Error("v2 credential must travel only in the Authorization header")
+					}
 					if !reflect.DeepEqual(q, expectedQuery) {
 						t.Errorf("query got %v want %v", q, expectedQuery)
 					}

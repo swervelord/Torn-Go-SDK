@@ -108,7 +108,10 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		for k, v := range q {
 			query[k] = append([]string(nil), v...)
 		}
-		query.Set("key", c.cfg.APIKeys[key])
+		if version == "v1" {
+			// The legacy v1 API has no documented header authentication.
+			query.Set("key", c.cfg.APIKeys[key])
+		}
 		target := strings.TrimRight(base, "/") + path + "?" + query.Encode()
 		requestCtx, cancel := context.WithTimeout(ctx, timeout)
 		req, err := http.NewRequestWithContext(requestCtx, method, target, nil)
@@ -119,6 +122,9 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		}
 		req.Header.Set("Accept", "application/json")
 		req.Header.Set("User-Agent", c.cfg.UserAgent)
+		if version != "v1" {
+			req.Header.Set("Authorization", "ApiKey "+c.cfg.APIKeys[key])
+		}
 		if op.CSV {
 			req.Header.Set("Accept", "text/csv")
 		}
