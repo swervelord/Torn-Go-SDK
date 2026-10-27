@@ -16,6 +16,11 @@
 - Preserve `TornHalloweenUpgrade.type` as required exact raw JSON because the
   official contract omits its value schema. The typing report records this fourth
   upstream gap; no narrower type is invented.
+- Spend a key's remaining minute budget after Torn code 5, and the route's budget
+  when the message attributes the limit to the IP, matching the Rust,
+  TypeScript and Zig SDKs.
+- Recognize Torn combination-rejection and v1-migration messages for split
+  recovery and opt-in v1 fallback, in addition to code 4 and HTTP 400/404/501.
 - Current inventory: 236 exact operations, 719 component schemas, 207 selection
   capabilities, 209 typed helpers, and 204 raw helpers. Frozen 6.13.6 schemas and
   549 compatibility declarations remain available.

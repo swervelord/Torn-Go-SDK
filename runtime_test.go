@@ -363,3 +363,62 @@ func FuzzRuntimeMerge(f *testing.F) {
 		}
 	})
 }
+func TestRuntimeCode5SpendsKeyAndIPRoute(t *testing.T) {
+	clock := &fakeScheduler{now: time.Unix(121, 0)}
+	var sent atomic.Int32
+	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
+		switch sent.Add(1) {
+		case 1:
+			fmt.Fprint(w, `{"error":{"code":5,"error":"Too many requests"}}`)
+		case 2:
+			fmt.Fprint(w, `{"error":{"code":5,"error":"Too many requests from this IP"}}`)
+		default:
+			fmt.Fprint(w, `{}`)
+		}
+	}, func(c *Config) {
+		c.Scheduler = clock
+		c.APIKeys = []string{"a", "b", "c"}
+		c.KeyPerMinute = 10
+		c.Routes = []Route{{Name: "one"}, {Name: "two"}}
+	})
+	var usage []RouteUsage
+	c.cfg.Observer = func(u RouteUsage) { usage = append(usage, u) }
+	for i := 0; i < 3; i++ {
+		_, _, e := c.DoOperation(context.Background(), Operation{Path: "/user"}, nil, RequestOptions{Attempts: 1})
+		if i < 2 && e == nil || i == 2 && e != nil {
+			t.Fatalf("call %d: %v", i, e)
+		}
+	}
+	got := make([]string, len(usage))
+	for i, u := range usage {
+		got[i] = fmt.Sprintf("%d@%s", u.KeyIndex, u.Route)
+	}
+	// Spent keys a and b are skipped; the IP-limited route one spills over to two.
+	if strings.Join(got, ",") != "0@one,1@one,2@two" || len(clock.waits) != 0 {
+		t.Fatalf("usage %v waits %v", got, clock.waits)
+	}
+}
+func TestRuntimeMessageClassifiedRecovery(t *testing.T) {
+	var calls []string
+	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
+		s := r.URL.Query().Get("selections")
+		calls = append(calls, s)
+		if strings.Contains(s, ",") {
+			fmt.Fprint(w, `{"error":{"code":17,"error":"Selection cannot be used together with another selection"}}`)
+			return
+		}
+		fmt.Fprintf(w, `{%q:{}}`, s)
+	}, nil)
+	p := Plan{Calls: []PlannedCall{{Operation: Operation{Path: "/user"}, Selections: []string{"profile", "job"}, Params: map[string]any{"selections": "profile,job"}, Version: "v2"}}}
+	if r, e := c.Execute(context.Background(), p, RequestOptions{}); e != nil || len(r.Report.Calls) != 2 || strings.Join(calls, "|") != "profile,job|profile|job" {
+		t.Fatalf("%v %v", e, calls)
+	}
+	for _, m := range []string{"The following selections are not available in API v2: 'networth'", "Selection is only available in API v1"} {
+		if !requestsV1(m) {
+			t.Fatal(m)
+		}
+	}
+	if requestsV1("Key is invalid") || rejectsCombination("Incorrect ID") || mentionsIP("Multiple requests") || !mentionsIP("Too many requests (IP)") {
+		t.Fatal("message classification")
+	}
+}

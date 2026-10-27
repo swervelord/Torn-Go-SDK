@@ -37,7 +37,11 @@ it must be concurrency safe and should return promptly.
 Network errors, body read failures, HTTP 408/429/500/502/503/504, and Torn API codes
 5/8/9 are retried within the attempt budget. HTTP `Retry-After` seconds or dates
 increase the delay when longer than linear backoff. Torn code 5 waits until at
-least the next minute boundary. Context cancellation interrupts semaphore,
+least the next minute boundary and spends the rest of that minute's local budget
+for the key that received it, so concurrent and later calls rotate to other keys.
+When the message names the IP as a whole word, the route's budget is spent too
+and calls spill over to other routes. HTTP 429 uses Retry-After and backoff
+without spending budgets. Context cancellation interrupts semaphore,
 quota, backoff and network waits. Redirects are returned as HTTP errors to avoid
 sending credentials to a redirect target. Response bodies default to a 64 MiB
 limit (`MaxResponseBytes`); larger responses fail explicitly rather than truncate.
@@ -54,7 +58,9 @@ formatting and JSON serialization omit credentials. Configured API keys remain
 explicitly accessible through the configuration supplied by the caller.
 
 Combined generic selection requests split into individual selections after Torn
-code 4 or HTTP 400/404/501. Runtime v2-to-v1 recovery additionally requires
+code 4, HTTP 400/404/501, or a Torn message rejecting the combination ("cannot be
+used together", "standalone"). Runtime v2-to-v1 recovery triggers on the same
+codes or on messages directing the selection to API v1, and additionally requires
 `RequestOptions{AllowLegacyFallback:true}` and explicit fallback calls in the
 plan. `DisableFallback` disables both split and legacy recovery. Independent
 helper invocations are independent sends; explicit batching requests coalescing.
