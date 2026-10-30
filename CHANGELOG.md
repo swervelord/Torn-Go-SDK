@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased — Torn API 6.15.0 (2026-10-30)
+
+- Refresh the official pinned contract to 6.15.0, with regenerated models, exact
+  operations, selection tokens, helpers, manifests, typing report, and provenance.
+  `APIVersion` is now `6.15.0`.
+- Add the typed user travel inventory endpoint and batch selection
+  (`GetMyTravelInventory`, `UserTravelinventory`, `RawUserTravelinventory`,
+  `UserSelections.Travelinventory`) with `UserTravelInventoryResponse`,
+  `UserTravelInventory`, `UserTravelInventoryCapacity`, `UserTravelInventorySlot`,
+  and `UserTravelInventoryItem`. Nullable slot `item` and item `uid` use the
+  generated union accessors; `AsVariant2` identifies JSON null.
+- Expose the minimum documented key access level as
+  `OperationMetadata.AccessLevel` (`Public`, `Minimal`, `Limited`, or `Full`),
+  derived from each operation's official `ApiKey*` parameter. Travel inventory
+  requires a Limited key and is marked Unstable upstream.
+- Add `JobPositionCasinoEnumDealer` and
+  `FactionTerritoryWarResultEnumEndWithDirtyBomb`. The territory war result was
+  added to the official contract without a patch note.
+- Add an opt-in live travel inventory/job test alongside the profile/job test.
+- Current inventory: 237 exact operations, 724 component schemas, 208 selection
+  capabilities, 210 typed helpers, and 205 raw helpers. Frozen 6.13.6 schemas and
+  549 compatibility declarations remain available.
+
 ## Unreleased — Torn API 6.14.0 (2026-10-27)
 
 - Refresh the official pinned contract, generators, all current concrete models,

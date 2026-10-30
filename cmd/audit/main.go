@@ -83,7 +83,7 @@ func main() {
 	check := flag.Bool("check", false, "verify the committed typing report")
 	flag.Parse()
 	var gaps []gap
-	doc := load("spec/openapi-6.14.0.json")
+	doc := load("spec/openapi-6.15.0.json")
 	components := doc["components"].(map[string]any)
 	for _, section := range []string{"schemas", "parameters"} {
 		entries, _ := components[section].(map[string]any)
@@ -118,7 +118,7 @@ func main() {
 	}
 	walk(compat, "compatibility-models")
 	sort.Strings(rawFields)
-	report := map[string]any{"version": "6.14.0", "source": "https://www.torn.com/swagger/openapi.json", "official_unspecified_fields": gaps, "compatibility_raw_descriptors": rawFields, "compatibility_models": len(compat), "scope": "All audited official v2 schemas and operations; historical 6.13.6 schemas; documented selection routing. Unspecified v1 payloads and open log maps cannot be claimed fully statically typed.", "json_policy": "Signed 64-bit generated integers, exact json.Number for decimal values, raw JSON for unspecified values; missing/null presence wrappers; duplicate names rejected; open string variants accepted where documented enum-or-string unions overlap."}
+	report := map[string]any{"version": "6.15.0", "source": "https://www.torn.com/swagger/openapi.json", "official_unspecified_fields": gaps, "compatibility_raw_descriptors": rawFields, "compatibility_models": len(compat), "scope": "All audited official v2 schemas and operations; historical 6.13.6 schemas; documented selection routing. Unspecified v1 payloads and open log maps cannot be claimed fully statically typed.", "json_policy": "Signed 64-bit generated integers, exact json.Number for decimal values, raw JSON for unspecified values; missing/null presence wrappers; duplicate names rejected; open string variants accepted where documented enum-or-string unions overlap."}
 	b, e := json.MarshalIndent(report, "", "  ")
 	if e != nil {
 		panic(e)

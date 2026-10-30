@@ -1,8 +1,8 @@
 # API coverage and evidence
 
 The primary authority is the official [Torn OpenAPI specification](https://www.torn.com/swagger/openapi.json).
-The current snapshot was fetched on October 27, 2026 with a custom user agent.
-It reports version **6.14.0**. Versioned bytes, SHA-256 hashes, source URLs, and
+The current snapshot was fetched on October 30, 2026 with a custom user agent.
+It reports version **6.15.0**. Versioned bytes, SHA-256 hashes, source URLs, and
 inventories are committed in [provenance.json](spec/provenance.json).
 
 The historical 6.13.6 contract is semantically equal to the specification in
@@ -13,14 +13,14 @@ version; the SDK retains independent generated historical artifacts.
 
 | Public surface | Verified inventory | Evidence |
 | --- | ---: | --- |
-| Exact current operations | 236 | Every public exact method called through a mock HTTP transport with independently spec-derived paths, inputs, queries, response payloads, and media types |
-| Current component schemas | 719 | Three independent schema-boundary samples per component, concrete decoding, validated round-trips, and rejection boundaries |
+| Exact current operations | 237 | Every public exact method called through a mock HTTP transport with independently spec-derived paths, inputs, queries, response payloads, and media types |
+| Current component schemas | 724 | Three independent schema-boundary samples per component, concrete decoding, validated round-trips, and rejection boundaries |
 | Historical component schemas | 711 | Three historical spec-derived samples per component, independent concrete decoding and round-trips |
 | Compatibility declarations | 549 | Committed neutral contracts, typed declarations, defaults/aliases/extras/custom decoding, and handwritten boundary fixtures |
-| Selection capabilities | 207 | Official enums, exact endpoints, documented standalone/direct/legacy rules, current and historical selection tests |
+| Selection capabilities | 208 | Official enums, exact endpoints, documented standalone/direct/legacy rules, current and historical selection tests |
 | Maintained v1 selection catalog | 184 | Explicit resource inventories, legacy-only routing, supported/unsupported fallback tests, and evidence limitations |
-| Typed convenience helpers | 209 | All JSON selection helpers, three CSV helpers, and two public aliases invoked through transport |
-| Raw convenience helpers | 204 | Every non-CSV capability has a raw helper and dispatch test |
+| Typed convenience helpers | 210 | All JSON selection helpers, three CSV helpers, and two public aliases invoked through transport |
+| Raw convenience helpers | 205 | Every non-CSV capability has a raw helper and dispatch test |
 | Dedicated CSV operations | 3 | User, faction, and company exact text responses and facade dispatch |
 
 [coverage.json](spec/coverage.json) maps the complete inventories to their public
@@ -33,16 +33,16 @@ Go API. More focused manifests describe [models and operations](spec/model-cover
 `schema_contract_test.go` constructs samples from the pinned specification's
 required/optional/nullable/enum/array/composition constraints. It does not call the
 decoder to manufacture expected acceptance. There are **2,133 frozen** and
-**2,157 current** acceptance samples. `concrete_models_test.go` also decodes those
+**2,172 current** acceptance samples. `concrete_models_test.go` also decodes those
 samples into their actual public Go types and verifies valid round-trips.
 
 `operations_contract_test.go` derives expected HTTP requests directly from the
-specification and invokes all 236 generated public methods. `planner_test.go`
+specification and invokes all 237 generated public methods. `planner_test.go`
 independently enumerates compatible groups and pairs from documented selections,
 asserting transport request counts and encoded selection lists. It also covers
 every raw helper, required paths, allowlists, CSV rejection, standalone routing,
 legacy routes, and invalid target combinations. `facade_contract_test.go` invokes
-all 209 typed helpers with independently supplied responses.
+all 210 typed helpers with independently supplied responses.
 
 `typed_batch_test.go` demonstrates concrete heterogeneous result slots. A real
 compiler invocation rejects mixing a faction selection into a user batch.
@@ -51,9 +51,11 @@ quota, key rotation, route spillover, partial successful reports, merge precisio
 concurrency, and cancellation without leaking permits. Fuzz targets cover model
 unions, integer exactness, and recursive merge behavior.
 
-The opt-in live profile/job test was run successfully during implementation and
-verified exactly one actual HTTP request. It reads a credential only from the
-environment, saves no private payload, and is skipped by normal CI.
+The opt-in live profile/job and travel inventory/job tests were run successfully
+during implementation and verified exactly one actual HTTP request per batch.
+They read a credential only from the environment, save no private payload, and
+are skipped by normal CI. `api_6150_test.go` decodes a scrubbed live travel
+inventory sample offline, including a null item `uid`.
 
 ## Boundaries and intentional choices
 

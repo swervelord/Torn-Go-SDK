@@ -69,7 +69,7 @@ func enumSelections(t *testing.T, version string) map[string][]string {
 
 func TestOfficialCurrentAndFrozenSelectionTransport(t *testing.T) {
 	scenarios := 0
-	for _, version := range []string{"6.13.6", "6.14.0"} {
+	for _, version := range []string{"6.13.6", "6.15.0"} {
 		for resource, names := range enumSelections(t, version) {
 			for _, name := range names {
 				if name == "snapshot" {
@@ -239,7 +239,7 @@ func TestRawConvenienceHelperDispatch(t *testing.T) {
 		}
 		count++
 	}
-	if count != 204 {
+	if count != 205 {
 		t.Fatalf("raw helper dispatch inventory %d", count)
 	}
 }

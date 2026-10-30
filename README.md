@@ -10,9 +10,14 @@ for development and CI.
 go get github.com/swervelord/Torn-Go-SDK
 ```
 
-The pinned current contract is Torn **6.14.0**: **236 exact operations**, **719
-component schemas**, **207 selection capabilities**, **209 typed convenience
-helpers**, **204 raw selection helpers**, and **3 dedicated CSV operations**.
+The pinned current contract is Torn **6.15.0**: **237 exact operations**, **724
+component schemas**, **208 selection capabilities**, **210 typed convenience
+helpers**, **205 raw selection helpers**, and **3 dedicated CSV operations**.
+`GetMyTravelInventory` / `UserTravelinventory` expose travel capacity and the
+items carried abroad (or that would be taken on departure). They require a
+Limited access key, and the selection combines with other user selections on
+the generic endpoint. Slot `item` and item `uid` are nullable unions: `AsVariant1`
+returns the typed value and `AsVariant2` succeeds only for JSON null.
 `GetMyHalloween` / `UserHalloween` and `GetTornHalloween` / `TornHalloween`
 expose the current treats and basket upgrade models. The official spelling is
 `halloween`. Both require a Minimal access key; both support the generic selection
@@ -20,7 +25,8 @@ endpoints, so compatible same-resource batches combine them.
 `UserInventoryCacheTTLSeconds` is 900 (per category) and
 `FactionInventoryCacheTTLSeconds` is 300 (all armory items). These describe
 Torn's server caches; the SDK does not cache responses. `MetadataForOperation`
-returns the upstream stability string and documented inventory cache lifetime.
+returns the upstream stability string, documented inventory cache lifetime, and
+minimum documented key access level (`Public`, `Minimal`, `Limited`, or `Full`).
 The pinned spec spells user Halloween stability `Untable`; it is retained verbatim.
 
 An explicit **184-selection v1 catalog** supports controlled legacy routing.
@@ -154,12 +160,14 @@ Tests cover every exact operation and every convenience helper at the HTTP
 transport boundary, thousands of independently specified routing/model cases,
 concrete model round-trips, current/legacy migration, custom decoder fixtures,
 and deterministic retry, quota, route, cancellation, and concurrency behavior.
-An opt-in read-only test verifies a live typed profile/job batch uses exactly one
-actual HTTP request:
+Opt-in read-only tests verify that live typed profile/job and travel
+inventory/job batches each use exactly one actual HTTP request, and that the
+exact travel inventory endpoint decodes. The travel inventory test needs a
+Limited key:
 
 ```sh
 # Set TORN_LIVE_TEST_API_KEY in the environment first.
-go test -run '^TestLiveProfileJobOneRequest$' -count=1 -v
+go test -run '^TestLive' -count=1 -v
 ```
 
 CI runs formatting, generation/provenance checks, vet, tests, and builds on

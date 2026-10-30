@@ -1434,6 +1434,16 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(UserTradeResponse)
 	case "UserTradesResponse":
 		out = new(UserTradesResponse)
+	case "UserTravelInventory":
+		out = new(UserTravelInventory)
+	case "UserTravelInventoryCapacity":
+		out = new(UserTravelInventoryCapacity)
+	case "UserTravelInventoryItem":
+		out = new(UserTravelInventoryItem)
+	case "UserTravelInventoryResponse":
+		out = new(UserTravelInventoryResponse)
+	case "UserTravelInventorySlot":
+		out = new(UserTravelInventorySlot)
 	case "UserTravelResponse":
 		out = new(UserTravelResponse)
 	case "UserVirus":

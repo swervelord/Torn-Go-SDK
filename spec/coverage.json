@@ -4807,6 +4807,27 @@
     },
     {
       "csv": false,
+      "public_api": "(*torn.Client).RawUserTravelinventory",
+      "resource": "user",
+      "returns": [
+        "ExecutionResult",
+        "error"
+      ],
+      "selection": "travelinventory"
+    },
+    {
+      "csv": false,
+      "public_api": "(*torn.Client).UserTravelinventory",
+      "resource": "user",
+      "returns": [
+        "models.UserTravelInventoryResponse",
+        "ExecutionReport",
+        "error"
+      ],
+      "selection": "travelinventory"
+    },
+    {
+      "csv": false,
       "public_api": "(*torn.Client).RawUserVirus",
       "resource": "user",
       "returns": [
@@ -4892,10 +4913,11 @@
     }
   ],
   "current": {
-    "componentSchemaCount": 719,
-    "operationCount": 236,
+    "componentSchemaCount": 724,
+    "operationCount": 237,
     "operations": [
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompanyGeneric",
@@ -4906,6 +4928,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompanyApplications",
@@ -4916,6 +4939,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompanyEmployees",
@@ -4926,6 +4950,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompanyLookup",
@@ -4936,6 +4961,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompanyNews",
@@ -4946,6 +4972,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompanyProfile",
@@ -4956,6 +4983,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompaniesSearch",
@@ -4966,6 +4994,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": true,
         "method": "GET",
         "operationId": "getCompaniesSnapshot",
@@ -4976,6 +5005,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompanyStock",
@@ -4986,6 +5016,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompanyTimestamp",
@@ -4996,6 +5027,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompanyEmployees",
@@ -5006,6 +5038,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompanyProfile",
@@ -5016,6 +5049,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getCompaniesList",
@@ -5026,6 +5060,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionGeneric",
@@ -5036,6 +5071,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionApplications",
@@ -5046,6 +5082,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionAttacks",
@@ -5056,6 +5093,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionAttacksSimplified",
@@ -5066,6 +5104,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionBalance",
@@ -5076,6 +5115,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionBasicInformation",
@@ -5086,6 +5126,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionChain",
@@ -5096,6 +5137,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionLatestChainReport",
@@ -5106,6 +5148,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionCompletedChains",
@@ -5116,6 +5159,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionContributors",
@@ -5126,6 +5170,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionCrimeExp",
@@ -5136,6 +5181,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionOrganizedCrimes",
@@ -5146,6 +5192,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfareDirtyBombs",
@@ -5156,6 +5203,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionHoF",
@@ -5166,6 +5214,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "cacheTTLSeconds": 300,
         "csv": false,
         "method": "GET",
@@ -5177,6 +5226,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionLookup",
@@ -5187,6 +5237,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionMembers",
@@ -5197,6 +5248,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionNews",
@@ -5207,6 +5259,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionPositions",
@@ -5217,6 +5270,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionRackets",
@@ -5227,6 +5281,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionRaidsHistory",
@@ -5237,6 +5292,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionRankedWarsHistory",
@@ -5247,6 +5303,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionReports",
@@ -5257,6 +5314,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionRevives",
@@ -5267,6 +5325,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionRevivesSimplified",
@@ -5277,6 +5336,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionSearch",
@@ -5287,6 +5347,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": true,
         "method": "GET",
         "operationId": "getFactionsSnapshot",
@@ -5297,6 +5358,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionStats",
@@ -5307,6 +5369,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionTerritory",
@@ -5317,6 +5380,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTerritoryOwnership",
@@ -5327,6 +5391,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionTerritoryWarsHistory",
@@ -5337,6 +5402,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionTimestamp",
@@ -5347,6 +5413,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionUpgrades",
@@ -5357,6 +5424,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfare",
@@ -5367,6 +5435,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfareChains",
@@ -5377,6 +5446,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfareRaids",
@@ -5387,6 +5457,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfareRankedWars",
@@ -5397,6 +5468,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getWarfareTerritoryWars",
@@ -5407,6 +5479,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionWars",
@@ -5417,6 +5490,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getChainReport",
@@ -5427,6 +5501,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFactionOrganizedCrime",
@@ -5437,6 +5512,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionBasicInformation",
@@ -5447,6 +5523,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionChain",
@@ -5457,6 +5534,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionCompletedChains",
@@ -5467,6 +5545,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionHoF",
@@ -5477,6 +5556,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionMembers",
@@ -5487,6 +5567,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionRaidsHistory",
@@ -5497,6 +5578,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionRankedWarsHistory",
@@ -5507,6 +5589,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionTerritory",
@@ -5517,6 +5600,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionTerritoryWarsHistory",
@@ -5527,6 +5611,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getFactionWars",
@@ -5537,6 +5622,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRaidReport",
@@ -5547,6 +5633,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRankedWarReport",
@@ -5557,6 +5644,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTerritoryWarReport",
@@ -5567,6 +5655,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumGeneric",
@@ -5577,6 +5666,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumCategories",
@@ -5587,6 +5677,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumLookup",
@@ -5597,6 +5688,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumAllThreads",
@@ -5607,6 +5699,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumTimestamp",
@@ -5617,6 +5710,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumThreads",
@@ -5627,6 +5721,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumThreadPosts",
@@ -5637,6 +5732,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getForumThread",
@@ -5647,6 +5743,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getKeyGeneric",
@@ -5657,6 +5754,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getKeyInfo",
@@ -5667,6 +5765,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getKeyLog",
@@ -5677,6 +5776,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketGeneric",
@@ -5687,6 +5787,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketAuctionHouse",
@@ -5697,6 +5798,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketBazaar",
@@ -5707,6 +5809,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketLookup",
@@ -5717,6 +5820,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketPoints",
@@ -5727,6 +5831,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketTimestamp",
@@ -5737,6 +5842,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketAuctionHouseItem",
@@ -5747,6 +5853,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketAuctionHouseListing",
@@ -5757,6 +5864,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketBazaarItem",
@@ -5767,6 +5875,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketItemMarketItem",
@@ -5777,6 +5886,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketProperties",
@@ -5787,6 +5897,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMarketPropertiesRental",
@@ -5797,6 +5908,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getPropertyGeneric",
@@ -5807,6 +5919,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getPropertyLookup",
@@ -5817,6 +5930,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getPropertyTimestamp",
@@ -5827,6 +5941,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getProperty",
@@ -5837,6 +5952,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingGeneric",
@@ -5847,6 +5963,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingCars",
@@ -5857,6 +5974,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingCarUpgrades",
@@ -5867,6 +5985,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingLookup",
@@ -5877,6 +5996,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingRaces",
@@ -5887,6 +6007,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingTimestamp",
@@ -5897,6 +6018,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingTracks",
@@ -5907,6 +6029,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingRaceDetails",
@@ -5917,6 +6040,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getRacingTrackRecords",
@@ -5927,6 +6051,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornGeneric",
@@ -5937,6 +6062,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornAttackLog",
@@ -5947,6 +6073,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornBank",
@@ -5957,6 +6084,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornBounties",
@@ -5967,6 +6095,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCalendar",
@@ -5977,6 +6106,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCards",
@@ -5987,6 +6117,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCityShops",
@@ -5997,6 +6128,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCompanies",
@@ -6007,6 +6139,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCrimes",
@@ -6017,6 +6150,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornEducation",
@@ -6027,6 +6161,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornElimination",
@@ -6037,6 +6172,7 @@
         "stability": "Unstable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornFactionHoF",
@@ -6047,6 +6183,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornFactionTree",
@@ -6057,6 +6194,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornGyms",
@@ -6067,6 +6205,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getTornHalloween",
@@ -6077,6 +6216,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornHoF",
@@ -6087,6 +6227,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornHonors",
@@ -6097,6 +6238,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItemAmmo",
@@ -6107,6 +6249,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItemMods",
@@ -6117,6 +6260,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItems",
@@ -6127,6 +6271,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornLogCategories",
@@ -6137,6 +6282,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornLogTypes",
@@ -6147,6 +6293,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornLookup",
@@ -6157,6 +6304,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornMedals",
@@ -6167,6 +6315,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornMerits",
@@ -6177,6 +6326,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornMuseum",
@@ -6187,6 +6337,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornOrganizedCrimes",
@@ -6197,6 +6348,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornPokerTables",
@@ -6207,6 +6359,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornProperties",
@@ -6217,6 +6370,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornRps",
@@ -6227,6 +6381,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornSearchForCash",
@@ -6237,6 +6392,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornShoplifting",
@@ -6247,6 +6403,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCityStats",
@@ -6257,6 +6414,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornStocks",
@@ -6267,6 +6425,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornTerritory",
@@ -6277,6 +6436,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornTimestamp",
@@ -6287,6 +6447,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornSubcrimes",
@@ -6297,6 +6458,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornHonorsSpecific",
@@ -6307,6 +6469,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItemDetails",
@@ -6317,6 +6480,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItemsSpecific",
@@ -6327,6 +6491,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornItemStats",
@@ -6337,6 +6502,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornMedalsSpecific",
@@ -6347,6 +6513,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornEliminationTeam",
@@ -6357,6 +6524,7 @@
         "stability": "Unstable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornLogTypesSpecific",
@@ -6367,6 +6535,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCityShopSpecific",
@@ -6377,6 +6546,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getSpecificTornStock",
@@ -6387,6 +6557,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getTornCompaniesSpecific",
@@ -6397,6 +6568,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserGeneric",
@@ -6407,6 +6579,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyAmmo",
@@ -6417,6 +6590,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyAttacks",
@@ -6427,6 +6601,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyAttacksSimplified",
@@ -6437,6 +6612,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyBars",
@@ -6447,6 +6623,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyBasicInformation",
@@ -6457,6 +6634,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyBattlestats",
@@ -6467,6 +6645,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyBounties",
@@ -6477,6 +6656,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCalendarTime",
@@ -6487,6 +6667,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCasinoStreak",
@@ -6497,6 +6678,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCompetitionInfo",
@@ -6507,6 +6689,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCooldowns",
@@ -6517,6 +6700,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyDiscord",
@@ -6527,6 +6711,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyEducation",
@@ -6537,6 +6722,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyEnlistedCars",
@@ -6547,6 +6733,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyEquipment",
@@ -6557,6 +6744,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyEvents",
@@ -6567,6 +6755,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyFaction",
@@ -6577,6 +6766,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyForumFeed",
@@ -6587,6 +6777,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyForumFriendsUpdates",
@@ -6597,6 +6788,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyForumPosts",
@@ -6607,6 +6799,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyForumSubscribedThreads",
@@ -6617,6 +6810,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyForumThreads",
@@ -6627,6 +6821,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyGym",
@@ -6637,6 +6832,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyHalloween",
@@ -6647,6 +6843,7 @@
         "stability": "Untable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyHoF",
@@ -6657,6 +6854,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyHonors",
@@ -6667,6 +6865,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyIcons",
@@ -6677,6 +6876,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "cacheTTLSeconds": 900,
         "csv": false,
         "method": "GET",
@@ -6688,6 +6888,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyItemMarketListings",
@@ -6698,6 +6899,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyItemModsInformation",
@@ -6708,6 +6910,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyJob",
@@ -6718,6 +6921,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyJobPoints",
@@ -6728,6 +6932,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyJobRanks",
@@ -6738,6 +6943,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyContactsList",
@@ -6748,6 +6954,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Full",
         "csv": false,
         "method": "GET",
         "operationId": "getMyLogs",
@@ -6758,6 +6965,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserLookup",
@@ -6768,6 +6976,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyMedals",
@@ -6778,6 +6987,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyMerits",
@@ -6788,6 +6998,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyMessages",
@@ -6798,6 +7009,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyMissions",
@@ -6808,6 +7020,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyMoney",
@@ -6818,6 +7031,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyNetworth",
@@ -6828,6 +7042,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyNewEvents",
@@ -6838,6 +7053,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyNewMessages",
@@ -6848,6 +7064,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyNotifications",
@@ -6858,6 +7075,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyOrganizedCrime",
@@ -6868,6 +7086,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyAvailableOrganizedCrimes",
@@ -6878,6 +7097,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyPerks",
@@ -6888,6 +7108,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyPersonalStats",
@@ -6898,6 +7119,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyProfile",
@@ -6908,6 +7130,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyProperties",
@@ -6918,6 +7141,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getMyProperty",
@@ -6928,6 +7152,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyRaces",
@@ -6938,6 +7163,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyRacingRecords",
@@ -6948,6 +7174,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyRefills",
@@ -6958,6 +7185,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyReports",
@@ -6968,6 +7196,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyRevives",
@@ -6978,6 +7207,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyRevivesSimplified",
@@ -6988,6 +7218,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUsersSearch",
@@ -6998,6 +7229,7 @@
         "stability": "Unstable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMySkills",
@@ -7008,6 +7240,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": true,
         "method": "GET",
         "operationId": "getUsersSnapshot",
@@ -7018,6 +7251,7 @@
         "stability": "Unstable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyStocks",
@@ -7028,6 +7262,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserTimestamp",
@@ -7038,6 +7273,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyTrades",
@@ -7048,6 +7284,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyTravelInformation",
@@ -7058,6 +7295,18 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
+        "csv": false,
+        "method": "GET",
+        "operationId": "getMyTravelInventory",
+        "params": "GetMyTravelInventoryParams",
+        "path": "/user/travelinventory",
+        "public_api": "(*torn.Client).GetMyTravelInventory",
+        "response": "GetMyTravelInventoryResponse",
+        "stability": "Unstable"
+      },
+      {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyVirusCodingInformation",
@@ -7068,6 +7317,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyWeaponExp",
@@ -7078,6 +7328,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyWorkstats",
@@ -7088,6 +7339,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Minimal",
         "csv": false,
         "method": "GET",
         "operationId": "getMyCrimes",
@@ -7098,6 +7350,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserBasicInformation",
@@ -7108,6 +7361,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserBounties",
@@ -7118,6 +7372,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserCompetitionInfo",
@@ -7128,6 +7383,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserDiscord",
@@ -7138,6 +7394,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserFaction",
@@ -7148,6 +7405,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserForumPosts",
@@ -7158,6 +7416,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserForumThreads",
@@ -7168,6 +7427,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserHoF",
@@ -7178,6 +7438,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserIcons",
@@ -7188,6 +7449,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserJob",
@@ -7198,6 +7460,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserMedals",
@@ -7208,6 +7471,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserPersonalStats",
@@ -7218,6 +7482,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserProfile",
@@ -7228,6 +7493,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserProperties",
@@ -7238,6 +7504,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Public",
         "csv": false,
         "method": "GET",
         "operationId": "getUserProperty",
@@ -7248,6 +7515,7 @@
         "stability": "Stable"
       },
       {
+        "accessLevel": "Limited",
         "csv": false,
         "method": "GET",
         "operationId": "getMyDetailedTrade",
@@ -7971,6 +8239,11 @@
       "UserTradeParticipant": "models.UserTradeParticipant",
       "UserTradeResponse": "models.UserTradeResponse",
       "UserTradesResponse": "models.UserTradesResponse",
+      "UserTravelInventory": "models.UserTravelInventory",
+      "UserTravelInventoryCapacity": "models.UserTravelInventoryCapacity",
+      "UserTravelInventoryItem": "models.UserTravelInventoryItem",
+      "UserTravelInventoryResponse": "models.UserTravelInventoryResponse",
+      "UserTravelInventorySlot": "models.UserTravelInventorySlot",
       "UserTravelResponse": "models.UserTravelResponse",
       "UserVirus": "models.UserVirus",
       "UserVirusResponse": "models.UserVirusResponse",
@@ -7979,7 +8252,7 @@
       "UserWorkStatsResponse": "models.UserWorkStatsResponse",
       "WeaponBonusEnum": "models.WeaponBonusEnum"
     },
-    "version": "6.14.0"
+    "version": "6.15.0"
   },
   "historical": {
     "schemas": {
@@ -13663,6 +13936,27 @@
         "csv": false,
         "endpoints": [
           {
+            "id": "getMyTravelInventory",
+            "parameters": [
+              "comment",
+              "key",
+              "timestamp"
+            ],
+            "path": "/user/travelinventory",
+            "required": null,
+            "schema": "UserTravelInventoryResponse"
+          }
+        ],
+        "generic": true,
+        "legacy": false,
+        "name": "travelinventory",
+        "resource": "user",
+        "standalone": false
+      },
+      {
+        "csv": false,
+        "endpoints": [
+          {
             "id": "getMyVirusCodingInformation",
             "parameters": [
               "comment",
@@ -13724,9 +14018,9 @@
       }
     ],
     "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint.",
-    "raw_helpers": 204,
+    "raw_helpers": 205,
     "source": "https://www.torn.com/swagger/openapi.json",
-    "typed_helpers": 209,
+    "typed_helpers": 210,
     "v1_catalog": [
       {
         "legacy_only": false,
@@ -14650,6 +14944,6 @@
       }
     ],
     "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
-    "version": "6.14.0"
+    "version": "6.15.0"
   }
 }
