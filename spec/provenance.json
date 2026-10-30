@@ -2,6 +2,14 @@
   "source_url": "https://www.torn.com/swagger/openapi.json",
   "snapshots": [
     {
+      "version": "6.15.0",
+      "file": "spec/openapi-6.15.0.json",
+      "sha256": "2b8205f8a3da430225e85df5d2d69d73a299296cfcae34809dfaff0c9d0ff872",
+      "retrieved_date": "2026-10-30",
+      "operations": 237,
+      "schemas": 724
+    },
+    {
       "version": "6.14.0",
       "file": "spec/openapi-6.14.0.json",
       "sha256": "53ead35b2c39eaa22fa294f83fe98dba010149f8a2d97e4f69839ed65548b06b",

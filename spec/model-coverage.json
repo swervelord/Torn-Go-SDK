@@ -1,6 +1,6 @@
 {
-  "componentSchemaCount": 719,
-  "operationCount": 236,
+  "componentSchemaCount": 724,
+  "operationCount": 237,
   "operations": [
     {
       "operationId": "getCompanyGeneric",
@@ -9,7 +9,8 @@
       "params": "GetCompanyGenericParams",
       "response": "GetCompanyGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyCompanyApplications",
@@ -18,7 +19,8 @@
       "params": "GetMyCompanyApplicationsParams",
       "response": "GetMyCompanyApplicationsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyCompanyEmployees",
@@ -27,7 +29,8 @@
       "params": "GetMyCompanyEmployeesParams",
       "response": "GetMyCompanyEmployeesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompanyLookup",
@@ -36,7 +39,8 @@
       "params": "GetCompanyLookupParams",
       "response": "GetCompanyLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyCompanyNews",
@@ -45,7 +49,8 @@
       "params": "GetMyCompanyNewsParams",
       "response": "GetMyCompanyNewsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyCompanyProfile",
@@ -54,7 +59,8 @@
       "params": "GetMyCompanyProfileParams",
       "response": "GetMyCompanyProfileResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompaniesSearch",
@@ -63,7 +69,8 @@
       "params": "GetCompaniesSearchParams",
       "response": "GetCompaniesSearchResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompaniesSnapshot",
@@ -72,7 +79,8 @@
       "params": "GetCompaniesSnapshotParams",
       "response": "GetCompaniesSnapshotResponse",
       "csv": true,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyCompanyStock",
@@ -81,7 +89,8 @@
       "params": "GetMyCompanyStockParams",
       "response": "GetMyCompanyStockResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getCompanyTimestamp",
@@ -90,7 +99,8 @@
       "params": "GetCompanyTimestampParams",
       "response": "GetCompanyTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompanyEmployees",
@@ -99,7 +109,8 @@
       "params": "GetCompanyEmployeesParams",
       "response": "GetCompanyEmployeesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompanyProfile",
@@ -108,7 +119,8 @@
       "params": "GetCompanyProfileParams",
       "response": "GetCompanyProfileResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getCompaniesList",
@@ -117,7 +129,8 @@
       "params": "GetCompaniesListParams",
       "response": "GetCompaniesListResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionGeneric",
@@ -126,7 +139,8 @@
       "params": "GetFactionGenericParams",
       "response": "GetFactionGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionApplications",
@@ -135,7 +149,8 @@
       "params": "GetMyFactionApplicationsParams",
       "response": "GetMyFactionApplicationsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyFactionAttacks",
@@ -144,7 +159,8 @@
       "params": "GetMyFactionAttacksParams",
       "response": "GetMyFactionAttacksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionAttacksSimplified",
@@ -153,7 +169,8 @@
       "params": "GetMyFactionAttacksSimplifiedParams",
       "response": "GetMyFactionAttacksSimplifiedResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionBalance",
@@ -162,7 +179,8 @@
       "params": "GetMyFactionBalanceParams",
       "response": "GetMyFactionBalanceResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionBasicInformation",
@@ -171,7 +189,8 @@
       "params": "GetMyFactionBasicInformationParams",
       "response": "GetMyFactionBasicInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionChain",
@@ -180,7 +199,8 @@
       "params": "GetMyFactionChainParams",
       "response": "GetMyFactionChainResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionLatestChainReport",
@@ -189,7 +209,8 @@
       "params": "GetMyFactionLatestChainReportParams",
       "response": "GetMyFactionLatestChainReportResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionCompletedChains",
@@ -198,7 +219,8 @@
       "params": "GetMyFactionCompletedChainsParams",
       "response": "GetMyFactionCompletedChainsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionContributors",
@@ -207,7 +229,8 @@
       "params": "GetMyFactionContributorsParams",
       "response": "GetMyFactionContributorsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionCrimeExp",
@@ -216,7 +239,8 @@
       "params": "GetMyFactionCrimeExpParams",
       "response": "GetMyFactionCrimeExpResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyFactionOrganizedCrimes",
@@ -225,7 +249,8 @@
       "params": "GetMyFactionOrganizedCrimesParams",
       "response": "GetMyFactionOrganizedCrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getWarfareDirtyBombs",
@@ -234,7 +259,8 @@
       "params": "GetWarfareDirtyBombsParams",
       "response": "GetWarfareDirtyBombsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionHoF",
@@ -243,7 +269,8 @@
       "params": "GetMyFactionHoFParams",
       "response": "GetMyFactionHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionInventory",
@@ -253,7 +280,8 @@
       "response": "GetMyFactionInventoryResponse",
       "csv": false,
       "stability": "Stable",
-      "cacheTTLSeconds": 300
+      "cacheTTLSeconds": 300,
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getFactionLookup",
@@ -262,7 +290,8 @@
       "params": "GetFactionLookupParams",
       "response": "GetFactionLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionMembers",
@@ -271,7 +300,8 @@
       "params": "GetMyFactionMembersParams",
       "response": "GetMyFactionMembersResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionNews",
@@ -280,7 +310,8 @@
       "params": "GetMyFactionNewsParams",
       "response": "GetMyFactionNewsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyFactionPositions",
@@ -289,7 +320,8 @@
       "params": "GetMyFactionPositionsParams",
       "response": "GetMyFactionPositionsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getFactionRackets",
@@ -298,7 +330,8 @@
       "params": "GetFactionRacketsParams",
       "response": "GetFactionRacketsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionRaidsHistory",
@@ -307,7 +340,8 @@
       "params": "GetMyFactionRaidsHistoryParams",
       "response": "GetMyFactionRaidsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionRankedWarsHistory",
@@ -316,7 +350,8 @@
       "params": "GetMyFactionRankedWarsHistoryParams",
       "response": "GetMyFactionRankedWarsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionReports",
@@ -325,7 +360,8 @@
       "params": "GetMyFactionReportsParams",
       "response": "GetMyFactionReportsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionRevives",
@@ -334,7 +370,8 @@
       "params": "GetMyFactionRevivesParams",
       "response": "GetMyFactionRevivesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFactionRevivesSimplified",
@@ -343,7 +380,8 @@
       "params": "GetMyFactionRevivesSimplifiedParams",
       "response": "GetMyFactionRevivesSimplifiedResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getFactionSearch",
@@ -352,7 +390,8 @@
       "params": "GetFactionSearchParams",
       "response": "GetFactionSearchResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionsSnapshot",
@@ -361,7 +400,8 @@
       "params": "GetFactionsSnapshotParams",
       "response": "GetFactionsSnapshotResponse",
       "csv": true,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionStats",
@@ -370,7 +410,8 @@
       "params": "GetMyFactionStatsParams",
       "response": "GetMyFactionStatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyFactionTerritory",
@@ -379,7 +420,8 @@
       "params": "GetMyFactionTerritoryParams",
       "response": "GetMyFactionTerritoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTerritoryOwnership",
@@ -388,7 +430,8 @@
       "params": "GetTerritoryOwnershipParams",
       "response": "GetTerritoryOwnershipResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionTerritoryWarsHistory",
@@ -397,7 +440,8 @@
       "params": "GetMyFactionTerritoryWarsHistoryParams",
       "response": "GetMyFactionTerritoryWarsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionTimestamp",
@@ -406,7 +450,8 @@
       "params": "GetFactionTimestampParams",
       "response": "GetFactionTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionUpgrades",
@@ -415,7 +460,8 @@
       "params": "GetMyFactionUpgradesParams",
       "response": "GetMyFactionUpgradesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getWarfare",
@@ -424,7 +470,8 @@
       "params": "GetWarfareParams",
       "response": "GetWarfareResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getWarfareChains",
@@ -433,7 +480,8 @@
       "params": "GetWarfareChainsParams",
       "response": "GetWarfareChainsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getWarfareRaids",
@@ -442,7 +490,8 @@
       "params": "GetWarfareRaidsParams",
       "response": "GetWarfareRaidsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getWarfareRankedWars",
@@ -451,7 +500,8 @@
       "params": "GetWarfareRankedWarsParams",
       "response": "GetWarfareRankedWarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getWarfareTerritoryWars",
@@ -460,7 +510,8 @@
       "params": "GetWarfareTerritoryWarsParams",
       "response": "GetWarfareTerritoryWarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionWars",
@@ -469,7 +520,8 @@
       "params": "GetMyFactionWarsParams",
       "response": "GetMyFactionWarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getChainReport",
@@ -478,7 +530,8 @@
       "params": "GetChainReportParams",
       "response": "GetChainReportResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyFactionOrganizedCrime",
@@ -487,7 +540,8 @@
       "params": "GetMyFactionOrganizedCrimeParams",
       "response": "GetMyFactionOrganizedCrimeResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getFactionBasicInformation",
@@ -496,7 +550,8 @@
       "params": "GetFactionBasicInformationParams",
       "response": "GetFactionBasicInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionChain",
@@ -505,7 +560,8 @@
       "params": "GetFactionChainParams",
       "response": "GetFactionChainResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionCompletedChains",
@@ -514,7 +570,8 @@
       "params": "GetFactionCompletedChainsParams",
       "response": "GetFactionCompletedChainsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionHoF",
@@ -523,7 +580,8 @@
       "params": "GetFactionHoFParams",
       "response": "GetFactionHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionMembers",
@@ -532,7 +590,8 @@
       "params": "GetFactionMembersParams",
       "response": "GetFactionMembersResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionRaidsHistory",
@@ -541,7 +600,8 @@
       "params": "GetFactionRaidsHistoryParams",
       "response": "GetFactionRaidsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionRankedWarsHistory",
@@ -550,7 +610,8 @@
       "params": "GetFactionRankedWarsHistoryParams",
       "response": "GetFactionRankedWarsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionTerritory",
@@ -559,7 +620,8 @@
       "params": "GetFactionTerritoryParams",
       "response": "GetFactionTerritoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionTerritoryWarsHistory",
@@ -568,7 +630,8 @@
       "params": "GetFactionTerritoryWarsHistoryParams",
       "response": "GetFactionTerritoryWarsHistoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getFactionWars",
@@ -577,7 +640,8 @@
       "params": "GetFactionWarsParams",
       "response": "GetFactionWarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRaidReport",
@@ -586,7 +650,8 @@
       "params": "GetRaidReportParams",
       "response": "GetRaidReportResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRankedWarReport",
@@ -595,7 +660,8 @@
       "params": "GetRankedWarReportParams",
       "response": "GetRankedWarReportResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTerritoryWarReport",
@@ -604,7 +670,8 @@
       "params": "GetTerritoryWarReportParams",
       "response": "GetTerritoryWarReportResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumGeneric",
@@ -613,7 +680,8 @@
       "params": "GetForumGenericParams",
       "response": "GetForumGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumCategories",
@@ -622,7 +690,8 @@
       "params": "GetForumCategoriesParams",
       "response": "GetForumCategoriesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumLookup",
@@ -631,7 +700,8 @@
       "params": "GetForumLookupParams",
       "response": "GetForumLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumAllThreads",
@@ -640,7 +710,8 @@
       "params": "GetForumAllThreadsParams",
       "response": "GetForumAllThreadsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumTimestamp",
@@ -649,7 +720,8 @@
       "params": "GetForumTimestampParams",
       "response": "GetForumTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumThreads",
@@ -658,7 +730,8 @@
       "params": "GetForumThreadsParams",
       "response": "GetForumThreadsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumThreadPosts",
@@ -667,7 +740,8 @@
       "params": "GetForumThreadPostsParams",
       "response": "GetForumThreadPostsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getForumThread",
@@ -676,7 +750,8 @@
       "params": "GetForumThreadParams",
       "response": "GetForumThreadResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getKeyGeneric",
@@ -685,7 +760,8 @@
       "params": "GetKeyGenericParams",
       "response": "GetKeyGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getKeyInfo",
@@ -694,7 +770,8 @@
       "params": "GetKeyInfoParams",
       "response": "GetKeyInfoResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getKeyLog",
@@ -703,7 +780,8 @@
       "params": "GetKeyLogParams",
       "response": "GetKeyLogResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketGeneric",
@@ -712,7 +790,8 @@
       "params": "GetMarketGenericParams",
       "response": "GetMarketGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketAuctionHouse",
@@ -721,7 +800,8 @@
       "params": "GetMarketAuctionHouseParams",
       "response": "GetMarketAuctionHouseResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketBazaar",
@@ -730,7 +810,8 @@
       "params": "GetMarketBazaarParams",
       "response": "GetMarketBazaarResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketLookup",
@@ -739,7 +820,8 @@
       "params": "GetMarketLookupParams",
       "response": "GetMarketLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketPoints",
@@ -748,7 +830,8 @@
       "params": "GetMarketPointsParams",
       "response": "GetMarketPointsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketTimestamp",
@@ -757,7 +840,8 @@
       "params": "GetMarketTimestampParams",
       "response": "GetMarketTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketAuctionHouseItem",
@@ -766,7 +850,8 @@
       "params": "GetMarketAuctionHouseItemParams",
       "response": "GetMarketAuctionHouseItemResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketAuctionHouseListing",
@@ -775,7 +860,8 @@
       "params": "GetMarketAuctionHouseListingParams",
       "response": "GetMarketAuctionHouseListingResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketBazaarItem",
@@ -784,7 +870,8 @@
       "params": "GetMarketBazaarItemParams",
       "response": "GetMarketBazaarItemResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketItemMarketItem",
@@ -793,7 +880,8 @@
       "params": "GetMarketItemMarketItemParams",
       "response": "GetMarketItemMarketItemResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketProperties",
@@ -802,7 +890,8 @@
       "params": "GetMarketPropertiesParams",
       "response": "GetMarketPropertiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMarketPropertiesRental",
@@ -811,7 +900,8 @@
       "params": "GetMarketPropertiesRentalParams",
       "response": "GetMarketPropertiesRentalResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getPropertyGeneric",
@@ -820,7 +910,8 @@
       "params": "GetPropertyGenericParams",
       "response": "GetPropertyGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getPropertyLookup",
@@ -829,7 +920,8 @@
       "params": "GetPropertyLookupParams",
       "response": "GetPropertyLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getPropertyTimestamp",
@@ -838,7 +930,8 @@
       "params": "GetPropertyTimestampParams",
       "response": "GetPropertyTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getProperty",
@@ -847,7 +940,8 @@
       "params": "GetPropertyParams",
       "response": "GetPropertyResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingGeneric",
@@ -856,7 +950,8 @@
       "params": "GetRacingGenericParams",
       "response": "GetRacingGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingCars",
@@ -865,7 +960,8 @@
       "params": "GetRacingCarsParams",
       "response": "GetRacingCarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingCarUpgrades",
@@ -874,7 +970,8 @@
       "params": "GetRacingCarUpgradesParams",
       "response": "GetRacingCarUpgradesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingLookup",
@@ -883,7 +980,8 @@
       "params": "GetRacingLookupParams",
       "response": "GetRacingLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingRaces",
@@ -892,7 +990,8 @@
       "params": "GetRacingRacesParams",
       "response": "GetRacingRacesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingTimestamp",
@@ -901,7 +1000,8 @@
       "params": "GetRacingTimestampParams",
       "response": "GetRacingTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingTracks",
@@ -910,7 +1010,8 @@
       "params": "GetRacingTracksParams",
       "response": "GetRacingTracksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingRaceDetails",
@@ -919,7 +1020,8 @@
       "params": "GetRacingRaceDetailsParams",
       "response": "GetRacingRaceDetailsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getRacingTrackRecords",
@@ -928,7 +1030,8 @@
       "params": "GetRacingTrackRecordsParams",
       "response": "GetRacingTrackRecordsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornGeneric",
@@ -937,7 +1040,8 @@
       "params": "GetTornGenericParams",
       "response": "GetTornGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornAttackLog",
@@ -946,7 +1050,8 @@
       "params": "GetTornAttackLogParams",
       "response": "GetTornAttackLogResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornBank",
@@ -955,7 +1060,8 @@
       "params": "GetTornBankParams",
       "response": "GetTornBankResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornBounties",
@@ -964,7 +1070,8 @@
       "params": "GetTornBountiesParams",
       "response": "GetTornBountiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCalendar",
@@ -973,7 +1080,8 @@
       "params": "GetTornCalendarParams",
       "response": "GetTornCalendarResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCards",
@@ -982,7 +1090,8 @@
       "params": "GetTornCardsParams",
       "response": "GetTornCardsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCityShops",
@@ -991,7 +1100,8 @@
       "params": "GetTornCityShopsParams",
       "response": "GetTornCityShopsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCompanies",
@@ -1000,7 +1110,8 @@
       "params": "GetTornCompaniesParams",
       "response": "GetTornCompaniesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCrimes",
@@ -1009,7 +1120,8 @@
       "params": "GetTornCrimesParams",
       "response": "GetTornCrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornEducation",
@@ -1018,7 +1130,8 @@
       "params": "GetTornEducationParams",
       "response": "GetTornEducationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornElimination",
@@ -1027,7 +1140,8 @@
       "params": "GetTornEliminationParams",
       "response": "GetTornEliminationResponse",
       "csv": false,
-      "stability": "Unstable"
+      "stability": "Unstable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornFactionHoF",
@@ -1036,7 +1150,8 @@
       "params": "GetTornFactionHoFParams",
       "response": "GetTornFactionHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornFactionTree",
@@ -1045,7 +1160,8 @@
       "params": "GetTornFactionTreeParams",
       "response": "GetTornFactionTreeResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornGyms",
@@ -1054,7 +1170,8 @@
       "params": "GetTornGymsParams",
       "response": "GetTornGymsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornHalloween",
@@ -1063,7 +1180,8 @@
       "params": "GetTornHalloweenParams",
       "response": "GetTornHalloweenResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getTornHoF",
@@ -1072,7 +1190,8 @@
       "params": "GetTornHoFParams",
       "response": "GetTornHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornHonors",
@@ -1081,7 +1200,8 @@
       "params": "GetTornHonorsParams",
       "response": "GetTornHonorsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItemAmmo",
@@ -1090,7 +1210,8 @@
       "params": "GetTornItemAmmoParams",
       "response": "GetTornItemAmmoResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItemMods",
@@ -1099,7 +1220,8 @@
       "params": "GetTornItemModsParams",
       "response": "GetTornItemModsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItems",
@@ -1108,7 +1230,8 @@
       "params": "GetTornItemsParams",
       "response": "GetTornItemsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornLogCategories",
@@ -1117,7 +1240,8 @@
       "params": "GetTornLogCategoriesParams",
       "response": "GetTornLogCategoriesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornLogTypes",
@@ -1126,7 +1250,8 @@
       "params": "GetTornLogTypesParams",
       "response": "GetTornLogTypesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornLookup",
@@ -1135,7 +1260,8 @@
       "params": "GetTornLookupParams",
       "response": "GetTornLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornMedals",
@@ -1144,7 +1270,8 @@
       "params": "GetTornMedalsParams",
       "response": "GetTornMedalsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornMerits",
@@ -1153,7 +1280,8 @@
       "params": "GetTornMeritsParams",
       "response": "GetTornMeritsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornMuseum",
@@ -1162,7 +1290,8 @@
       "params": "GetTornMuseumParams",
       "response": "GetTornMuseumResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornOrganizedCrimes",
@@ -1171,7 +1300,8 @@
       "params": "GetTornOrganizedCrimesParams",
       "response": "GetTornOrganizedCrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornPokerTables",
@@ -1180,7 +1310,8 @@
       "params": "GetTornPokerTablesParams",
       "response": "GetTornPokerTablesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornProperties",
@@ -1189,7 +1320,8 @@
       "params": "GetTornPropertiesParams",
       "response": "GetTornPropertiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornRps",
@@ -1198,7 +1330,8 @@
       "params": "GetTornRpsParams",
       "response": "GetTornRpsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornSearchForCash",
@@ -1207,7 +1340,8 @@
       "params": "GetTornSearchForCashParams",
       "response": "GetTornSearchForCashResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornShoplifting",
@@ -1216,7 +1350,8 @@
       "params": "GetTornShopliftingParams",
       "response": "GetTornShopliftingResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCityStats",
@@ -1225,7 +1360,8 @@
       "params": "GetTornCityStatsParams",
       "response": "GetTornCityStatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornStocks",
@@ -1234,7 +1370,8 @@
       "params": "GetTornStocksParams",
       "response": "GetTornStocksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornTerritory",
@@ -1243,7 +1380,8 @@
       "params": "GetTornTerritoryParams",
       "response": "GetTornTerritoryResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornTimestamp",
@@ -1252,7 +1390,8 @@
       "params": "GetTornTimestampParams",
       "response": "GetTornTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornSubcrimes",
@@ -1261,7 +1400,8 @@
       "params": "GetTornSubcrimesParams",
       "response": "GetTornSubcrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornHonorsSpecific",
@@ -1270,7 +1410,8 @@
       "params": "GetTornHonorsSpecificParams",
       "response": "GetTornHonorsSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItemDetails",
@@ -1279,7 +1420,8 @@
       "params": "GetTornItemDetailsParams",
       "response": "GetTornItemDetailsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItemsSpecific",
@@ -1288,7 +1430,8 @@
       "params": "GetTornItemsSpecificParams",
       "response": "GetTornItemsSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornItemStats",
@@ -1297,7 +1440,8 @@
       "params": "GetTornItemStatsParams",
       "response": "GetTornItemStatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornMedalsSpecific",
@@ -1306,7 +1450,8 @@
       "params": "GetTornMedalsSpecificParams",
       "response": "GetTornMedalsSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornEliminationTeam",
@@ -1315,7 +1460,8 @@
       "params": "GetTornEliminationTeamParams",
       "response": "GetTornEliminationTeamResponse",
       "csv": false,
-      "stability": "Unstable"
+      "stability": "Unstable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornLogTypesSpecific",
@@ -1324,7 +1470,8 @@
       "params": "GetTornLogTypesSpecificParams",
       "response": "GetTornLogTypesSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCityShopSpecific",
@@ -1333,7 +1480,8 @@
       "params": "GetTornCityShopSpecificParams",
       "response": "GetTornCityShopSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getSpecificTornStock",
@@ -1342,7 +1490,8 @@
       "params": "GetSpecificTornStockParams",
       "response": "GetSpecificTornStockResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getTornCompaniesSpecific",
@@ -1351,7 +1500,8 @@
       "params": "GetTornCompaniesSpecificParams",
       "response": "GetTornCompaniesSpecificResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserGeneric",
@@ -1360,7 +1510,8 @@
       "params": "GetUserGenericParams",
       "response": "GetUserGenericResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyAmmo",
@@ -1369,7 +1520,8 @@
       "params": "GetMyAmmoParams",
       "response": "GetMyAmmoResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyAttacks",
@@ -1378,7 +1530,8 @@
       "params": "GetMyAttacksParams",
       "response": "GetMyAttacksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyAttacksSimplified",
@@ -1387,7 +1540,8 @@
       "params": "GetMyAttacksSimplifiedParams",
       "response": "GetMyAttacksSimplifiedResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyBars",
@@ -1396,7 +1550,8 @@
       "params": "GetMyBarsParams",
       "response": "GetMyBarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyBasicInformation",
@@ -1405,7 +1560,8 @@
       "params": "GetMyBasicInformationParams",
       "response": "GetMyBasicInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyBattlestats",
@@ -1414,7 +1570,8 @@
       "params": "GetMyBattlestatsParams",
       "response": "GetMyBattlestatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyBounties",
@@ -1423,7 +1580,8 @@
       "params": "GetMyBountiesParams",
       "response": "GetMyBountiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyCalendarTime",
@@ -1432,7 +1590,8 @@
       "params": "GetMyCalendarTimeParams",
       "response": "GetMyCalendarTimeResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyCasinoStreak",
@@ -1441,7 +1600,8 @@
       "params": "GetMyCasinoStreakParams",
       "response": "GetMyCasinoStreakResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyCompetitionInfo",
@@ -1450,7 +1610,8 @@
       "params": "GetMyCompetitionInfoParams",
       "response": "GetMyCompetitionInfoResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyCooldowns",
@@ -1459,7 +1620,8 @@
       "params": "GetMyCooldownsParams",
       "response": "GetMyCooldownsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyDiscord",
@@ -1468,7 +1630,8 @@
       "params": "GetMyDiscordParams",
       "response": "GetMyDiscordResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyEducation",
@@ -1477,7 +1640,8 @@
       "params": "GetMyEducationParams",
       "response": "GetMyEducationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyEnlistedCars",
@@ -1486,7 +1650,8 @@
       "params": "GetMyEnlistedCarsParams",
       "response": "GetMyEnlistedCarsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyEquipment",
@@ -1495,7 +1660,8 @@
       "params": "GetMyEquipmentParams",
       "response": "GetMyEquipmentResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyEvents",
@@ -1504,7 +1670,8 @@
       "params": "GetMyEventsParams",
       "response": "GetMyEventsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyFaction",
@@ -1513,7 +1680,8 @@
       "params": "GetMyFactionParams",
       "response": "GetMyFactionResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyForumFeed",
@@ -1522,7 +1690,8 @@
       "params": "GetMyForumFeedParams",
       "response": "GetMyForumFeedResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyForumFriendsUpdates",
@@ -1531,7 +1700,8 @@
       "params": "GetMyForumFriendsUpdatesParams",
       "response": "GetMyForumFriendsUpdatesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyForumPosts",
@@ -1540,7 +1710,8 @@
       "params": "GetMyForumPostsParams",
       "response": "GetMyForumPostsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyForumSubscribedThreads",
@@ -1549,7 +1720,8 @@
       "params": "GetMyForumSubscribedThreadsParams",
       "response": "GetMyForumSubscribedThreadsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyForumThreads",
@@ -1558,7 +1730,8 @@
       "params": "GetMyForumThreadsParams",
       "response": "GetMyForumThreadsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyGym",
@@ -1567,7 +1740,8 @@
       "params": "GetMyGymParams",
       "response": "GetMyGymResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyHalloween",
@@ -1576,7 +1750,8 @@
       "params": "GetMyHalloweenParams",
       "response": "GetMyHalloweenResponse",
       "csv": false,
-      "stability": "Untable"
+      "stability": "Untable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyHoF",
@@ -1585,7 +1760,8 @@
       "params": "GetMyHoFParams",
       "response": "GetMyHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyHonors",
@@ -1594,7 +1770,8 @@
       "params": "GetMyHonorsParams",
       "response": "GetMyHonorsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyIcons",
@@ -1603,7 +1780,8 @@
       "params": "GetMyIconsParams",
       "response": "GetMyIconsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyInventory",
@@ -1613,7 +1791,8 @@
       "response": "GetMyInventoryResponse",
       "csv": false,
       "stability": "Stable",
-      "cacheTTLSeconds": 900
+      "cacheTTLSeconds": 900,
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyItemMarketListings",
@@ -1622,7 +1801,8 @@
       "params": "GetMyItemMarketListingsParams",
       "response": "GetMyItemMarketListingsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyItemModsInformation",
@@ -1631,7 +1811,8 @@
       "params": "GetMyItemModsInformationParams",
       "response": "GetMyItemModsInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyJob",
@@ -1640,7 +1821,8 @@
       "params": "GetMyJobParams",
       "response": "GetMyJobResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyJobPoints",
@@ -1649,7 +1831,8 @@
       "params": "GetMyJobPointsParams",
       "response": "GetMyJobPointsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyJobRanks",
@@ -1658,7 +1841,8 @@
       "params": "GetMyJobRanksParams",
       "response": "GetMyJobRanksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyContactsList",
@@ -1667,7 +1851,8 @@
       "params": "GetMyContactsListParams",
       "response": "GetMyContactsListResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyLogs",
@@ -1676,7 +1861,8 @@
       "params": "GetMyLogsParams",
       "response": "GetMyLogsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Full"
     },
     {
       "operationId": "getUserLookup",
@@ -1685,7 +1871,8 @@
       "params": "GetUserLookupParams",
       "response": "GetUserLookupResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyMedals",
@@ -1694,7 +1881,8 @@
       "params": "GetMyMedalsParams",
       "response": "GetMyMedalsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyMerits",
@@ -1703,7 +1891,8 @@
       "params": "GetMyMeritsParams",
       "response": "GetMyMeritsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyMessages",
@@ -1712,7 +1901,8 @@
       "params": "GetMyMessagesParams",
       "response": "GetMyMessagesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyMissions",
@@ -1721,7 +1911,8 @@
       "params": "GetMyMissionsParams",
       "response": "GetMyMissionsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyMoney",
@@ -1730,7 +1921,8 @@
       "params": "GetMyMoneyParams",
       "response": "GetMyMoneyResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyNetworth",
@@ -1739,7 +1931,8 @@
       "params": "GetMyNetworthParams",
       "response": "GetMyNetworthResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyNewEvents",
@@ -1748,7 +1941,8 @@
       "params": "GetMyNewEventsParams",
       "response": "GetMyNewEventsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyNewMessages",
@@ -1757,7 +1951,8 @@
       "params": "GetMyNewMessagesParams",
       "response": "GetMyNewMessagesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyNotifications",
@@ -1766,7 +1961,8 @@
       "params": "GetMyNotificationsParams",
       "response": "GetMyNotificationsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyOrganizedCrime",
@@ -1775,7 +1971,8 @@
       "params": "GetMyOrganizedCrimeParams",
       "response": "GetMyOrganizedCrimeResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyAvailableOrganizedCrimes",
@@ -1784,7 +1981,8 @@
       "params": "GetMyAvailableOrganizedCrimesParams",
       "response": "GetMyAvailableOrganizedCrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyPerks",
@@ -1793,7 +1991,8 @@
       "params": "GetMyPerksParams",
       "response": "GetMyPerksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyPersonalStats",
@@ -1802,7 +2001,8 @@
       "params": "GetMyPersonalStatsParams",
       "response": "GetMyPersonalStatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyProfile",
@@ -1811,7 +2011,8 @@
       "params": "GetMyProfileParams",
       "response": "GetMyProfileResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyProperties",
@@ -1820,7 +2021,8 @@
       "params": "GetMyPropertiesParams",
       "response": "GetMyPropertiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyProperty",
@@ -1829,7 +2031,8 @@
       "params": "GetMyPropertyParams",
       "response": "GetMyPropertyResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyRaces",
@@ -1838,7 +2041,8 @@
       "params": "GetMyRacesParams",
       "response": "GetMyRacesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyRacingRecords",
@@ -1847,7 +2051,8 @@
       "params": "GetMyRacingRecordsParams",
       "response": "GetMyRacingRecordsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyRefills",
@@ -1856,7 +2061,8 @@
       "params": "GetMyRefillsParams",
       "response": "GetMyRefillsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyReports",
@@ -1865,7 +2071,8 @@
       "params": "GetMyReportsParams",
       "response": "GetMyReportsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyRevives",
@@ -1874,7 +2081,8 @@
       "params": "GetMyRevivesParams",
       "response": "GetMyRevivesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyRevivesSimplified",
@@ -1883,7 +2091,8 @@
       "params": "GetMyRevivesSimplifiedParams",
       "response": "GetMyRevivesSimplifiedResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getUsersSearch",
@@ -1892,7 +2101,8 @@
       "params": "GetUsersSearchParams",
       "response": "GetUsersSearchResponse",
       "csv": false,
-      "stability": "Unstable"
+      "stability": "Unstable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMySkills",
@@ -1901,7 +2111,8 @@
       "params": "GetMySkillsParams",
       "response": "GetMySkillsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getUsersSnapshot",
@@ -1910,7 +2121,8 @@
       "params": "GetUsersSnapshotParams",
       "response": "GetUsersSnapshotResponse",
       "csv": true,
-      "stability": "Unstable"
+      "stability": "Unstable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyStocks",
@@ -1919,7 +2131,8 @@
       "params": "GetMyStocksParams",
       "response": "GetMyStocksResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getUserTimestamp",
@@ -1928,7 +2141,8 @@
       "params": "GetUserTimestampParams",
       "response": "GetUserTimestampResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyTrades",
@@ -1937,7 +2151,8 @@
       "params": "GetMyTradesParams",
       "response": "GetMyTradesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyTravelInformation",
@@ -1946,7 +2161,18 @@
       "params": "GetMyTravelInformationParams",
       "response": "GetMyTravelInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
+    },
+    {
+      "operationId": "getMyTravelInventory",
+      "path": "/user/travelinventory",
+      "method": "GET",
+      "params": "GetMyTravelInventoryParams",
+      "response": "GetMyTravelInventoryResponse",
+      "csv": false,
+      "stability": "Unstable",
+      "accessLevel": "Limited"
     },
     {
       "operationId": "getMyVirusCodingInformation",
@@ -1955,7 +2181,8 @@
       "params": "GetMyVirusCodingInformationParams",
       "response": "GetMyVirusCodingInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyWeaponExp",
@@ -1964,7 +2191,8 @@
       "params": "GetMyWeaponExpParams",
       "response": "GetMyWeaponExpResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyWorkstats",
@@ -1973,7 +2201,8 @@
       "params": "GetMyWorkstatsParams",
       "response": "GetMyWorkstatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getMyCrimes",
@@ -1982,7 +2211,8 @@
       "params": "GetMyCrimesParams",
       "response": "GetMyCrimesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Minimal"
     },
     {
       "operationId": "getUserBasicInformation",
@@ -1991,7 +2221,8 @@
       "params": "GetUserBasicInformationParams",
       "response": "GetUserBasicInformationResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserBounties",
@@ -2000,7 +2231,8 @@
       "params": "GetUserBountiesParams",
       "response": "GetUserBountiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserCompetitionInfo",
@@ -2009,7 +2241,8 @@
       "params": "GetUserCompetitionInfoParams",
       "response": "GetUserCompetitionInfoResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserDiscord",
@@ -2018,7 +2251,8 @@
       "params": "GetUserDiscordParams",
       "response": "GetUserDiscordResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserFaction",
@@ -2027,7 +2261,8 @@
       "params": "GetUserFactionParams",
       "response": "GetUserFactionResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserForumPosts",
@@ -2036,7 +2271,8 @@
       "params": "GetUserForumPostsParams",
       "response": "GetUserForumPostsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserForumThreads",
@@ -2045,7 +2281,8 @@
       "params": "GetUserForumThreadsParams",
       "response": "GetUserForumThreadsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserHoF",
@@ -2054,7 +2291,8 @@
       "params": "GetUserHoFParams",
       "response": "GetUserHoFResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserIcons",
@@ -2063,7 +2301,8 @@
       "params": "GetUserIconsParams",
       "response": "GetUserIconsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserJob",
@@ -2072,7 +2311,8 @@
       "params": "GetUserJobParams",
       "response": "GetUserJobResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserMedals",
@@ -2081,7 +2321,8 @@
       "params": "GetUserMedalsParams",
       "response": "GetUserMedalsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserPersonalStats",
@@ -2090,7 +2331,8 @@
       "params": "GetUserPersonalStatsParams",
       "response": "GetUserPersonalStatsResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserProfile",
@@ -2099,7 +2341,8 @@
       "params": "GetUserProfileParams",
       "response": "GetUserProfileResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserProperties",
@@ -2108,7 +2351,8 @@
       "params": "GetUserPropertiesParams",
       "response": "GetUserPropertiesResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getUserProperty",
@@ -2117,7 +2361,8 @@
       "params": "GetUserPropertyParams",
       "response": "GetUserPropertyResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Public"
     },
     {
       "operationId": "getMyDetailedTrade",
@@ -2126,7 +2371,8 @@
       "params": "GetMyDetailedTradeParams",
       "response": "GetMyDetailedTradeResponse",
       "csv": false,
-      "stability": "Stable"
+      "stability": "Stable",
+      "accessLevel": "Limited"
     }
   ],
   "schemas": {
@@ -2842,6 +3088,11 @@
     "UserTradeParticipant": "models.UserTradeParticipant",
     "UserTradeResponse": "models.UserTradeResponse",
     "UserTradesResponse": "models.UserTradesResponse",
+    "UserTravelInventory": "models.UserTravelInventory",
+    "UserTravelInventoryCapacity": "models.UserTravelInventoryCapacity",
+    "UserTravelInventoryItem": "models.UserTravelInventoryItem",
+    "UserTravelInventoryResponse": "models.UserTravelInventoryResponse",
+    "UserTravelInventorySlot": "models.UserTravelInventorySlot",
     "UserTravelResponse": "models.UserTravelResponse",
     "UserVirus": "models.UserVirus",
     "UserVirusResponse": "models.UserVirusResponse",
@@ -2850,5 +3101,5 @@
     "UserWorkStatsResponse": "models.UserWorkStatsResponse",
     "WeaponBonusEnum": "models.WeaponBonusEnum"
   },
-  "version": "6.14.0"
+  "version": "6.15.0"
 }

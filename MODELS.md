@@ -1,6 +1,6 @@
 # Models and wire fidelity
 
-The `models` package represents all 719 official 6.14.0 components. The `legacy` package independently represents all 711 components in the pinned 6.13.6 snapshot. Neither package aliases the other. Generation also names nested objects, parameter unions, inline enums, and exact-operation response bodies. These additional declarations express actual schemas; they are not an artificial declaration-count target.
+The `models` package represents all 724 official 6.15.0 components. The `legacy` package independently represents all 711 components in the pinned 6.13.6 snapshot. Neither package aliases the other. Generation also names nested objects, parameter unions, inline enums, and exact-operation response bodies. These additional declarations express actual schemas; they are not an artificial declaration-count target.
 
 ## Working with values
 
@@ -30,4 +30,4 @@ An upstream required property without a corresponding property schema remains re
 
 Independent tests build three documented boundary samples per current and historical component, validate all samples, decode all samples into their concrete generated types, and verify valid JSON round-trips. Further tests reject missing required fields, invalid enums, duplicate names, fractional integers, overflow, and trailing JSON. Handwritten fixtures cover required null, zero, false, exact large integers, unknown fields, case sensitivity, and historical migration. Fuzz seeds exercise the job union.
 
-Every exact endpoint method is invoked against an injectable HTTP transport with paths, query parameters, response schemas, and media types derived independently from the official pinned specification. This verifies all 236 operations, including all three dedicated CSV operations, with actual request construction and typed response decoding.
+Every exact endpoint method is invoked against an injectable HTTP transport with paths, query parameters, response schemas, and media types derived independently from the official pinned specification. This verifies all 237 operations, including all three dedicated CSV operations, with actual request construction and typed response decoding.

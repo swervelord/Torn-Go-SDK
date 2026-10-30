@@ -228,7 +228,7 @@ func TestOfficialModelAcceptanceBoundaries(t *testing.T) {
 		version  string
 		validate func(string, []byte) error
 		count    int
-	}{{"6.13.6", legacy.Validate, 711}, {"6.14.0", models.Validate, 719}} {
+	}{{"6.13.6", legacy.Validate, 711}, {"6.15.0", models.Validate, 724}} {
 		t.Run(tc.version, func(t *testing.T) {
 			d := loadContract(t, tc.version)
 			if len(d.Components.Schemas) != tc.count {
@@ -258,7 +258,7 @@ func TestOfficialModelAcceptanceBoundaries(t *testing.T) {
 }
 
 func TestOfficialRequiredAndEnumRejection(t *testing.T) {
-	d := loadContract(t, "6.14.0")
+	d := loadContract(t, "6.15.0")
 	checked := 0
 	for name, s := range d.Components.Schemas {
 		s = contractResolve(s, d.Components.Schemas)

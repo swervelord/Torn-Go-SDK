@@ -19427,6 +19427,7 @@ const FactionTerritoryWarResultEnumEndWithNap FactionTerritoryWarResultEnum = "e
 const FactionTerritoryWarResultEnumEndWithDestroyAttack FactionTerritoryWarResultEnum = "end_with_destroy_attack"
 const FactionTerritoryWarResultEnumEndWithDestroyDefense FactionTerritoryWarResultEnum = "end_with_destroy_defense"
 const FactionTerritoryWarResultEnumEndWithPeaceTreaty FactionTerritoryWarResultEnum = "end_with_peace_treaty"
+const FactionTerritoryWarResultEnumEndWithDirtyBomb FactionTerritoryWarResultEnum = "end_with_dirty_bomb"
 
 // FactionTerritoryWarfare is generated from the pinned official Torn contract.
 type FactionTerritoryWarfare struct {
@@ -23121,6 +23122,7 @@ const JobPositionCasinoEnumMarketingManager JobPositionCasinoEnum = "Marketing M
 const JobPositionCasinoEnumRevenueManager JobPositionCasinoEnum = "Revenue Manager"
 const JobPositionCasinoEnumCasinoManager JobPositionCasinoEnum = "Casino Manager"
 const JobPositionCasinoEnumCasinoPresident JobPositionCasinoEnum = "Casino President"
+const JobPositionCasinoEnumDealer JobPositionCasinoEnum = "Dealer"
 
 // JobPositionEducationEnum is generated from the pinned official Torn contract.
 type JobPositionEducationEnum string
@@ -48541,7 +48543,7 @@ func (v UserSelectionName) MarshalJSON() ([]byte, error) {
 func (v UserSelectionName) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
 func (v UserSelectionName) AsVariant1() (UserSelectionNameVariant1, error) {
 	var out UserSelectionNameVariant1
-	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), v.raw); err != nil {
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"travelinventory\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), v.raw); err != nil {
 		return out, err
 	}
 	err := json.Unmarshal(v.raw, &out)
@@ -48551,7 +48553,7 @@ func NewUserSelectionNameVariant1(value UserSelectionNameVariant1) (UserSelectio
 	var out UserSelectionName
 	data, err := json.Marshal(value)
 	if err == nil {
-		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), data)
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"description\":\"The following selections will fallback to API v1 and may change at any time: 'bazaar','criminalrecord','display','networth'.\",\"enum\":[\"ammo\",\"attacks\",\"attacksfull\",\"bars\",\"basic\",\"battlestats\",\"bounties\",\"calendar\",\"casino\",\"competition\",\"cooldowns\",\"crimes\",\"discord\",\"enlistedcars\",\"equipment\",\"events\",\"faction\",\"factionbalance\",\"forumfeed\",\"forumfriends\",\"forumposts\",\"forumsubscribedthreads\",\"forumthreads\",\"gym\",\"halloween\",\"hof\",\"honors\",\"icons\",\"inventory\",\"itemmarket\",\"itemmod\",\"job\",\"jobpoints\",\"jobranks\",\"list\",\"log\",\"lookup\",\"medals\",\"merits\",\"messages\",\"missions\",\"money\",\"networth\",\"newevents\",\"newmessages\",\"notifications\",\"organizedcrime\",\"personalstats\",\"profile\",\"properties\",\"property\",\"races\",\"racingrecords\",\"refills\",\"reports\",\"revives\",\"revivesfull\",\"skills\",\"snapshot\",\"stocks\",\"trades\",\"trade\",\"travel\",\"travelinventory\",\"timestamp\",\"weaponexp\",\"workstats\",\"bazaar\",\"criminalrecord\",\"display\",\"education\",\"perks\"],\"type\":\"string\"}")), data)
 	}
 	if err == nil {
 		err = out.UnmarshalJSON(data)
@@ -49636,6 +49638,329 @@ func (v UserTradesResponse) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["trades"] = data
+	return json.Marshal(fields)
+}
+
+// UserTravelInventory is generated from the pinned official Torn contract.
+type UserTravelInventory struct {
+	Capacity             UserTravelInventoryCapacity `json:"capacity"`
+	Inventory            []UserTravelInventorySlot   `json:"inventory"`
+	AdditionalProperties map[string]json.RawMessage  `json:"-"`
+}
+
+func (v *UserTravelInventory) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventory", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserTravelInventory
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["capacity"]; ok {
+		if err := json.Unmarshal(raw, &out.Capacity); err != nil {
+			return err
+		}
+	}
+	delete(fields, "capacity")
+	if raw, ok := fields["inventory"]; ok {
+		if err := json.Unmarshal(raw, &out.Inventory); err != nil {
+			return err
+		}
+	}
+	delete(fields, "inventory")
+	out.AdditionalProperties = fields
+	*v = UserTravelInventory(out)
+	return nil
+}
+func (v UserTravelInventory) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Capacity)
+	if err != nil {
+		return nil, err
+	}
+	fields["capacity"] = data
+	data, err = json.Marshal(v.Inventory)
+	if err != nil {
+		return nil, err
+	}
+	fields["inventory"] = data
+	return json.Marshal(fields)
+}
+
+// UserTravelInventoryCapacity is generated from the pinned official Torn contract.
+type UserTravelInventoryCapacity struct {
+	Base                 int64                      `json:"base"`
+	Special              int64                      `json:"special"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserTravelInventoryCapacity) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventoryCapacity", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserTravelInventoryCapacity
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["base"]; ok {
+		if err := json.Unmarshal(raw, &out.Base); err != nil {
+			return err
+		}
+	}
+	delete(fields, "base")
+	if raw, ok := fields["special"]; ok {
+		if err := json.Unmarshal(raw, &out.Special); err != nil {
+			return err
+		}
+	}
+	delete(fields, "special")
+	out.AdditionalProperties = fields
+	*v = UserTravelInventoryCapacity(out)
+	return nil
+}
+func (v UserTravelInventoryCapacity) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Base)
+	if err != nil {
+		return nil, err
+	}
+	fields["base"] = data
+	data, err = json.Marshal(v.Special)
+	if err != nil {
+		return nil, err
+	}
+	fields["special"] = data
+	return json.Marshal(fields)
+}
+
+// UserTravelInventoryItem is generated from the pinned official Torn contract.
+type UserTravelInventoryItem struct {
+	ID                   ItemId                     `json:"id"`
+	IsEquipped           bool                       `json:"is_equipped"`
+	IsFactionOwned       bool                       `json:"is_faction_owned"`
+	IsPermanent          bool                       `json:"is_permanent"`
+	Name                 string                     `json:"name"`
+	Type                 string                     `json:"type"`
+	Uid                  UserTravelInventoryItemUid `json:"uid"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserTravelInventoryItem) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventoryItem", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserTravelInventoryItem
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["id"]; ok {
+		if err := json.Unmarshal(raw, &out.ID); err != nil {
+			return err
+		}
+	}
+	delete(fields, "id")
+	if raw, ok := fields["is_equipped"]; ok {
+		if err := json.Unmarshal(raw, &out.IsEquipped); err != nil {
+			return err
+		}
+	}
+	delete(fields, "is_equipped")
+	if raw, ok := fields["is_faction_owned"]; ok {
+		if err := json.Unmarshal(raw, &out.IsFactionOwned); err != nil {
+			return err
+		}
+	}
+	delete(fields, "is_faction_owned")
+	if raw, ok := fields["is_permanent"]; ok {
+		if err := json.Unmarshal(raw, &out.IsPermanent); err != nil {
+			return err
+		}
+	}
+	delete(fields, "is_permanent")
+	if raw, ok := fields["name"]; ok {
+		if err := json.Unmarshal(raw, &out.Name); err != nil {
+			return err
+		}
+	}
+	delete(fields, "name")
+	if raw, ok := fields["type"]; ok {
+		if err := json.Unmarshal(raw, &out.Type); err != nil {
+			return err
+		}
+	}
+	delete(fields, "type")
+	if raw, ok := fields["uid"]; ok {
+		if err := json.Unmarshal(raw, &out.Uid); err != nil {
+			return err
+		}
+	}
+	delete(fields, "uid")
+	out.AdditionalProperties = fields
+	*v = UserTravelInventoryItem(out)
+	return nil
+}
+func (v UserTravelInventoryItem) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+7)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.IsEquipped)
+	if err != nil {
+		return nil, err
+	}
+	fields["is_equipped"] = data
+	data, err = json.Marshal(v.IsFactionOwned)
+	if err != nil {
+		return nil, err
+	}
+	fields["is_faction_owned"] = data
+	data, err = json.Marshal(v.IsPermanent)
+	if err != nil {
+		return nil, err
+	}
+	fields["is_permanent"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
+	data, err = json.Marshal(v.Type)
+	if err != nil {
+		return nil, err
+	}
+	fields["type"] = data
+	data, err = json.Marshal(v.Uid)
+	if err != nil {
+		return nil, err
+	}
+	fields["uid"] = data
+	return json.Marshal(fields)
+}
+
+// UserTravelInventoryResponse is generated from the pinned official Torn contract.
+type UserTravelInventoryResponse struct {
+	Travelinventory      UserTravelInventory        `json:"travelinventory"`
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+func (v *UserTravelInventoryResponse) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventoryResponse", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserTravelInventoryResponse
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["travelinventory"]; ok {
+		if err := json.Unmarshal(raw, &out.Travelinventory); err != nil {
+			return err
+		}
+	}
+	delete(fields, "travelinventory")
+	out.AdditionalProperties = fields
+	*v = UserTravelInventoryResponse(out)
+	return nil
+}
+func (v UserTravelInventoryResponse) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+1)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Travelinventory)
+	if err != nil {
+		return nil, err
+	}
+	fields["travelinventory"] = data
+	return json.Marshal(fields)
+}
+
+// UserTravelInventorySlot is generated from the pinned official Torn contract.
+type UserTravelInventorySlot struct {
+	ID                   int64                       `json:"id"`
+	Item                 UserTravelInventorySlotItem `json:"item"`
+	AdditionalProperties map[string]json.RawMessage  `json:"-"`
+}
+
+func (v *UserTravelInventorySlot) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventorySlot", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	type plain UserTravelInventorySlot
+	var out plain
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	if raw, ok := fields["id"]; ok {
+		if err := json.Unmarshal(raw, &out.ID); err != nil {
+			return err
+		}
+	}
+	delete(fields, "id")
+	if raw, ok := fields["item"]; ok {
+		if err := json.Unmarshal(raw, &out.Item); err != nil {
+			return err
+		}
+	}
+	delete(fields, "item")
+	out.AdditionalProperties = fields
+	*v = UserTravelInventorySlot(out)
+	return nil
+}
+func (v UserTravelInventorySlot) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Item)
+	if err != nil {
+		return nil, err
+	}
+	fields["item"] = data
 	return json.Marshal(fields)
 }
 
@@ -72912,6 +73237,7 @@ const UserSelectionNameVariant1Stocks UserSelectionNameVariant1 = "stocks"
 const UserSelectionNameVariant1Trades UserSelectionNameVariant1 = "trades"
 const UserSelectionNameVariant1Trade UserSelectionNameVariant1 = "trade"
 const UserSelectionNameVariant1Travel UserSelectionNameVariant1 = "travel"
+const UserSelectionNameVariant1Travelinventory UserSelectionNameVariant1 = "travelinventory"
 const UserSelectionNameVariant1Timestamp UserSelectionNameVariant1 = "timestamp"
 const UserSelectionNameVariant1Weaponexp UserSelectionNameVariant1 = "weaponexp"
 const UserSelectionNameVariant1Workstats UserSelectionNameVariant1 = "workstats"
@@ -73578,6 +73904,126 @@ func (v UserTradeDetailedModifiedAt) AsVariant2() (json.RawMessage, error) {
 }
 func NewUserTradeDetailedModifiedAtVariant2(value json.RawMessage) (UserTradeDetailedModifiedAt, error) {
 	var out UserTradeDetailedModifiedAt
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"null\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+
+// UserTravelInventoryItemUid is generated from the pinned official Torn contract.
+type UserTravelInventoryItemUid struct{ raw json.RawMessage }
+
+func (v *UserTravelInventoryItemUid) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventoryItemUid", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	v.raw = append(v.raw[:0], data...)
+	return nil
+}
+func (v UserTravelInventoryItemUid) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+func (v UserTravelInventoryItemUid) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+func (v UserTravelInventoryItemUid) AsVariant1() (ItemUid, error) {
+	var out ItemUid
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/ItemUid\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewUserTravelInventoryItemUidVariant1(value ItemUid) (UserTravelInventoryItemUid, error) {
+	var out UserTravelInventoryItemUid
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/ItemUid\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v UserTravelInventoryItemUid) AsVariant2() (json.RawMessage, error) {
+	var out json.RawMessage
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"null\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewUserTravelInventoryItemUidVariant2(value json.RawMessage) (UserTravelInventoryItemUid, error) {
+	var out UserTravelInventoryItemUid
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"null\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+
+// UserTravelInventorySlotItem is generated from the pinned official Torn contract.
+type UserTravelInventorySlotItem struct{ raw json.RawMessage }
+
+func (v *UserTravelInventorySlotItem) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("UserTravelInventorySlotItem", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	v.raw = append(v.raw[:0], data...)
+	return nil
+}
+func (v UserTravelInventorySlotItem) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+func (v UserTravelInventorySlotItem) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+func (v UserTravelInventorySlotItem) AsVariant1() (UserTravelInventoryItem, error) {
+	var out UserTravelInventoryItem
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTravelInventoryItem\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewUserTravelInventorySlotItemVariant1(value UserTravelInventoryItem) (UserTravelInventorySlotItem, error) {
+	var out UserTravelInventorySlotItem
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTravelInventoryItem\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v UserTravelInventorySlotItem) AsVariant2() (json.RawMessage, error) {
+	var out json.RawMessage
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"null\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewUserTravelInventorySlotItemVariant2(value json.RawMessage) (UserTravelInventorySlotItem, error) {
+	var out UserTravelInventorySlotItem
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"null\"}")), data)
@@ -111097,7 +111543,26 @@ func NewGetUserGenericResponseBodyVariant47(value UserTravelResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant48() (UserVirusResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant48() (UserTravelInventoryResponse, error) {
+	var out UserTravelInventoryResponse
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTravelInventoryResponse\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetUserGenericResponseBodyVariant48(value UserTravelInventoryResponse) (GetUserGenericResponseBody, error) {
+	var out GetUserGenericResponseBody
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTravelInventoryResponse\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetUserGenericResponseBody) AsVariant49() (UserVirusResponse, error) {
 	var out UserVirusResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserVirusResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111105,7 +111570,7 @@ func (v GetUserGenericResponseBody) AsVariant48() (UserVirusResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant48(value UserVirusResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant49(value UserVirusResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111116,7 +111581,7 @@ func NewGetUserGenericResponseBodyVariant48(value UserVirusResponse) (GetUserGen
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant49() (AttacksFullResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant50() (AttacksFullResponse, error) {
 	var out AttacksFullResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/AttacksFullResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111124,7 +111589,7 @@ func (v GetUserGenericResponseBody) AsVariant49() (AttacksFullResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant49(value AttacksFullResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant50(value AttacksFullResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111135,7 +111600,7 @@ func NewGetUserGenericResponseBodyVariant49(value AttacksFullResponse) (GetUserG
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant50() (UserCasinoResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant51() (UserCasinoResponse, error) {
 	var out UserCasinoResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserCasinoResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111143,7 +111608,7 @@ func (v GetUserGenericResponseBody) AsVariant50() (UserCasinoResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant50(value UserCasinoResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant51(value UserCasinoResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111154,7 +111619,7 @@ func NewGetUserGenericResponseBodyVariant50(value UserCasinoResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant51() (UserHalloweenResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant52() (UserHalloweenResponse, error) {
 	var out UserHalloweenResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserHalloweenResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111162,7 +111627,7 @@ func (v GetUserGenericResponseBody) AsVariant51() (UserHalloweenResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant51(value UserHalloweenResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant52(value UserHalloweenResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111173,7 +111638,7 @@ func NewGetUserGenericResponseBodyVariant51(value UserHalloweenResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant52() (UserNetworthResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant53() (UserNetworthResponse, error) {
 	var out UserNetworthResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNetworthResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111181,7 +111646,7 @@ func (v GetUserGenericResponseBody) AsVariant52() (UserNetworthResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant52(value UserNetworthResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant53(value UserNetworthResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111192,7 +111657,7 @@ func NewGetUserGenericResponseBodyVariant52(value UserNetworthResponse) (GetUser
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant53() (UserMoneyResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant54() (UserMoneyResponse, error) {
 	var out UserMoneyResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserMoneyResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111200,7 +111665,7 @@ func (v GetUserGenericResponseBody) AsVariant53() (UserMoneyResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant53(value UserMoneyResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant54(value UserMoneyResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111211,7 +111676,7 @@ func NewGetUserGenericResponseBodyVariant53(value UserMoneyResponse) (GetUserGen
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant54() (UserJobPointsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant55() (UserJobPointsResponse, error) {
 	var out UserJobPointsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserJobPointsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111219,7 +111684,7 @@ func (v GetUserGenericResponseBody) AsVariant54() (UserJobPointsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant54(value UserJobPointsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant55(value UserJobPointsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111230,7 +111695,7 @@ func NewGetUserGenericResponseBodyVariant54(value UserJobPointsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant55() (UserWorkStatsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant56() (UserWorkStatsResponse, error) {
 	var out UserWorkStatsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserWorkStatsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111238,7 +111703,7 @@ func (v GetUserGenericResponseBody) AsVariant55() (UserWorkStatsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant55(value UserWorkStatsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant56(value UserWorkStatsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111249,7 +111714,7 @@ func NewGetUserGenericResponseBodyVariant55(value UserWorkStatsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant56() (UserSkillsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant57() (UserSkillsResponse, error) {
 	var out UserSkillsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserSkillsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111257,7 +111722,7 @@ func (v GetUserGenericResponseBody) AsVariant56() (UserSkillsResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant56(value UserSkillsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant57(value UserSkillsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111268,7 +111733,7 @@ func NewGetUserGenericResponseBodyVariant56(value UserSkillsResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant57() (UserBattleStatsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant58() (UserBattleStatsResponse, error) {
 	var out UserBattleStatsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserBattleStatsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111276,7 +111741,7 @@ func (v GetUserGenericResponseBody) AsVariant57() (UserBattleStatsResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant57(value UserBattleStatsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant58(value UserBattleStatsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111287,7 +111752,7 @@ func NewGetUserGenericResponseBodyVariant57(value UserBattleStatsResponse) (GetU
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant58() (UserGymResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant59() (UserGymResponse, error) {
 	var out UserGymResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserGymResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111295,7 +111760,7 @@ func (v GetUserGenericResponseBody) AsVariant58() (UserGymResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant58(value UserGymResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant59(value UserGymResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111306,7 +111771,7 @@ func NewGetUserGenericResponseBodyVariant58(value UserGymResponse) (GetUserGener
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant59() (UserTradeResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant60() (UserTradeResponse, error) {
 	var out UserTradeResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTradeResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111314,7 +111779,7 @@ func (v GetUserGenericResponseBody) AsVariant59() (UserTradeResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant59(value UserTradeResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant60(value UserTradeResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111325,7 +111790,7 @@ func NewGetUserGenericResponseBodyVariant59(value UserTradeResponse) (GetUserGen
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant60() (UserTradesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant61() (UserTradesResponse, error) {
 	var out UserTradesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserTradesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111333,7 +111798,7 @@ func (v GetUserGenericResponseBody) AsVariant60() (UserTradesResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant60(value UserTradesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant61(value UserTradesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111344,7 +111809,7 @@ func NewGetUserGenericResponseBodyVariant60(value UserTradesResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant61() (UserNewEventsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant62() (UserNewEventsResponse, error) {
 	var out UserNewEventsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNewEventsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111352,7 +111817,7 @@ func (v GetUserGenericResponseBody) AsVariant61() (UserNewEventsResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant61(value UserNewEventsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant62(value UserNewEventsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111363,7 +111828,7 @@ func NewGetUserGenericResponseBodyVariant61(value UserNewEventsResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant62() (UserEventsResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant63() (UserEventsResponse, error) {
 	var out UserEventsResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserEventsResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111371,7 +111836,7 @@ func (v GetUserGenericResponseBody) AsVariant62() (UserEventsResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant62(value UserEventsResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant63(value UserEventsResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111382,7 +111847,7 @@ func NewGetUserGenericResponseBodyVariant62(value UserEventsResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant63() (UserMessagesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant64() (UserMessagesResponse, error) {
 	var out UserMessagesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserMessagesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111390,7 +111855,7 @@ func (v GetUserGenericResponseBody) AsVariant63() (UserMessagesResponse, error) 
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant63(value UserMessagesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant64(value UserMessagesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111401,7 +111866,7 @@ func NewGetUserGenericResponseBodyVariant63(value UserMessagesResponse) (GetUser
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant64() (UserNewMessagesResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant65() (UserNewMessagesResponse, error) {
 	var out UserNewMessagesResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserNewMessagesResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111409,7 +111874,7 @@ func (v GetUserGenericResponseBody) AsVariant64() (UserNewMessagesResponse, erro
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant64(value UserNewMessagesResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant65(value UserNewMessagesResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111420,7 +111885,7 @@ func NewGetUserGenericResponseBodyVariant64(value UserNewMessagesResponse) (GetU
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant65() (UserLookupResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant66() (UserLookupResponse, error) {
 	var out UserLookupResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserLookupResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111428,7 +111893,7 @@ func (v GetUserGenericResponseBody) AsVariant65() (UserLookupResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant65(value UserLookupResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant66(value UserLookupResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111439,7 +111904,7 @@ func NewGetUserGenericResponseBodyVariant65(value UserLookupResponse) (GetUserGe
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant66() (UserInventoryResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant67() (UserInventoryResponse, error) {
 	var out UserInventoryResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/UserInventoryResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111447,7 +111912,7 @@ func (v GetUserGenericResponseBody) AsVariant66() (UserInventoryResponse, error)
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant66(value UserInventoryResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant67(value UserInventoryResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -111458,7 +111923,7 @@ func NewGetUserGenericResponseBodyVariant66(value UserInventoryResponse) (GetUse
 	}
 	return out, err
 }
-func (v GetUserGenericResponseBody) AsVariant67() (TimestampResponse, error) {
+func (v GetUserGenericResponseBody) AsVariant68() (TimestampResponse, error) {
 	var out TimestampResponse
 	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"$ref\":\"#/components/schemas/TimestampResponse\"}")), v.raw); err != nil {
 		return out, err
@@ -111466,7 +111931,7 @@ func (v GetUserGenericResponseBody) AsVariant67() (TimestampResponse, error) {
 	err := json.Unmarshal(v.raw, &out)
 	return out, err
 }
-func NewGetUserGenericResponseBodyVariant67(value TimestampResponse) (GetUserGenericResponseBody, error) {
+func NewGetUserGenericResponseBodyVariant68(value TimestampResponse) (GetUserGenericResponseBody, error) {
 	var out GetUserGenericResponseBody
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -115828,6 +116293,66 @@ func (v GetMyTravelInformationParamTimestamp) AsVariant2() (string, error) {
 }
 func NewGetMyTravelInformationParamTimestampVariant2(value string) (GetMyTravelInformationParamTimestamp, error) {
 	var out GetMyTravelInformationParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+
+// GetMyTravelInventoryParamTimestamp is generated from the pinned official Torn contract.
+type GetMyTravelInventoryParamTimestamp struct{ raw json.RawMessage }
+
+func (v *GetMyTravelInventoryParamTimestamp) UnmarshalJSON(data []byte) error {
+	normalized, err := registry.Normalize("GetMyTravelInventoryParamTimestamp", data)
+	if err != nil {
+		return err
+	}
+	data = normalized
+	v.raw = append(v.raw[:0], data...)
+	return nil
+}
+func (v GetMyTravelInventoryParamTimestamp) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+func (v GetMyTravelInventoryParamTimestamp) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+func (v GetMyTravelInventoryParamTimestamp) AsVariant1() (int64, error) {
+	var out int64
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetMyTravelInventoryParamTimestampVariant1(value int64) (GetMyTravelInventoryParamTimestamp, error) {
+	var out GetMyTravelInventoryParamTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"format\":\"int32\",\"type\":\"integer\"}")), data)
+	}
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	return out, err
+}
+func (v GetMyTravelInventoryParamTimestamp) AsVariant2() (string, error) {
+	var out string
+	if err := registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), v.raw); err != nil {
+		return out, err
+	}
+	err := json.Unmarshal(v.raw, &out)
+	return out, err
+}
+func NewGetMyTravelInventoryParamTimestampVariant2(value string) (GetMyTravelInventoryParamTimestamp, error) {
+	var out GetMyTravelInventoryParamTimestamp
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = registry.ValidateSchema(contract.Schema(decodeSchema("{\"type\":\"string\"}")), data)

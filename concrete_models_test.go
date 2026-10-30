@@ -15,7 +15,7 @@ func TestEveryConcreteComponentDecodesAndRoundTrips(t *testing.T) {
 		version  string
 		decode   func(string, []byte) (any, error)
 		validate func(string, []byte) error
-	}{{"6.14.0", models.DecodeSchema, models.Validate}, {"6.13.6", legacy.DecodeSchema, legacy.Validate}} {
+	}{{"6.15.0", models.DecodeSchema, models.Validate}, {"6.13.6", legacy.DecodeSchema, legacy.Validate}} {
 		d := loadContract(t, tc.version)
 		for n, s := range d.Components.Schemas {
 			for variant := 0; variant < 3; variant++ {

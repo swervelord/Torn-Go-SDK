@@ -97,7 +97,7 @@ func main() {
 			root = arg
 		}
 	}
-	data, err := os.ReadFile(filepath.Join(root, "spec", "openapi-6.14.0.json"))
+	data, err := os.ReadFile(filepath.Join(root, "spec", "openapi-6.15.0.json"))
 	must(err)
 	var spec obj
 	must(json.Unmarshal(data, &spec))
@@ -274,7 +274,7 @@ func(c *Client) TornStock(ctx context.Context,params map[string]any,opts Request
 	formatted, err := format.Source(out.Bytes())
 	must(err)
 	writeOutput(filepath.Join(root, "selections_generated.go"), formatted, check)
-	manifest := obj{"source": "https://www.torn.com/swagger/openapi.json", "version": "6.14.0", "capabilities": catalog, "typed_helpers": typed, "raw_helpers": raw, "v1_catalog": legacyCatalog, "v1_evidence": v1.Evidence, "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint."}
+	manifest := obj{"source": "https://www.torn.com/swagger/openapi.json", "version": "6.15.0", "capabilities": catalog, "typed_helpers": typed, "raw_helpers": raw, "v1_catalog": legacyCatalog, "v1_evidence": v1.Evidence, "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint."}
 	b, _ := json.MarshalIndent(manifest, "", "  ")
 	writeOutput(filepath.Join(root, "spec", "routing-manifest.json"), append(b, '\n'), check)
 	fmt.Printf("Generated %d selections, %d typed helpers, %d raw helpers\n", len(catalog), typed, raw)

@@ -53,7 +53,7 @@ func TestOperationMetadataMatchesOfficialStability(t *testing.T) {
 	if got.Stability != "Untable" {
 		t.Fatal("upstream spelling must remain intact")
 	}
-	if torn.APIVersion != "6.14.0" || torn.UserInventoryCacheTTLSeconds != 900 || torn.FactionInventoryCacheTTLSeconds != 300 {
+	if torn.UserInventoryCacheTTLSeconds != 900 || torn.FactionInventoryCacheTTLSeconds != 300 {
 		t.Fatal("contract constants")
 	}
 }

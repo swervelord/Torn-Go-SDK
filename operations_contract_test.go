@@ -25,7 +25,7 @@ func (f operationTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 // independently from the committed official specification, never from Operations
 // or generated metadata. The public typed method itself is invoked reflectively.
 func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
-	data, e := os.ReadFile("spec/openapi-6.14.0.json")
+	data, e := os.ReadFile("spec/openapi-6.15.0.json")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -36,7 +36,7 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 		t.Fatal(e)
 	}
 	components := doc["components"].(map[string]any)
-	definitions := loadContract(t, "6.14.0").Components.Schemas
+	definitions := loadContract(t, "6.15.0").Components.Schemas
 	paths := doc["paths"].(map[string]any)
 	ordered := make([]string, 0, len(paths))
 	for p := range paths {
@@ -155,7 +155,7 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 			})
 		}
 	}
-	if checked != 236 || csvCount != 3 {
+	if checked != 237 || csvCount != 3 {
 		t.Fatalf("operation inventory %d CSV %d", checked, csvCount)
 	}
 }

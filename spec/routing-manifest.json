@@ -4961,6 +4961,27 @@
     },
     {
       "resource": "user",
+      "name": "travelinventory",
+      "generic": true,
+      "standalone": false,
+      "legacy": false,
+      "csv": false,
+      "endpoints": [
+        {
+          "id": "getMyTravelInventory",
+          "path": "/user/travelinventory",
+          "parameters": [
+            "comment",
+            "key",
+            "timestamp"
+          ],
+          "required": null,
+          "schema": "UserTravelInventoryResponse"
+        }
+      ]
+    },
+    {
+      "resource": "user",
       "name": "virus",
       "generic": false,
       "standalone": false,
@@ -5024,9 +5045,9 @@
     }
   ],
   "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint.",
-  "raw_helpers": 204,
+  "raw_helpers": 205,
   "source": "https://www.torn.com/swagger/openapi.json",
-  "typed_helpers": 209,
+  "typed_helpers": 210,
   "v1_catalog": [
     {
       "resource": "company",
@@ -5950,5 +5971,5 @@
     }
   ],
   "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
-  "version": "6.14.0"
+  "version": "6.15.0"
 }

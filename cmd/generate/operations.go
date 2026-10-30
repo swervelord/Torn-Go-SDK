@@ -19,6 +19,7 @@ func operations(spec S, g *generator, check bool) {
 		CSV             bool   `json:"csv"`
 		Stability       string `json:"stability"`
 		CacheTTLSeconds int    `json:"cacheTTLSeconds,omitempty"`
+		AccessLevel     string `json:"accessLevel"`
 	}
 	entries := []entry{}
 	paths := obj(spec["paths"])
@@ -43,10 +44,16 @@ func operations(spec S, g *generator, check bool) {
 			properties := S{}
 			fmt.Fprintf(&b, "// %sParams contains documented parameters for %s %s.\ntype %sParams struct{\n", n, strings.ToUpper(method), path, n)
 			seen := map[string]bool{}
+			access := ""
 			for _, p := range params {
 				m := obj(p)
 				if ref := str(m["$ref"]); ref != "" {
-					m = obj(obj(obj(spec["components"])["parameters"])[strings.TrimPrefix(ref, "#/components/parameters/")])
+					component := strings.TrimPrefix(ref, "#/components/parameters/")
+					// ApiKeyPublic, ApiKeyMinimal, ApiKeyLimited, and ApiKeyFull name the documented key access level.
+					if strings.HasPrefix(component, "ApiKey") {
+						access = strings.TrimPrefix(component, "ApiKey")
+					}
+					m = obj(obj(obj(spec["components"])["parameters"])[component])
 				}
 				key := str(m["name"])
 				if seen[key] {
@@ -92,7 +99,7 @@ func operations(spec S, g *generator, check bool) {
 			case "/faction/inventory":
 				ttl = 300
 			}
-			entries = append(entries, entry{id, path, strings.ToUpper(method), n + "Params", n + "Response", csv, str(op["x-stability"]), ttl})
+			entries = append(entries, entry{id, path, strings.ToUpper(method), n + "Params", n + "Response", csv, str(op["x-stability"]), ttl, access})
 		}
 	}
 	fmt.Fprintln(&b, "// Operations lists the complete pinned exact-operation inventory.\nvar Operations = []Operation{")
@@ -102,11 +109,11 @@ func operations(spec S, g *generator, check bool) {
 	fmt.Fprintln(&b, "}")
 	fmt.Fprintln(&b, "var operationMetadata = map[string]OperationMetadata{")
 	for _, e := range entries {
-		fmt.Fprintf(&b, "%q:{Stability:%q,CacheTTLSeconds:%d},\n", e.ID, e.Stability, e.CacheTTLSeconds)
+		fmt.Fprintf(&b, "%q:{Stability:%q,CacheTTLSeconds:%d,AccessLevel:%q},\n", e.ID, e.Stability, e.CacheTTLSeconds, e.AccessLevel)
 	}
 	fmt.Fprintln(&b, "}")
 	write("operations_generated.go", b.Bytes(), check)
-	manifest := S{"version": "6.14.0", "operationCount": len(entries), "componentSchemaCount": len(g.schemas), "operations": entries, "schemas": S{}}
+	manifest := S{"version": "6.15.0", "operationCount": len(entries), "componentSchemaCount": len(g.schemas), "operations": entries, "schemas": S{}}
 	for _, n := range keys(g.schemas) {
 		obj(manifest["schemas"])[n] = "models." + name(n)
 	}
