@@ -221,7 +221,7 @@ func TestTravelInventoryRoutingAndTypedBatch(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(plan.Calls) != 1 || plan.Calls[0].Operation.Path != "/user" || !reflect.DeepEqual(plan.Calls[0].Selections, []string{"job", "travelinventory"}) {
+	if len(plan.Calls) != 1 || plan.Calls[0].Operation.Path != "/user" || !reflect.DeepEqual(plan.Calls[0].Selections, []string{"travelinventory", "job"}) {
 		t.Fatalf("combined plan: %+v", plan)
 	}
 
@@ -258,7 +258,7 @@ func TestTravelInventoryRoutingAndTypedBatch(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(report.Calls) != 1 || len(paths) != 1 || paths[0] != "/user?job,travelinventory" {
+	if len(report.Calls) != 1 || len(paths) != 1 || paths[0] != "/user?travelinventory,job" {
 		t.Fatalf("typed batch requests: %v", paths)
 	}
 	value, err := travel.Value()

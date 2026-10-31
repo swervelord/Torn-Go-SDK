@@ -152,6 +152,7 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		}
 	}
 	excluded := map[int]bool{}
+	rateLimited := map[int]bool{}
 	var last error
 	sends, retries := 0, 0
 	for {
@@ -260,10 +261,16 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 				}
 			case ActionWaitRateWindow:
 				// P3.3: the key (group) waits for its window; acquire rotates to
-				// another key with budget or sleeps until one frees.
+				// another key with budget or sleeps until one frees. P2.4a: this
+				// does not consume an attempt, but each key gets one code-5
+				// recovery per request.
 				c.markKey(l, code)
-				retry = true
-				backoff = pinned != ""
+				if pinned != "" {
+					retry, backoff = true, true
+				} else if !rateLimited[l.key] {
+					rateLimited[l.key] = true
+					retry, rotate = true, true
+				}
 			case ActionRotateRoute:
 				retry = c.blockRoute(l, opts.Route)
 			case ActionRetryBackoff:
@@ -276,8 +283,8 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 			return nil, report, last
 		}
 		if rotate {
-			// P2.4: failover to the next healthy key is immediate and does not
-			// consume an attempt.
+			// P2.4, P2.4a: failover to the next healthy key (or waiting for a
+			// rate-limited key's window) does not consume an attempt.
 			retries++
 			event.Delay = 0
 			c.emit(c.cfg.Hooks.OnRetry, event)
@@ -387,6 +394,7 @@ func (c *Client) Execute(ctx context.Context, plan Plan, opts RequestOptions) (E
 			}
 			// A combined call rejected as v1-only is split so each selection
 			// can be rerouted on its own.
+			var splitErrs []error
 			unsupported := isAPI && (api.Code == int(CodeWrongFields) || api.Code == int(CodeOnlyAvailableInApiV1) && !rerouted) || errors.As(e, &httpErr) && (httpErr.StatusCode == 400 || httpErr.StatusCode == 404 || httpErr.StatusCode == 501)
 			if unsupported && len(call.Selections) > 1 {
 				for _, s := range call.Selections {
@@ -405,11 +413,13 @@ func (c *Client) Execute(ctx context.Context, plan Plan, opts RequestOptions) (E
 							}
 						}
 					}
+					// P4.5: every selection reports its own failure; the
+					// others are still requested and merged.
 					if e := run(single, rerouted); e != nil {
-						return e
+						splitErrs = append(splitErrs, e)
 					}
 				}
-				return nil
+				return errors.Join(splitErrs...)
 			}
 			if unsupported && opts.AllowLegacyFallback && len(call.FallbackCalls) > 0 {
 				for _, f := range call.FallbackCalls {

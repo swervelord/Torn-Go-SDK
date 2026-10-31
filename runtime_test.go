@@ -383,9 +383,9 @@ func TestRuntimeCode5MarksKeyRateLimited(t *testing.T) {
 	})
 	var usage []RouteUsage
 	c.cfg.Observer = func(u RouteUsage) { usage = append(usage, u) }
-	for i := 0; i < 3; i++ {
-		_, _, e := c.DoOperation(context.Background(), Operation{Path: "/user"}, nil, RequestOptions{Attempts: 1})
-		if i < 2 && e == nil || i == 2 && e != nil {
+	// P2.4a: moving to another key after code 5 does not consume the single attempt.
+	for i := 0; i < 2; i++ {
+		if _, _, e := c.DoOperation(context.Background(), Operation{Path: "/user"}, nil, RequestOptions{Attempts: 1}); e != nil {
 			t.Fatalf("call %d: %v", i, e)
 		}
 	}
@@ -394,7 +394,7 @@ func TestRuntimeCode5MarksKeyRateLimited(t *testing.T) {
 		got[i] = fmt.Sprintf("%d@%s", u.KeyIndex, u.Route)
 	}
 	// Rate-limited keys a and b are skipped; message text never spends a route (P4.1).
-	if strings.Join(got, ",") != "0@one,1@one,2@one" || len(clock.waits) != 0 {
+	if strings.Join(got, ",") != "0@one,1@one,2@one,2@one" || len(clock.waits) != 0 {
 		t.Fatalf("usage %v waits %v", got, clock.waits)
 	}
 	states := c.KeyStates()

@@ -25,7 +25,7 @@ func TestArbitraryTypedBatchAtTransport(t *testing.T) {
 	calls := 0
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		calls++
-		if r.URL.Path != "/user" || r.URL.Query().Get("selections") != "discord,job,profile" || r.URL.Query().Get("id") != "123" {
+		if r.URL.Path != "/user" || r.URL.Query().Get("selections") != "profile,job,discord" || r.URL.Query().Get("id") != "123" {
 			t.Errorf("incorrect batch path or selections")
 		}
 		w.Write(raw)

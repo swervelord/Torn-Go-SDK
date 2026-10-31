@@ -39,6 +39,9 @@ in an SDK repo; regenerate with the `torn-sdk-sync` skill): `error-codes.json`, 
   next healthy key (does not consume backoff). Codes with `disable_key != none` disable the key for the client
   lifetime (or until next UTC midnight for code 14). Code 16 rotates without disabling. When no healthy key
   remains, fail with a typed "no usable keys" error that contains the last API error.
+- P2.4a Key rotations (`rotate_key`, and code 5 moving to another key) do **not** consume `max_attempts`; they
+  are bounded by the pool (each key is tried at most once per logical request for a given error). `max_attempts`
+  counts sends on the same key for `retry_backoff`/HTTP/network retries.
 - P2.5 Public introspection: `keyStates()` / equivalent returning per-key redacted id, state, remaining budget.
 - P2.6 Env loading: `TORN_API_KEY` (single) and `TORN_API_KEYS` (comma-separated) in `fromEnv`.
 
@@ -57,7 +60,14 @@ in an SDK repo; regenerate with the `torn-sdk-sync` skill): `error-codes.json`, 
 - P4.2 `retry_backoff` codes, HTTP `429/500/502/503/504` and network errors retry with exponential backoff
   (`base_delay_ms * 2^(attempt-1)`, capped at `max_delay_ms`) with **full jitter**; `Retry-After` honored, capped at
   `retry_after_cap_ms`. Defaults from `error-codes.json.retry`. All configurable; `max_attempts` counts total sends.
-- P4.3 `reroute_version` (codes 22/23) re-plans the request on the other API version once.
+- P4.3 `reroute_version` (codes 22/23) re-plans the request on the other API version once. Routing of v1-only
+  selections: names the v2 spec's `<Resource>SelectionName` description lists as server-side v1 fallbacks (e.g.
+  user `bazaar`, `criminalrecord`, `display`, `networth`) are sent to v2 first; other v1-only selections go straight
+  to v1. A legacy/opt-in mode may restore older routing.
+- P4.5 Rejected combinations: when a multi-selection request fails with code 4 (wrong fields), split it once into
+  per-selection requests (same key) and merge the results; a selection that still fails reports its own error
+  (P1.4 per-selection results). Never inspect message text.
+- P4.6 Env: `TORN_API_KEYS` (comma-separated) takes precedence over `TORN_API_KEY`.
 - P4.4 Cancellation/deadline aborts waits and in-flight requests (Go ctx, TS AbortSignal, Rust drop + timeout,
   Zig deadline/cancel token).
 

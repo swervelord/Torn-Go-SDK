@@ -159,7 +159,8 @@ func TestAllDocumentedCompatiblePairsAndGroupsAtTransport(t *testing.T) {
 						t.Fatalf("compatible pair sent %d requests", len(r.calls))
 					}
 					q := r.calls[0].URL.Query().Get("selections")
-					if q != names[i]+","+names[j] {
+					// Caller order is kept and duplicates are removed (P4.5).
+					if q != names[j]+","+names[i] {
 						t.Fatalf("selections %q", q)
 					}
 					if r.calls[0].URL.Path != "/v2/"+resource {
@@ -205,7 +206,7 @@ func TestPlannerBoundaries(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	if len(p.Calls) != 1 || !reflect.DeepEqual(p.Calls[0].Selections, []string{"job", "profile"}) {
+	if len(p.Calls) != 1 || !reflect.DeepEqual(p.Calls[0].Selections, []string{"profile", "job"}) {
 		t.Fatal(p)
 	}
 	for _, r := range []string{"user", "faction", "company"} {

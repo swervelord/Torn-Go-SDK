@@ -153,7 +153,8 @@ goes through the executor (rate limits, retries, cancellation).
   `client.RefreshKeyInfo(ctx)` (P3.2).
 - Code 5 marks the key (group) rate limited until its window frees and rotates
   immediately to a key with budget; the client sleeps only when none has
-  budget (P3.3). Routes (`Config.Routes`, one per egress IP) have their own
+  budget (P3.3). Key rotations (failover and code 5) do not consume
+  `Attempts`; each key gets one recovery per request for a given error (P2.4a). Routes (`Config.Routes`, one per egress IP) have their own
   budgets; code 8 blocks the route and rotates to another, never retrying on the
   same route (P3.4). State is shared by every goroutine using a client (P3.5).
 - Retries are classified by error code and HTTP status, never by message text
@@ -163,6 +164,8 @@ goes through the executor (rate limits, retries, cancellation).
   deterministic tests); `Retry-After` is honored up to `RetryAfterCap` (120 s).
   `Attempts` (default 4) counts total sends (P4.2).
 - Codes 22/23 re-plan a selection call once on the other API version (P4.3).
+- Code 4 on a combined selection request splits it once into per-selection
+  requests (caller order); each selection reports its own error (P4.5).
 - Context cancellation aborts waits, backoff and in-flight requests (P4.4).
 
 ## Access levels

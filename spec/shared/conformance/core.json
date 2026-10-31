@@ -2040,6 +2040,217 @@
       }
     },
     {
+      "id": "key-rotation-does-not-consume-attempts",
+      "requirements": [
+        "P2.4a"
+      ],
+      "config": {
+        "jitter": "none",
+        "keys": [
+          "KEY_A",
+          "KEY_B"
+        ],
+        "maxAttempts": 1
+      },
+      "clock": {
+        "startMs": 0
+      },
+      "request": {
+        "kind": "selections",
+        "resource": "user",
+        "selections": [
+          "basic"
+        ],
+        "id": null,
+        "params": {}
+      },
+      "exchanges": [
+        {
+          "expect": {
+            "method": "GET",
+            "path": "/v2/user",
+            "query": {
+              "selections": "basic"
+            },
+            "absentQuery": [
+              "key"
+            ],
+            "auth": "KEY_A",
+            "atMs": 0
+          },
+          "respond": {
+            "status": 200,
+            "headers": {},
+            "body": {
+              "error": {
+                "code": 2,
+                "error": "Incorrect key"
+              }
+            }
+          }
+        },
+        {
+          "expect": {
+            "method": "GET",
+            "path": "/v2/user",
+            "query": {
+              "selections": "basic"
+            },
+            "absentQuery": [
+              "key"
+            ],
+            "auth": "KEY_B",
+            "atMs": 0
+          },
+          "respond": {
+            "status": 200,
+            "headers": {},
+            "body": {
+              "profile": {
+                "id": 1,
+                "name": "Test",
+                "level": 10,
+                "gender": "Male",
+                "status": {
+                  "description": "Okay",
+                  "details": null,
+                  "state": "Okay",
+                  "color": "green",
+                  "until": null
+                }
+              }
+            }
+          }
+        }
+      ],
+      "expect": {
+        "sends": 2,
+        "outcome": "ok",
+        "keyStates": {
+          "KEY_A": "disabled"
+        }
+      }
+    },
+    {
+      "id": "wrong-fields-on-combination-splits-once",
+      "requirements": [
+        "P4.5"
+      ],
+      "config": {
+        "jitter": "none",
+        "keys": [
+          "KEY_A"
+        ]
+      },
+      "clock": {
+        "startMs": 0
+      },
+      "request": {
+        "kind": "selections",
+        "resource": "user",
+        "selections": [
+          "basic",
+          "bars"
+        ],
+        "id": null,
+        "params": {}
+      },
+      "exchanges": [
+        {
+          "expect": {
+            "method": "GET",
+            "path": "/v2/user",
+            "query": {
+              "selections": "basic,bars"
+            },
+            "absentQuery": [
+              "key"
+            ],
+            "auth": "KEY_A"
+          },
+          "respond": {
+            "status": 200,
+            "headers": {},
+            "body": {
+              "error": {
+                "code": 4,
+                "error": "Wrong fields"
+              }
+            }
+          }
+        },
+        {
+          "expect": {
+            "method": "GET",
+            "path": "/v2/user",
+            "query": {
+              "selections": "basic"
+            },
+            "absentQuery": [
+              "key"
+            ],
+            "auth": "KEY_A"
+          },
+          "respond": {
+            "status": 200,
+            "headers": {},
+            "body": {
+              "profile": {
+                "id": 1,
+                "name": "Test",
+                "level": 10,
+                "gender": "Male",
+                "status": {
+                  "description": "Okay",
+                  "details": null,
+                  "state": "Okay",
+                  "color": "green",
+                  "until": null
+                }
+              }
+            }
+          }
+        },
+        {
+          "expect": {
+            "method": "GET",
+            "path": "/v2/user",
+            "query": {
+              "selections": "bars"
+            },
+            "absentQuery": [
+              "key"
+            ],
+            "auth": "KEY_A"
+          },
+          "respond": {
+            "status": 200,
+            "headers": {},
+            "body": {
+              "bars": {
+                "energy": {
+                  "current": 1,
+                  "maximum": 150,
+                  "increment": 5,
+                  "interval": 600,
+                  "ticktime": 10,
+                  "fulltime": 0
+                }
+              }
+            }
+          }
+        }
+      ],
+      "expect": {
+        "sends": 3,
+        "outcome": "ok",
+        "data": {
+          "profile.name": "Test",
+          "bars.energy.current": 1
+        }
+      }
+    },
+    {
       "id": "paginate-follows-next-and-strips-key-from-links",
       "requirements": [
         "P7.1"

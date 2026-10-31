@@ -60,6 +60,14 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
 - `go` directive lowered from 1.27.0 to 1.23; default User-Agent is
   `Torn-Go-SDK/<SDKVersion>`.
 
+- Clarified parity contract: moving to another key after code 5 no longer
+  consumes an attempt (P2.4a); code 4 on a combined request splits once into
+  per-selection requests and keeps requesting the others when one fails
+  (P4.5); `TORN_API_KEYS` takes precedence over `TORN_API_KEY` (P4.6).
+- `PlanSelections` keeps the caller's selection order instead of sorting.
+- Generated `Params` and `RequestOptions` redact keys in `String`, `GoString`,
+  `Format` and JSON (P2.2).
+
 ### Deprecated
 - Generated `Params.Key` fields: configure keys on the client. A key set there
   is sent in the `Authorization` header, never in the URL (P2.1).
@@ -73,7 +81,8 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
   Duplicate JSON member names are still rejected.
 - Union `NewXVariantN` fails when the value would decode as another variant;
   `AsVariantN` fails unless `Matches(N)`.
-- `PlanSelections` no longer rejects unknown selection names, and planned calls
+- `PlanSelections` keeps caller order (combined `selections` are no longer
+  sorted) and no longer rejects unknown selection names, and planned calls
   forward parameters no endpoint documents instead of dropping them.
 - The selection helper `Client.KeyInfo` is unchanged; the per-key inspection
   call is `Client.RefreshKeyInfo`.

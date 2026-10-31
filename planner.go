@@ -140,28 +140,27 @@ func Capabilities() []SelectionCapability {
 }
 
 // PlanSelections combines selections sharing one resource, target, and filter
-// map. Parameter values are never merged across independently supplied requests.
+// map, in the caller's order (duplicates removed). Parameter values are never merged across independently supplied requests.
 func PlanSelections(resource string, selections []string, params map[string]any) (Plan, error) {
 	resource = strings.ToLower(strings.TrimSpace(resource))
 	_, ok := genericCatalog[resource]
 	if !ok {
 		return Plan{}, fmt.Errorf("unknown resource %q", resource)
 	}
+	// Selections keep the caller's order (first occurrence wins), so the
+	// combined request and a P4.5 split follow it.
 	names := map[string]bool{}
+	var ordered []string
 	for _, s := range selections {
 		s = strings.ToLower(strings.TrimSpace(s))
-		if s != "" {
+		if s != "" && !names[s] {
 			names[s] = true
+			ordered = append(ordered, s)
 		}
 	}
 	if len(names) == 0 {
 		return Plan{}, fmt.Errorf("at least one selection is required")
 	}
-	ordered := make([]string, 0, len(names))
-	for s := range names {
-		ordered = append(ordered, s)
-	}
-	sort.Strings(ordered)
 	var plan Plan
 	var combined []string
 	var legacy []string
