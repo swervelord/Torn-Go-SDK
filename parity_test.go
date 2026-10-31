@@ -295,11 +295,21 @@ func TestSecretsNeverFormatted(t *testing.T) {
 		t.Fatalf("%v", err)
 	}
 	decodeErr := c.newDecodeError("op", []byte(`{}`), errors.New("x "+parityKey), false)
-	values := []any{err, c.cfg, &c.cfg, c, c.KeyStates(), c.KeyStates()[0], RequestEvent{KeyHint: redactKey(parityKey)}, decodeErr, Route{Name: "r", ProxyURL: "http://user:" + parityKey + "@proxy"}}
+	secret := parityKey
+	opts := RequestOptions{Query: map[string]any{"key": parityKey, "comment": "x"}}
+	params := GetForumTimestampParams{Key: &secret}
+	values := []any{err, c.cfg, &c.cfg, c, c.KeyStates(), c.KeyStates()[0], RequestEvent{KeyHint: redactKey(parityKey)}, decodeErr, Route{Name: "r", ProxyURL: "http://user:" + parityKey + "@proxy"}, opts, &opts, params, &params, []any{params, opts}}
 	for _, s := range formatAll(values...) {
 		if strings.Contains(s, parityKey) {
 			t.Fatalf("secret in %q", s)
 		}
+	}
+	// Redaction keeps the useful parts and still sends the key in the header.
+	if !strings.Contains(fmt.Sprint(opts), "comment:x") || !strings.Contains(fmt.Sprint(params), "Key:***0001") {
+		t.Fatalf("%v / %v", opts, params)
+	}
+	if b, _ := json.Marshal(params); string(b) != `{}` {
+		t.Fatalf("params JSON %s", b)
 	}
 }
 

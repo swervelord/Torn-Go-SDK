@@ -4,6 +4,7 @@ package torn
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/swervelord/Torn-Go-SDK/models"
 	"iter"
 	"sync"
@@ -35,6 +36,23 @@ type GetCompanyGenericParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompanyGenericParams) String() string { return paramsString("GetCompanyGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetCompanyGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompanyGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompanyGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompanyGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompanyGenericResponse is the decoded 200 response of getCompanyGeneric.
@@ -75,6 +93,27 @@ type GetMyCompanyApplicationsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompanyApplicationsParams) String() string {
+	return paramsString("GetMyCompanyApplicationsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyCompanyApplicationsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompanyApplicationsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompanyApplicationsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompanyApplicationsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyCompanyApplicationsResponse is the decoded 200 response of getMyCompanyApplications.
@@ -119,6 +158,25 @@ type GetMyCompanyEmployeesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompanyEmployeesParams) String() string {
+	return paramsString("GetMyCompanyEmployeesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyCompanyEmployeesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompanyEmployeesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompanyEmployeesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompanyEmployeesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCompanyEmployeesResponse is the decoded 200 response of getMyCompanyEmployees.
 type GetMyCompanyEmployeesResponse = models.CompanyEmployeesResponse
 
@@ -157,6 +215,23 @@ type GetCompanyLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompanyLookupParams) String() string { return paramsString("GetCompanyLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetCompanyLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompanyLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompanyLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompanyLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompanyLookupResponse is the decoded 200 response of getCompanyLookup.
@@ -211,6 +286,23 @@ type GetMyCompanyNewsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompanyNewsParams) String() string { return paramsString("GetMyCompanyNewsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCompanyNewsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompanyNewsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompanyNewsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompanyNewsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCompanyNewsResponse is the decoded 200 response of getMyCompanyNews.
 type GetMyCompanyNewsResponse = models.NewsResponse
 
@@ -263,6 +355,25 @@ type GetMyCompanyProfileParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompanyProfileParams) String() string {
+	return paramsString("GetMyCompanyProfileParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyCompanyProfileParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompanyProfileParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompanyProfileParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompanyProfileParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCompanyProfileResponse is the decoded 200 response of getMyCompanyProfile.
 type GetMyCompanyProfileResponse = models.CompanyProfileResponseMixed
 
@@ -309,6 +420,23 @@ type GetCompaniesSearchParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompaniesSearchParams) String() string { return paramsString("GetCompaniesSearchParams", v) }
+
+// GoString redacts like String.
+func (v GetCompaniesSearchParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompaniesSearchParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompaniesSearchParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompaniesSearchParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompaniesSearchResponse is the decoded 200 response of getCompaniesSearch.
@@ -361,6 +489,25 @@ type GetCompaniesSnapshotParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompaniesSnapshotParams) String() string {
+	return paramsString("GetCompaniesSnapshotParams", v)
+}
+
+// GoString redacts like String.
+func (v GetCompaniesSnapshotParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompaniesSnapshotParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompaniesSnapshotParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompaniesSnapshotParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetCompaniesSnapshotResponse is the decoded 200 response of getCompaniesSnapshot.
 type GetCompaniesSnapshotResponse = string
 
@@ -401,6 +548,23 @@ type GetMyCompanyStockParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompanyStockParams) String() string { return paramsString("GetMyCompanyStockParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCompanyStockParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompanyStockParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompanyStockParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompanyStockParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCompanyStockResponse is the decoded 200 response of getMyCompanyStock.
 type GetMyCompanyStockResponse = models.CompanyStockResponse
 
@@ -439,6 +603,25 @@ type GetCompanyTimestampParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompanyTimestampParams) String() string {
+	return paramsString("GetCompanyTimestampParams", v)
+}
+
+// GoString redacts like String.
+func (v GetCompanyTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompanyTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompanyTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompanyTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompanyTimestampResponse is the decoded 200 response of getCompanyTimestamp.
@@ -485,6 +668,25 @@ type GetCompanyEmployeesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompanyEmployeesParams) String() string {
+	return paramsString("GetCompanyEmployeesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetCompanyEmployeesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompanyEmployeesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompanyEmployeesParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompanyEmployeesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetCompanyEmployeesResponse is the decoded 200 response of getCompanyEmployees.
 type GetCompanyEmployeesResponse = models.CompanyEmployeesResponseBasic
 
@@ -527,6 +729,23 @@ type GetCompanyProfileParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompanyProfileParams) String() string { return paramsString("GetCompanyProfileParams", v) }
+
+// GoString redacts like String.
+func (v GetCompanyProfileParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompanyProfileParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompanyProfileParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompanyProfileParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompanyProfileResponse is the decoded 200 response of getCompanyProfile.
@@ -575,6 +794,23 @@ type GetCompaniesListParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetCompaniesListParams) String() string { return paramsString("GetCompaniesListParams", v) }
+
+// GoString redacts like String.
+func (v GetCompaniesListParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetCompaniesListParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetCompaniesListParams) MarshalJSON() ([]byte, error) {
+	type plain GetCompaniesListParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetCompaniesListResponse is the decoded 200 response of getCompaniesList.
@@ -651,6 +887,23 @@ type GetFactionGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionGenericParams) String() string { return paramsString("GetFactionGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionGenericResponse is the decoded 200 response of getFactionGeneric.
 type GetFactionGenericResponse = models.GetFactionGenericResponseBody
 
@@ -689,6 +942,27 @@ type GetMyFactionApplicationsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionApplicationsParams) String() string {
+	return paramsString("GetMyFactionApplicationsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionApplicationsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionApplicationsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionApplicationsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionApplicationsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionApplicationsResponse is the decoded 200 response of getMyFactionApplications.
@@ -739,6 +1013,25 @@ type GetMyFactionAttacksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionAttacksParams) String() string {
+	return paramsString("GetMyFactionAttacksParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionAttacksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionAttacksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionAttacksParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionAttacksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionAttacksResponse is the decoded 200 response of getMyFactionAttacks.
@@ -801,6 +1094,27 @@ type GetMyFactionAttacksSimplifiedParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionAttacksSimplifiedParams) String() string {
+	return paramsString("GetMyFactionAttacksSimplifiedParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionAttacksSimplifiedParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionAttacksSimplifiedParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionAttacksSimplifiedParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionAttacksSimplifiedParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionAttacksSimplifiedResponse is the decoded 200 response of getMyFactionAttacksSimplified.
 type GetMyFactionAttacksSimplifiedResponse = models.AttacksFullResponse
 
@@ -853,6 +1167,25 @@ type GetMyFactionBalanceParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionBalanceParams) String() string {
+	return paramsString("GetMyFactionBalanceParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionBalanceParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionBalanceParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionBalanceParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionBalanceParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionBalanceResponse is the decoded 200 response of getMyFactionBalance.
 type GetMyFactionBalanceResponse = models.FactionBalanceResponse
 
@@ -891,6 +1224,27 @@ type GetMyFactionBasicInformationParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionBasicInformationParams) String() string {
+	return paramsString("GetMyFactionBasicInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionBasicInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionBasicInformationParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionBasicInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionBasicInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionBasicInformationResponse is the decoded 200 response of getMyFactionBasicInformation.
@@ -933,6 +1287,23 @@ type GetMyFactionChainParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionChainParams) String() string { return paramsString("GetMyFactionChainParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionChainParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionChainParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionChainParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionChainParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionChainResponse is the decoded 200 response of getMyFactionChain.
 type GetMyFactionChainResponse = models.FactionOngoingChainResponse
 
@@ -971,6 +1342,27 @@ type GetMyFactionLatestChainReportParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionLatestChainReportParams) String() string {
+	return paramsString("GetMyFactionLatestChainReportParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionLatestChainReportParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionLatestChainReportParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionLatestChainReportParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionLatestChainReportParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionLatestChainReportResponse is the decoded 200 response of getMyFactionLatestChainReport.
@@ -1019,6 +1411,27 @@ type GetMyFactionCompletedChainsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionCompletedChainsParams) String() string {
+	return paramsString("GetMyFactionCompletedChainsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionCompletedChainsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionCompletedChainsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionCompletedChainsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionCompletedChainsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionCompletedChainsResponse is the decoded 200 response of getMyFactionCompletedChains.
@@ -1075,6 +1488,27 @@ type GetMyFactionContributorsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionContributorsParams) String() string {
+	return paramsString("GetMyFactionContributorsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionContributorsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionContributorsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionContributorsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionContributorsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionContributorsResponse is the decoded 200 response of getMyFactionContributors.
 type GetMyFactionContributorsResponse = models.FactionContributorsResponse
 
@@ -1113,6 +1547,25 @@ type GetMyFactionCrimeExpParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionCrimeExpParams) String() string {
+	return paramsString("GetMyFactionCrimeExpParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionCrimeExpParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionCrimeExpParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionCrimeExpParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionCrimeExpParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionCrimeExpResponse is the decoded 200 response of getMyFactionCrimeExp.
@@ -1169,6 +1622,27 @@ type GetMyFactionOrganizedCrimesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionOrganizedCrimesParams) String() string {
+	return paramsString("GetMyFactionOrganizedCrimesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionOrganizedCrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionOrganizedCrimesParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionOrganizedCrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionOrganizedCrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionOrganizedCrimesResponse is the decoded 200 response of getMyFactionOrganizedCrimes.
 type GetMyFactionOrganizedCrimesResponse = models.FactionCrimesResponse
 
@@ -1219,6 +1693,25 @@ type GetWarfareDirtyBombsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareDirtyBombsParams) String() string {
+	return paramsString("GetWarfareDirtyBombsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetWarfareDirtyBombsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareDirtyBombsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareDirtyBombsParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareDirtyBombsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetWarfareDirtyBombsResponse is the decoded 200 response of getWarfareDirtyBombs.
 type GetWarfareDirtyBombsResponse = models.FactionWarfareDirtyBombsResponse
 
@@ -1257,6 +1750,23 @@ type GetMyFactionHoFParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionHoFParams) String() string { return paramsString("GetMyFactionHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionHoFResponse is the decoded 200 response of getMyFactionHoF.
@@ -1303,6 +1813,25 @@ type GetMyFactionInventoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionInventoryParams) String() string {
+	return paramsString("GetMyFactionInventoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionInventoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionInventoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionInventoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionInventoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionInventoryResponse is the decoded 200 response of getMyFactionInventory.
@@ -1355,6 +1884,23 @@ type GetFactionLookupParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionLookupParams) String() string { return paramsString("GetFactionLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionLookupResponse is the decoded 200 response of getFactionLookup.
 type GetFactionLookupResponse = models.FactionLookupResponse
 
@@ -1395,6 +1941,25 @@ type GetMyFactionMembersParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionMembersParams) String() string {
+	return paramsString("GetMyFactionMembersParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionMembersParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionMembersParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionMembersParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionMembersParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionMembersResponse is the decoded 200 response of getMyFactionMembers.
@@ -1449,6 +2014,23 @@ type GetMyFactionNewsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionNewsParams) String() string { return paramsString("GetMyFactionNewsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionNewsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionNewsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionNewsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionNewsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionNewsResponse is the decoded 200 response of getMyFactionNews.
 type GetMyFactionNewsResponse = models.NewsResponse
 
@@ -1499,6 +2081,25 @@ type GetMyFactionPositionsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionPositionsParams) String() string {
+	return paramsString("GetMyFactionPositionsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionPositionsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionPositionsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionPositionsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionPositionsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionPositionsResponse is the decoded 200 response of getMyFactionPositions.
 type GetMyFactionPositionsResponse = models.FactionPositionsResponse
 
@@ -1537,6 +2138,23 @@ type GetFactionRacketsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionRacketsParams) String() string { return paramsString("GetFactionRacketsParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionRacketsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionRacketsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionRacketsParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionRacketsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionRacketsResponse is the decoded 200 response of getFactionRackets.
@@ -1585,6 +2203,27 @@ type GetMyFactionRaidsHistoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionRaidsHistoryParams) String() string {
+	return paramsString("GetMyFactionRaidsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionRaidsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionRaidsHistoryParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionRaidsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionRaidsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionRaidsHistoryResponse is the decoded 200 response of getMyFactionRaidsHistory.
@@ -1645,6 +2284,27 @@ type GetMyFactionRankedWarsHistoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionRankedWarsHistoryParams) String() string {
+	return paramsString("GetMyFactionRankedWarsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionRankedWarsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionRankedWarsHistoryParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionRankedWarsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionRankedWarsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionRankedWarsHistoryResponse is the decoded 200 response of getMyFactionRankedWarsHistory.
@@ -1709,6 +2369,25 @@ type GetMyFactionReportsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionReportsParams) String() string {
+	return paramsString("GetMyFactionReportsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionReportsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionReportsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionReportsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionReportsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionReportsResponse is the decoded 200 response of getMyFactionReports.
 type GetMyFactionReportsResponse = models.ReportsResponse
 
@@ -1769,6 +2448,25 @@ type GetMyFactionRevivesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionRevivesParams) String() string {
+	return paramsString("GetMyFactionRevivesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionRevivesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionRevivesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionRevivesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionRevivesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionRevivesResponse is the decoded 200 response of getMyFactionRevives.
@@ -1833,6 +2531,27 @@ type GetMyFactionRevivesSimplifiedParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionRevivesSimplifiedParams) String() string {
+	return paramsString("GetMyFactionRevivesSimplifiedParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionRevivesSimplifiedParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionRevivesSimplifiedParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionRevivesSimplifiedParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionRevivesSimplifiedParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionRevivesSimplifiedResponse is the decoded 200 response of getMyFactionRevivesSimplified.
 type GetMyFactionRevivesSimplifiedResponse = models.RevivesFullResponse
 
@@ -1891,6 +2610,23 @@ type GetFactionSearchParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionSearchParams) String() string { return paramsString("GetFactionSearchParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionSearchParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionSearchParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionSearchParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionSearchParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionSearchResponse is the decoded 200 response of getFactionSearch.
 type GetFactionSearchResponse = models.FactionSearchResponse
 
@@ -1941,6 +2677,25 @@ type GetFactionsSnapshotParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionsSnapshotParams) String() string {
+	return paramsString("GetFactionsSnapshotParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionsSnapshotParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionsSnapshotParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionsSnapshotParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionsSnapshotParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionsSnapshotResponse is the decoded 200 response of getFactionsSnapshot.
 type GetFactionsSnapshotResponse = string
 
@@ -1981,6 +2736,23 @@ type GetMyFactionStatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionStatsParams) String() string { return paramsString("GetMyFactionStatsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionStatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionStatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionStatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionStatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionStatsResponse is the decoded 200 response of getMyFactionStats.
 type GetMyFactionStatsResponse = models.FactionStatsResponse
 
@@ -2019,6 +2791,25 @@ type GetMyFactionTerritoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionTerritoryParams) String() string {
+	return paramsString("GetMyFactionTerritoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionTerritoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionTerritoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionTerritoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionTerritoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionTerritoryResponse is the decoded 200 response of getMyFactionTerritory.
@@ -2063,6 +2854,25 @@ type GetTerritoryOwnershipParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTerritoryOwnershipParams) String() string {
+	return paramsString("GetTerritoryOwnershipParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTerritoryOwnershipParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTerritoryOwnershipParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTerritoryOwnershipParams) MarshalJSON() ([]byte, error) {
+	type plain GetTerritoryOwnershipParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTerritoryOwnershipResponse is the decoded 200 response of getTerritoryOwnership.
@@ -2113,6 +2923,27 @@ type GetMyFactionTerritoryWarsHistoryParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionTerritoryWarsHistoryParams) String() string {
+	return paramsString("GetMyFactionTerritoryWarsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionTerritoryWarsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionTerritoryWarsHistoryParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionTerritoryWarsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionTerritoryWarsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionTerritoryWarsHistoryResponse is the decoded 200 response of getMyFactionTerritoryWarsHistory.
 type GetMyFactionTerritoryWarsHistoryResponse = models.FactionTerritoryWarsHistoryResponse
 
@@ -2153,6 +2984,25 @@ type GetFactionTimestampParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionTimestampParams) String() string {
+	return paramsString("GetFactionTimestampParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionTimestampResponse is the decoded 200 response of getFactionTimestamp.
 type GetFactionTimestampResponse = models.TimestampResponse
 
@@ -2191,6 +3041,25 @@ type GetMyFactionUpgradesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionUpgradesParams) String() string {
+	return paramsString("GetMyFactionUpgradesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionUpgradesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionUpgradesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionUpgradesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionUpgradesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyFactionUpgradesResponse is the decoded 200 response of getMyFactionUpgrades.
@@ -2241,6 +3110,23 @@ type GetWarfareParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareParams) String() string { return paramsString("GetWarfareParams", v) }
+
+// GoString redacts like String.
+func (v GetWarfareParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetWarfareResponse is the decoded 200 response of getWarfare.
@@ -2296,6 +3182,23 @@ type GetWarfareChainsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareChainsParams) String() string { return paramsString("GetWarfareChainsParams", v) }
+
+// GoString redacts like String.
+func (v GetWarfareChainsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareChainsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareChainsParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareChainsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetWarfareChainsResponse is the decoded 200 response of getWarfareChains.
@@ -2356,6 +3259,23 @@ type GetWarfareRaidsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareRaidsParams) String() string { return paramsString("GetWarfareRaidsParams", v) }
+
+// GoString redacts like String.
+func (v GetWarfareRaidsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareRaidsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareRaidsParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareRaidsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetWarfareRaidsResponse is the decoded 200 response of getWarfareRaids.
 type GetWarfareRaidsResponse = models.FactionWarfareRaidsResponse
 
@@ -2412,6 +3332,25 @@ type GetWarfareRankedWarsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareRankedWarsParams) String() string {
+	return paramsString("GetWarfareRankedWarsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetWarfareRankedWarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareRankedWarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareRankedWarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareRankedWarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetWarfareRankedWarsResponse is the decoded 200 response of getWarfareRankedWars.
@@ -2472,6 +3411,27 @@ type GetWarfareTerritoryWarsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetWarfareTerritoryWarsParams) String() string {
+	return paramsString("GetWarfareTerritoryWarsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetWarfareTerritoryWarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetWarfareTerritoryWarsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetWarfareTerritoryWarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetWarfareTerritoryWarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetWarfareTerritoryWarsResponse is the decoded 200 response of getWarfareTerritoryWars.
 type GetWarfareTerritoryWarsResponse = models.FactionWarfareTerritoryWarsResponse
 
@@ -2524,6 +3484,23 @@ type GetMyFactionWarsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionWarsParams) String() string { return paramsString("GetMyFactionWarsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionWarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionWarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionWarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionWarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionWarsResponse is the decoded 200 response of getMyFactionWars.
 type GetMyFactionWarsResponse = models.FactionWarsResponse
 
@@ -2564,6 +3541,23 @@ type GetChainReportParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetChainReportParams) String() string { return paramsString("GetChainReportParams", v) }
+
+// GoString redacts like String.
+func (v GetChainReportParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetChainReportParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetChainReportParams) MarshalJSON() ([]byte, error) {
+	type plain GetChainReportParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetChainReportResponse is the decoded 200 response of getChainReport.
@@ -2608,6 +3602,27 @@ type GetMyFactionOrganizedCrimeParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionOrganizedCrimeParams) String() string {
+	return paramsString("GetMyFactionOrganizedCrimeParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyFactionOrganizedCrimeParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionOrganizedCrimeParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionOrganizedCrimeParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionOrganizedCrimeParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionOrganizedCrimeResponse is the decoded 200 response of getMyFactionOrganizedCrime.
 type GetMyFactionOrganizedCrimeResponse = models.FactionCrimeResponse
 
@@ -2650,6 +3665,27 @@ type GetFactionBasicInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionBasicInformationParams) String() string {
+	return paramsString("GetFactionBasicInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionBasicInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionBasicInformationParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionBasicInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionBasicInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionBasicInformationResponse is the decoded 200 response of getFactionBasicInformation.
 type GetFactionBasicInformationResponse = models.FactionBasicResponse
 
@@ -2690,6 +3726,23 @@ type GetFactionChainParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionChainParams) String() string { return paramsString("GetFactionChainParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionChainParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionChainParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionChainParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionChainParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionChainResponse is the decoded 200 response of getFactionChain.
@@ -2740,6 +3793,27 @@ type GetFactionCompletedChainsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionCompletedChainsParams) String() string {
+	return paramsString("GetFactionCompletedChainsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionCompletedChainsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionCompletedChainsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionCompletedChainsParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionCompletedChainsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionCompletedChainsResponse is the decoded 200 response of getFactionCompletedChains.
@@ -2794,6 +3868,23 @@ type GetFactionHoFParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionHoFParams) String() string { return paramsString("GetFactionHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionHoFResponse is the decoded 200 response of getFactionHoF.
 type GetFactionHoFResponse = models.FactionHofResponse
 
@@ -2836,6 +3927,23 @@ type GetFactionMembersParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionMembersParams) String() string { return paramsString("GetFactionMembersParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionMembersParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionMembersParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionMembersParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionMembersParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionMembersResponse is the decoded 200 response of getFactionMembers.
@@ -2886,6 +3994,25 @@ type GetFactionRaidsHistoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionRaidsHistoryParams) String() string {
+	return paramsString("GetFactionRaidsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionRaidsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionRaidsHistoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionRaidsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionRaidsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionRaidsHistoryResponse is the decoded 200 response of getFactionRaidsHistory.
@@ -2944,6 +4071,27 @@ type GetFactionRankedWarsHistoryParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionRankedWarsHistoryParams) String() string {
+	return paramsString("GetFactionRankedWarsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionRankedWarsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionRankedWarsHistoryParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionRankedWarsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionRankedWarsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionRankedWarsHistoryResponse is the decoded 200 response of getFactionRankedWarsHistory.
 type GetFactionRankedWarsHistoryResponse = models.FactionRankedWarResponse
 
@@ -2998,6 +4146,25 @@ type GetFactionTerritoryParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionTerritoryParams) String() string {
+	return paramsString("GetFactionTerritoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionTerritoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionTerritoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionTerritoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionTerritoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionTerritoryResponse is the decoded 200 response of getFactionTerritory.
 type GetFactionTerritoryResponse = models.FactionTerritoriesResponse
 
@@ -3048,6 +4215,27 @@ type GetFactionTerritoryWarsHistoryParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionTerritoryWarsHistoryParams) String() string {
+	return paramsString("GetFactionTerritoryWarsHistoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetFactionTerritoryWarsHistoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionTerritoryWarsHistoryParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionTerritoryWarsHistoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionTerritoryWarsHistoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetFactionTerritoryWarsHistoryResponse is the decoded 200 response of getFactionTerritoryWarsHistory.
 type GetFactionTerritoryWarsHistoryResponse = models.FactionTerritoryWarsHistoryResponse
 
@@ -3088,6 +4276,23 @@ type GetFactionWarsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetFactionWarsParams) String() string { return paramsString("GetFactionWarsParams", v) }
+
+// GoString redacts like String.
+func (v GetFactionWarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetFactionWarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetFactionWarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetFactionWarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetFactionWarsResponse is the decoded 200 response of getFactionWars.
@@ -3132,6 +4337,23 @@ type GetRaidReportParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRaidReportParams) String() string { return paramsString("GetRaidReportParams", v) }
+
+// GoString redacts like String.
+func (v GetRaidReportParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRaidReportParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRaidReportParams) MarshalJSON() ([]byte, error) {
+	type plain GetRaidReportParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRaidReportResponse is the decoded 200 response of getRaidReport.
 type GetRaidReportResponse = models.FactionRaidWarReportResponse
 
@@ -3174,6 +4396,23 @@ type GetRankedWarReportParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRankedWarReportParams) String() string { return paramsString("GetRankedWarReportParams", v) }
+
+// GoString redacts like String.
+func (v GetRankedWarReportParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRankedWarReportParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRankedWarReportParams) MarshalJSON() ([]byte, error) {
+	type plain GetRankedWarReportParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRankedWarReportResponse is the decoded 200 response of getRankedWarReport.
 type GetRankedWarReportResponse = models.FactionRankedWarReportResponse
 
@@ -3214,6 +4453,25 @@ type GetTerritoryWarReportParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTerritoryWarReportParams) String() string {
+	return paramsString("GetTerritoryWarReportParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTerritoryWarReportParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTerritoryWarReportParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTerritoryWarReportParams) MarshalJSON() ([]byte, error) {
+	type plain GetTerritoryWarReportParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTerritoryWarReportResponse is the decoded 200 response of getTerritoryWarReport.
@@ -3272,6 +4530,23 @@ type GetForumGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumGenericParams) String() string { return paramsString("GetForumGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetForumGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetForumGenericResponse is the decoded 200 response of getForumGeneric.
 type GetForumGenericResponse = models.GetForumGenericResponseBody
 
@@ -3312,6 +4587,23 @@ type GetForumCategoriesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumCategoriesParams) String() string { return paramsString("GetForumCategoriesParams", v) }
+
+// GoString redacts like String.
+func (v GetForumCategoriesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumCategoriesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumCategoriesParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumCategoriesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetForumCategoriesResponse is the decoded 200 response of getForumCategories.
 type GetForumCategoriesResponse = models.ForumCategoriesResponse
 
@@ -3350,6 +4642,23 @@ type GetForumLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumLookupParams) String() string { return paramsString("GetForumLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetForumLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetForumLookupResponse is the decoded 200 response of getForumLookup.
@@ -3398,6 +4707,23 @@ type GetForumAllThreadsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumAllThreadsParams) String() string { return paramsString("GetForumAllThreadsParams", v) }
+
+// GoString redacts like String.
+func (v GetForumAllThreadsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumAllThreadsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumAllThreadsParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumAllThreadsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetForumAllThreadsResponse is the decoded 200 response of getForumAllThreads.
@@ -3450,6 +4776,23 @@ type GetForumTimestampParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumTimestampParams) String() string { return paramsString("GetForumTimestampParams", v) }
+
+// GoString redacts like String.
+func (v GetForumTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetForumTimestampResponse is the decoded 200 response of getForumTimestamp.
 type GetForumTimestampResponse = models.TimestampResponse
 
@@ -3498,6 +4841,23 @@ type GetForumThreadsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumThreadsParams) String() string { return paramsString("GetForumThreadsParams", v) }
+
+// GoString redacts like String.
+func (v GetForumThreadsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumThreadsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumThreadsParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumThreadsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetForumThreadsResponse is the decoded 200 response of getForumThreads.
@@ -3562,6 +4922,25 @@ type GetForumThreadPostsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumThreadPostsParams) String() string {
+	return paramsString("GetForumThreadPostsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetForumThreadPostsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumThreadPostsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumThreadPostsParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumThreadPostsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetForumThreadPostsResponse is the decoded 200 response of getForumThreadPosts.
 type GetForumThreadPostsResponse = models.ForumPostsResponse
 
@@ -3614,6 +4993,23 @@ type GetForumThreadParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetForumThreadParams) String() string { return paramsString("GetForumThreadParams", v) }
+
+// GoString redacts like String.
+func (v GetForumThreadParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetForumThreadParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetForumThreadParams) MarshalJSON() ([]byte, error) {
+	type plain GetForumThreadParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetForumThreadResponse is the decoded 200 response of getForumThread.
 type GetForumThreadResponse = models.ForumThreadResponse
 
@@ -3660,6 +5056,23 @@ type GetKeyGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetKeyGenericParams) String() string { return paramsString("GetKeyGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetKeyGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetKeyGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetKeyGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetKeyGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetKeyGenericResponse is the decoded 200 response of getKeyGeneric.
 type GetKeyGenericResponse = models.GetKeyGenericResponseBody
 
@@ -3698,6 +5111,23 @@ type GetKeyInfoParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetKeyInfoParams) String() string { return paramsString("GetKeyInfoParams", v) }
+
+// GoString redacts like String.
+func (v GetKeyInfoParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetKeyInfoParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetKeyInfoParams) MarshalJSON() ([]byte, error) {
+	type plain GetKeyInfoParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetKeyInfoResponse is the decoded 200 response of getKeyInfo.
@@ -3742,6 +5172,23 @@ type GetKeyLogParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetKeyLogParams) String() string { return paramsString("GetKeyLogParams", v) }
+
+// GoString redacts like String.
+func (v GetKeyLogParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetKeyLogParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetKeyLogParams) MarshalJSON() ([]byte, error) {
+	type plain GetKeyLogParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetKeyLogResponse is the decoded 200 response of getKeyLog.
@@ -3800,6 +5247,23 @@ type GetMarketGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketGenericParams) String() string { return paramsString("GetMarketGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetMarketGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketGenericResponse is the decoded 200 response of getMarketGeneric.
 type GetMarketGenericResponse = models.GetMarketGenericResponseBody
 
@@ -3846,6 +5310,25 @@ type GetMarketAuctionHouseParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketAuctionHouseParams) String() string {
+	return paramsString("GetMarketAuctionHouseParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketAuctionHouseParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketAuctionHouseParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketAuctionHouseParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketAuctionHouseParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketAuctionHouseResponse is the decoded 200 response of getMarketAuctionHouse.
@@ -3900,6 +5383,23 @@ type GetMarketBazaarParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketBazaarParams) String() string { return paramsString("GetMarketBazaarParams", v) }
+
+// GoString redacts like String.
+func (v GetMarketBazaarParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketBazaarParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketBazaarParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketBazaarParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketBazaarResponse is the decoded 200 response of getMarketBazaar.
 type GetMarketBazaarResponse = models.BazaarResponse
 
@@ -3938,6 +5438,23 @@ type GetMarketLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketLookupParams) String() string { return paramsString("GetMarketLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetMarketLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketLookupResponse is the decoded 200 response of getMarketLookup.
@@ -3980,6 +5497,23 @@ type GetMarketPointsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketPointsParams) String() string { return paramsString("GetMarketPointsParams", v) }
+
+// GoString redacts like String.
+func (v GetMarketPointsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketPointsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketPointsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketPointsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketPointsResponse is the decoded 200 response of getMarketPoints.
 type GetMarketPointsResponse = models.PointsMarketResponse
 
@@ -4018,6 +5552,23 @@ type GetMarketTimestampParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketTimestampParams) String() string { return paramsString("GetMarketTimestampParams", v) }
+
+// GoString redacts like String.
+func (v GetMarketTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketTimestampResponse is the decoded 200 response of getMarketTimestamp.
@@ -4068,6 +5619,27 @@ type GetMarketAuctionHouseItemParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketAuctionHouseItemParams) String() string {
+	return paramsString("GetMarketAuctionHouseItemParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketAuctionHouseItemParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketAuctionHouseItemParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketAuctionHouseItemParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketAuctionHouseItemParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketAuctionHouseItemResponse is the decoded 200 response of getMarketAuctionHouseItem.
@@ -4122,6 +5694,27 @@ type GetMarketAuctionHouseListingParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketAuctionHouseListingParams) String() string {
+	return paramsString("GetMarketAuctionHouseListingParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketAuctionHouseListingParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketAuctionHouseListingParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketAuctionHouseListingParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketAuctionHouseListingParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketAuctionHouseListingResponse is the decoded 200 response of getMarketAuctionHouseListing.
 type GetMarketAuctionHouseListingResponse = models.AuctionHouseListingResponse
 
@@ -4162,6 +5755,25 @@ type GetMarketBazaarItemParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketBazaarItemParams) String() string {
+	return paramsString("GetMarketBazaarItemParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketBazaarItemParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketBazaarItemParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketBazaarItemParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketBazaarItemParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketBazaarItemResponse is the decoded 200 response of getMarketBazaarItem.
@@ -4210,6 +5822,27 @@ type GetMarketItemMarketItemParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketItemMarketItemParams) String() string {
+	return paramsString("GetMarketItemMarketItemParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketItemMarketItemParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketItemMarketItemParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketItemMarketItemParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketItemMarketItemParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMarketItemMarketItemResponse is the decoded 200 response of getMarketItemMarketItem.
@@ -4265,6 +5898,25 @@ type GetMarketPropertiesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketPropertiesParams) String() string {
+	return paramsString("GetMarketPropertiesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketPropertiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketPropertiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketPropertiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketPropertiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketPropertiesResponse is the decoded 200 response of getMarketProperties.
 type GetMarketPropertiesResponse = models.MarketPropertiesResponse
 
@@ -4318,6 +5970,27 @@ type GetMarketPropertiesRentalParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMarketPropertiesRentalParams) String() string {
+	return paramsString("GetMarketPropertiesRentalParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMarketPropertiesRentalParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMarketPropertiesRentalParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMarketPropertiesRentalParams) MarshalJSON() ([]byte, error) {
+	type plain GetMarketPropertiesRentalParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMarketPropertiesRentalResponse is the decoded 200 response of getMarketPropertiesRental.
 type GetMarketPropertiesRentalResponse = models.MarketRentalsResponse
 
@@ -4367,6 +6040,23 @@ type GetPropertyGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetPropertyGenericParams) String() string { return paramsString("GetPropertyGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetPropertyGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetPropertyGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetPropertyGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetPropertyGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetPropertyGenericResponse is the decoded 200 response of getPropertyGeneric.
 type GetPropertyGenericResponse = models.GetPropertyGenericResponseBody
 
@@ -4405,6 +6095,23 @@ type GetPropertyLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetPropertyLookupParams) String() string { return paramsString("GetPropertyLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetPropertyLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetPropertyLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetPropertyLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetPropertyLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetPropertyLookupResponse is the decoded 200 response of getPropertyLookup.
@@ -4447,6 +6154,25 @@ type GetPropertyTimestampParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetPropertyTimestampParams) String() string {
+	return paramsString("GetPropertyTimestampParams", v)
+}
+
+// GoString redacts like String.
+func (v GetPropertyTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetPropertyTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetPropertyTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetPropertyTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetPropertyTimestampResponse is the decoded 200 response of getPropertyTimestamp.
 type GetPropertyTimestampResponse = models.TimestampResponse
 
@@ -4487,6 +6213,23 @@ type GetPropertyParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetPropertyParams) String() string { return paramsString("GetPropertyParams", v) }
+
+// GoString redacts like String.
+func (v GetPropertyParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetPropertyParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetPropertyParams) MarshalJSON() ([]byte, error) {
+	type plain GetPropertyParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetPropertyResponse is the decoded 200 response of getProperty.
@@ -4545,6 +6288,23 @@ type GetRacingGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingGenericParams) String() string { return paramsString("GetRacingGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRacingGenericResponse is the decoded 200 response of getRacingGeneric.
 type GetRacingGenericResponse = models.GetRacingGenericResponseBody
 
@@ -4583,6 +6343,23 @@ type GetRacingCarsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingCarsParams) String() string { return paramsString("GetRacingCarsParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingCarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingCarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingCarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingCarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetRacingCarsResponse is the decoded 200 response of getRacingCars.
@@ -4625,6 +6402,25 @@ type GetRacingCarUpgradesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingCarUpgradesParams) String() string {
+	return paramsString("GetRacingCarUpgradesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetRacingCarUpgradesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingCarUpgradesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingCarUpgradesParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingCarUpgradesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRacingCarUpgradesResponse is the decoded 200 response of getRacingCarUpgrades.
 type GetRacingCarUpgradesResponse = models.RacingCarUpgradesResponse
 
@@ -4663,6 +6459,23 @@ type GetRacingLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingLookupParams) String() string { return paramsString("GetRacingLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetRacingLookupResponse is the decoded 200 response of getRacingLookup.
@@ -4715,6 +6528,23 @@ type GetRacingRacesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingRacesParams) String() string { return paramsString("GetRacingRacesParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingRacesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingRacesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingRacesParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingRacesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRacingRacesResponse is the decoded 200 response of getRacingRaces.
 type GetRacingRacesResponse = models.RacingRacesResponse
 
@@ -4765,6 +6595,23 @@ type GetRacingTimestampParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingTimestampParams) String() string { return paramsString("GetRacingTimestampParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRacingTimestampResponse is the decoded 200 response of getRacingTimestamp.
 type GetRacingTimestampResponse = models.TimestampResponse
 
@@ -4803,6 +6650,23 @@ type GetRacingTracksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingTracksParams) String() string { return paramsString("GetRacingTracksParams", v) }
+
+// GoString redacts like String.
+func (v GetRacingTracksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingTracksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingTracksParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingTracksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetRacingTracksResponse is the decoded 200 response of getRacingTracks.
@@ -4847,6 +6711,25 @@ type GetRacingRaceDetailsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingRaceDetailsParams) String() string {
+	return paramsString("GetRacingRaceDetailsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetRacingRaceDetailsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingRaceDetailsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingRaceDetailsParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingRaceDetailsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetRacingRaceDetailsResponse is the decoded 200 response of getRacingRaceDetails.
 type GetRacingRaceDetailsResponse = models.RacingRaceDetailsResponse
 
@@ -4889,6 +6772,25 @@ type GetRacingTrackRecordsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetRacingTrackRecordsParams) String() string {
+	return paramsString("GetRacingTrackRecordsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetRacingTrackRecordsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetRacingTrackRecordsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetRacingTrackRecordsParams) MarshalJSON() ([]byte, error) {
+	type plain GetRacingTrackRecordsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetRacingTrackRecordsResponse is the decoded 200 response of getRacingTrackRecords.
@@ -4951,6 +6853,23 @@ type GetTornGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornGenericParams) String() string { return paramsString("GetTornGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetTornGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornGenericResponse is the decoded 200 response of getTornGeneric.
 type GetTornGenericResponse = models.GetTornGenericResponseBody
 
@@ -4999,6 +6918,23 @@ type GetTornAttackLogParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornAttackLogParams) String() string { return paramsString("GetTornAttackLogParams", v) }
+
+// GoString redacts like String.
+func (v GetTornAttackLogParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornAttackLogParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornAttackLogParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornAttackLogParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornAttackLogResponse is the decoded 200 response of getTornAttackLog.
 type GetTornAttackLogResponse = models.AttackLogResponse
 
@@ -5044,6 +6980,23 @@ type GetTornBankParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornBankParams) String() string { return paramsString("GetTornBankParams", v) }
+
+// GoString redacts like String.
+func (v GetTornBankParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornBankParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornBankParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornBankParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornBankResponse is the decoded 200 response of getTornBank.
 type GetTornBankResponse = models.TornBankResponse
 
@@ -5086,6 +7039,23 @@ type GetTornBountiesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornBountiesParams) String() string { return paramsString("GetTornBountiesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornBountiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornBountiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornBountiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornBountiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornBountiesResponse is the decoded 200 response of getTornBounties.
@@ -5138,6 +7108,23 @@ type GetTornCalendarParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCalendarParams) String() string { return paramsString("GetTornCalendarParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCalendarParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCalendarParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCalendarParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCalendarParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornCalendarResponse is the decoded 200 response of getTornCalendar.
 type GetTornCalendarResponse = models.TornCalendarResponse
 
@@ -5176,6 +7163,23 @@ type GetTornCardsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCardsParams) String() string { return paramsString("GetTornCardsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCardsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCardsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCardsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCardsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornCardsResponse is the decoded 200 response of getTornCards.
@@ -5218,6 +7222,23 @@ type GetTornCityShopsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCityShopsParams) String() string { return paramsString("GetTornCityShopsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCityShopsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCityShopsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCityShopsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCityShopsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornCityShopsResponse is the decoded 200 response of getTornCityShops.
 type GetTornCityShopsResponse = models.TornCityShopsResponse
 
@@ -5256,6 +7277,23 @@ type GetTornCompaniesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCompaniesParams) String() string { return paramsString("GetTornCompaniesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCompaniesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCompaniesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCompaniesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCompaniesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornCompaniesResponse is the decoded 200 response of getTornCompanies.
@@ -5298,6 +7336,23 @@ type GetTornCrimesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCrimesParams) String() string { return paramsString("GetTornCrimesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCrimesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornCrimesResponse is the decoded 200 response of getTornCrimes.
 type GetTornCrimesResponse = models.TornCrimesResponse
 
@@ -5338,6 +7393,23 @@ type GetTornEducationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornEducationParams) String() string { return paramsString("GetTornEducationParams", v) }
+
+// GoString redacts like String.
+func (v GetTornEducationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornEducationParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornEducationParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornEducationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornEducationResponse is the decoded 200 response of getTornEducation.
 type GetTornEducationResponse = models.TornEducationResponse
 
@@ -5376,6 +7448,23 @@ type GetTornEliminationParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornEliminationParams) String() string { return paramsString("GetTornEliminationParams", v) }
+
+// GoString redacts like String.
+func (v GetTornEliminationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornEliminationParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornEliminationParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornEliminationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornEliminationResponse is the decoded 200 response of getTornElimination.
@@ -5422,6 +7511,23 @@ type GetTornFactionHoFParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornFactionHoFParams) String() string { return paramsString("GetTornFactionHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetTornFactionHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornFactionHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornFactionHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornFactionHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornFactionHoFResponse is the decoded 200 response of getTornFactionHoF.
@@ -5474,6 +7580,23 @@ type GetTornFactionTreeParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornFactionTreeParams) String() string { return paramsString("GetTornFactionTreeParams", v) }
+
+// GoString redacts like String.
+func (v GetTornFactionTreeParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornFactionTreeParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornFactionTreeParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornFactionTreeParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornFactionTreeResponse is the decoded 200 response of getTornFactionTree.
 type GetTornFactionTreeResponse = models.TornFactionTreeResponse
 
@@ -5514,6 +7637,23 @@ type GetTornGymsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornGymsParams) String() string { return paramsString("GetTornGymsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornGymsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornGymsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornGymsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornGymsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornGymsResponse is the decoded 200 response of getTornGyms.
 type GetTornGymsResponse = models.TornGymsResponse
 
@@ -5552,6 +7692,23 @@ type GetTornHalloweenParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornHalloweenParams) String() string { return paramsString("GetTornHalloweenParams", v) }
+
+// GoString redacts like String.
+func (v GetTornHalloweenParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornHalloweenParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornHalloweenParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornHalloweenParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornHalloweenResponse is the decoded 200 response of getTornHalloween.
@@ -5598,6 +7755,23 @@ type GetTornHoFParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornHoFParams) String() string { return paramsString("GetTornHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetTornHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornHoFResponse is the decoded 200 response of getTornHoF.
@@ -5656,6 +7830,23 @@ type GetTornHonorsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornHonorsParams) String() string { return paramsString("GetTornHonorsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornHonorsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornHonorsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornHonorsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornHonorsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornHonorsResponse is the decoded 200 response of getTornHonors.
 type GetTornHonorsResponse = models.TornHonorsResponse
 
@@ -5696,6 +7887,23 @@ type GetTornItemAmmoParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemAmmoParams) String() string { return paramsString("GetTornItemAmmoParams", v) }
+
+// GoString redacts like String.
+func (v GetTornItemAmmoParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemAmmoParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemAmmoParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemAmmoParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornItemAmmoResponse is the decoded 200 response of getTornItemAmmo.
 type GetTornItemAmmoResponse = models.TornItemAmmoResponse
 
@@ -5734,6 +7942,23 @@ type GetTornItemModsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemModsParams) String() string { return paramsString("GetTornItemModsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornItemModsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemModsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemModsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemModsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornItemModsResponse is the decoded 200 response of getTornItemMods.
@@ -5780,6 +8005,23 @@ type GetTornItemsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemsParams) String() string { return paramsString("GetTornItemsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornItemsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornItemsResponse is the decoded 200 response of getTornItems.
 type GetTornItemsResponse = models.TornItemsResponse
 
@@ -5818,6 +8060,25 @@ type GetTornLogCategoriesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornLogCategoriesParams) String() string {
+	return paramsString("GetTornLogCategoriesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornLogCategoriesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornLogCategoriesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornLogCategoriesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornLogCategoriesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornLogCategoriesResponse is the decoded 200 response of getTornLogCategories.
@@ -5860,6 +8121,23 @@ type GetTornLogTypesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornLogTypesParams) String() string { return paramsString("GetTornLogTypesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornLogTypesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornLogTypesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornLogTypesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornLogTypesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornLogTypesResponse is the decoded 200 response of getTornLogTypes.
 type GetTornLogTypesResponse = models.TornLogTypesResponse
 
@@ -5898,6 +8176,23 @@ type GetTornLookupParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornLookupParams) String() string { return paramsString("GetTornLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetTornLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornLookupResponse is the decoded 200 response of getTornLookup.
@@ -5940,6 +8235,23 @@ type GetTornMedalsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornMedalsParams) String() string { return paramsString("GetTornMedalsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornMedalsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornMedalsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornMedalsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornMedalsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornMedalsResponse is the decoded 200 response of getTornMedals.
 type GetTornMedalsResponse = models.TornMedalsResponse
 
@@ -5978,6 +8290,23 @@ type GetTornMeritsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornMeritsParams) String() string { return paramsString("GetTornMeritsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornMeritsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornMeritsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornMeritsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornMeritsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornMeritsResponse is the decoded 200 response of getTornMerits.
@@ -6020,6 +8349,23 @@ type GetTornMuseumParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornMuseumParams) String() string { return paramsString("GetTornMuseumParams", v) }
+
+// GoString redacts like String.
+func (v GetTornMuseumParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornMuseumParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornMuseumParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornMuseumParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornMuseumResponse is the decoded 200 response of getTornMuseum.
 type GetTornMuseumResponse = models.TornMuseumResponse
 
@@ -6058,6 +8404,25 @@ type GetTornOrganizedCrimesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornOrganizedCrimesParams) String() string {
+	return paramsString("GetTornOrganizedCrimesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornOrganizedCrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornOrganizedCrimesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornOrganizedCrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornOrganizedCrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornOrganizedCrimesResponse is the decoded 200 response of getTornOrganizedCrimes.
@@ -6100,6 +8465,23 @@ type GetTornPokerTablesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornPokerTablesParams) String() string { return paramsString("GetTornPokerTablesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornPokerTablesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornPokerTablesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornPokerTablesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornPokerTablesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornPokerTablesResponse is the decoded 200 response of getTornPokerTables.
 type GetTornPokerTablesResponse = models.TornPokerTablesResponse
 
@@ -6138,6 +8520,23 @@ type GetTornPropertiesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornPropertiesParams) String() string { return paramsString("GetTornPropertiesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornPropertiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornPropertiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornPropertiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornPropertiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornPropertiesResponse is the decoded 200 response of getTornProperties.
@@ -6180,6 +8579,23 @@ type GetTornRpsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornRpsParams) String() string { return paramsString("GetTornRpsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornRpsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornRpsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornRpsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornRpsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornRpsResponse is the decoded 200 response of getTornRps.
 type GetTornRpsResponse = models.TornRockPaperScissorsResponse
 
@@ -6218,6 +8634,25 @@ type GetTornSearchForCashParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornSearchForCashParams) String() string {
+	return paramsString("GetTornSearchForCashParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornSearchForCashParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornSearchForCashParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornSearchForCashParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornSearchForCashParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornSearchForCashResponse is the decoded 200 response of getTornSearchForCash.
@@ -6260,6 +8695,23 @@ type GetTornShopliftingParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornShopliftingParams) String() string { return paramsString("GetTornShopliftingParams", v) }
+
+// GoString redacts like String.
+func (v GetTornShopliftingParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornShopliftingParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornShopliftingParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornShopliftingParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornShopliftingResponse is the decoded 200 response of getTornShoplifting.
 type GetTornShopliftingResponse = models.TornShopliftingResponse
 
@@ -6300,6 +8752,23 @@ type GetTornCityStatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCityStatsParams) String() string { return paramsString("GetTornCityStatsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornCityStatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCityStatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCityStatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCityStatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornCityStatsResponse is the decoded 200 response of getTornCityStats.
 type GetTornCityStatsResponse = models.TornCityStatsResponse
 
@@ -6338,6 +8807,23 @@ type GetTornStocksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornStocksParams) String() string { return paramsString("GetTornStocksParams", v) }
+
+// GoString redacts like String.
+func (v GetTornStocksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornStocksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornStocksParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornStocksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornStocksResponse is the decoded 200 response of getTornStocks.
@@ -6384,6 +8870,23 @@ type GetTornTerritoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornTerritoryParams) String() string { return paramsString("GetTornTerritoryParams", v) }
+
+// GoString redacts like String.
+func (v GetTornTerritoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornTerritoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornTerritoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornTerritoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornTerritoryResponse is the decoded 200 response of getTornTerritory.
@@ -6436,6 +8939,23 @@ type GetTornTimestampParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornTimestampParams) String() string { return paramsString("GetTornTimestampParams", v) }
+
+// GoString redacts like String.
+func (v GetTornTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornTimestampResponse is the decoded 200 response of getTornTimestamp.
 type GetTornTimestampResponse = models.TimestampResponse
 
@@ -6476,6 +8996,23 @@ type GetTornSubcrimesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornSubcrimesParams) String() string { return paramsString("GetTornSubcrimesParams", v) }
+
+// GoString redacts like String.
+func (v GetTornSubcrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornSubcrimesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornSubcrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornSubcrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornSubcrimesResponse is the decoded 200 response of getTornSubcrimes.
@@ -6520,6 +9057,25 @@ type GetTornHonorsSpecificParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornHonorsSpecificParams) String() string {
+	return paramsString("GetTornHonorsSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornHonorsSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornHonorsSpecificParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornHonorsSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornHonorsSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornHonorsSpecificResponse is the decoded 200 response of getTornHonorsSpecific.
 type GetTornHonorsSpecificResponse = models.TornHonorsResponse
 
@@ -6560,6 +9116,23 @@ type GetTornItemDetailsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemDetailsParams) String() string { return paramsString("GetTornItemDetailsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornItemDetailsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemDetailsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemDetailsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemDetailsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornItemDetailsResponse is the decoded 200 response of getTornItemDetails.
@@ -6606,6 +9179,25 @@ type GetTornItemsSpecificParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemsSpecificParams) String() string {
+	return paramsString("GetTornItemsSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornItemsSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemsSpecificParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemsSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemsSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornItemsSpecificResponse is the decoded 200 response of getTornItemsSpecific.
 type GetTornItemsSpecificResponse = models.TornItemsResponse
 
@@ -6648,6 +9240,23 @@ type GetTornItemStatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornItemStatsParams) String() string { return paramsString("GetTornItemStatsParams", v) }
+
+// GoString redacts like String.
+func (v GetTornItemStatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornItemStatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornItemStatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornItemStatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornItemStatsResponse is the decoded 200 response of getTornItemStats.
 type GetTornItemStatsResponse = models.TornItemStatsResponse
 
@@ -6688,6 +9297,25 @@ type GetTornMedalsSpecificParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornMedalsSpecificParams) String() string {
+	return paramsString("GetTornMedalsSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornMedalsSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornMedalsSpecificParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornMedalsSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornMedalsSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornMedalsSpecificResponse is the decoded 200 response of getTornMedalsSpecific.
@@ -6734,6 +9362,25 @@ type GetTornEliminationTeamParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornEliminationTeamParams) String() string {
+	return paramsString("GetTornEliminationTeamParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornEliminationTeamParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornEliminationTeamParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornEliminationTeamParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornEliminationTeamParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornEliminationTeamResponse is the decoded 200 response of getTornEliminationTeam.
@@ -6790,6 +9437,27 @@ type GetTornLogTypesSpecificParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornLogTypesSpecificParams) String() string {
+	return paramsString("GetTornLogTypesSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornLogTypesSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornLogTypesSpecificParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornLogTypesSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornLogTypesSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetTornLogTypesSpecificResponse is the decoded 200 response of getTornLogTypesSpecific.
 type GetTornLogTypesSpecificResponse = models.TornLogTypesResponse
 
@@ -6830,6 +9498,27 @@ type GetTornCityShopSpecificParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCityShopSpecificParams) String() string {
+	return paramsString("GetTornCityShopSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornCityShopSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCityShopSpecificParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCityShopSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCityShopSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornCityShopSpecificResponse is the decoded 200 response of getTornCityShopSpecific.
@@ -6874,6 +9563,25 @@ type GetSpecificTornStockParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetSpecificTornStockParams) String() string {
+	return paramsString("GetSpecificTornStockParams", v)
+}
+
+// GoString redacts like String.
+func (v GetSpecificTornStockParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetSpecificTornStockParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetSpecificTornStockParams) MarshalJSON() ([]byte, error) {
+	type plain GetSpecificTornStockParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetSpecificTornStockResponse is the decoded 200 response of getSpecificTornStock.
 type GetSpecificTornStockResponse = models.TornStockDetailedResponse
 
@@ -6914,6 +9622,27 @@ type GetTornCompaniesSpecificParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetTornCompaniesSpecificParams) String() string {
+	return paramsString("GetTornCompaniesSpecificParams", v)
+}
+
+// GoString redacts like String.
+func (v GetTornCompaniesSpecificParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetTornCompaniesSpecificParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetTornCompaniesSpecificParams) MarshalJSON() ([]byte, error) {
+	type plain GetTornCompaniesSpecificParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetTornCompaniesSpecificResponse is the decoded 200 response of getTornCompaniesSpecific.
@@ -6980,6 +9709,23 @@ type GetUserGenericParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserGenericParams) String() string { return paramsString("GetUserGenericParams", v) }
+
+// GoString redacts like String.
+func (v GetUserGenericParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserGenericParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserGenericParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserGenericParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserGenericResponse is the decoded 200 response of getUserGeneric.
 type GetUserGenericResponse = models.GetUserGenericResponseBody
 
@@ -7018,6 +9764,23 @@ type GetMyAmmoParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyAmmoParams) String() string { return paramsString("GetMyAmmoParams", v) }
+
+// GoString redacts like String.
+func (v GetMyAmmoParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyAmmoParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyAmmoParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyAmmoParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyAmmoResponse is the decoded 200 response of getMyAmmo.
@@ -7068,6 +9831,23 @@ type GetMyAttacksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyAttacksParams) String() string { return paramsString("GetMyAttacksParams", v) }
+
+// GoString redacts like String.
+func (v GetMyAttacksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyAttacksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyAttacksParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyAttacksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyAttacksResponse is the decoded 200 response of getMyAttacks.
@@ -7130,6 +9910,25 @@ type GetMyAttacksSimplifiedParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyAttacksSimplifiedParams) String() string {
+	return paramsString("GetMyAttacksSimplifiedParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyAttacksSimplifiedParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyAttacksSimplifiedParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyAttacksSimplifiedParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyAttacksSimplifiedParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyAttacksSimplifiedResponse is the decoded 200 response of getMyAttacksSimplified.
 type GetMyAttacksSimplifiedResponse = models.AttacksFullResponse
 
@@ -7180,6 +9979,23 @@ type GetMyBarsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyBarsParams) String() string { return paramsString("GetMyBarsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyBarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyBarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyBarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyBarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyBarsResponse is the decoded 200 response of getMyBars.
 type GetMyBarsResponse = models.UserBarsResponse
 
@@ -7222,6 +10038,25 @@ type GetMyBasicInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyBasicInformationParams) String() string {
+	return paramsString("GetMyBasicInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyBasicInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyBasicInformationParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyBasicInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyBasicInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyBasicInformationResponse is the decoded 200 response of getMyBasicInformation.
 type GetMyBasicInformationResponse = models.UserBasicResponse
 
@@ -7260,6 +10095,23 @@ type GetMyBattlestatsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyBattlestatsParams) String() string { return paramsString("GetMyBattlestatsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyBattlestatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyBattlestatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyBattlestatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyBattlestatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyBattlestatsResponse is the decoded 200 response of getMyBattlestats.
@@ -7302,6 +10154,23 @@ type GetMyBountiesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyBountiesParams) String() string { return paramsString("GetMyBountiesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyBountiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyBountiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyBountiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyBountiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyBountiesResponse is the decoded 200 response of getMyBounties.
 type GetMyBountiesResponse = models.UserBountiesResponse
 
@@ -7340,6 +10209,23 @@ type GetMyCalendarTimeParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCalendarTimeParams) String() string { return paramsString("GetMyCalendarTimeParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCalendarTimeParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCalendarTimeParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCalendarTimeParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCalendarTimeParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyCalendarTimeResponse is the decoded 200 response of getMyCalendarTime.
@@ -7382,6 +10268,23 @@ type GetMyCasinoStreakParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCasinoStreakParams) String() string { return paramsString("GetMyCasinoStreakParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCasinoStreakParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCasinoStreakParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCasinoStreakParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCasinoStreakParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCasinoStreakResponse is the decoded 200 response of getMyCasinoStreak.
 type GetMyCasinoStreakResponse = models.UserCasinoResponse
 
@@ -7420,6 +10323,25 @@ type GetMyCompetitionInfoParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCompetitionInfoParams) String() string {
+	return paramsString("GetMyCompetitionInfoParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyCompetitionInfoParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCompetitionInfoParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCompetitionInfoParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCompetitionInfoParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyCompetitionInfoResponse is the decoded 200 response of getMyCompetitionInfo.
@@ -7462,6 +10384,23 @@ type GetMyCooldownsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCooldownsParams) String() string { return paramsString("GetMyCooldownsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCooldownsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCooldownsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCooldownsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCooldownsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyCooldownsResponse is the decoded 200 response of getMyCooldowns.
 type GetMyCooldownsResponse = models.UserCooldownsResponse
 
@@ -7500,6 +10439,23 @@ type GetMyDiscordParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyDiscordParams) String() string { return paramsString("GetMyDiscordParams", v) }
+
+// GoString redacts like String.
+func (v GetMyDiscordParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyDiscordParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyDiscordParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyDiscordParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyDiscordResponse is the decoded 200 response of getMyDiscord.
@@ -7542,6 +10498,23 @@ type GetMyEducationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyEducationParams) String() string { return paramsString("GetMyEducationParams", v) }
+
+// GoString redacts like String.
+func (v GetMyEducationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyEducationParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyEducationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyEducationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyEducationResponse is the decoded 200 response of getMyEducation.
 type GetMyEducationResponse = models.UserEducationResponse
 
@@ -7582,6 +10555,23 @@ type GetMyEnlistedCarsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyEnlistedCarsParams) String() string { return paramsString("GetMyEnlistedCarsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyEnlistedCarsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyEnlistedCarsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyEnlistedCarsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyEnlistedCarsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyEnlistedCarsResponse is the decoded 200 response of getMyEnlistedCars.
 type GetMyEnlistedCarsResponse = models.UserEnlistedCarsResponse
 
@@ -7620,6 +10610,23 @@ type GetMyEquipmentParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyEquipmentParams) String() string { return paramsString("GetMyEquipmentParams", v) }
+
+// GoString redacts like String.
+func (v GetMyEquipmentParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyEquipmentParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyEquipmentParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyEquipmentParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyEquipmentResponse is the decoded 200 response of getMyEquipment.
@@ -7668,6 +10675,23 @@ type GetMyEventsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyEventsParams) String() string { return paramsString("GetMyEventsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyEventsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyEventsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyEventsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyEventsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyEventsResponse is the decoded 200 response of getMyEvents.
@@ -7720,6 +10744,23 @@ type GetMyFactionParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyFactionParams) String() string { return paramsString("GetMyFactionParams", v) }
+
+// GoString redacts like String.
+func (v GetMyFactionParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyFactionParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyFactionParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyFactionParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyFactionResponse is the decoded 200 response of getMyFaction.
 type GetMyFactionResponse = models.UserFactionResponse
 
@@ -7760,6 +10801,23 @@ type GetMyForumFeedParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyForumFeedParams) String() string { return paramsString("GetMyForumFeedParams", v) }
+
+// GoString redacts like String.
+func (v GetMyForumFeedParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyForumFeedParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyForumFeedParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyForumFeedParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyForumFeedResponse is the decoded 200 response of getMyForumFeed.
 type GetMyForumFeedResponse = models.UserForumFeedResponse
 
@@ -7798,6 +10856,27 @@ type GetMyForumFriendsUpdatesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyForumFriendsUpdatesParams) String() string {
+	return paramsString("GetMyForumFriendsUpdatesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyForumFriendsUpdatesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyForumFriendsUpdatesParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyForumFriendsUpdatesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyForumFriendsUpdatesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyForumFriendsUpdatesResponse is the decoded 200 response of getMyForumFriendsUpdates.
@@ -7850,6 +10929,23 @@ type GetMyForumPostsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyForumPostsParams) String() string { return paramsString("GetMyForumPostsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyForumPostsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyForumPostsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyForumPostsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyForumPostsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyForumPostsResponse is the decoded 200 response of getMyForumPosts.
 type GetMyForumPostsResponse = models.UserForumPostsResponse
 
@@ -7900,6 +10996,27 @@ type GetMyForumSubscribedThreadsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyForumSubscribedThreadsParams) String() string {
+	return paramsString("GetMyForumSubscribedThreadsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyForumSubscribedThreadsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyForumSubscribedThreadsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyForumSubscribedThreadsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyForumSubscribedThreadsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyForumSubscribedThreadsResponse is the decoded 200 response of getMyForumSubscribedThreads.
 type GetMyForumSubscribedThreadsResponse = models.UserForumSubscribedThreadsResponse
 
@@ -7946,6 +11063,23 @@ type GetMyForumThreadsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyForumThreadsParams) String() string { return paramsString("GetMyForumThreadsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyForumThreadsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyForumThreadsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyForumThreadsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyForumThreadsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyForumThreadsResponse is the decoded 200 response of getMyForumThreads.
@@ -7998,6 +11132,23 @@ type GetMyGymParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyGymParams) String() string { return paramsString("GetMyGymParams", v) }
+
+// GoString redacts like String.
+func (v GetMyGymParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyGymParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyGymParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyGymParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyGymResponse is the decoded 200 response of getMyGym.
 type GetMyGymResponse = models.UserGymResponse
 
@@ -8036,6 +11187,23 @@ type GetMyHalloweenParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyHalloweenParams) String() string { return paramsString("GetMyHalloweenParams", v) }
+
+// GoString redacts like String.
+func (v GetMyHalloweenParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyHalloweenParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyHalloweenParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyHalloweenParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyHalloweenResponse is the decoded 200 response of getMyHalloween.
@@ -8078,6 +11246,23 @@ type GetMyHoFParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyHoFParams) String() string { return paramsString("GetMyHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetMyHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyHoFResponse is the decoded 200 response of getMyHoF.
 type GetMyHoFResponse = models.UserHofResponse
 
@@ -8118,6 +11303,23 @@ type GetMyHonorsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyHonorsParams) String() string { return paramsString("GetMyHonorsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyHonorsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyHonorsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyHonorsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyHonorsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyHonorsResponse is the decoded 200 response of getMyHonors.
 type GetMyHonorsResponse = models.UserHonorsResponse
 
@@ -8156,6 +11358,23 @@ type GetMyIconsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyIconsParams) String() string { return paramsString("GetMyIconsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyIconsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyIconsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyIconsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyIconsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyIconsResponse is the decoded 200 response of getMyIcons.
@@ -8204,6 +11423,23 @@ type GetMyInventoryParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyInventoryParams) String() string { return paramsString("GetMyInventoryParams", v) }
+
+// GoString redacts like String.
+func (v GetMyInventoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyInventoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyInventoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyInventoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyInventoryResponse is the decoded 200 response of getMyInventory.
 type GetMyInventoryResponse = models.UserInventoryResponse
 
@@ -8249,6 +11485,27 @@ type GetMyItemMarketListingsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyItemMarketListingsParams) String() string {
+	return paramsString("GetMyItemMarketListingsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyItemMarketListingsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyItemMarketListingsParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyItemMarketListingsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyItemMarketListingsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyItemMarketListingsResponse is the decoded 200 response of getMyItemMarketListings.
@@ -8301,6 +11558,27 @@ type GetMyItemModsInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyItemModsInformationParams) String() string {
+	return paramsString("GetMyItemModsInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyItemModsInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyItemModsInformationParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyItemModsInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyItemModsInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyItemModsInformationResponse is the decoded 200 response of getMyItemModsInformation.
 type GetMyItemModsInformationResponse = models.UserItemModsResponse
 
@@ -8339,6 +11617,23 @@ type GetMyJobParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyJobParams) String() string { return paramsString("GetMyJobParams", v) }
+
+// GoString redacts like String.
+func (v GetMyJobParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyJobParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyJobParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyJobParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyJobResponse is the decoded 200 response of getMyJob.
@@ -8381,6 +11676,23 @@ type GetMyJobPointsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyJobPointsParams) String() string { return paramsString("GetMyJobPointsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyJobPointsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyJobPointsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyJobPointsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyJobPointsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyJobPointsResponse is the decoded 200 response of getMyJobPoints.
 type GetMyJobPointsResponse = models.UserJobPointsResponse
 
@@ -8419,6 +11731,23 @@ type GetMyJobRanksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyJobRanksParams) String() string { return paramsString("GetMyJobRanksParams", v) }
+
+// GoString redacts like String.
+func (v GetMyJobRanksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyJobRanksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyJobRanksParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyJobRanksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyJobRanksResponse is the decoded 200 response of getMyJobRanks.
@@ -8469,6 +11798,23 @@ type GetMyContactsListParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyContactsListParams) String() string { return paramsString("GetMyContactsListParams", v) }
+
+// GoString redacts like String.
+func (v GetMyContactsListParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyContactsListParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyContactsListParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyContactsListParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyContactsListResponse is the decoded 200 response of getMyContactsList.
@@ -8535,6 +11881,23 @@ type GetMyLogsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyLogsParams) String() string { return paramsString("GetMyLogsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyLogsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyLogsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyLogsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyLogsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyLogsResponse is the decoded 200 response of getMyLogs.
 type GetMyLogsResponse = models.UserLogsResponse
 
@@ -8585,6 +11948,23 @@ type GetUserLookupParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserLookupParams) String() string { return paramsString("GetUserLookupParams", v) }
+
+// GoString redacts like String.
+func (v GetUserLookupParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserLookupParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserLookupParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserLookupParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserLookupResponse is the decoded 200 response of getUserLookup.
 type GetUserLookupResponse = models.UserLookupResponse
 
@@ -8625,6 +12005,23 @@ type GetMyMedalsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyMedalsParams) String() string { return paramsString("GetMyMedalsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyMedalsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyMedalsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyMedalsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyMedalsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyMedalsResponse is the decoded 200 response of getMyMedals.
 type GetMyMedalsResponse = models.UserMedalsResponse
 
@@ -8663,6 +12060,23 @@ type GetMyMeritsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyMeritsParams) String() string { return paramsString("GetMyMeritsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyMeritsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyMeritsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyMeritsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyMeritsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyMeritsResponse is the decoded 200 response of getMyMerits.
@@ -8711,6 +12125,23 @@ type GetMyMessagesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyMessagesParams) String() string { return paramsString("GetMyMessagesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyMessagesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyMessagesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyMessagesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyMessagesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyMessagesResponse is the decoded 200 response of getMyMessages.
@@ -8763,6 +12194,23 @@ type GetMyMissionsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyMissionsParams) String() string { return paramsString("GetMyMissionsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyMissionsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyMissionsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyMissionsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyMissionsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyMissionsResponse is the decoded 200 response of getMyMissions.
 type GetMyMissionsResponse = models.UserMissionsResponse
 
@@ -8803,6 +12251,23 @@ type GetMyMoneyParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyMoneyParams) String() string { return paramsString("GetMyMoneyParams", v) }
+
+// GoString redacts like String.
+func (v GetMyMoneyParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyMoneyParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyMoneyParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyMoneyParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyMoneyResponse is the decoded 200 response of getMyMoney.
 type GetMyMoneyResponse = models.UserMoneyResponse
 
@@ -8841,6 +12306,23 @@ type GetMyNetworthParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyNetworthParams) String() string { return paramsString("GetMyNetworthParams", v) }
+
+// GoString redacts like String.
+func (v GetMyNetworthParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyNetworthParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyNetworthParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyNetworthParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyNetworthResponse is the decoded 200 response of getMyNetworth.
@@ -8885,6 +12367,23 @@ type GetMyNewEventsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyNewEventsParams) String() string { return paramsString("GetMyNewEventsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyNewEventsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyNewEventsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyNewEventsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyNewEventsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyNewEventsResponse is the decoded 200 response of getMyNewEvents.
 type GetMyNewEventsResponse = models.UserNewEventsResponse
 
@@ -8923,6 +12422,23 @@ type GetMyNewMessagesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyNewMessagesParams) String() string { return paramsString("GetMyNewMessagesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyNewMessagesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyNewMessagesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyNewMessagesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyNewMessagesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyNewMessagesResponse is the decoded 200 response of getMyNewMessages.
@@ -8965,6 +12481,23 @@ type GetMyNotificationsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyNotificationsParams) String() string { return paramsString("GetMyNotificationsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyNotificationsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyNotificationsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyNotificationsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyNotificationsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyNotificationsResponse is the decoded 200 response of getMyNotifications.
 type GetMyNotificationsResponse = models.UserNotificationsResponse
 
@@ -9003,6 +12536,25 @@ type GetMyOrganizedCrimeParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyOrganizedCrimeParams) String() string {
+	return paramsString("GetMyOrganizedCrimeParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyOrganizedCrimeParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyOrganizedCrimeParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyOrganizedCrimeParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyOrganizedCrimeParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyOrganizedCrimeResponse is the decoded 200 response of getMyOrganizedCrime.
@@ -9045,6 +12597,27 @@ type GetMyAvailableOrganizedCrimesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyAvailableOrganizedCrimesParams) String() string {
+	return paramsString("GetMyAvailableOrganizedCrimesParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyAvailableOrganizedCrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyAvailableOrganizedCrimesParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyAvailableOrganizedCrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyAvailableOrganizedCrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyAvailableOrganizedCrimesResponse is the decoded 200 response of getMyAvailableOrganizedCrimes.
 type GetMyAvailableOrganizedCrimesResponse = models.UserOrganizedCrimesResponse
 
@@ -9083,6 +12656,23 @@ type GetMyPerksParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyPerksParams) String() string { return paramsString("GetMyPerksParams", v) }
+
+// GoString redacts like String.
+func (v GetMyPerksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyPerksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyPerksParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyPerksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyPerksResponse is the decoded 200 response of getMyPerks.
@@ -9129,6 +12719,23 @@ type GetMyPersonalStatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyPersonalStatsParams) String() string { return paramsString("GetMyPersonalStatsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyPersonalStatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyPersonalStatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyPersonalStatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyPersonalStatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyPersonalStatsResponse is the decoded 200 response of getMyPersonalStats.
 type GetMyPersonalStatsResponse = models.UserPersonalStatsResponse
 
@@ -9169,6 +12776,23 @@ type GetMyProfileParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyProfileParams) String() string { return paramsString("GetMyProfileParams", v) }
+
+// GoString redacts like String.
+func (v GetMyProfileParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyProfileParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyProfileParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyProfileParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyProfileResponse is the decoded 200 response of getMyProfile.
@@ -9215,6 +12839,23 @@ type GetMyPropertiesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyPropertiesParams) String() string { return paramsString("GetMyPropertiesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyPropertiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyPropertiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyPropertiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyPropertiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyPropertiesResponse is the decoded 200 response of getMyProperties.
@@ -9269,6 +12910,23 @@ type GetMyPropertyParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyPropertyParams) String() string { return paramsString("GetMyPropertyParams", v) }
+
+// GoString redacts like String.
+func (v GetMyPropertyParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyPropertyParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyPropertyParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyPropertyParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyPropertyResponse is the decoded 200 response of getMyProperty.
 type GetMyPropertyResponse = models.UserPropertyResponse
 
@@ -9317,6 +12975,23 @@ type GetMyRacesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyRacesParams) String() string { return paramsString("GetMyRacesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyRacesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyRacesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyRacesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyRacesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyRacesResponse is the decoded 200 response of getMyRaces.
@@ -9369,6 +13044,23 @@ type GetMyRacingRecordsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyRacingRecordsParams) String() string { return paramsString("GetMyRacingRecordsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyRacingRecordsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyRacingRecordsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyRacingRecordsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyRacingRecordsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyRacingRecordsResponse is the decoded 200 response of getMyRacingRecords.
 type GetMyRacingRecordsResponse = models.UserRacingRecordsResponse
 
@@ -9407,6 +13099,23 @@ type GetMyRefillsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyRefillsParams) String() string { return paramsString("GetMyRefillsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyRefillsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyRefillsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyRefillsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyRefillsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyRefillsResponse is the decoded 200 response of getMyRefills.
@@ -9457,6 +13166,23 @@ type GetMyReportsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyReportsParams) String() string { return paramsString("GetMyReportsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyReportsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyReportsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyReportsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyReportsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyReportsResponse is the decoded 200 response of getMyReports.
@@ -9521,6 +13247,23 @@ type GetMyRevivesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyRevivesParams) String() string { return paramsString("GetMyRevivesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyRevivesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyRevivesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyRevivesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyRevivesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyRevivesResponse is the decoded 200 response of getMyRevives.
 type GetMyRevivesResponse = models.RevivesResponse
 
@@ -9583,6 +13326,25 @@ type GetMyRevivesSimplifiedParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyRevivesSimplifiedParams) String() string {
+	return paramsString("GetMyRevivesSimplifiedParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyRevivesSimplifiedParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyRevivesSimplifiedParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyRevivesSimplifiedParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyRevivesSimplifiedParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyRevivesSimplifiedResponse is the decoded 200 response of getMyRevivesSimplified.
 type GetMyRevivesSimplifiedResponse = models.RevivesFullResponse
 
@@ -9643,6 +13405,23 @@ type GetUsersSearchParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUsersSearchParams) String() string { return paramsString("GetUsersSearchParams", v) }
+
+// GoString redacts like String.
+func (v GetUsersSearchParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUsersSearchParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUsersSearchParams) MarshalJSON() ([]byte, error) {
+	type plain GetUsersSearchParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUsersSearchResponse is the decoded 200 response of getUsersSearch.
 type GetUsersSearchResponse = models.UserSearchResponse
 
@@ -9693,6 +13472,23 @@ type GetMySkillsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMySkillsParams) String() string { return paramsString("GetMySkillsParams", v) }
+
+// GoString redacts like String.
+func (v GetMySkillsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMySkillsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMySkillsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMySkillsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMySkillsResponse is the decoded 200 response of getMySkills.
 type GetMySkillsResponse = models.UserSkillsResponse
 
@@ -9731,6 +13527,23 @@ type GetUsersSnapshotParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUsersSnapshotParams) String() string { return paramsString("GetUsersSnapshotParams", v) }
+
+// GoString redacts like String.
+func (v GetUsersSnapshotParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUsersSnapshotParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUsersSnapshotParams) MarshalJSON() ([]byte, error) {
+	type plain GetUsersSnapshotParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUsersSnapshotResponse is the decoded 200 response of getUsersSnapshot.
@@ -9773,6 +13586,23 @@ type GetMyStocksParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyStocksParams) String() string { return paramsString("GetMyStocksParams", v) }
+
+// GoString redacts like String.
+func (v GetMyStocksParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyStocksParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyStocksParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyStocksParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyStocksResponse is the decoded 200 response of getMyStocks.
 type GetMyStocksResponse = models.UserStocksResponse
 
@@ -9811,6 +13641,23 @@ type GetUserTimestampParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserTimestampParams) String() string { return paramsString("GetUserTimestampParams", v) }
+
+// GoString redacts like String.
+func (v GetUserTimestampParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserTimestampParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserTimestampParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserTimestampParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserTimestampResponse is the decoded 200 response of getUserTimestamp.
@@ -9863,6 +13710,23 @@ type GetMyTradesParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyTradesParams) String() string { return paramsString("GetMyTradesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyTradesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyTradesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyTradesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyTradesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyTradesResponse is the decoded 200 response of getMyTrades.
 type GetMyTradesResponse = models.UserTradesResponse
 
@@ -9913,6 +13777,25 @@ type GetMyTravelInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyTravelInformationParams) String() string {
+	return paramsString("GetMyTravelInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyTravelInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyTravelInformationParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyTravelInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyTravelInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyTravelInformationResponse is the decoded 200 response of getMyTravelInformation.
 type GetMyTravelInformationResponse = models.UserTravelResponse
 
@@ -9951,6 +13834,25 @@ type GetMyTravelInventoryParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyTravelInventoryParams) String() string {
+	return paramsString("GetMyTravelInventoryParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyTravelInventoryParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyTravelInventoryParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyTravelInventoryParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyTravelInventoryParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyTravelInventoryResponse is the decoded 200 response of getMyTravelInventory.
@@ -9993,6 +13895,27 @@ type GetMyVirusCodingInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyVirusCodingInformationParams) String() string {
+	return paramsString("GetMyVirusCodingInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetMyVirusCodingInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyVirusCodingInformationParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyVirusCodingInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyVirusCodingInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyVirusCodingInformationResponse is the decoded 200 response of getMyVirusCodingInformation.
 type GetMyVirusCodingInformationResponse = models.UserVirusResponse
 
@@ -10031,6 +13954,23 @@ type GetMyWeaponExpParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyWeaponExpParams) String() string { return paramsString("GetMyWeaponExpParams", v) }
+
+// GoString redacts like String.
+func (v GetMyWeaponExpParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyWeaponExpParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyWeaponExpParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyWeaponExpParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyWeaponExpResponse is the decoded 200 response of getMyWeaponExp.
@@ -10073,6 +14013,23 @@ type GetMyWorkstatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyWorkstatsParams) String() string { return paramsString("GetMyWorkstatsParams", v) }
+
+// GoString redacts like String.
+func (v GetMyWorkstatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyWorkstatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyWorkstatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyWorkstatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetMyWorkstatsResponse is the decoded 200 response of getMyWorkstats.
 type GetMyWorkstatsResponse = models.UserWorkStatsResponse
 
@@ -10113,6 +14070,23 @@ type GetMyCrimesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyCrimesParams) String() string { return paramsString("GetMyCrimesParams", v) }
+
+// GoString redacts like String.
+func (v GetMyCrimesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyCrimesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyCrimesParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyCrimesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyCrimesResponse is the decoded 200 response of getMyCrimes.
@@ -10159,6 +14133,27 @@ type GetUserBasicInformationParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserBasicInformationParams) String() string {
+	return paramsString("GetUserBasicInformationParams", v)
+}
+
+// GoString redacts like String.
+func (v GetUserBasicInformationParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserBasicInformationParams) Format(f fmt.State, _ rune) {
+	_, _ = f.Write([]byte(v.String()))
+}
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserBasicInformationParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserBasicInformationParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserBasicInformationResponse is the decoded 200 response of getUserBasicInformation.
 type GetUserBasicInformationResponse = models.UserBasicResponse
 
@@ -10199,6 +14194,23 @@ type GetUserBountiesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserBountiesParams) String() string { return paramsString("GetUserBountiesParams", v) }
+
+// GoString redacts like String.
+func (v GetUserBountiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserBountiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserBountiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserBountiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserBountiesResponse is the decoded 200 response of getUserBounties.
@@ -10243,6 +14255,25 @@ type GetUserCompetitionInfoParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserCompetitionInfoParams) String() string {
+	return paramsString("GetUserCompetitionInfoParams", v)
+}
+
+// GoString redacts like String.
+func (v GetUserCompetitionInfoParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserCompetitionInfoParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserCompetitionInfoParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserCompetitionInfoParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserCompetitionInfoResponse is the decoded 200 response of getUserCompetitionInfo.
 type GetUserCompetitionInfoResponse = models.UserCompetitionResponse
 
@@ -10285,6 +14316,23 @@ type GetUserDiscordParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserDiscordParams) String() string { return paramsString("GetUserDiscordParams", v) }
+
+// GoString redacts like String.
+func (v GetUserDiscordParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserDiscordParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserDiscordParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserDiscordParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserDiscordResponse is the decoded 200 response of getUserDiscord.
 type GetUserDiscordResponse = models.UserDiscordResponse
 
@@ -10325,6 +14373,23 @@ type GetUserFactionParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserFactionParams) String() string { return paramsString("GetUserFactionParams", v) }
+
+// GoString redacts like String.
+func (v GetUserFactionParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserFactionParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserFactionParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserFactionParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserFactionResponse is the decoded 200 response of getUserFaction.
@@ -10377,6 +14442,23 @@ type GetUserForumPostsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserForumPostsParams) String() string { return paramsString("GetUserForumPostsParams", v) }
+
+// GoString redacts like String.
+func (v GetUserForumPostsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserForumPostsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserForumPostsParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserForumPostsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserForumPostsResponse is the decoded 200 response of getUserForumPosts.
@@ -10439,6 +14521,25 @@ type GetUserForumThreadsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserForumThreadsParams) String() string {
+	return paramsString("GetUserForumThreadsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetUserForumThreadsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserForumThreadsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserForumThreadsParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserForumThreadsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserForumThreadsResponse is the decoded 200 response of getUserForumThreads.
 type GetUserForumThreadsResponse = models.UserForumThreadsResponse
 
@@ -10491,6 +14592,23 @@ type GetUserHoFParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserHoFParams) String() string { return paramsString("GetUserHoFParams", v) }
+
+// GoString redacts like String.
+func (v GetUserHoFParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserHoFParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserHoFParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserHoFParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserHoFResponse is the decoded 200 response of getUserHoF.
 type GetUserHoFResponse = models.UserHofResponse
 
@@ -10531,6 +14649,23 @@ type GetUserIconsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserIconsParams) String() string { return paramsString("GetUserIconsParams", v) }
+
+// GoString redacts like String.
+func (v GetUserIconsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserIconsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserIconsParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserIconsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserIconsResponse is the decoded 200 response of getUserIcons.
@@ -10575,6 +14710,23 @@ type GetUserJobParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserJobParams) String() string { return paramsString("GetUserJobParams", v) }
+
+// GoString redacts like String.
+func (v GetUserJobParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserJobParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserJobParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserJobParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserJobResponse is the decoded 200 response of getUserJob.
 type GetUserJobResponse = models.UserJobResponse
 
@@ -10615,6 +14767,23 @@ type GetUserMedalsParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserMedalsParams) String() string { return paramsString("GetUserMedalsParams", v) }
+
+// GoString redacts like String.
+func (v GetUserMedalsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserMedalsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserMedalsParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserMedalsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserMedalsResponse is the decoded 200 response of getUserMedals.
@@ -10663,6 +14832,25 @@ type GetUserPersonalStatsParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserPersonalStatsParams) String() string {
+	return paramsString("GetUserPersonalStatsParams", v)
+}
+
+// GoString redacts like String.
+func (v GetUserPersonalStatsParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserPersonalStatsParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserPersonalStatsParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserPersonalStatsParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserPersonalStatsResponse is the decoded 200 response of getUserPersonalStats.
 type GetUserPersonalStatsResponse = models.UserPersonalStatsResponse
 
@@ -10705,6 +14893,23 @@ type GetUserProfileParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserProfileParams) String() string { return paramsString("GetUserProfileParams", v) }
+
+// GoString redacts like String.
+func (v GetUserProfileParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserProfileParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserProfileParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserProfileParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserProfileResponse is the decoded 200 response of getUserProfile.
@@ -10753,6 +14958,23 @@ type GetUserPropertiesParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserPropertiesParams) String() string { return paramsString("GetUserPropertiesParams", v) }
+
+// GoString redacts like String.
+func (v GetUserPropertiesParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserPropertiesParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserPropertiesParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserPropertiesParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetUserPropertiesResponse is the decoded 200 response of getUserProperties.
@@ -10809,6 +15031,23 @@ type GetUserPropertyParams struct {
 	Key *string `json:"key,omitempty"`
 }
 
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetUserPropertyParams) String() string { return paramsString("GetUserPropertyParams", v) }
+
+// GoString redacts like String.
+func (v GetUserPropertyParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetUserPropertyParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetUserPropertyParams) MarshalJSON() ([]byte, error) {
+	type plain GetUserPropertyParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
+}
+
 // GetUserPropertyResponse is the decoded 200 response of getUserProperty.
 type GetUserPropertyResponse = models.UserPropertyResponse
 
@@ -10849,6 +15088,23 @@ type GetMyDetailedTradeParams struct {
 	// Deprecated: configure keys on the Client. A key set here is sent for this
 	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
 	Key *string `json:"key,omitempty"`
+}
+
+// String lists the set parameters; a key is redacted (P2.2).
+func (v GetMyDetailedTradeParams) String() string { return paramsString("GetMyDetailedTradeParams", v) }
+
+// GoString redacts like String.
+func (v GetMyDetailedTradeParams) GoString() string { return v.String() }
+
+// Format redacts for every fmt verb.
+func (v GetMyDetailedTradeParams) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(v.String())) }
+
+// MarshalJSON encodes the parameters without the deprecated Key field.
+func (v GetMyDetailedTradeParams) MarshalJSON() ([]byte, error) {
+	type plain GetMyDetailedTradeParams
+	p := plain(v)
+	p.Key = nil
+	return json.Marshal(p)
 }
 
 // GetMyDetailedTradeResponse is the decoded 200 response of getMyDetailedTrade.
