@@ -75,11 +75,11 @@ promptly (a panicking hook is recovered).
 
 ## Security
 
-API v2 requests send the key only in the `Authorization: ApiKey <key>` header.
+API v1 and v2 requests send the key only in the `Authorization: ApiKey <key>`
+header; no key is ever placed in a URL.
 A key passed as a parameter (the deprecated generated `Params.Key`, a `key`
 entry in a params map or `RequestOptions.Query`) is moved to the header for
-that request. Legacy v1 calls use the `key` query parameter because v1 has no
-header authentication. API messages, decode error excerpts and hook events
+that request. API messages, decode error excerpts and hook events
 redact configured keys (`***` plus at most four characters); transport errors
 keep their cause but drop request URLs. `Config`, `Client`, `Route` and
 `KeyState` formatting and JSON never include keys. Redirects are returned as

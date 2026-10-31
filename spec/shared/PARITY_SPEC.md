@@ -27,8 +27,9 @@ in an SDK repo; regenerate with the `torn-sdk-sync` skill): `error-codes.json`, 
   dropped. `comment` is forwarded on v1 and v2.
 
 ## P2 Keys, auth, secrets
-- P2.1 v2 auth only via `Authorization: ApiKey <key>`; v1 via `key=` query. No public API may put a key in a v2
-  URL (remove/deprecate any `key` field on generated v2 params; if a caller passes one, move it to the header).
+- P2.1 Auth only via the `Authorization: ApiKey <key>` header, for **both v2 and v1** (verified live 2026-10-31:
+  v1 accepts the header). No request may carry the key in its URL (query `key=`); remove/deprecate any `key` field
+  on generated params and, if a caller passes one, move it to the header.
 - P2.2 Keys never appear in any Debug/Display/inspect/toString/JSON/String()/format output, error message, log,
   hook payload, or report. Show `***` + last 4 chars at most. Tests assert this for every public type holding a key
   (Rust: manual `Debug` impls; TS: `toJSON` + `[Symbol.for('nodejs.util.inspect.custom')]`; Go: `String()`/

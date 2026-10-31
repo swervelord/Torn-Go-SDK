@@ -37,7 +37,7 @@ asserts the outcome. A scenario an SDK cannot run must fail the suite, never be 
         "path": "/v2/user",                  // path only; host must be api.torn.com
         "query": {"selections": "profile"},  // subset match; values compared as strings, list values joined by ","
         "absentQuery": ["key"],              // query names that must NOT be present
-        "auth": "KEY_A",                     // v2: Authorization header must be "ApiKey KEY_A"; v1: key= query
+        "auth": "KEY_A",                     // Authorization header must be "ApiKey KEY_A" (v1 and v2, P2.1)
         "atMs": 0                            // optional: virtual time of this send (>=)
       },
       "respond": {"status": 200, "headers": {}, "body": {"profile": {"id": 1, "name": "Test"}}}

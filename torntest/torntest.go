@@ -117,7 +117,8 @@ type Request struct {
 }
 
 // Auth returns the key the request authenticated with: the Authorization
-// "ApiKey" header (v2) or the key query parameter (v1).
+// "ApiKey" header (the SDK never puts keys in URLs), falling back to a key
+// query parameter for other clients.
 func (r Request) Auth() string {
 	if h := r.Header.Get("Authorization"); h != "" {
 		return strings.TrimPrefix(h, "ApiKey ")

@@ -440,8 +440,8 @@ func TestRuntimeCredentialTransport(t *testing.T) {
 	if _, e := c.Execute(context.Background(), p, RequestOptions{}); e != nil {
 		t.Fatal(e)
 	}
-	// v2 uses the documented header; legacy v1 keeps its query parameter.
-	if strings.Join(seen, ",") != "ApiKey private-test-key|,|private-test-key" {
+	// P2.1: v1 and v2 both use the header; no key in any URL.
+	if strings.Join(seen, ",") != "ApiKey private-test-key|,ApiKey private-test-key|" {
 		t.Fatalf("%q", seen)
 	}
 }

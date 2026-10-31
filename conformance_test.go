@@ -173,8 +173,8 @@ func runConformance(t *testing.T, sc conformanceScenario) {
 			}
 		}
 		if e.Auth != "" {
-			v1 := !strings.HasPrefix(req.URL.Path, "/v2/")
-			if v1 && (q.Get("key") != e.Auth || req.Header.Get("Authorization") != "") || !v1 && (req.Header.Get("Authorization") != "ApiKey "+e.Auth || q.Has("key")) {
+			// P2.1: header-only auth on v1 and v2.
+			if req.Header.Get("Authorization") != "ApiKey "+e.Auth || q.Has("key") {
 				failures = append(failures, fmt.Sprintf("send %d auth %q/%q want %s", step, req.Header.Get("Authorization"), q.Get("key"), e.Auth))
 			}
 		}

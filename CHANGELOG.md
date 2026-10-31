@@ -68,6 +68,10 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
 - Generated `Params` and `RequestOptions` redact keys in `String`, `GoString`,
   `Format` and JSON (P2.2).
 
+- Header-only auth for v1 and v2: legacy v1 calls now send
+  `Authorization: ApiKey <key>` instead of the `key` query parameter, so no key
+  is ever placed in a URL (P2.1; Torn v1 accepts the header).
+
 ### Deprecated
 - Generated `Params.Key` fields: configure keys on the client. A key set there
   is sent in the `Authorization` header, never in the URL (P2.1).

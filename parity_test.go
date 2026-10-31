@@ -360,7 +360,7 @@ func TestV1CommentAndUnknownFiltersForwarded(t *testing.T) {
 		t.Fatal(err)
 	}
 	q := mock.Requests()[0].URL.Query()
-	if q.Get("comment") != "bot" || q.Get("newfilter") != "x" || q.Get("key") != parityKey {
+	if q.Get("comment") != "bot" || q.Get("newfilter") != "x" || q.Has("key") || mock.Requests()[0].Header.Get("Authorization") != "ApiKey "+parityKey {
 		t.Fatal(q)
 	}
 }

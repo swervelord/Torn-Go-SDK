@@ -54,8 +54,8 @@ and on pkg.go.dev.
 
 ## Authentication & keys
 
-- v2 requests authenticate only with `Authorization: ApiKey <key>`; v1 legacy
-  calls use the `key` query parameter. No public API places a key in a v2 URL:
+- v1 and v2 requests authenticate only with `Authorization: ApiKey <key>`
+  (Torn v1 accepts the header). No request ever carries a key in its URL:
   the generated `Params.Key` field is deprecated and, when set, is sent in the
   header for that request (P2.1).
 - `Config.APIKeys` is a pool used round-robin over **healthy** keys (P2.3).

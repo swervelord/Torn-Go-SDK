@@ -2022,7 +2022,9 @@
             "query": {
               "selections": "bazaar"
             },
-            "absentQuery": [],
+            "absentQuery": [
+              "key"
+            ],
             "auth": "KEY_A"
           },
           "respond": {

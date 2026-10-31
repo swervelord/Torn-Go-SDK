@@ -168,10 +168,6 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		for k, v := range q {
 			query[k] = append([]string(nil), v...)
 		}
-		if version == "v1" {
-			// The legacy v1 API has no documented header authentication.
-			query.Set("key", l.secret)
-		}
 		target := strings.TrimRight(base, "/") + path
 		if enc := query.Encode(); enc != "" {
 			target += "?" + enc
@@ -187,9 +183,9 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 		}
 		req.Header.Set("Accept", "application/json")
 		req.Header.Set("User-Agent", c.cfg.UserAgent)
-		if version != "v1" {
-			req.Header.Set("Authorization", "ApiKey "+l.secret)
-		}
+		// P2.1: v1 and v2 both authenticate with the header; no key is ever
+		// placed in a URL.
+		req.Header.Set("Authorization", "ApiKey "+l.secret)
 		if op.CSV {
 			req.Header.Set("Accept", "text/csv")
 		}
