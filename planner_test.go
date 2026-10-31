@@ -245,7 +245,7 @@ func TestRawConvenienceHelperDispatch(t *testing.T) {
 		}
 		count++
 	}
-	if count != 205 {
+	if count != 224 {
 		t.Fatalf("raw helper dispatch inventory %d", count)
 	}
 }

@@ -5050,7 +5050,7 @@
     }
   ],
   "derivation": "Selection enums plus exact endpoint path tails; generic support requires response schema membership in generic anyOf. Standalone from endpoint description. CSV from content type. Legacy only for enum selections without exact v2 endpoint.",
-  "raw_helpers": 205,
+  "raw_helpers": 224,
   "source": "https://www.torn.com/swagger/openapi.json",
   "typed_helpers": 210,
   "v1_catalog": [

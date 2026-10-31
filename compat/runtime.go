@@ -11,6 +11,7 @@ import (
 	"strconv"
 )
 
+// Null is the variant payload of a JSON null in compatibility unions.
 type Null struct{}
 
 func decodeVariant(data []byte, target any, allowNull bool) error {

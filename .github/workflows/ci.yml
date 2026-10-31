@@ -19,10 +19,26 @@ jobs:
         run: go run ./cmd/check
       - name: Vet
         run: go vet ./...
-      - name: Tests
+      - name: Tests (includes the shared conformance suite)
         run: go test ./...
       - name: Race tests
         if: runner.os != 'Windows'
         run: go test -race ./...
       - name: Build
         run: go build ./...
+      - name: Example program
+        run: go run ./examples/mockbatch
+  minimum-go:
+    # The go directive (1.23, for iter.Seq2 pagination) is the supported floor.
+    runs-on: ubuntu-latest
+    env:
+      GOTOOLCHAIN: local
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+          cache: false
+      - run: go build ./...
+      - run: go vet ./...
+      - run: go test ./...

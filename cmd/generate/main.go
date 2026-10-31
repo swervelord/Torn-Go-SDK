@@ -313,7 +313,7 @@ func (g *generator) emit(n string, b *bytes.Buffer) {
 		fmt.Fprintf(b, "// UnmarshalJSON decodes the value with exact integers.\nfunc(v *%s) UnmarshalJSON(data []byte)error{type plain %s;return contract.DecodeInto(data,(*plain)(v))}\n", n, n)
 	}
 	if a, ok := s["enum"].([]any); ok && (t == "string" || t == "int64" || t == "bool") {
-		var consts []string
+		var consts, lines []string
 		for i, x := range a {
 			literal, _ := json.Marshal(x)
 			cn := n + name(fmt.Sprint(x))
@@ -323,10 +323,11 @@ func (g *generator) emit(n string, b *bytes.Buffer) {
 			if _, ok := x.(string); !ok {
 				cn = n + fmt.Sprintf("Value%d", i+1)
 			}
-			fmt.Fprintf(b, "const %s %s = %s\n", cn, n, string(literal))
+			lines = append(lines, fmt.Sprintf("%s %s = %s\n", cn, n, string(literal)))
 			consts = append(consts, cn)
 		}
 		if len(consts) > 0 {
+			fmt.Fprintf(b, "// Known %s values. Other values decode too; see IsKnown.\nconst (\n%s)\n", n, strings.Join(lines, ""))
 			if _, clash := g.definitions[n+"Values"]; clash {
 				panic("enum values function clashes with schema " + n + "Values")
 			}

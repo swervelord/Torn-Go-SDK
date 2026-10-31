@@ -9,6 +9,7 @@ import (
 
 var _ = fmt.Errorf
 
+// CompanyApplicationStats is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyApplicationStats struct {
 	ManualLabor  *int64                     `json:"manual_labor"`
 	Intelligence *int64                     `json:"intelligence"`
@@ -30,6 +31,7 @@ func (v CompanyApplicationStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyApplicationSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyApplicationSummary struct {
 	ID         *uint64                    `json:"id"`
 	User       *CompanyApplicationUser    `json:"user"`
@@ -53,6 +55,7 @@ func (v CompanyApplicationSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyApplicationUser is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyApplicationUser struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -75,6 +78,7 @@ func (v CompanyApplicationUser) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyApplicationsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyApplicationsBundle struct {
 	Applications []CompanyApplicationSummary `json:"applications"`
 	Extra        map[string]json.RawMessage  `json:"-"`
@@ -94,6 +98,7 @@ func (v CompanyApplicationsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyCompaniesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyCompaniesBundle struct {
 	Company            *CompanyProfile             `json:"company"`
 	Companies          []CompanyProfile            `json:"companies"`
@@ -119,6 +124,7 @@ func (v CompanyCompaniesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyCustomers is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyCustomers struct {
 	Daily  *int64                     `json:"daily"`
 	Weekly *int64                     `json:"weekly"`
@@ -139,7 +145,10 @@ func (v CompanyCustomers) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyDetailedBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyDetailedBundle = CompanyProfileBundle
+
+// CompanyDirector is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyDirector struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -162,6 +171,7 @@ func (v CompanyDirector) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyEmployee is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyEmployee struct {
 	ID            *uint64                       `json:"id"`
 	Name          *string                       `json:"name"`
@@ -196,6 +206,7 @@ func (v CompanyEmployee) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyEmployeeEffectiveness is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyEmployeeEffectiveness struct {
 	WorkingStats      *int64                     `json:"working_stats"`
 	SettledIn         *int64                     `json:"settled_in"`
@@ -224,6 +235,7 @@ func (v CompanyEmployeeEffectiveness) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyEmployeeStats is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyEmployeeStats struct {
 	ManualLabor  *int64                     `json:"manual_labor"`
 	Intelligence *int64                     `json:"intelligence"`
@@ -245,6 +257,7 @@ func (v CompanyEmployeeStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyEmployeesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyEmployeesBundle struct {
 	CompanyEmployees *map[string]CompanyEmployee `json:"company_employees"`
 	Employees        []CompanyEmployee           `json:"employees"`
@@ -265,6 +278,7 @@ func (v CompanyEmployeesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyIncome is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyIncome struct {
 	Daily  *int64                     `json:"daily"`
 	Weekly *int64                     `json:"weekly"`
@@ -285,6 +299,7 @@ func (v CompanyIncome) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -304,6 +319,7 @@ func (v CompanyLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyNewsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyNewsBundle struct {
 	News  map[string]CompanyNewsEntry `json:"news"`
 	Extra map[string]json.RawMessage  `json:"-"`
@@ -323,6 +339,7 @@ func (v CompanyNewsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyNewsEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyNewsEntry struct {
 	ID        *string                    `json:"id"`
 	Category  *string                    `json:"category"`
@@ -345,6 +362,7 @@ func (v CompanyNewsEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyProfile is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyProfile struct {
 	ID                  *uint64                            `json:"id"`
 	Name                *string                            `json:"name"`
@@ -388,6 +406,7 @@ func (v CompanyProfile) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyProfileBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyProfileBundle struct {
 	Company CompanyProfile `json:"company"`
 }
@@ -406,6 +425,7 @@ func (v CompanyProfileBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyProfileEmployee is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyProfileEmployee struct {
 	CompanyProfileEmployeeDetails **CompanyProfileEmployeeDetails `json:"-"`
 	Uint64                        *uint64                         `json:"-"`
@@ -438,6 +458,8 @@ func (v CompanyProfileEmployee) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsCompanyProfileEmployeeDetails returns the CompanyProfileEmployeeDetails variant and whether it is set.
 func (v CompanyProfileEmployee) AsCompanyProfileEmployeeDetails() (*CompanyProfileEmployeeDetails, bool) {
 	if v.CompanyProfileEmployeeDetails != nil {
 		return *v.CompanyProfileEmployeeDetails, true
@@ -445,6 +467,8 @@ func (v CompanyProfileEmployee) AsCompanyProfileEmployeeDetails() (*CompanyProfi
 	var zero *CompanyProfileEmployeeDetails
 	return zero, false
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v CompanyProfileEmployee) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -453,6 +477,7 @@ func (v CompanyProfileEmployee) AsUint64() (uint64, bool) {
 	return zero, false
 }
 
+// CompanyProfileEmployeeDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyProfileEmployeeDetails struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -477,6 +502,7 @@ func (v CompanyProfileEmployeeDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanySearchBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanySearchBundle struct {
 	Search []CompanySearchEntry       `json:"search"`
 	Extra  map[string]json.RawMessage `json:"-"`
@@ -496,6 +522,7 @@ func (v CompanySearchBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanySearchEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanySearchEntry struct {
 	ID                  *uint64                    `json:"id"`
 	Name                *string                    `json:"name"`
@@ -524,6 +551,7 @@ func (v CompanySearchEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyStockBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyStockBundle struct {
 	CompanyStock map[string]CompanyStockEntry `json:"company_stock"`
 	Stock        []CompanyStockEntry          `json:"stock"`
@@ -544,6 +572,7 @@ func (v CompanyStockBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyStockEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyStockEntry struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -571,6 +600,7 @@ func (v CompanyStockEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyTimestampBundle struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -590,6 +620,7 @@ func (v CompanyTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyType is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyType struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -610,6 +641,7 @@ func (v CompanyType) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// CompanyUpgrades is a lenient compatibility model (see COMPATIBILITY.md).
 type CompanyUpgrades struct {
 	StaffRoom       *string                    `json:"staff_room"`
 	Storage         *string                    `json:"storage"`
@@ -631,6 +663,7 @@ func (v CompanyUpgrades) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// DynamicValue is a lenient compatibility model (see COMPATIBILITY.md).
 type DynamicValue struct {
 	Null   *Null                    `json:"-"`
 	Bool   *bool                    `json:"-"`
@@ -718,6 +751,8 @@ func (v DynamicValue) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsNull returns the Null variant and whether it is set.
 func (v DynamicValue) AsNull() (Null, bool) {
 	if v.Null != nil {
 		return *v.Null, true
@@ -725,6 +760,8 @@ func (v DynamicValue) AsNull() (Null, bool) {
 	var zero Null
 	return zero, false
 }
+
+// AsBool returns the Bool variant and whether it is set.
 func (v DynamicValue) AsBool() (bool, bool) {
 	if v.Bool != nil {
 		return *v.Bool, true
@@ -732,6 +769,8 @@ func (v DynamicValue) AsBool() (bool, bool) {
 	var zero bool
 	return zero, false
 }
+
+// AsInt64 returns the Int64 variant and whether it is set.
 func (v DynamicValue) AsInt64() (int64, bool) {
 	if v.Int64 != nil {
 		return *v.Int64, true
@@ -739,6 +778,8 @@ func (v DynamicValue) AsInt64() (int64, bool) {
 	var zero int64
 	return zero, false
 }
+
+// AsNumber returns the Number variant and whether it is set.
 func (v DynamicValue) AsNumber() (json.Number, bool) {
 	if v.Number != nil {
 		return *v.Number, true
@@ -746,6 +787,8 @@ func (v DynamicValue) AsNumber() (json.Number, bool) {
 	var zero json.Number
 	return zero, false
 }
+
+// AsString returns the String variant and whether it is set.
 func (v DynamicValue) AsString() (string, bool) {
 	if v.String != nil {
 		return *v.String, true
@@ -753,6 +796,8 @@ func (v DynamicValue) AsString() (string, bool) {
 	var zero string
 	return zero, false
 }
+
+// AsArray returns the Array variant and whether it is set.
 func (v DynamicValue) AsArray() ([]DynamicValue, bool) {
 	if v.Array != nil {
 		return *v.Array, true
@@ -760,6 +805,8 @@ func (v DynamicValue) AsArray() ([]DynamicValue, bool) {
 	var zero []DynamicValue
 	return zero, false
 }
+
+// AsObject returns the Object variant and whether it is set.
 func (v DynamicValue) AsObject() (map[string]DynamicValue, bool) {
 	if v.Object != nil {
 		return *v.Object, true
@@ -768,6 +815,7 @@ func (v DynamicValue) AsObject() (map[string]DynamicValue, bool) {
 	return zero, false
 }
 
+// FactionApplicantStats is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionApplicantStats struct {
 	Strength  *int64                     `json:"strength"`
 	Speed     *int64                     `json:"speed"`
@@ -790,6 +838,7 @@ func (v FactionApplicantStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionApplicantSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionApplicantSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -812,6 +861,7 @@ func (v FactionApplicantSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionApplicationSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionApplicationSummary struct {
 	ID         *uint64                    `json:"id"`
 	User       *FactionApplicantSummary   `json:"user"`
@@ -835,6 +885,7 @@ func (v FactionApplicationSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionApplicationsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionApplicationsBundle struct {
 	Applications []FactionApplicationSummary `json:"applications"`
 }
@@ -853,6 +904,7 @@ func (v FactionApplicationsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionArmorBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionArmorBundle struct {
 	Armor FactionLegacyItemSelection `json:"armor"`
 }
@@ -871,6 +923,7 @@ func (v FactionArmorBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionAttacksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionAttacksBundle struct {
 	Attacks  []UserAttack       `json:"attacks"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -890,6 +943,7 @@ func (v FactionAttacksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionAttacksFullBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionAttacksFullBundle struct {
 	Attacks  []UserAttackFull   `json:"attacks"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -909,6 +963,7 @@ func (v FactionAttacksFullBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBalanceBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBalanceBundle struct {
 	Balance FactionBalanceSummary `json:"balance"`
 }
@@ -927,6 +982,7 @@ func (v FactionBalanceBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBalanceFaction is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBalanceFaction struct {
 	Money  *int64                     `json:"money"`
 	Points *int64                     `json:"points"`
@@ -948,6 +1004,7 @@ func (v FactionBalanceFaction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBalanceMember is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBalanceMember struct {
 	ID       *uint64                    `json:"id"`
 	Username *string                    `json:"username"`
@@ -970,6 +1027,7 @@ func (v FactionBalanceMember) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBalanceSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBalanceSummary struct {
 	Faction *FactionBalanceFaction     `json:"faction"`
 	Members []FactionBalanceMember     `json:"members"`
@@ -990,6 +1048,7 @@ func (v FactionBalanceSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBasic is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBasic struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -1017,6 +1076,7 @@ func (v FactionBasic) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBasicBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBasicBundle struct {
 	Basic FactionBasic `json:"basic"`
 }
@@ -1035,6 +1095,7 @@ func (v FactionBasicBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionBoostersBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionBoostersBundle struct {
 	Boosters FactionLegacyItemSelection `json:"boosters"`
 }
@@ -1053,6 +1114,7 @@ func (v FactionBoostersBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCachesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCachesBundle struct {
 	Caches FactionLegacyItemSelection `json:"caches"`
 }
@@ -1071,6 +1133,7 @@ func (v FactionCachesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCesiumBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCesiumBundle struct {
 	Cesium FactionLegacyItemSelection `json:"cesium"`
 }
@@ -1089,6 +1152,7 @@ func (v FactionCesiumBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainBundle struct {
 	Chain FactionOngoingChainSummary `json:"chain"`
 }
@@ -1107,6 +1171,7 @@ func (v FactionChainBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportAttackerRespectSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportAttackerRespectSummary struct {
 	Total   *float64                   `json:"total"`
 	Average *float64                   `json:"average"`
@@ -1128,6 +1193,7 @@ func (v FactionChainReportAttackerRespectSummary) MarshalJSON() ([]byte, error) 
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportAttackerSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportAttackerSummary struct {
 	ID      *uint64                                   `json:"id"`
 	Respect *FactionChainReportAttackerRespectSummary `json:"respect"`
@@ -1149,6 +1215,7 @@ func (v FactionChainReportAttackerSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportAttacksSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportAttacksSummary struct {
 	Total        *uint64                    `json:"total"`
 	Leave        *uint64                    `json:"leave"`
@@ -1179,6 +1246,7 @@ func (v FactionChainReportAttacksSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportBonusSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportBonusSummary struct {
 	AttackerID *uint64                    `json:"attacker_id"`
 	DefenderID *uint64                    `json:"defender_id"`
@@ -1201,6 +1269,7 @@ func (v FactionChainReportBonusSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportBundle struct {
 	Chainreport FactionChainReportSummary `json:"chainreport"`
 }
@@ -1219,6 +1288,7 @@ func (v FactionChainReportBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportDetailsSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportDetailsSummary struct {
 	Chain        *uint64                    `json:"chain"`
 	Respect      *float64                   `json:"respect"`
@@ -1252,6 +1322,7 @@ func (v FactionChainReportDetailsSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainReportSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainReportSummary struct {
 	ID           *uint64                             `json:"id"`
 	FactionID    *uint64                             `json:"faction_id"`
@@ -1278,6 +1349,7 @@ func (v FactionChainReportSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainSummary struct {
 	ID      *uint64                    `json:"id"`
 	Chain   *uint64                    `json:"chain"`
@@ -1301,6 +1373,7 @@ func (v FactionChainSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainWarfareSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainWarfareSummary struct {
 	ID      *uint64                       `json:"id"`
 	Chain   *uint64                       `json:"chain"`
@@ -1325,6 +1398,7 @@ func (v FactionChainWarfareSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionChainsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionChainsBundle struct {
 	Chains   []FactionChainSummary `json:"chains"`
 	Metadata *PaginatedMetadata    `json:"_metadata"`
@@ -1344,6 +1418,7 @@ func (v FactionChainsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionContributorSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionContributorSummary struct {
 	ID        *uint64                    `json:"id"`
 	Username  *string                    `json:"username"`
@@ -1366,6 +1441,7 @@ func (v FactionContributorSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionContributorsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionContributorsBundle struct {
 	Contributors []FactionContributorSummary `json:"contributors"`
 }
@@ -1384,6 +1460,7 @@ func (v FactionContributorsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrime is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrime struct {
 	ID              *uint64                    `json:"id"`
 	PreviousCrimeID *uint64                    `json:"previous_crime_id"`
@@ -1414,6 +1491,7 @@ func (v FactionCrime) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeBundle struct {
 	Crime FactionCrime `json:"crime"`
 }
@@ -1432,6 +1510,7 @@ func (v FactionCrimeBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeExpBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeExpBundle struct {
 	Crimeexp FactionCrimeExpSelection `json:"crimeexp"`
 }
@@ -1450,6 +1529,7 @@ func (v FactionCrimeExpBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeExpEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeExpEntry struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -1473,6 +1553,7 @@ func (v FactionCrimeExpEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeExpSelection is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeExpSelection struct {
 	Object *map[string]FactionCrimeExpEntry `json:"-"`
 	Array  *[]FactionCrimeExpEntry          `json:"-"`
@@ -1516,6 +1597,8 @@ func (v FactionCrimeExpSelection) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsObject returns the Object variant and whether it is set.
 func (v FactionCrimeExpSelection) AsObject() (map[string]FactionCrimeExpEntry, bool) {
 	if v.Object != nil {
 		return *v.Object, true
@@ -1523,6 +1606,8 @@ func (v FactionCrimeExpSelection) AsObject() (map[string]FactionCrimeExpEntry, b
 	var zero map[string]FactionCrimeExpEntry
 	return zero, false
 }
+
+// AsArray returns the Array variant and whether it is set.
 func (v FactionCrimeExpSelection) AsArray() ([]FactionCrimeExpEntry, bool) {
 	if v.Array != nil {
 		return *v.Array, true
@@ -1530,6 +1615,8 @@ func (v FactionCrimeExpSelection) AsArray() ([]FactionCrimeExpEntry, bool) {
 	var zero []FactionCrimeExpEntry
 	return zero, false
 }
+
+// AsRaw returns the Raw variant and whether it is set.
 func (v FactionCrimeExpSelection) AsRaw() (json.RawMessage, bool) {
 	if v.Raw != nil {
 		return *v.Raw, true
@@ -1538,6 +1625,7 @@ func (v FactionCrimeExpSelection) AsRaw() (json.RawMessage, bool) {
 	return zero, false
 }
 
+// FactionCrimeItemRequirement is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeItemRequirement struct {
 	ID          *uint64                    `json:"id"`
 	IsReusable  *bool                      `json:"is_reusable"`
@@ -1559,6 +1647,7 @@ func (v FactionCrimeItemRequirement) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimePositionInfo is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimePositionInfo struct {
 	ID     *string                    `json:"id"`
 	Label  *string                    `json:"label"`
@@ -1580,6 +1669,7 @@ func (v FactionCrimePositionInfo) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeReward is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeReward struct {
 	Money   *int64                     `json:"money"`
 	Items   []FactionCrimeRewardItem   `json:"items"`
@@ -1603,6 +1693,7 @@ func (v FactionCrimeReward) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeRewardItem is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeRewardItem struct {
 	ID       *uint64                    `json:"id"`
 	Quantity *uint32                    `json:"quantity"`
@@ -1623,6 +1714,7 @@ func (v FactionCrimeRewardItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeRewardPayout is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeRewardPayout struct {
 	PayoutType *string                    `json:"type"`
 	Percentage *float64                   `json:"percentage"`
@@ -1645,6 +1737,7 @@ func (v FactionCrimeRewardPayout) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeSlot is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeSlot struct {
 	Position           *string                      `json:"position"`
 	PositionInfo       *FactionCrimePositionInfo    `json:"position_info"`
@@ -1668,6 +1761,7 @@ func (v FactionCrimeSlot) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeUser is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeUser struct {
 	ID              *uint64                      `json:"id"`
 	Outcome         *string                      `json:"outcome"`
@@ -1692,6 +1786,7 @@ func (v FactionCrimeUser) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimeUserItemOutcome is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimeUserItemOutcome struct {
 	OwnedBy *string                    `json:"owned_by"`
 	ItemID  *uint64                    `json:"item_id"`
@@ -1714,6 +1809,7 @@ func (v FactionCrimeUserItemOutcome) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionCrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionCrimesBundle struct {
 	Crimes   []FactionCrime     `json:"crimes"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -1733,6 +1829,7 @@ func (v FactionCrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionDrugsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionDrugsBundle struct {
 	Drugs FactionLegacyItemSelection `json:"drugs"`
 }
@@ -1751,6 +1848,7 @@ func (v FactionDrugsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionHofBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionHofBundle struct {
 	Hof FactionHofSummary `json:"hof"`
 }
@@ -1769,6 +1867,7 @@ func (v FactionHofBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionHofSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionHofSummary struct {
 	Rank    *FactionHofValueString     `json:"rank"`
 	Respect *FactionHofValue           `json:"respect"`
@@ -1790,6 +1889,7 @@ func (v FactionHofSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionHofValue is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionHofValue struct {
 	Rank  *uint64                    `json:"rank"`
 	Value *int64                     `json:"value"`
@@ -1810,6 +1910,7 @@ func (v FactionHofValue) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionHofValueString is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionHofValueString struct {
 	Rank  *string                    `json:"rank"`
 	Value *string                    `json:"value"`
@@ -1830,6 +1931,7 @@ func (v FactionHofValueString) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionLastAction is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLastAction struct {
 	Status    *string                    `json:"status"`
 	Relative  *string                    `json:"relative"`
@@ -1851,6 +1953,7 @@ func (v FactionLastAction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionLegacyItemEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLegacyItemEntry struct {
 	ID           *uint64                      `json:"ID"`
 	ItemID       *uint64                      `json:"item_id"`
@@ -1887,6 +1990,7 @@ func (v FactionLegacyItemEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionLegacyItemLoanTarget is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLegacyItemLoanTarget struct {
 	Uint64                    *uint64                    `json:"-"`
 	String                    *string                    `json:"-"`
@@ -1941,6 +2045,8 @@ func (v FactionLegacyItemLoanTarget) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v FactionLegacyItemLoanTarget) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -1948,6 +2054,8 @@ func (v FactionLegacyItemLoanTarget) AsUint64() (uint64, bool) {
 	var zero uint64
 	return zero, false
 }
+
+// AsString returns the String variant and whether it is set.
 func (v FactionLegacyItemLoanTarget) AsString() (string, bool) {
 	if v.String != nil {
 		return *v.String, true
@@ -1955,6 +2063,8 @@ func (v FactionLegacyItemLoanTarget) AsString() (string, bool) {
 	var zero string
 	return zero, false
 }
+
+// AsFactionLegacyItemLoanUser returns the FactionLegacyItemLoanUser variant and whether it is set.
 func (v FactionLegacyItemLoanTarget) AsFactionLegacyItemLoanUser() (FactionLegacyItemLoanUser, bool) {
 	if v.FactionLegacyItemLoanUser != nil {
 		return *v.FactionLegacyItemLoanUser, true
@@ -1962,6 +2072,8 @@ func (v FactionLegacyItemLoanTarget) AsFactionLegacyItemLoanUser() (FactionLegac
 	var zero FactionLegacyItemLoanUser
 	return zero, false
 }
+
+// AsBool returns the Bool variant and whether it is set.
 func (v FactionLegacyItemLoanTarget) AsBool() (bool, bool) {
 	if v.Bool != nil {
 		return *v.Bool, true
@@ -1970,6 +2082,7 @@ func (v FactionLegacyItemLoanTarget) AsBool() (bool, bool) {
 	return zero, false
 }
 
+// FactionLegacyItemLoanUser is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLegacyItemLoanUser struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -1990,6 +2103,7 @@ func (v FactionLegacyItemLoanUser) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionLegacyItemSelection is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLegacyItemSelection struct {
 	Object *map[string]FactionLegacyItemEntry `json:"-"`
 	Array  *[]FactionLegacyItemEntry          `json:"-"`
@@ -2033,6 +2147,8 @@ func (v FactionLegacyItemSelection) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsObject returns the Object variant and whether it is set.
 func (v FactionLegacyItemSelection) AsObject() (map[string]FactionLegacyItemEntry, bool) {
 	if v.Object != nil {
 		return *v.Object, true
@@ -2040,6 +2156,8 @@ func (v FactionLegacyItemSelection) AsObject() (map[string]FactionLegacyItemEntr
 	var zero map[string]FactionLegacyItemEntry
 	return zero, false
 }
+
+// AsArray returns the Array variant and whether it is set.
 func (v FactionLegacyItemSelection) AsArray() ([]FactionLegacyItemEntry, bool) {
 	if v.Array != nil {
 		return *v.Array, true
@@ -2047,6 +2165,8 @@ func (v FactionLegacyItemSelection) AsArray() ([]FactionLegacyItemEntry, bool) {
 	var zero []FactionLegacyItemEntry
 	return zero, false
 }
+
+// AsRaw returns the Raw variant and whether it is set.
 func (v FactionLegacyItemSelection) AsRaw() (json.RawMessage, bool) {
 	if v.Raw != nil {
 		return *v.Raw, true
@@ -2055,6 +2175,7 @@ func (v FactionLegacyItemSelection) AsRaw() (json.RawMessage, bool) {
 	return zero, false
 }
 
+// FactionLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -2074,6 +2195,7 @@ func (v FactionLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionMedicalBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionMedicalBundle struct {
 	Medical FactionLegacyItemSelection `json:"medical"`
 }
@@ -2092,6 +2214,7 @@ func (v FactionMedicalBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionMemberStatus is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionMemberStatus struct {
 	State          *string                    `json:"state"`
 	Color          *string                    `json:"color"`
@@ -2116,6 +2239,7 @@ func (v FactionMemberStatus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionMemberSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionMemberSummary struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -2142,6 +2266,7 @@ func (v FactionMemberSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionMembersBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionMembersBundle struct {
 	Members []FactionMemberSummary `json:"members"`
 }
@@ -2160,6 +2285,7 @@ func (v FactionMembersBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionNewsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionNewsBundle struct {
 	News     []FactionNewsEntry `json:"news"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -2179,6 +2305,7 @@ func (v FactionNewsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionNewsEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionNewsEntry struct {
 	ID        *string                    `json:"id"`
 	Text      *string                    `json:"text"`
@@ -2200,6 +2327,7 @@ func (v FactionNewsEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionOngoingChainSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionOngoingChainSummary struct {
 	ID       *uint64                    `json:"id"`
 	Current  *uint64                    `json:"current"`
@@ -2226,6 +2354,7 @@ func (v FactionOngoingChainSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionPactSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionPactSummary struct {
 	FactionID   *uint64                    `json:"faction_id"`
 	FactionName *string                    `json:"faction_name"`
@@ -2247,6 +2376,7 @@ func (v FactionPactSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionPositionSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionPositionSummary struct {
 	Name      *string                    `json:"name"`
 	IsDefault *bool                      `json:"is_default"`
@@ -2268,6 +2398,7 @@ func (v FactionPositionSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionPositionsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionPositionsBundle struct {
 	Positions []FactionPositionSummary `json:"positions"`
 }
@@ -2286,6 +2417,7 @@ func (v FactionPositionsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRacketRewardSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRacketRewardSummary struct {
 	RewardType *string                    `json:"type"`
 	Quantity   *int64                     `json:"quantity"`
@@ -2307,6 +2439,7 @@ func (v FactionRacketRewardSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRacketSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRacketSummary struct {
 	Territory   *string                     `json:"territory"`
 	FactionID   *uint64                     `json:"faction_id"`
@@ -2333,6 +2466,7 @@ func (v FactionRacketSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRacketsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRacketsBundle struct {
 	Rackets []FactionRacketSummary `json:"rackets"`
 }
@@ -2351,6 +2485,7 @@ func (v FactionRacketsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidReportAttackerSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidReportAttackerSummary struct {
 	User    *FactionRaidReportUserSummary `json:"user"`
 	Attacks *uint64                       `json:"attacks"`
@@ -2372,6 +2507,7 @@ func (v FactionRaidReportAttackerSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidReportBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidReportBundle struct {
 	Raidreport FactionRaidReportSummary `json:"raidreport"`
 }
@@ -2390,6 +2526,7 @@ func (v FactionRaidReportBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidReportSideSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidReportSideSummary struct {
 	ID           *uint64                            `json:"id"`
 	Name         *string                            `json:"name"`
@@ -2413,6 +2550,7 @@ func (v FactionRaidReportSideSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidReportSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidReportSummary struct {
 	ID        *uint64                       `json:"id"`
 	Start     *uint64                       `json:"start"`
@@ -2436,6 +2574,7 @@ func (v FactionRaidReportSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidReportUserSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidReportUserSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -2456,6 +2595,7 @@ func (v FactionRaidReportUserSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidSummary struct {
 	ID        *uint64                       `json:"id"`
 	Start     *uint64                       `json:"start"`
@@ -2479,6 +2619,7 @@ func (v FactionRaidSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidWarSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidWarSummary struct {
 	WarID    *uint64                    `json:"war_id"`
 	Start    *uint64                    `json:"start"`
@@ -2501,6 +2642,7 @@ func (v FactionRaidWarSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRaidsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRaidsBundle struct {
 	Raids    []FactionRaidSummary `json:"raids"`
 	Metadata *PaginatedMetadata   `json:"_metadata"`
@@ -2520,6 +2662,7 @@ func (v FactionRaidsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRank is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRank struct {
 	Division *uint32                    `json:"division"`
 	Level    *uint32                    `json:"level"`
@@ -2543,6 +2686,7 @@ func (v FactionRank) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarDetails struct {
 	WarID    *uint64                    `json:"war_id"`
 	Target   *uint64                    `json:"target"`
@@ -2567,6 +2711,7 @@ func (v FactionRankedWarDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportBundle struct {
 	Rankedwarreport FactionRankedWarReportSummary `json:"rankedwarreport"`
 }
@@ -2585,6 +2730,7 @@ func (v FactionRankedWarReportBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportFactionSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportFactionSummary struct {
 	ID      *uint64                               `json:"id"`
 	Name    *string                               `json:"name"`
@@ -2610,6 +2756,7 @@ func (v FactionRankedWarReportFactionSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportMemberSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportMemberSummary struct {
 	ID      *uint64                    `json:"id"`
 	Name    *string                    `json:"name"`
@@ -2633,6 +2780,7 @@ func (v FactionRankedWarReportMemberSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportRankSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportRankSummary struct {
 	Before *string                    `json:"before"`
 	After  *string                    `json:"after"`
@@ -2653,6 +2801,7 @@ func (v FactionRankedWarReportRankSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportRewardItemSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportRewardItemSummary struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -2674,6 +2823,7 @@ func (v FactionRankedWarReportRewardItemSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportRewardsSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportRewardsSummary struct {
 	Respect *float64                                  `json:"respect"`
 	Points  *uint64                                   `json:"points"`
@@ -2695,6 +2845,7 @@ func (v FactionRankedWarReportRewardsSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarReportSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarReportSummary struct {
 	ID       *uint64                                `json:"id"`
 	Start    *uint64                                `json:"start"`
@@ -2719,6 +2870,7 @@ func (v FactionRankedWarReportSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarSummary struct {
 	ID       *uint64                    `json:"id"`
 	Start    *uint64                    `json:"start"`
@@ -2743,6 +2895,7 @@ func (v FactionRankedWarSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRankedWarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRankedWarsBundle struct {
 	Rankedwars []FactionRankedWarSummary `json:"rankedwars"`
 	Metadata   *PaginatedMetadata        `json:"_metadata"`
@@ -2762,6 +2915,7 @@ func (v FactionRankedWarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionReportsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionReportsBundle struct {
 	Reports  []UserReportSummary `json:"reports"`
 	Metadata *PaginatedMetadata  `json:"_metadata"`
@@ -2781,6 +2935,7 @@ func (v FactionReportsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRevivesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRevivesBundle struct {
 	Revives  []UserRevive       `json:"revives"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -2800,6 +2955,7 @@ func (v FactionRevivesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionRevivesFullBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionRevivesFullBundle struct {
 	Revives  []UserReviveFull   `json:"revives"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -2819,6 +2975,7 @@ func (v FactionRevivesFullBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionSearchBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionSearchBundle struct {
 	Search   []FactionSearchSummary `json:"search"`
 	Metadata *PaginatedMetadata     `json:"_metadata"`
@@ -2838,6 +2995,7 @@ func (v FactionSearchBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionSearchLeader is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionSearchLeader struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -2858,6 +3016,7 @@ func (v FactionSearchLeader) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionSearchSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionSearchSummary struct {
 	ID           *uint64                    `json:"id"`
 	Name         *string                    `json:"name"`
@@ -2888,6 +3047,7 @@ func (v FactionSearchSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionStatSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionStatSummary struct {
 	Name  *string                    `json:"name"`
 	Value *int64                     `json:"value"`
@@ -2908,6 +3068,7 @@ func (v FactionStatSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionStatsBundle struct {
 	Stats []FactionStatSummary `json:"stats"`
 }
@@ -2926,6 +3087,7 @@ func (v FactionStatsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTemporaryBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTemporaryBundle struct {
 	Temporary FactionLegacyItemSelection `json:"temporary"`
 }
@@ -2944,6 +3106,7 @@ func (v FactionTemporaryBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryBundle struct {
 	Territory []FactionTerritorySummary `json:"territory"`
 }
@@ -2962,6 +3125,7 @@ func (v FactionTerritoryBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryCoordinatesSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryCoordinatesSummary struct {
 	X     *float64                   `json:"x"`
 	Y     *float64                   `json:"y"`
@@ -2982,6 +3146,7 @@ func (v FactionTerritoryCoordinatesSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryOwnershipBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryOwnershipBundle struct {
 	TerritoryOwnership []FactionTerritoryOwnershipSummary `json:"territoryOwnership"`
 }
@@ -3000,6 +3165,7 @@ func (v FactionTerritoryOwnershipBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryOwnershipSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryOwnershipSummary struct {
 	ID         *string                    `json:"id"`
 	Irradiated *bool                      `json:"irradiated"`
@@ -3022,6 +3188,7 @@ func (v FactionTerritoryOwnershipSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritorySummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritorySummary struct {
 	ID          *string                             `json:"id"`
 	AcquiredAt  *uint64                             `json:"acquired_at"`
@@ -3049,6 +3216,7 @@ func (v FactionTerritorySummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarHistoryEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarHistoryEntry struct {
 	ID        *uint64                                 `json:"id"`
 	WarID     *uint64                                 `json:"war_id"`
@@ -3075,6 +3243,7 @@ func (v FactionTerritoryWarHistoryEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarParticipantSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarParticipantSummary struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -3097,6 +3266,7 @@ func (v FactionTerritoryWarParticipantSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarReportBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarReportBundle struct {
 	Territorywarreport FactionTerritoryWarReportSummary `json:"territorywarreport"`
 }
@@ -3115,6 +3285,7 @@ func (v FactionTerritoryWarReportBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarReportFactionSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarReportFactionSummary struct {
 	ID          *uint64                                  `json:"id"`
 	Name        *string                                  `json:"name"`
@@ -3140,6 +3311,7 @@ func (v FactionTerritoryWarReportFactionSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarReportMemberSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarReportMemberSummary struct {
 	ID       *uint64                    `json:"id"`
 	Username *string                    `json:"username"`
@@ -3164,6 +3336,7 @@ func (v FactionTerritoryWarReportMemberSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarReportSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarReportSummary struct {
 	ID        *uint64                                   `json:"id"`
 	Territory *string                                   `json:"territory"`
@@ -3189,6 +3362,7 @@ func (v FactionTerritoryWarReportSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarfareSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarfareSummary struct {
 	ID        *uint64                       `json:"id"`
 	Territory *string                       `json:"territory"`
@@ -3215,6 +3389,7 @@ func (v FactionTerritoryWarfareSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTerritoryWarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTerritoryWarsBundle struct {
 	Territorywars []FactionTerritoryWarHistoryEntry `json:"territorywars"`
 	Metadata      *PaginatedMetadata                `json:"_metadata"`
@@ -3234,6 +3409,7 @@ func (v FactionTerritoryWarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionTimestampBundle struct {
 	Timestamp *uint64 `json:"timestamp"`
 }
@@ -3252,6 +3428,7 @@ func (v FactionTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUnknownWarfareEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUnknownWarfareEntry struct {
 	Extra map[string]json.RawMessage `json:"extra"`
 }
@@ -3270,6 +3447,7 @@ func (v FactionUnknownWarfareEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUpgradeBranch is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUpgradeBranch struct {
 	Name       *string                    `json:"name"`
 	Order      *uint32                    `json:"order"`
@@ -3292,6 +3470,7 @@ func (v FactionUpgradeBranch) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUpgradeCore is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUpgradeCore struct {
 	Upgrades []FactionUpgradeDetails    `json:"upgrades"`
 	Extra    map[string]json.RawMessage `json:"-"`
@@ -3311,6 +3490,7 @@ func (v FactionUpgradeCore) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUpgradeDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUpgradeDetails struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -3335,6 +3515,7 @@ func (v FactionUpgradeDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUpgradesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUpgradesBundle struct {
 	State    *string                 `json:"state"`
 	Upgrades *FactionUpgradesSummary `json:"upgrades"`
@@ -3354,6 +3535,7 @@ func (v FactionUpgradesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUpgradesSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUpgradesSummary struct {
 	Core  *FactionUpgradeCore        `json:"core"`
 	Peace []FactionUpgradeBranch     `json:"peace"`
@@ -3375,6 +3557,7 @@ func (v FactionUpgradesSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionUtilitiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionUtilitiesBundle struct {
 	Utilities FactionLegacyItemSelection `json:"utilities"`
 }
@@ -3393,6 +3576,7 @@ func (v FactionUtilitiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarFactionSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarFactionSummary struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -3416,6 +3600,7 @@ func (v FactionWarFactionSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarfareBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarfareBundle struct {
 	Warfare  []FactionWarfareEntry `json:"warfare"`
 	Metadata *PaginatedMetadata    `json:"_metadata"`
@@ -3435,6 +3620,7 @@ func (v FactionWarfareBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarfareEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarfareEntry struct {
 	FactionRankedWarDetails        *FactionRankedWarDetails        `json:"-"`
 	FactionTerritoryWarfareSummary *FactionTerritoryWarfareSummary `json:"-"`
@@ -3469,6 +3655,8 @@ func (v FactionWarfareEntry) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsFactionRankedWarDetails returns the FactionRankedWarDetails variant and whether it is set.
 func (v FactionWarfareEntry) AsFactionRankedWarDetails() (FactionRankedWarDetails, bool) {
 	if v.FactionRankedWarDetails != nil {
 		return *v.FactionRankedWarDetails, true
@@ -3476,6 +3664,8 @@ func (v FactionWarfareEntry) AsFactionRankedWarDetails() (FactionRankedWarDetail
 	var zero FactionRankedWarDetails
 	return zero, false
 }
+
+// AsFactionTerritoryWarfareSummary returns the FactionTerritoryWarfareSummary variant and whether it is set.
 func (v FactionWarfareEntry) AsFactionTerritoryWarfareSummary() (FactionTerritoryWarfareSummary, bool) {
 	if v.FactionTerritoryWarfareSummary != nil {
 		return *v.FactionTerritoryWarfareSummary, true
@@ -3483,6 +3673,8 @@ func (v FactionWarfareEntry) AsFactionTerritoryWarfareSummary() (FactionTerritor
 	var zero FactionTerritoryWarfareSummary
 	return zero, false
 }
+
+// AsFactionChainWarfareSummary returns the FactionChainWarfareSummary variant and whether it is set.
 func (v FactionWarfareEntry) AsFactionChainWarfareSummary() (FactionChainWarfareSummary, bool) {
 	if v.FactionChainWarfareSummary != nil {
 		return *v.FactionChainWarfareSummary, true
@@ -3490,6 +3682,8 @@ func (v FactionWarfareEntry) AsFactionChainWarfareSummary() (FactionChainWarfare
 	var zero FactionChainWarfareSummary
 	return zero, false
 }
+
+// AsFactionRaidSummary returns the FactionRaidSummary variant and whether it is set.
 func (v FactionWarfareEntry) AsFactionRaidSummary() (FactionRaidSummary, bool) {
 	if v.FactionRaidSummary != nil {
 		return *v.FactionRaidSummary, true
@@ -3497,6 +3691,8 @@ func (v FactionWarfareEntry) AsFactionRaidSummary() (FactionRaidSummary, bool) {
 	var zero FactionRaidSummary
 	return zero, false
 }
+
+// AsFactionUnknownWarfareEntry returns the FactionUnknownWarfareEntry variant and whether it is set.
 func (v FactionWarfareEntry) AsFactionUnknownWarfareEntry() (FactionUnknownWarfareEntry, bool) {
 	if v.FactionUnknownWarfareEntry != nil {
 		return *v.FactionUnknownWarfareEntry, true
@@ -3505,6 +3701,7 @@ func (v FactionWarfareEntry) AsFactionUnknownWarfareEntry() (FactionUnknownWarfa
 	return zero, false
 }
 
+// FactionWarfareFactionSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarfareFactionSummary struct {
 	ID            *uint64                           `json:"id"`
 	Name          *string                           `json:"name"`
@@ -3530,6 +3727,7 @@ func (v FactionWarfareFactionSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarfareUserSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarfareUserSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -3550,6 +3748,7 @@ func (v FactionWarfareUserSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarfareWallPlayerSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarfareWallPlayerSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -3570,6 +3769,7 @@ func (v FactionWarfareWallPlayerSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarsBundle struct {
 	Wars  FactionWarsSummary   `json:"wars"`
 	Pacts []FactionPactSummary `json:"pacts"`
@@ -3589,6 +3789,7 @@ func (v FactionWarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWarsSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWarsSummary struct {
 	Raids  []FactionRaidWarSummary    `json:"raids"`
 	Ranked *FactionRankedWarDetails   `json:"ranked"`
@@ -3609,6 +3810,7 @@ func (v FactionWarsSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// FactionWeaponsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type FactionWeaponsBundle struct {
 	Weapons FactionLegacyItemSelection `json:"weapons"`
 }
@@ -3627,6 +3829,7 @@ func (v FactionWeaponsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumCategoriesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumCategoriesBundle struct {
 	Categories []ForumCategory `json:"categories"`
 }
@@ -3645,6 +3848,7 @@ func (v ForumCategoriesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumCategory is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumCategory struct {
 	ID      *uint64                    `json:"id"`
 	Title   *string                    `json:"title"`
@@ -3667,6 +3871,7 @@ func (v ForumCategory) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumLookupBundle struct {
 	Selections []string `json:"selections"`
 }
@@ -3685,6 +3890,7 @@ func (v ForumLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumPoll is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumPoll struct {
 	Question     *string                    `json:"question"`
 	AnswersCount *uint64                    `json:"answers_count"`
@@ -3703,6 +3909,7 @@ func (v *ForumPoll) UnmarshalJSON(data []byte) error {
 }
 func (v ForumPoll) MarshalJSON() ([]byte, error) { type plain ForumPoll; return encodeStruct(plain(v)) }
 
+// ForumPollAnswer is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumPollAnswer struct {
 	Answer *string                    `json:"answer"`
 	Votes  *uint64                    `json:"votes"`
@@ -3723,6 +3930,7 @@ func (v ForumPollAnswer) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumPost is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumPost struct {
 	ID           *uint64                    `json:"id"`
 	ThreadID     *uint64                    `json:"thread_id"`
@@ -3752,6 +3960,7 @@ func (v *ForumPost) UnmarshalJSON(data []byte) error {
 }
 func (v ForumPost) MarshalJSON() ([]byte, error) { type plain ForumPost; return encodeStruct(plain(v)) }
 
+// ForumPostsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumPostsBundle struct {
 	Posts    []ForumPost        `json:"posts"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -3771,6 +3980,7 @@ func (v ForumPostsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumThread is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumThread struct {
 	ID            *uint64                    `json:"id"`
 	Title         *string                    `json:"title"`
@@ -3806,6 +4016,7 @@ func (v ForumThread) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumThreadBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumThreadBundle struct {
 	Thread ForumThread `json:"thread"`
 }
@@ -3824,6 +4035,7 @@ func (v ForumThreadBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumThreadsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumThreadsBundle struct {
 	Threads  []ForumThread      `json:"threads"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -3843,6 +4055,7 @@ func (v ForumThreadsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumTimestampBundle struct {
 	Timestamp *uint64 `json:"timestamp"`
 }
@@ -3861,6 +4074,7 @@ func (v ForumTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// ForumUserSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type ForumUserSummary struct {
 	ID       *uint64                    `json:"id"`
 	Username *string                    `json:"username"`
@@ -3882,6 +4096,7 @@ func (v ForumUserSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyAccess is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyAccess struct {
 	AccessType        *string                    `json:"type"`
 	Level             *uint32                    `json:"level"`
@@ -3903,6 +4118,7 @@ func (v *KeyAccess) UnmarshalJSON(data []byte) error {
 }
 func (v KeyAccess) MarshalJSON() ([]byte, error) { type plain KeyAccess; return encodeStruct(plain(v)) }
 
+// KeyInfo is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyInfo struct {
 	Access     *KeyAccess                 `json:"access"`
 	Selections *KeySelections             `json:"selections"`
@@ -3920,6 +4136,7 @@ func (v *KeyInfo) UnmarshalJSON(data []byte) error {
 }
 func (v KeyInfo) MarshalJSON() ([]byte, error) { type plain KeyInfo; return encodeStruct(plain(v)) }
 
+// KeyInfoBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyInfoBundle struct {
 	Info KeyInfo `json:"info"`
 }
@@ -3938,6 +4155,7 @@ func (v KeyInfoBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyLogAccess is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyLogAccess struct {
 	Available []KeyLogCategoryAccess     `json:"available"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -3957,6 +4175,7 @@ func (v KeyLogAccess) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyLogBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyLogBundle struct {
 	Log []KeyLogEntry `json:"log"`
 }
@@ -3975,6 +4194,7 @@ func (v KeyLogBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyLogCategoryAccess is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyLogCategoryAccess struct {
 	CategoryID *uint64                    `json:"category_id"`
 	LogIds     []uint64                   `json:"log_ids"`
@@ -3995,6 +4215,7 @@ func (v KeyLogCategoryAccess) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyLogEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyLogEntry struct {
 	Timestamp  *uint64                    `json:"timestamp"`
 	EntryType  *string                    `json:"type"`
@@ -4019,6 +4240,7 @@ func (v KeyLogEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// KeyLogTargetId is a lenient compatibility model (see COMPATIBILITY.md).
 type KeyLogTargetId struct {
 	Uint64 *uint64 `json:"-"`
 	String *string `json:"-"`
@@ -4051,6 +4273,8 @@ func (v KeyLogTargetId) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v KeyLogTargetId) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -4058,6 +4282,8 @@ func (v KeyLogTargetId) AsUint64() (uint64, bool) {
 	var zero uint64
 	return zero, false
 }
+
+// AsString returns the String variant and whether it is set.
 func (v KeyLogTargetId) AsString() (string, bool) {
 	if v.String != nil {
 		return *v.String, true
@@ -4066,6 +4292,7 @@ func (v KeyLogTargetId) AsString() (string, bool) {
 	return zero, false
 }
 
+// KeySelections is a lenient compatibility model (see COMPATIBILITY.md).
 type KeySelections struct {
 	User     []string                   `json:"user"`
 	Faction  []string                   `json:"faction"`
@@ -4093,6 +4320,7 @@ func (v KeySelections) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketAuctionHouseBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketAuctionHouseBundle struct {
 	Auctionhouse []MarketAuctionHouseListing `json:"auctionhouse"`
 	Metadata     *MarketMetadata             `json:"_metadata"`
@@ -4112,6 +4340,7 @@ func (v MarketAuctionHouseBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketAuctionHouseListing is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketAuctionHouseListing struct {
 	ID        *uint64                    `json:"id"`
 	Seller    *MarketUserSummary         `json:"seller"`
@@ -4137,6 +4366,7 @@ func (v MarketAuctionHouseListing) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketAuctionHouseListingBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketAuctionHouseListingBundle struct {
 	Auctionhouselisting MarketAuctionHouseListing `json:"auctionhouselisting"`
 }
@@ -4155,6 +4385,7 @@ func (v MarketAuctionHouseListingBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketAuctionItem is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketAuctionItem struct {
 	ID       *uint64                    `json:"id"`
 	Uid      *uint64                    `json:"uid"`
@@ -4181,6 +4412,7 @@ func (v MarketAuctionItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketBazaar is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketBazaar struct {
 	AdvancedItem []MarketBazaarSellerSummary `json:"advanced_item"`
 	Bargain      []MarketBazaarSellerSummary `json:"bargain"`
@@ -4204,6 +4436,7 @@ func (v MarketBazaar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketBazaarBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketBazaarBundle struct {
 	Bazaar MarketBazaar `json:"bazaar"`
 }
@@ -4222,6 +4455,7 @@ func (v MarketBazaarBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketBazaarSellerSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketBazaarSellerSummary struct {
 	ID                *uint64                    `json:"id"`
 	Name              *string                    `json:"name"`
@@ -4248,6 +4482,7 @@ func (v MarketBazaarSellerSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemBonus is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemBonus struct {
 	ID          *uint64                    `json:"id"`
 	Title       *string                    `json:"title"`
@@ -4270,6 +4505,7 @@ func (v MarketItemBonus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemDetails struct {
 	Uid     *uint64                    `json:"uid"`
 	Rarity  *string                    `json:"rarity"`
@@ -4292,6 +4528,7 @@ func (v MarketItemDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemMarket is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemMarket struct {
 	CacheTimestamp *uint64                    `json:"cache_timestamp"`
 	CacheDelay     *uint64                    `json:"cache_delay"`
@@ -4315,6 +4552,7 @@ func (v MarketItemMarket) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemMarketBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemMarketBundle struct {
 	Itemmarket MarketItemMarket `json:"itemmarket"`
 	Metadata   *MarketMetadata  `json:"_metadata"`
@@ -4334,6 +4572,7 @@ func (v MarketItemMarketBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemStats is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemStats struct {
 	Damage   *float64                   `json:"damage"`
 	Accuracy *float64                   `json:"accuracy"`
@@ -4356,6 +4595,7 @@ func (v MarketItemStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketItemSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketItemSummary struct {
 	ID           *uint64                    `json:"id"`
 	Name         *string                    `json:"name"`
@@ -4378,6 +4618,7 @@ func (v MarketItemSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketListingSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketListingSummary struct {
 	Amount      *uint64                    `json:"amount"`
 	Price       *uint64                    `json:"price"`
@@ -4399,6 +4640,7 @@ func (v MarketListingSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -4418,8 +4660,13 @@ func (v MarketLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketMetadata is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketMetadata = PaginatedMetadataWithTotal
+
+// MarketPaginationLinks is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPaginationLinks = PaginatedLinks
+
+// MarketPointsMarketBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPointsMarketBundle struct {
 	Pointsmarket map[string]MarketPointsMarketListing `json:"pointsmarket"`
 	Extra        map[string]json.RawMessage           `json:"-"`
@@ -4439,6 +4686,7 @@ func (v MarketPointsMarketBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketPointsMarketListing is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPointsMarketListing struct {
 	Cost      *uint64                    `json:"cost"`
 	Quantity  *uint64                    `json:"quantity"`
@@ -4460,6 +4708,7 @@ func (v MarketPointsMarketListing) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketPropertiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPropertiesBundle struct {
 	Properties          MarketPropertyCatalog `json:"properties"`
 	PropertiesTimestamp *uint64               `json:"properties_timestamp"`
@@ -4481,6 +4730,7 @@ func (v MarketPropertiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketPropertyCatalog is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPropertyCatalog struct {
 	Total    *uint64                    `json:"total"`
 	Listings []MarketPropertyListing    `json:"listings"`
@@ -4502,6 +4752,7 @@ func (v MarketPropertyCatalog) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketPropertyListing is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPropertyListing struct {
 	Happy         *uint64                    `json:"happy"`
 	Cost          *uint64                    `json:"cost"`
@@ -4525,6 +4776,7 @@ func (v MarketPropertyListing) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketPropertyTypeSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketPropertyTypeSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -4545,6 +4797,7 @@ func (v MarketPropertyTypeSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketRentalCatalog is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketRentalCatalog struct {
 	Total    *uint64                    `json:"total"`
 	Listings []MarketRentalListing      `json:"listings"`
@@ -4566,6 +4819,7 @@ func (v MarketRentalCatalog) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketRentalListing is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketRentalListing struct {
 	Happy         *uint64                    `json:"happy"`
 	Cost          *uint64                    `json:"cost"`
@@ -4591,6 +4845,7 @@ func (v MarketRentalListing) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketRentalsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketRentalsBundle struct {
 	Rentals          MarketRentalCatalog `json:"rentals"`
 	RentalsTimestamp *uint64             `json:"rentals_timestamp"`
@@ -4612,6 +4867,7 @@ func (v MarketRentalsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketTimestampBundle struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -4631,6 +4887,7 @@ func (v MarketTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// MarketUserSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type MarketUserSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -4651,6 +4908,7 @@ func (v MarketUserSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PaginatedLinks is a lenient compatibility model (see COMPATIBILITY.md).
 type PaginatedLinks struct {
 	Prev  *string                    `json:"prev"`
 	Next  *string                    `json:"next"`
@@ -4671,6 +4929,7 @@ func (v PaginatedLinks) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PaginatedMetadata is a lenient compatibility model (see COMPATIBILITY.md).
 type PaginatedMetadata struct {
 	Links *PaginatedLinks            `json:"links"`
 	Extra map[string]json.RawMessage `json:"-"`
@@ -4690,6 +4949,7 @@ func (v PaginatedMetadata) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PaginatedMetadataWithTotal is a lenient compatibility model (see COMPATIBILITY.md).
 type PaginatedMetadataWithTotal struct {
 	Links *PaginatedLinks            `json:"links"`
 	Total *uint64                    `json:"total"`
@@ -4710,6 +4970,7 @@ func (v PaginatedMetadataWithTotal) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyActor is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyActor struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -4730,6 +4991,7 @@ func (v PropertyActor) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyBundle struct {
 	Property PropertyDetails `json:"property"`
 }
@@ -4748,6 +5010,7 @@ func (v PropertyBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyDetails struct {
 	ID            *uint64                    `json:"id"`
 	Happy         *uint64                    `json:"happy"`
@@ -4777,6 +5040,7 @@ func (v PropertyDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -4796,6 +5060,7 @@ func (v PropertyLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyStaffSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyStaffSummary struct {
 	StaffType *string                    `json:"type"`
 	Amount    *uint64                    `json:"amount"`
@@ -4816,6 +5081,7 @@ func (v PropertyStaffSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyTimestampBundle struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -4835,6 +5101,7 @@ func (v PropertyTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyTypeSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyTypeSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -4855,6 +5122,7 @@ func (v PropertyTypeSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// PropertyUpkeep is a lenient compatibility model (see COMPATIBILITY.md).
 type PropertyUpkeep struct {
 	Property *uint64                    `json:"property"`
 	Staff    *uint64                    `json:"staff"`
@@ -4875,6 +5143,7 @@ func (v PropertyUpkeep) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingCar is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCar struct {
 	CarItemID    *uint64                    `json:"car_item_id"`
 	CarItemName  *string                    `json:"car_item_name"`
@@ -4900,6 +5169,7 @@ func (v *RacingCar) UnmarshalJSON(data []byte) error {
 }
 func (v RacingCar) MarshalJSON() ([]byte, error) { type plain RacingCar; return encodeStruct(plain(v)) }
 
+// RacingCarUpgrade is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCarUpgrade struct {
 	ID            *uint64                    `json:"id"`
 	ClassRequired *string                    `json:"class_required"`
@@ -4926,6 +5196,7 @@ func (v RacingCarUpgrade) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingCarUpgradeCost is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCarUpgradeCost struct {
 	Points *int64                     `json:"points"`
 	Cash   *int64                     `json:"cash"`
@@ -4946,6 +5217,7 @@ func (v RacingCarUpgradeCost) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingCarUpgradeEffects is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCarUpgradeEffects struct {
 	TopSpeed     *int64                     `json:"top_speed"`
 	Acceleration *int64                     `json:"acceleration"`
@@ -4971,6 +5243,7 @@ func (v RacingCarUpgradeEffects) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingCarUpgradesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCarUpgradesBundle struct {
 	Carupgrades []RacingCarUpgrade `json:"carupgrades"`
 }
@@ -4989,6 +5262,7 @@ func (v RacingCarUpgradesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingCarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingCarsBundle struct {
 	Cars []RacingCar `json:"cars"`
 }
@@ -5007,6 +5281,7 @@ func (v RacingCarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -5026,6 +5301,7 @@ func (v RacingLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingParticipants is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingParticipants struct {
 	Minimum *uint32                    `json:"minimum"`
 	Maximum *uint32                    `json:"maximum"`
@@ -5047,6 +5323,7 @@ func (v RacingParticipants) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRace is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRace struct {
 	ID           *uint64                    `json:"id"`
 	Title        *string                    `json:"title"`
@@ -5076,6 +5353,7 @@ func (v RacingRace) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRaceBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRaceBundle struct {
 	Race RacingRace `json:"race"`
 }
@@ -5094,6 +5372,7 @@ func (v RacingRaceBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRacesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRacesBundle struct {
 	Races    []RacingRace       `json:"races"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -5113,6 +5392,7 @@ func (v RacingRacesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRecord is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRecord struct {
 	DriverID    *uint64                    `json:"driver_id"`
 	DriverName  *string                    `json:"driver_name"`
@@ -5136,6 +5416,7 @@ func (v RacingRecord) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRecordsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRecordsBundle struct {
 	Records []RacingRecord `json:"records"`
 }
@@ -5154,6 +5435,7 @@ func (v RacingRecordsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingRequirements is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingRequirements struct {
 	CarClass         *string                    `json:"car_class"`
 	CarItemID        *uint64                    `json:"car_item_id"`
@@ -5178,6 +5460,7 @@ func (v RacingRequirements) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingResult is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingResult struct {
 	Position    *uint32                    `json:"position"`
 	DriverID    *uint64                    `json:"driver_id"`
@@ -5206,6 +5489,7 @@ func (v RacingResult) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingSchedule is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingSchedule struct {
 	JoinFrom  *uint64                    `json:"join_from"`
 	JoinUntil *uint64                    `json:"join_until"`
@@ -5228,6 +5512,7 @@ func (v RacingSchedule) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingTimestampBundle struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -5247,6 +5532,7 @@ func (v RacingTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingTrack is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingTrack struct {
 	ID          *uint64                    `json:"id"`
 	Title       *string                    `json:"title"`
@@ -5268,6 +5554,7 @@ func (v RacingTrack) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// RacingTracksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type RacingTracksBundle struct {
 	Tracks []RacingTrack `json:"tracks"`
 }
@@ -5286,6 +5573,7 @@ func (v RacingTracksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAmmoItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAmmoItem struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -5308,6 +5596,7 @@ func (v TornAmmoItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackItem struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -5328,6 +5617,7 @@ func (v TornAttackItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackLog is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackLog struct {
 	Log     []TornAttackLogEntry       `json:"log"`
 	Summary []TornAttackLogSummary     `json:"summary"`
@@ -5348,6 +5638,7 @@ func (v TornAttackLog) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackLogBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackLogBundle struct {
 	Attacklog TornAttackLog      `json:"attacklog"`
 	Metadata  *PaginatedMetadata `json:"_metadata"`
@@ -5367,6 +5658,7 @@ func (v TornAttackLogBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackLogEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackLogEntry struct {
 	Text         *string                    `json:"text"`
 	Timestamp    *uint64                    `json:"timestamp"`
@@ -5392,6 +5684,7 @@ func (v TornAttackLogEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackLogSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackLogSummary struct {
 	ID     *uint64                    `json:"id"`
 	Name   *string                    `json:"name"`
@@ -5415,6 +5708,7 @@ func (v TornAttackLogSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAttackParticipant is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAttackParticipant struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -5436,6 +5730,7 @@ func (v TornAttackParticipant) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornAwardType is a lenient compatibility model (see COMPATIBILITY.md).
 type TornAwardType struct {
 	ID    *uint64                    `json:"id"`
 	Title *string                    `json:"title"`
@@ -5456,6 +5751,7 @@ func (v TornAwardType) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornBankBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornBankBundle struct {
 	Bank TornBankRates `json:"bank"`
 }
@@ -5474,6 +5770,7 @@ func (v TornBankBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornBankRates is a lenient compatibility model (see COMPATIBILITY.md).
 type TornBankRates struct {
 	OneWeek     *float64                   `json:"1w"`
 	TwoWeeks    *float64                   `json:"2w"`
@@ -5497,6 +5794,7 @@ func (v TornBankRates) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornBountiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornBountiesBundle struct {
 	Bounties          []TornBounty                `json:"bounties"`
 	BountiesTimestamp *uint64                     `json:"bounties_timestamp"`
@@ -5518,6 +5816,7 @@ func (v TornBountiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornBounty is a lenient compatibility model (see COMPATIBILITY.md).
 type TornBounty struct {
 	TargetID    *uint64                    `json:"target_id"`
 	TargetName  *string                    `json:"target_name"`
@@ -5546,6 +5845,7 @@ func (v TornBounty) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCalendar is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCalendar struct {
 	Competitions []TornCalendarEntry        `json:"competitions"`
 	Events       []TornCalendarEntry        `json:"events"`
@@ -5566,6 +5866,7 @@ func (v TornCalendar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCalendarBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCalendarBundle struct {
 	Calendar TornCalendar `json:"calendar"`
 }
@@ -5584,6 +5885,7 @@ func (v TornCalendarBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCalendarEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCalendarEntry struct {
 	Title          *string                    `json:"title"`
 	Description    *string                    `json:"description"`
@@ -5607,6 +5909,7 @@ func (v TornCalendarEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCard is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCard struct {
 	Name     *string                    `json:"name"`
 	Short    *TornCardShort             `json:"short"`
@@ -5626,6 +5929,7 @@ func (v *TornCard) UnmarshalJSON(data []byte) error {
 }
 func (v TornCard) MarshalJSON() ([]byte, error) { type plain TornCard; return encodeStruct(plain(v)) }
 
+// TornCardShort is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCardShort struct {
 	Uint64 *uint64 `json:"-"`
 	String *string `json:"-"`
@@ -5658,6 +5962,8 @@ func (v TornCardShort) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v TornCardShort) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -5665,6 +5971,8 @@ func (v TornCardShort) AsUint64() (uint64, bool) {
 	var zero uint64
 	return zero, false
 }
+
+// AsString returns the String variant and whether it is set.
 func (v TornCardShort) AsString() (string, bool) {
 	if v.String != nil {
 		return *v.String, true
@@ -5673,6 +5981,7 @@ func (v TornCardShort) AsString() (string, bool) {
 	return zero, false
 }
 
+// TornCardsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCardsBundle struct {
 	Cards map[string]TornCard `json:"cards"`
 }
@@ -5691,6 +6000,7 @@ func (v TornCardsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCityShop is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCityShop struct {
 	Name      *string                     `json:"name"`
 	Inventory map[string]TornCityShopItem `json:"inventory"`
@@ -5711,6 +6021,7 @@ func (v TornCityShop) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCityShopItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCityShopItem struct {
 	Name     *string                    `json:"name"`
 	ItemType *string                    `json:"type"`
@@ -5733,6 +6044,7 @@ func (v TornCityShopItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCityShopsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCityShopsBundle struct {
 	Cityshops map[string]TornCityShop `json:"cityshops"`
 }
@@ -5751,6 +6063,7 @@ func (v TornCityShopsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCompaniesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCompaniesBundle struct {
 	Companies map[string]TornCompany `json:"companies"`
 }
@@ -5769,6 +6082,7 @@ func (v TornCompaniesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCompany is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCompany struct {
 	Name             *string                        `json:"name"`
 	Cost             *uint64                        `json:"cost"`
@@ -5791,6 +6105,7 @@ func (v TornCompany) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCompanyPosition is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCompanyPosition struct {
 	ManRequired    *uint64                    `json:"man_required"`
 	IntRequired    *uint64                    `json:"int_required"`
@@ -5817,6 +6132,7 @@ func (v TornCompanyPosition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCompetitionBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCompetitionBundle struct {
 	Competition []TornCompetitionEntry `json:"competition"`
 }
@@ -5835,6 +6151,7 @@ func (v TornCompetitionBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCompetitionEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCompetitionEntry struct {
 	ID              *uint64                    `json:"id"`
 	Name            *string                    `json:"name"`
@@ -5860,6 +6177,7 @@ func (v TornCompetitionEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCountEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCountEntry struct {
 	EntryType *string                    `json:"type"`
 	Count     *uint64                    `json:"count"`
@@ -5880,6 +6198,7 @@ func (v TornCountEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornCrime is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCrime struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -5900,6 +6219,7 @@ func (v *TornCrime) UnmarshalJSON(data []byte) error {
 }
 func (v TornCrime) MarshalJSON() ([]byte, error) { type plain TornCrime; return encodeStruct(plain(v)) }
 
+// TornCrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornCrimesBundle struct {
 	Crimes []TornCrime `json:"crimes"`
 }
@@ -5918,7 +6238,10 @@ func (v TornCrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornDynamicObject is a lenient compatibility model (see COMPATIBILITY.md).
 type TornDynamicObject = map[string]DynamicValue
+
+// TornEducationBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornEducationBundle struct {
 	Education []TornEducationCourse `json:"education"`
 }
@@ -5937,6 +6260,7 @@ func (v TornEducationBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornEducationCourse is a lenient compatibility model (see COMPATIBILITY.md).
 type TornEducationCourse struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -5963,6 +6287,7 @@ func (v TornEducationCourse) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornEliminationBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornEliminationBundle struct {
 	Elimination *TornDynamicObject `json:"elimination"`
 }
@@ -5981,6 +6306,7 @@ func (v TornEliminationBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornEliminationTeamBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornEliminationTeamBundle struct {
 	Eliminationteam []TornEliminationTeamEntry `json:"eliminationteam"`
 	Metadata        *PaginatedMetadata         `json:"_metadata"`
@@ -6000,6 +6326,7 @@ func (v TornEliminationTeamBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornEliminationTeamEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornEliminationTeamEntry struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -6022,6 +6349,7 @@ func (v TornEliminationTeamEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornFactionHofBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornFactionHofBundle struct {
 	Factionhof *TornDynamicObject `json:"factionhof"`
 }
@@ -6040,6 +6368,7 @@ func (v TornFactionHofBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornFactionTreeBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornFactionTreeBundle struct {
 	Factiontree *TornDynamicObject `json:"factiontree"`
 }
@@ -6058,6 +6387,7 @@ func (v TornFactionTreeBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornGym is a lenient compatibility model (see COMPATIBILITY.md).
 type TornGym struct {
 	Name      *string                    `json:"name"`
 	Stage     *uint64                    `json:"stage"`
@@ -6082,6 +6412,7 @@ func (v *TornGym) UnmarshalJSON(data []byte) error {
 }
 func (v TornGym) MarshalJSON() ([]byte, error) { type plain TornGym; return encodeStruct(plain(v)) }
 
+// TornGymsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornGymsBundle struct {
 	Gyms map[string]TornGym `json:"gyms"`
 }
@@ -6100,6 +6431,7 @@ func (v TornGymsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornHofBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornHofBundle struct {
 	Hof *TornDynamicObject `json:"hof"`
 }
@@ -6118,6 +6450,7 @@ func (v TornHofBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornHonorSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type TornHonorSummary struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -6143,6 +6476,7 @@ func (v TornHonorSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornHonorsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornHonorsBundle struct {
 	Honors []TornHonorSummary `json:"honors"`
 }
@@ -6161,6 +6495,7 @@ func (v TornHonorsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemAmmoBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemAmmoBundle struct {
 	Itemammo []TornAmmoItem `json:"itemammo"`
 }
@@ -6179,6 +6514,7 @@ func (v TornItemAmmoBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemBaseStats is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemBaseStats struct {
 	Damage   *float64                   `json:"damage"`
 	Accuracy *float64                   `json:"accuracy"`
@@ -6200,6 +6536,7 @@ func (v TornItemBaseStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemDetails struct {
 	Category  *string                    `json:"category"`
 	BaseStats *TornItemBaseStats         `json:"base_stats"`
@@ -6220,6 +6557,7 @@ func (v TornItemDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemDetailsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemDetailsBundle struct {
 	Itemdetails *TornItemDetailsSelection `json:"itemdetails"`
 	Metadata    *PaginatedMetadata        `json:"_metadata"`
@@ -6239,6 +6577,7 @@ func (v TornItemDetailsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemDetailsSelection is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemDetailsSelection struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -6262,6 +6601,7 @@ func (v TornItemDetailsSelection) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemMod is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemMod struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -6286,6 +6626,7 @@ func (v TornItemMod) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemModsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemModsBundle struct {
 	Itemmods []TornItemMod `json:"itemmods"`
 }
@@ -6304,6 +6645,7 @@ func (v TornItemModsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemStats is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemStats struct {
 	ArmoryID     *uint64                    `json:"armoryID"`
 	ID           *uint64                    `json:"ID"`
@@ -6340,6 +6682,7 @@ func (v TornItemStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemStatsBundle struct {
 	Itemstats TornItemStats `json:"itemstats"`
 }
@@ -6358,6 +6701,7 @@ func (v TornItemStatsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemSummary struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -6384,6 +6728,7 @@ func (v TornItemSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornItemsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornItemsBundle struct {
 	Items []TornItemSummary `json:"items"`
 }
@@ -6402,6 +6747,7 @@ func (v TornItemsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornLogCategoriesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornLogCategoriesBundle struct {
 	Logcategories []TornLogCategory `json:"logcategories"`
 }
@@ -6420,6 +6766,7 @@ func (v TornLogCategoriesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornLogCategory is a lenient compatibility model (see COMPATIBILITY.md).
 type TornLogCategory struct {
 	ID    *uint64                    `json:"id"`
 	Title *string                    `json:"title"`
@@ -6440,6 +6787,7 @@ func (v TornLogCategory) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornLogType is a lenient compatibility model (see COMPATIBILITY.md).
 type TornLogType struct {
 	ID    *uint64                    `json:"id"`
 	Title *string                    `json:"title"`
@@ -6460,6 +6808,7 @@ func (v TornLogType) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornLogTypesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornLogTypesBundle struct {
 	Logtypes []TornLogType `json:"logtypes"`
 }
@@ -6478,6 +6827,7 @@ func (v TornLogTypesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornLookupBundle struct {
 	Selections []string `json:"selections"`
 }
@@ -6496,6 +6846,7 @@ func (v TornLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornMedalSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type TornMedalSummary struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -6520,6 +6871,7 @@ func (v TornMedalSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornMedalsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornMedalsBundle struct {
 	Medals []TornMedalSummary `json:"medals"`
 }
@@ -6538,6 +6890,7 @@ func (v TornMedalsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornMerit is a lenient compatibility model (see COMPATIBILITY.md).
 type TornMerit struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -6556,6 +6909,7 @@ func (v *TornMerit) UnmarshalJSON(data []byte) error {
 }
 func (v TornMerit) MarshalJSON() ([]byte, error) { type plain TornMerit; return encodeStruct(plain(v)) }
 
+// TornMeritsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornMeritsBundle struct {
 	Merits []TornMerit `json:"merits"`
 }
@@ -6574,6 +6928,7 @@ func (v TornMeritsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganisedCrime is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganisedCrime struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -6598,6 +6953,7 @@ func (v TornOrganisedCrime) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganisedCrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganisedCrimesBundle struct {
 	Organisedcrimes map[string]TornOrganisedCrime `json:"organisedcrimes"`
 }
@@ -6616,6 +6972,7 @@ func (v TornOrganisedCrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganizedCrime is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganizedCrime struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -6639,6 +6996,7 @@ func (v TornOrganizedCrime) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganizedCrimePositionInfo is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganizedCrimePositionInfo struct {
 	ID     *string                    `json:"id"`
 	Label  *string                    `json:"label"`
@@ -6660,6 +7018,7 @@ func (v TornOrganizedCrimePositionInfo) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganizedCrimeSlot is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganizedCrimeSlot struct {
 	PositionInfo    *TornOrganizedCrimePositionInfo `json:"position_info"`
 	Position        *string                         `json:"position"`
@@ -6681,6 +7040,7 @@ func (v TornOrganizedCrimeSlot) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornOrganizedCrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornOrganizedCrimesBundle struct {
 	Organizedcrimes []TornOrganizedCrime `json:"organizedcrimes"`
 }
@@ -6699,6 +7059,7 @@ func (v TornOrganizedCrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPawnshop is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPawnshop struct {
 	PointsValue      *uint64                    `json:"points_value"`
 	DonatorpackValue *uint64                    `json:"donatorpack_value"`
@@ -6719,6 +7080,7 @@ func (v TornPawnshop) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPawnshopBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPawnshopBundle struct {
 	Pawnshop TornPawnshop `json:"pawnshop"`
 }
@@ -6737,6 +7099,7 @@ func (v TornPawnshopBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPercentageEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPercentageEntry struct {
 	Title      *string                    `json:"title"`
 	Percentage *float64                   `json:"percentage"`
@@ -6757,6 +7120,7 @@ func (v TornPercentageEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPokerTable is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPokerTable struct {
 	Name           *string                    `json:"name"`
 	BigBlind       *uint64                    `json:"big_blind"`
@@ -6781,6 +7145,7 @@ func (v TornPokerTable) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPokerTablesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPokerTablesBundle struct {
 	Pokertables map[string]TornPokerTable `json:"pokertables"`
 }
@@ -6799,6 +7164,7 @@ func (v TornPokerTablesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPropertiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPropertiesBundle struct {
 	Properties []TornPropertyCatalogEntry `json:"properties"`
 }
@@ -6817,6 +7183,7 @@ func (v TornPropertiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornPropertyCatalogEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornPropertyCatalogEntry struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -6842,6 +7209,7 @@ func (v TornPropertyCatalogEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornRockPaperScissorsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornRockPaperScissorsBundle struct {
 	Rockpaperscissors []TornCountEntry `json:"rockpaperscissors"`
 }
@@ -6860,6 +7228,7 @@ func (v TornRockPaperScissorsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornSearchForCashBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornSearchForCashBundle struct {
 	Searchforcash map[string]TornPercentageEntry `json:"searchforcash"`
 }
@@ -6878,6 +7247,7 @@ func (v TornSearchForCashBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornShopliftingBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornShopliftingBundle struct {
 	Shoplifting map[string][]TornShopliftingEntry `json:"shoplifting"`
 }
@@ -6896,6 +7266,7 @@ func (v TornShopliftingBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornShopliftingEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornShopliftingEntry struct {
 	Title    *string                    `json:"title"`
 	Disabled *bool                      `json:"disabled"`
@@ -6916,6 +7287,7 @@ func (v TornShopliftingEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStatsBundle struct {
 	Stats map[string]DynamicValue `json:"stats"`
 }
@@ -6934,6 +7306,7 @@ func (v TornStatsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockBonus is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockBonus struct {
 	Passive     *bool                      `json:"passive"`
 	Frequency   *uint64                    `json:"frequency"`
@@ -6956,6 +7329,7 @@ func (v TornStockBonus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockBundle struct {
 	Stock TornStockDetailed `json:"stocks"`
 }
@@ -6974,6 +7348,7 @@ func (v TornStockBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockChart is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockChart struct {
 	Performance *TornStockPerformance      `json:"performance"`
 	History     []TornStockHistoryEntry    `json:"history"`
@@ -6994,6 +7369,7 @@ func (v TornStockChart) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockDetailed is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockDetailed struct {
 	ID      *uint64                    `json:"id"`
 	Name    *string                    `json:"name"`
@@ -7019,6 +7395,7 @@ func (v TornStockDetailed) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockHistoryEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockHistoryEntry struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Price     *float64                   `json:"price"`
@@ -7040,6 +7417,7 @@ func (v TornStockHistoryEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockImages is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockImages struct {
 	Logo  *string                    `json:"logo"`
 	Full  *string                    `json:"full"`
@@ -7060,6 +7438,7 @@ func (v TornStockImages) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockMarket is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockMarket struct {
 	Price     *float64                   `json:"price"`
 	Cap       *uint64                    `json:"cap"`
@@ -7082,6 +7461,7 @@ func (v TornStockMarket) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockPerformance is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockPerformance struct {
 	LastHour  *TornStockPerformanceWindow `json:"last_hour"`
 	LastDay   *TornStockPerformanceWindow `json:"last_day"`
@@ -7106,6 +7486,7 @@ func (v TornStockPerformance) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockPerformanceWindow is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockPerformanceWindow struct {
 	Change           *float64                   `json:"change"`
 	ChangePercentage *float64                   `json:"change_percentage"`
@@ -7130,6 +7511,7 @@ func (v TornStockPerformanceWindow) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStockSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStockSummary struct {
 	ID      *uint64                    `json:"id"`
 	Name    *string                    `json:"name"`
@@ -7154,6 +7536,7 @@ func (v TornStockSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornStocksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornStocksBundle struct {
 	Stocks []TornStockSummary `json:"stocks"`
 }
@@ -7172,6 +7555,7 @@ func (v TornStocksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornSubcrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornSubcrimesBundle struct {
 	Subcrimes *TornDynamicObject `json:"subcrimes"`
 }
@@ -7190,6 +7574,7 @@ func (v TornSubcrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornTerritoryBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornTerritoryBundle struct {
 	Territory *TornDynamicObject `json:"territory"`
 }
@@ -7208,6 +7593,7 @@ func (v TornTerritoryBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TornTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type TornTimestampBundle struct {
 	Timestamp *uint64 `json:"timestamp"`
 }
@@ -7226,6 +7612,7 @@ func (v TornTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeCompanyDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeCompanyDetails struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -7247,6 +7634,7 @@ func (v TradeCompanyDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeCompanyItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeCompanyItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradeCompanyDetails        `json:"details"`
@@ -7267,6 +7655,7 @@ func (v TradeCompanyItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeFactionDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeFactionDetails struct {
 	ID      *uint64                    `json:"id"`
 	Name    *string                    `json:"name"`
@@ -7288,6 +7677,7 @@ func (v TradeFactionDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeFactionItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeFactionItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradeFactionDetails        `json:"details"`
@@ -7308,6 +7698,7 @@ func (v TradeFactionItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeInventoryItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeInventoryItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradeInventoryItemDetails  `json:"details"`
@@ -7328,6 +7719,7 @@ func (v TradeInventoryItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeInventoryItemDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeInventoryItemDetails struct {
 	ID     *uint64                    `json:"id"`
 	Uid    *uint64                    `json:"uid"`
@@ -7349,6 +7741,7 @@ func (v TradeInventoryItemDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeItem struct {
 	TradeMoneyItem     *TradeMoneyItem     `json:"-"`
 	TradeInventoryItem *TradeInventoryItem `json:"-"`
@@ -7391,6 +7784,8 @@ func (v TradeItem) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsTradeMoneyItem returns the TradeMoneyItem variant and whether it is set.
 func (v TradeItem) AsTradeMoneyItem() (TradeMoneyItem, bool) {
 	if v.TradeMoneyItem != nil {
 		return *v.TradeMoneyItem, true
@@ -7398,6 +7793,8 @@ func (v TradeItem) AsTradeMoneyItem() (TradeMoneyItem, bool) {
 	var zero TradeMoneyItem
 	return zero, false
 }
+
+// AsTradeInventoryItem returns the TradeInventoryItem variant and whether it is set.
 func (v TradeItem) AsTradeInventoryItem() (TradeInventoryItem, bool) {
 	if v.TradeInventoryItem != nil {
 		return *v.TradeInventoryItem, true
@@ -7405,6 +7802,8 @@ func (v TradeItem) AsTradeInventoryItem() (TradeInventoryItem, bool) {
 	var zero TradeInventoryItem
 	return zero, false
 }
+
+// AsTradeFactionItem returns the TradeFactionItem variant and whether it is set.
 func (v TradeItem) AsTradeFactionItem() (TradeFactionItem, bool) {
 	if v.TradeFactionItem != nil {
 		return *v.TradeFactionItem, true
@@ -7412,6 +7811,8 @@ func (v TradeItem) AsTradeFactionItem() (TradeFactionItem, bool) {
 	var zero TradeFactionItem
 	return zero, false
 }
+
+// AsTradeCompanyItem returns the TradeCompanyItem variant and whether it is set.
 func (v TradeItem) AsTradeCompanyItem() (TradeCompanyItem, bool) {
 	if v.TradeCompanyItem != nil {
 		return *v.TradeCompanyItem, true
@@ -7419,6 +7820,8 @@ func (v TradeItem) AsTradeCompanyItem() (TradeCompanyItem, bool) {
 	var zero TradeCompanyItem
 	return zero, false
 }
+
+// AsTradePropertyItem returns the TradePropertyItem variant and whether it is set.
 func (v TradeItem) AsTradePropertyItem() (TradePropertyItem, bool) {
 	if v.TradePropertyItem != nil {
 		return *v.TradePropertyItem, true
@@ -7426,6 +7829,8 @@ func (v TradeItem) AsTradePropertyItem() (TradePropertyItem, bool) {
 	var zero TradePropertyItem
 	return zero, false
 }
+
+// AsTradeNapItem returns the TradeNapItem variant and whether it is set.
 func (v TradeItem) AsTradeNapItem() (TradeNapItem, bool) {
 	if v.TradeNapItem != nil {
 		return *v.TradeNapItem, true
@@ -7433,6 +7838,8 @@ func (v TradeItem) AsTradeNapItem() (TradeNapItem, bool) {
 	var zero TradeNapItem
 	return zero, false
 }
+
+// AsUnknownTradeItem returns the UnknownTradeItem variant and whether it is set.
 func (v TradeItem) AsUnknownTradeItem() (UnknownTradeItem, bool) {
 	if v.UnknownTradeItem != nil {
 		return *v.UnknownTradeItem, true
@@ -7441,6 +7848,7 @@ func (v TradeItem) AsUnknownTradeItem() (UnknownTradeItem, bool) {
 	return zero, false
 }
 
+// TradeMoneyDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeMoneyDetails struct {
 	Amount *int64                     `json:"amount"`
 	Extra  map[string]json.RawMessage `json:"-"`
@@ -7460,6 +7868,7 @@ func (v TradeMoneyDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeMoneyItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeMoneyItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradeMoneyDetails          `json:"details"`
@@ -7480,6 +7889,7 @@ func (v TradeMoneyItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeNapDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeNapDetails struct {
 	Days     *uint64                    `json:"days"`
 	Factions []TradeNapFaction          `json:"factions"`
@@ -7500,6 +7910,7 @@ func (v TradeNapDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeNapFaction is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeNapFaction struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -7520,6 +7931,7 @@ func (v TradeNapFaction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradeNapItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradeNapItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradeNapDetails            `json:"details"`
@@ -7540,6 +7952,7 @@ func (v TradeNapItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradePropertyDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type TradePropertyDetails struct {
 	ID        *uint64                    `json:"id"`
 	Happiness *uint64                    `json:"happiness"`
@@ -7560,6 +7973,7 @@ func (v TradePropertyDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// TradePropertyItem is a lenient compatibility model (see COMPATIBILITY.md).
 type TradePropertyItem struct {
 	UserID  *uint64                    `json:"user_id"`
 	Details TradePropertyDetails       `json:"details"`
@@ -7580,6 +7994,7 @@ func (v TradePropertyItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UnknownTradeItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UnknownTradeItem struct {
 	UserID   *uint64                    `json:"user_id"`
 	ItemType *string                    `json:"item_type"`
@@ -7601,6 +8016,7 @@ func (v UnknownTradeItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UnknownUserCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UnknownUserCompetition struct {
 	Name  *string                    `json:"name"`
 	Extra map[string]json.RawMessage `json:"extra"`
@@ -7620,6 +8036,7 @@ func (v UnknownUserCompetition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UnknownUserEmployment is a lenient compatibility model (see COMPATIBILITY.md).
 type UnknownUserEmployment struct {
 	JobType *string                    `json:"job_type"`
 	Extra   map[string]json.RawMessage `json:"extra"`
@@ -7639,6 +8056,7 @@ func (v UnknownUserEmployment) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAmmoBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAmmoBundle struct {
 	Ammo []UserAmmoItem `json:"ammo"`
 }
@@ -7657,6 +8075,7 @@ func (v UserAmmoBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAmmoItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAmmoItem struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -7678,6 +8097,7 @@ func (v UserAmmoItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAmmoVariant is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAmmoVariant struct {
 	Name     *string                    `json:"name"`
 	Quantity *int64                     `json:"quantity"`
@@ -7699,6 +8119,7 @@ func (v UserAmmoVariant) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttack is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttack struct {
 	IsTerritoryWar      *bool                          `json:"is_territory_war"`
 	TerritoryWarID      *uint64                        `json:"territory_war_id"`
@@ -7735,6 +8156,7 @@ func (v UserAttack) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttackCombatant is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttackCombatant struct {
 	ID        *uint64                    `json:"id"`
 	Name      *string                    `json:"name"`
@@ -7758,6 +8180,7 @@ func (v UserAttackCombatant) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttackFaction is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttackFaction struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -7778,6 +8201,7 @@ func (v UserAttackFaction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttackFinishingHitEffect is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttackFinishingHitEffect struct {
 	Name  *string                    `json:"name"`
 	Value *int64                     `json:"value"`
@@ -7798,6 +8222,7 @@ func (v UserAttackFinishingHitEffect) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttackFull is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttackFull struct {
 	ID          *uint64                    `json:"id"`
 	Code        *string                    `json:"code"`
@@ -7825,6 +8250,7 @@ func (v UserAttackFull) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttackModifiers is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttackModifiers struct {
 	FairFight   *float64                   `json:"fair_fight"`
 	War         *float64                   `json:"war"`
@@ -7850,6 +8276,7 @@ func (v UserAttackModifiers) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttacksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttacksBundle struct {
 	Attacks  []UserAttack       `json:"attacks"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -7869,6 +8296,7 @@ func (v UserAttacksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAttacksFullBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAttacksFullBundle struct {
 	Attacks  []UserAttackFull   `json:"attacks"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -7888,6 +8316,7 @@ func (v UserAttacksFullBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserAwardUnlock is a lenient compatibility model (see COMPATIBILITY.md).
 type UserAwardUnlock struct {
 	ID        *uint64                    `json:"id"`
 	Timestamp *uint64                    `json:"timestamp"`
@@ -7908,6 +8337,7 @@ func (v UserAwardUnlock) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBars is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBars struct {
 	Energy *UserResourceBar           `json:"energy"`
 	Happy  *UserResourceBar           `json:"happy"`
@@ -7928,6 +8358,7 @@ func (v *UserBars) UnmarshalJSON(data []byte) error {
 }
 func (v UserBars) MarshalJSON() ([]byte, error) { type plain UserBars; return encodeStruct(plain(v)) }
 
+// UserBarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBarsBundle struct {
 	Bars UserBars `json:"bars"`
 }
@@ -7946,6 +8377,7 @@ func (v UserBarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBasicBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBasicBundle struct {
 	Profile UserBasicProfile `json:"profile"`
 }
@@ -7964,6 +8396,7 @@ func (v UserBasicBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBasicProfile is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBasicProfile struct {
 	ID     *uint64                    `json:"id"`
 	Name   *string                    `json:"name"`
@@ -7987,6 +8420,7 @@ func (v UserBasicProfile) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBattleStat is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBattleStat struct {
 	Value     *int64                     `json:"value"`
 	Modifier  *float64                   `json:"modifier"`
@@ -8008,6 +8442,7 @@ func (v UserBattleStat) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBattleStatModifier is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBattleStatModifier struct {
 	Effect       *string                    `json:"effect"`
 	Value        *float64                   `json:"value"`
@@ -8029,6 +8464,7 @@ func (v UserBattleStatModifier) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBattleStats is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBattleStats struct {
 	Strength  *UserBattleStat            `json:"strength"`
 	Defense   *UserBattleStat            `json:"defense"`
@@ -8052,6 +8488,7 @@ func (v UserBattleStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBattleStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBattleStatsBundle struct {
 	Battlestats UserBattleStats `json:"battlestats"`
 }
@@ -8070,6 +8507,7 @@ func (v UserBattleStatsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBazaarBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBazaarBundle struct {
 	BazaarIsOpen *bool                      `json:"bazaar_is_open"`
 	Bazaar       []UserLegacyItemSummary    `json:"bazaar"`
@@ -8090,6 +8528,7 @@ func (v UserBazaarBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBountiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBountiesBundle struct {
 	Bounties          []UserBounty `json:"bounties"`
 	BountiesTimestamp *uint64      `json:"bounties_timestamp"`
@@ -8110,6 +8549,7 @@ func (v UserBountiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserBounty is a lenient compatibility model (see COMPATIBILITY.md).
 type UserBounty struct {
 	TargetID    *uint64                    `json:"target_id"`
 	TargetName  *string                    `json:"target_name"`
@@ -8138,6 +8578,7 @@ func (v UserBounty) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCalendar is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCalendar struct {
 	StartTime *string                    `json:"start_time"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -8157,6 +8598,7 @@ func (v UserCalendar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCalendarBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCalendarBundle struct {
 	Calendar UserCalendar `json:"calendar"`
 }
@@ -8175,6 +8617,7 @@ func (v UserCalendarBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCasino is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCasino struct {
 	Tokens *int64                     `json:"tokens"`
 	Streak *int64                     `json:"streak"`
@@ -8195,6 +8638,7 @@ func (v UserCasino) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCasinoBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCasinoBundle struct {
 	Casino UserCasino `json:"casino"`
 }
@@ -8213,6 +8657,7 @@ func (v UserCasinoBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserChainBar is a lenient compatibility model (see COMPATIBILITY.md).
 type UserChainBar struct {
 	ID       *uint64                    `json:"id"`
 	Current  *uint64                    `json:"current"`
@@ -8239,6 +8684,7 @@ func (v UserChainBar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCityBank is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCityBank struct {
 	Amount       *int64                     `json:"amount"`
 	Duration     *uint64                    `json:"duration"`
@@ -8263,6 +8709,7 @@ func (v UserCityBank) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCityJob is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCityJob struct {
 	JobType  *string                    `json:"type"`
 	Name     *string                    `json:"name"`
@@ -8284,6 +8731,7 @@ func (v UserCityJob) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserClothingItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserClothingItem struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -8308,6 +8756,7 @@ func (v UserClothingItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompanyJob is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompanyJob struct {
 	JobType       *string                    `json:"type"`
 	ID            *uint64                    `json:"id"`
@@ -8333,6 +8782,7 @@ func (v UserCompanyJob) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompanyPointCompany is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompanyPointCompany struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -8353,6 +8803,7 @@ func (v UserCompanyPointCompany) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompanyPoints is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompanyPoints struct {
 	Company *UserCompanyPointCompany   `json:"company"`
 	Points  *uint64                    `json:"points"`
@@ -8373,6 +8824,7 @@ func (v UserCompanyPoints) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompetition struct {
 	UserHalloweenCompetition   *UserHalloweenCompetition   `json:"-"`
 	UserEasterCompetition      *UserEasterCompetition      `json:"-"`
@@ -8407,6 +8859,8 @@ func (v UserCompetition) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUserHalloweenCompetition returns the UserHalloweenCompetition variant and whether it is set.
 func (v UserCompetition) AsUserHalloweenCompetition() (UserHalloweenCompetition, bool) {
 	if v.UserHalloweenCompetition != nil {
 		return *v.UserHalloweenCompetition, true
@@ -8414,6 +8868,8 @@ func (v UserCompetition) AsUserHalloweenCompetition() (UserHalloweenCompetition,
 	var zero UserHalloweenCompetition
 	return zero, false
 }
+
+// AsUserEasterCompetition returns the UserEasterCompetition variant and whether it is set.
 func (v UserCompetition) AsUserEasterCompetition() (UserEasterCompetition, bool) {
 	if v.UserEasterCompetition != nil {
 		return *v.UserEasterCompetition, true
@@ -8421,6 +8877,8 @@ func (v UserCompetition) AsUserEasterCompetition() (UserEasterCompetition, bool)
 	var zero UserEasterCompetition
 	return zero, false
 }
+
+// AsUserRpsCompetition returns the UserRpsCompetition variant and whether it is set.
 func (v UserCompetition) AsUserRpsCompetition() (UserRpsCompetition, bool) {
 	if v.UserRpsCompetition != nil {
 		return *v.UserRpsCompetition, true
@@ -8428,6 +8886,8 @@ func (v UserCompetition) AsUserRpsCompetition() (UserRpsCompetition, bool) {
 	var zero UserRpsCompetition
 	return zero, false
 }
+
+// AsUserEliminationCompetition returns the UserEliminationCompetition variant and whether it is set.
 func (v UserCompetition) AsUserEliminationCompetition() (UserEliminationCompetition, bool) {
 	if v.UserEliminationCompetition != nil {
 		return *v.UserEliminationCompetition, true
@@ -8435,6 +8895,8 @@ func (v UserCompetition) AsUserEliminationCompetition() (UserEliminationCompetit
 	var zero UserEliminationCompetition
 	return zero, false
 }
+
+// AsUnknownUserCompetition returns the UnknownUserCompetition variant and whether it is set.
 func (v UserCompetition) AsUnknownUserCompetition() (UnknownUserCompetition, bool) {
 	if v.UnknownUserCompetition != nil {
 		return *v.UnknownUserCompetition, true
@@ -8443,6 +8905,7 @@ func (v UserCompetition) AsUnknownUserCompetition() (UnknownUserCompetition, boo
 	return zero, false
 }
 
+// UserCompetitionBasket is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompetitionBasket struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -8463,6 +8926,7 @@ func (v UserCompetitionBasket) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompetitionBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompetitionBundle struct {
 	Competition *UserCompetition `json:"competition"`
 }
@@ -8481,6 +8945,7 @@ func (v UserCompetitionBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCompetitionHp is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCompetitionHp struct {
 	Current *uint64                    `json:"current"`
 	Maximum *uint64                    `json:"maximum"`
@@ -8501,6 +8966,7 @@ func (v UserCompetitionHp) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCooldowns is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCooldowns struct {
 	Booster *uint64                    `json:"booster"`
 	Drug    *uint64                    `json:"drug"`
@@ -8522,6 +8988,7 @@ func (v UserCooldowns) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCooldownsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCooldownsBundle struct {
 	Cooldowns UserCooldowns `json:"cooldowns"`
 }
@@ -8540,6 +9007,7 @@ func (v UserCooldownsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeAttemptSubcrime is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeAttemptSubcrime struct {
 	ID      *uint64                    `json:"id"`
 	Total   *uint64                    `json:"total"`
@@ -8562,6 +9030,7 @@ func (v UserCrimeAttemptSubcrime) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeAttempts is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeAttempts struct {
 	Total        *uint64                    `json:"total"`
 	Success      *uint64                    `json:"success"`
@@ -8585,6 +9054,7 @@ func (v UserCrimeAttempts) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeMiscellaneous is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeMiscellaneous struct {
 	Fields map[string]DynamicValue `json:"-"`
 }
@@ -8603,6 +9073,7 @@ func (v UserCrimeMiscellaneous) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeRewardAmmo is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeRewardAmmo struct {
 	Standard *uint64                    `json:"standard"`
 	Special  *uint64                    `json:"special"`
@@ -8623,6 +9094,7 @@ func (v UserCrimeRewardAmmo) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeRewardItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeRewardItem struct {
 	ID     *uint64                    `json:"id"`
 	Amount *uint64                    `json:"amount"`
@@ -8643,6 +9115,7 @@ func (v UserCrimeRewardItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeRewards is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeRewards struct {
 	Money *uint64                    `json:"money"`
 	Ammo  *UserCrimeRewardAmmo       `json:"ammo"`
@@ -8664,6 +9137,7 @@ func (v UserCrimeRewards) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeSummary struct {
 	NerveSpent       *uint64                    `json:"nerve_spent"`
 	Skill            *uint64                    `json:"skill"`
@@ -8689,6 +9163,7 @@ func (v UserCrimeSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeUnique is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeUnique struct {
 	ID      *uint64                    `json:"id"`
 	Rewards *UserCrimeUniqueRewards    `json:"rewards"`
@@ -8709,6 +9184,7 @@ func (v UserCrimeUnique) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimeUniqueRewards is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimeUniqueRewards struct {
 	Money *uint64                    `json:"money"`
 	Ammo  *UserCrimeRewardAmmo       `json:"ammo"`
@@ -8730,6 +9206,7 @@ func (v UserCrimeUniqueRewards) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCrimesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCrimesBundle struct {
 	Crimes UserCrimeSummary `json:"crimes"`
 }
@@ -8748,6 +9225,7 @@ func (v UserCrimesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCriminalRecord is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCriminalRecord struct {
 	Vandalism         *uint64                    `json:"vandalism"`
 	Theft             *uint64                    `json:"theft"`
@@ -8775,6 +9253,7 @@ func (v UserCriminalRecord) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCriminalRecordBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCriminalRecordBundle struct {
 	Criminalrecord UserCriminalRecord `json:"criminalrecord"`
 }
@@ -8793,6 +9272,7 @@ func (v UserCriminalRecordBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserCurrentEducation is a lenient compatibility model (see COMPATIBILITY.md).
 type UserCurrentEducation struct {
 	ID    *uint64                    `json:"id"`
 	Until *uint64                    `json:"until"`
@@ -8813,6 +9293,7 @@ func (v UserCurrentEducation) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserDiscord is a lenient compatibility model (see COMPATIBILITY.md).
 type UserDiscord struct {
 	DiscordID *string                    `json:"discord_id"`
 	UserID    *uint64                    `json:"user_id"`
@@ -8833,6 +9314,7 @@ func (v UserDiscord) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserDiscordBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserDiscordBundle struct {
 	Discord UserDiscord `json:"discord"`
 }
@@ -8851,6 +9333,7 @@ func (v UserDiscordBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserDisplayBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserDisplayBundle struct {
 	Display []UserLegacyItemSummary    `json:"display"`
 	Extra   map[string]json.RawMessage `json:"-"`
@@ -8870,6 +9353,7 @@ func (v UserDisplayBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEasterCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEasterCompetition struct {
 	Name  *string                    `json:"name"`
 	Score *uint64                    `json:"score"`
@@ -8891,6 +9375,7 @@ func (v UserEasterCompetition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEducation is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEducation struct {
 	Complete []uint64                   `json:"complete"`
 	Current  *UserCurrentEducation      `json:"current"`
@@ -8911,6 +9396,7 @@ func (v UserEducation) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEducationBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEducationBundle struct {
 	Education UserEducation `json:"education"`
 }
@@ -8929,6 +9415,7 @@ func (v UserEducationBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEliminationCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEliminationCompetition struct {
 	Name    *string                    `json:"name"`
 	Score   *uint64                    `json:"score"`
@@ -8951,6 +9438,7 @@ func (v UserEliminationCompetition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEmployment is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEmployment struct {
 	UserCityJob           *UserCityJob           `json:"-"`
 	UserCompanyJob        *UserCompanyJob        `json:"-"`
@@ -8977,6 +9465,8 @@ func (v UserEmployment) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUserCityJob returns the UserCityJob variant and whether it is set.
 func (v UserEmployment) AsUserCityJob() (UserCityJob, bool) {
 	if v.UserCityJob != nil {
 		return *v.UserCityJob, true
@@ -8984,6 +9474,8 @@ func (v UserEmployment) AsUserCityJob() (UserCityJob, bool) {
 	var zero UserCityJob
 	return zero, false
 }
+
+// AsUserCompanyJob returns the UserCompanyJob variant and whether it is set.
 func (v UserEmployment) AsUserCompanyJob() (UserCompanyJob, bool) {
 	if v.UserCompanyJob != nil {
 		return *v.UserCompanyJob, true
@@ -8991,6 +9483,8 @@ func (v UserEmployment) AsUserCompanyJob() (UserCompanyJob, bool) {
 	var zero UserCompanyJob
 	return zero, false
 }
+
+// AsUnknownUserEmployment returns the UnknownUserEmployment variant and whether it is set.
 func (v UserEmployment) AsUnknownUserEmployment() (UnknownUserEmployment, bool) {
 	if v.UnknownUserEmployment != nil {
 		return *v.UnknownUserEmployment, true
@@ -8999,6 +9493,7 @@ func (v UserEmployment) AsUnknownUserEmployment() (UnknownUserEmployment, bool) 
 	return zero, false
 }
 
+// UserEnlistedCar is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEnlistedCar struct {
 	ID           *uint64                    `json:"id"`
 	CarItemID    *uint64                    `json:"car_item_id"`
@@ -9035,6 +9530,7 @@ func (v UserEnlistedCar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEnlistedCarsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEnlistedCarsBundle struct {
 	Enlistedcars []UserEnlistedCar `json:"enlistedcars"`
 }
@@ -9053,6 +9549,7 @@ func (v UserEnlistedCarsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEquipmentAmmo is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEquipmentAmmo struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -9075,6 +9572,7 @@ func (v UserEquipmentAmmo) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEquipmentBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEquipmentBundle struct {
 	Equipment []UserEquipmentItem `json:"equipment"`
 	Clothing  []UserClothingItem  `json:"clothing"`
@@ -9094,6 +9592,7 @@ func (v UserEquipmentBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEquipmentItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEquipmentItem struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -9123,6 +9622,7 @@ func (v UserEquipmentItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEquipmentMod is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEquipmentMod struct {
 	ID          *uint64                    `json:"id"`
 	Name        *string                    `json:"name"`
@@ -9147,6 +9647,7 @@ func (v UserEquipmentMod) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserEvent is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEvent struct {
 	ID        *string                    `json:"id"`
 	Timestamp *uint64                    `json:"timestamp"`
@@ -9165,6 +9666,7 @@ func (v *UserEvent) UnmarshalJSON(data []byte) error {
 }
 func (v UserEvent) MarshalJSON() ([]byte, error) { type plain UserEvent; return encodeStruct(plain(v)) }
 
+// UserEventsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserEventsBundle struct {
 	Events   []UserEvent        `json:"events"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -9184,6 +9686,7 @@ func (v UserEventsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserFaction is a lenient compatibility model (see COMPATIBILITY.md).
 type UserFaction struct {
 	ID            *uint64                    `json:"id"`
 	Name          *string                    `json:"name"`
@@ -9208,6 +9711,7 @@ func (v UserFaction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserFactionBalance is a lenient compatibility model (see COMPATIBILITY.md).
 type UserFactionBalance struct {
 	Money  *int64                     `json:"money"`
 	Points *int64                     `json:"points"`
@@ -9228,6 +9732,7 @@ func (v UserFactionBalance) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserFactionBalanceBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserFactionBalanceBundle struct {
 	FactionBalance *UserFactionBalance `json:"factionBalance"`
 }
@@ -9246,6 +9751,7 @@ func (v UserFactionBalanceBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserFactionBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserFactionBundle struct {
 	Faction UserFaction `json:"faction"`
 }
@@ -9264,6 +9770,7 @@ func (v UserFactionBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserFactionMoney is a lenient compatibility model (see COMPATIBILITY.md).
 type UserFactionMoney struct {
 	Money  *int64                     `json:"money"`
 	Points *int64                     `json:"points"`
@@ -9284,6 +9791,7 @@ func (v UserFactionMoney) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumFeedBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumFeedBundle struct {
 	ForumFeed []UserForumFeedEntry `json:"forumFeed"`
 }
@@ -9302,6 +9810,7 @@ func (v UserForumFeedBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumFeedEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumFeedEntry struct {
 	ThreadID  *uint64                    `json:"thread_id"`
 	PostID    *uint64                    `json:"post_id"`
@@ -9328,6 +9837,7 @@ func (v UserForumFeedEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumFriendsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumFriendsBundle struct {
 	ForumFriends []UserForumFeedEntry `json:"forumFriends"`
 }
@@ -9346,6 +9856,7 @@ func (v UserForumFriendsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumPostsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumPostsBundle struct {
 	ForumPosts []ForumPost        `json:"forumPosts"`
 	Metadata   *PaginatedMetadata `json:"_metadata"`
@@ -9365,6 +9876,7 @@ func (v UserForumPostsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumSubscribedThread is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumSubscribedThread struct {
 	ID      *uint64                         `json:"id"`
 	ForumID *uint64                         `json:"forum_id"`
@@ -9388,6 +9900,7 @@ func (v UserForumSubscribedThread) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumSubscribedThreadPosts is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumSubscribedThreadPosts struct {
 	NewPosts *uint64                    `json:"new"`
 	Total    *uint64                    `json:"total"`
@@ -9408,6 +9921,7 @@ func (v UserForumSubscribedThreadPosts) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumSubscribedThreadsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumSubscribedThreadsBundle struct {
 	ForumSubscribedThreads []UserForumSubscribedThread `json:"forumSubscribedThreads"`
 }
@@ -9426,6 +9940,7 @@ func (v UserForumSubscribedThreadsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserForumThreadsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserForumThreadsBundle struct {
 	ForumThreads []ForumThread      `json:"forumThreads"`
 	Metadata     *PaginatedMetadata `json:"_metadata"`
@@ -9445,6 +9960,7 @@ func (v UserForumThreadsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserGymBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserGymBundle struct {
 	ActiveGym *uint64                    `json:"active_gym"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -9464,6 +9980,7 @@ func (v UserGymBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHalloweenCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHalloweenCompetition struct {
 	Name            *string                    `json:"name"`
 	TreatsCollected *uint64                    `json:"treats_collected"`
@@ -9485,6 +10002,7 @@ func (v UserHalloweenCompetition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHofBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHofBundle struct {
 	Hof UserHofStats `json:"hof"`
 }
@@ -9503,6 +10021,7 @@ func (v UserHofBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHofStats is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHofStats struct {
 	Attacks      *UserHofValue              `json:"attacks"`
 	Busts        *UserHofValue              `json:"busts"`
@@ -9536,6 +10055,7 @@ func (v UserHofStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHofValue is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHofValue struct {
 	Value *int64                     `json:"value"`
 	Rank  *uint64                    `json:"rank"`
@@ -9556,6 +10076,7 @@ func (v UserHofValue) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHofValueFloat is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHofValueFloat struct {
 	Value *float64                   `json:"value"`
 	Rank  *uint64                    `json:"rank"`
@@ -9576,6 +10097,7 @@ func (v UserHofValueFloat) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserHonorsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserHonorsBundle struct {
 	Honors []UserAwardUnlock `json:"honors"`
 }
@@ -9594,6 +10116,7 @@ func (v UserHonorsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserIcon is a lenient compatibility model (see COMPATIBILITY.md).
 type UserIcon struct {
 	ID          *uint64                    `json:"id"`
 	Title       *string                    `json:"title"`
@@ -9613,6 +10136,7 @@ func (v *UserIcon) UnmarshalJSON(data []byte) error {
 }
 func (v UserIcon) MarshalJSON() ([]byte, error) { type plain UserIcon; return encodeStruct(plain(v)) }
 
+// UserIconsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserIconsBundle struct {
 	Icons []UserIcon `json:"icons"`
 }
@@ -9631,6 +10155,7 @@ func (v UserIconsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserIdentitySummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserIdentitySummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -9651,6 +10176,7 @@ func (v UserIdentitySummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserInventory is a lenient compatibility model (see COMPATIBILITY.md).
 type UserInventory struct {
 	Items     []UserInventoryItem        `json:"items"`
 	Timestamp *uint64                    `json:"timestamp"`
@@ -9671,6 +10197,7 @@ func (v UserInventory) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserInventoryBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserInventoryBundle struct {
 	Inventory UserInventory               `json:"inventory"`
 	Metadata  *PaginatedMetadataWithTotal `json:"_metadata"`
@@ -9690,6 +10217,7 @@ func (v UserInventoryBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserInventoryItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserInventoryItem struct {
 	ID           *uint64                    `json:"id"`
 	Amount       *uint64                    `json:"amount"`
@@ -9714,6 +10242,7 @@ func (v UserInventoryItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemMarketBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemMarketBundle struct {
 	Itemmarket []UserItemMarketListing `json:"itemmarket"`
 	Metadata   *PaginatedMetadata      `json:"_metadata"`
@@ -9733,6 +10262,7 @@ func (v UserItemMarketBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemMarketItemBonus is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemMarketItemBonus struct {
 	ID          *uint64                    `json:"id"`
 	Title       *string                    `json:"title"`
@@ -9755,6 +10285,7 @@ func (v UserItemMarketItemBonus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemMarketItemDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemMarketItemDetails struct {
 	ID       *uint64                    `json:"id"`
 	Name     *string                    `json:"name"`
@@ -9780,6 +10311,7 @@ func (v UserItemMarketItemDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemMarketItemStats is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemMarketItemStats struct {
 	Damage   *float64                   `json:"damage"`
 	Accuracy *float64                   `json:"accuracy"`
@@ -9802,6 +10334,7 @@ func (v UserItemMarketItemStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemMarketListing is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemMarketListing struct {
 	ID           *uint64                    `json:"id"`
 	Price        *int64                     `json:"price"`
@@ -9827,6 +10360,7 @@ func (v UserItemMarketListing) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserItemModsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserItemModsBundle struct {
 	Itemmods []TornItemMod `json:"itemmods"`
 }
@@ -9845,6 +10379,7 @@ func (v UserItemModsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobBundle struct {
 	Job *UserEmployment `json:"job"`
 }
@@ -9863,6 +10398,7 @@ func (v UserJobBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobPointTotals is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobPointTotals struct {
 	Army      *uint64                    `json:"army"`
 	Casino    *uint64                    `json:"casino"`
@@ -9887,6 +10423,7 @@ func (v UserJobPointTotals) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobPoints is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobPoints struct {
 	Jobs      *UserJobPointTotals        `json:"jobs"`
 	Companies []UserCompanyPoints        `json:"companies"`
@@ -9907,6 +10444,7 @@ func (v UserJobPoints) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobPointsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobPointsBundle struct {
 	Jobpoints UserJobPoints `json:"jobpoints"`
 }
@@ -9925,6 +10463,7 @@ func (v UserJobPointsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobRanks is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobRanks struct {
 	Army      *string                    `json:"army"`
 	Grocer    *string                    `json:"grocer"`
@@ -9949,6 +10488,7 @@ func (v UserJobRanks) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserJobRanksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserJobRanksBundle struct {
 	Jobranks UserJobRanks `json:"jobranks"`
 }
@@ -9967,6 +10507,7 @@ func (v UserJobRanksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLastAction is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLastAction struct {
 	Status    *string                    `json:"status"`
 	Relative  *string                    `json:"relative"`
@@ -9988,6 +10529,7 @@ func (v UserLastAction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLegacyItemSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLegacyItemSummary struct {
 	ID          *uint64                    `json:"ID"`
 	Uid         *uint64                    `json:"UID"`
@@ -10014,6 +10556,7 @@ func (v UserLegacyItemSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLifeBar is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLifeBar struct {
 	Increment *uint64                    `json:"increment"`
 	Interval  *uint64                    `json:"interval"`
@@ -10038,6 +10581,7 @@ func (v UserLifeBar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserListBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserListBundle struct {
 	List     []UserListEntry             `json:"list"`
 	Metadata *PaginatedMetadataWithTotal `json:"_metadata"`
@@ -10057,6 +10601,7 @@ func (v UserListBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserListEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type UserListEntry struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -10081,6 +10626,7 @@ func (v UserListEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLogBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLogBundle struct {
 	Log      []UserLogEntry     `json:"log"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -10100,6 +10646,7 @@ func (v UserLogBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLogDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLogDetails struct {
 	ID       *uint64                    `json:"id"`
 	Title    *string                    `json:"title"`
@@ -10121,6 +10668,7 @@ func (v UserLogDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLogEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLogEntry struct {
 	ID        *string                    `json:"id"`
 	Timestamp *uint64                    `json:"timestamp"`
@@ -10144,6 +10692,7 @@ func (v UserLogEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserLookupBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserLookupBundle struct {
 	Selections []string                   `json:"selections"`
 	Extra      map[string]json.RawMessage `json:"-"`
@@ -10163,6 +10712,7 @@ func (v UserLookupBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMedalsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMedalsBundle struct {
 	Medals []UserAwardUnlock `json:"medals"`
 }
@@ -10181,6 +10731,7 @@ func (v UserMedalsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMeritUpgrade is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMeritUpgrade struct {
 	ID    *uint64                    `json:"id"`
 	Level *uint64                    `json:"level"`
@@ -10201,6 +10752,7 @@ func (v UserMeritUpgrade) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMerits is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMerits struct {
 	Upgrades  []UserMeritUpgrade         `json:"upgrades"`
 	Available *uint64                    `json:"available"`
@@ -10224,6 +10776,7 @@ func (v UserMerits) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMeritsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMeritsBundle struct {
 	Merits UserMerits `json:"merits"`
 }
@@ -10242,6 +10795,7 @@ func (v UserMeritsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMessage is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMessage struct {
 	ID          *uint64                    `json:"id"`
 	Sender      *UserIdentitySummary       `json:"sender"`
@@ -10267,6 +10821,7 @@ func (v UserMessage) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMessagesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMessagesBundle struct {
 	Messages []UserMessage      `json:"messages"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -10286,6 +10841,7 @@ func (v UserMessagesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionContract is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionContract struct {
 	Title       *string                     `json:"title"`
 	Difficulty  *string                     `json:"difficulty"`
@@ -10312,6 +10868,7 @@ func (v UserMissionContract) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionContractRewards is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionContractRewards struct {
 	Money   *int64                     `json:"money"`
 	Credits *uint64                    `json:"credits"`
@@ -10332,6 +10889,7 @@ func (v UserMissionContractRewards) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionGiver is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionGiver struct {
 	ID        *uint64                    `json:"id"`
 	Name      *string                    `json:"name"`
@@ -10353,6 +10911,7 @@ func (v UserMissionGiver) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionReward is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionReward struct {
 	RewardType *string                    `json:"type"`
 	Details    *UserMissionRewardDetails  `json:"details"`
@@ -10376,6 +10935,7 @@ func (v UserMissionReward) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionRewardDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionRewardDetails struct {
 	ID         *uint64                    `json:"id"`
 	Name       *string                    `json:"name"`
@@ -10398,6 +10958,7 @@ func (v UserMissionRewardDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissions is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissions struct {
 	Credits *uint64                    `json:"credits"`
 	Givers  []UserMissionGiver         `json:"givers"`
@@ -10419,6 +10980,7 @@ func (v UserMissions) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMissionsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMissionsBundle struct {
 	Missions UserMissions `json:"missions"`
 }
@@ -10437,6 +10999,7 @@ func (v UserMissionsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserMoney is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMoney struct {
 	Wallet        *int64                     `json:"wallet"`
 	Vault         *int64                     `json:"vault"`
@@ -10460,6 +11023,7 @@ func (v *UserMoney) UnmarshalJSON(data []byte) error {
 }
 func (v UserMoney) MarshalJSON() ([]byte, error) { type plain UserMoney; return encodeStruct(plain(v)) }
 
+// UserMoneyBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserMoneyBundle struct {
 	Money UserMoney `json:"money"`
 }
@@ -10478,6 +11042,7 @@ func (v UserMoneyBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNetworth is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNetworth struct {
 	Pending      *int64                     `json:"pending"`
 	Wallet       *int64                     `json:"wallet"`
@@ -10519,6 +11084,7 @@ func (v UserNetworth) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNetworthBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNetworthBundle struct {
 	Networth UserNetworth `json:"networth"`
 }
@@ -10537,6 +11103,7 @@ func (v UserNetworthBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNewEventsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNewEventsBundle struct {
 	Events []UserEvent `json:"events"`
 }
@@ -10555,6 +11122,7 @@ func (v UserNewEventsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNewMessagesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNewMessagesBundle struct {
 	Messages []UserMessage `json:"messages"`
 }
@@ -10573,6 +11141,7 @@ func (v UserNewMessagesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNotifications is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNotifications struct {
 	Messages    *uint64                    `json:"messages"`
 	Events      *uint64                    `json:"events"`
@@ -10595,6 +11164,7 @@ func (v UserNotifications) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserNotificationsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserNotificationsBundle struct {
 	Notifications UserNotifications `json:"notifications"`
 }
@@ -10613,6 +11183,7 @@ func (v UserNotificationsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrime is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrime struct {
 	ID              *uint64                    `json:"id"`
 	PreviousCrimeID *uint64                    `json:"previous_crime_id"`
@@ -10643,6 +11214,7 @@ func (v UserOrganizedCrime) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeBundle struct {
 	OrganizedCrime *UserOrganizedCrimeSelection `json:"organizedCrime"`
 }
@@ -10661,6 +11233,7 @@ func (v UserOrganizedCrimeBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeError is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeError struct {
 	Code  *uint64                    `json:"code"`
 	Error *string                    `json:"error"`
@@ -10681,6 +11254,7 @@ func (v UserOrganizedCrimeError) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeItemRequirement is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeItemRequirement struct {
 	ID          *uint64                    `json:"id"`
 	IsReusable  *bool                      `json:"is_reusable"`
@@ -10702,6 +11276,7 @@ func (v UserOrganizedCrimeItemRequirement) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimePositionInfo is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimePositionInfo struct {
 	ID     *string                    `json:"id"`
 	Label  *string                    `json:"label"`
@@ -10723,6 +11298,7 @@ func (v UserOrganizedCrimePositionInfo) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeRewardItem is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeRewardItem struct {
 	ID     *uint64                    `json:"id"`
 	Amount *uint64                    `json:"amount"`
@@ -10743,6 +11319,7 @@ func (v UserOrganizedCrimeRewardItem) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeRewards is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeRewards struct {
 	Money   *int64                         `json:"money"`
 	Respect *int64                         `json:"respect"`
@@ -10764,6 +11341,7 @@ func (v UserOrganizedCrimeRewards) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeSelection is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeSelection struct {
 	UserOrganizedCrime      **UserOrganizedCrime     `json:"-"`
 	UserOrganizedCrimeError *UserOrganizedCrimeError `json:"-"`
@@ -10786,6 +11364,8 @@ func (v UserOrganizedCrimeSelection) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUserOrganizedCrime returns the UserOrganizedCrime variant and whether it is set.
 func (v UserOrganizedCrimeSelection) AsUserOrganizedCrime() (*UserOrganizedCrime, bool) {
 	if v.UserOrganizedCrime != nil {
 		return *v.UserOrganizedCrime, true
@@ -10793,6 +11373,8 @@ func (v UserOrganizedCrimeSelection) AsUserOrganizedCrime() (*UserOrganizedCrime
 	var zero *UserOrganizedCrime
 	return zero, false
 }
+
+// AsUserOrganizedCrimeError returns the UserOrganizedCrimeError variant and whether it is set.
 func (v UserOrganizedCrimeSelection) AsUserOrganizedCrimeError() (UserOrganizedCrimeError, bool) {
 	if v.UserOrganizedCrimeError != nil {
 		return *v.UserOrganizedCrimeError, true
@@ -10801,6 +11383,7 @@ func (v UserOrganizedCrimeSelection) AsUserOrganizedCrimeError() (UserOrganizedC
 	return zero, false
 }
 
+// UserOrganizedCrimeSlot is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeSlot struct {
 	Position           *string                            `json:"position"`
 	PositionInfo       *UserOrganizedCrimePositionInfo    `json:"position_info"`
@@ -10824,6 +11407,7 @@ func (v UserOrganizedCrimeSlot) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserOrganizedCrimeUser is a lenient compatibility model (see COMPATIBILITY.md).
 type UserOrganizedCrimeUser struct {
 	Outcome     *string                    `json:"outcome"`
 	ID          *uint64                    `json:"id"`
@@ -10847,6 +11431,7 @@ func (v UserOrganizedCrimeUser) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPerksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPerksBundle struct {
 	FactionPerks   []string                   `json:"faction_perks"`
 	JobPerks       []string                   `json:"job_perks"`
@@ -10873,6 +11458,7 @@ func (v UserPerksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPersonalStatPoint is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPersonalStatPoint struct {
 	Name      *string                    `json:"name"`
 	Value     *int64                     `json:"value"`
@@ -10894,6 +11480,7 @@ func (v UserPersonalStatPoint) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPersonalStatsBucket is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPersonalStatsBucket struct {
 	Stats map[string]DynamicValue `json:"-"`
 }
@@ -10912,6 +11499,7 @@ func (v UserPersonalStatsBucket) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPersonalStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPersonalStatsBundle struct {
 	Personalstats *UserPersonalStatsSelection `json:"personalstats"`
 }
@@ -10930,6 +11518,7 @@ func (v UserPersonalStatsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPersonalStatsCategory is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPersonalStatsCategory struct {
 	Attacking *UserPersonalStatsBucket   `json:"attacking"`
 	Jobs      *UserPersonalStatsBucket   `json:"jobs"`
@@ -10957,6 +11546,7 @@ func (v UserPersonalStatsCategory) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPersonalStatsSelection is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPersonalStatsSelection struct {
 	UserPersonalStatsCategory **UserPersonalStatsCategory `json:"-"`
 	Array                     *[]UserPersonalStatPoint    `json:"-"`
@@ -11000,6 +11590,8 @@ func (v UserPersonalStatsSelection) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUserPersonalStatsCategory returns the UserPersonalStatsCategory variant and whether it is set.
 func (v UserPersonalStatsSelection) AsUserPersonalStatsCategory() (*UserPersonalStatsCategory, bool) {
 	if v.UserPersonalStatsCategory != nil {
 		return *v.UserPersonalStatsCategory, true
@@ -11007,6 +11599,8 @@ func (v UserPersonalStatsSelection) AsUserPersonalStatsCategory() (*UserPersonal
 	var zero *UserPersonalStatsCategory
 	return zero, false
 }
+
+// AsArray returns the Array variant and whether it is set.
 func (v UserPersonalStatsSelection) AsArray() ([]UserPersonalStatPoint, bool) {
 	if v.Array != nil {
 		return *v.Array, true
@@ -11014,6 +11608,8 @@ func (v UserPersonalStatsSelection) AsArray() ([]UserPersonalStatPoint, bool) {
 	var zero []UserPersonalStatPoint
 	return zero, false
 }
+
+// AsRaw returns the Raw variant and whether it is set.
 func (v UserPersonalStatsSelection) AsRaw() (json.RawMessage, bool) {
 	if v.Raw != nil {
 		return *v.Raw, true
@@ -11022,6 +11618,7 @@ func (v UserPersonalStatsSelection) AsRaw() (json.RawMessage, bool) {
 	return zero, false
 }
 
+// UserProfile is a lenient compatibility model (see COMPATIBILITY.md).
 type UserProfile struct {
 	DonatorStatus *models.UserDonatorStatusEnum `json:"donator_status"`
 	ReviveSetting *models.ReviveSetting         `json:"revive_setting"`
@@ -11052,6 +11649,7 @@ func (v UserProfile) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserProfileBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserProfileBundle struct {
 	Profile UserProfile `json:"profile"`
 }
@@ -11070,6 +11668,7 @@ func (v UserProfileBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertiesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertiesBundle struct {
 	Properties []UserPropertySummary `json:"properties"`
 	Metadata   *PaginatedMetadata    `json:"_metadata"`
@@ -11089,6 +11688,7 @@ func (v UserPropertiesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertyBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertyBundle struct {
 	Property UserPropertySummary `json:"property"`
 }
@@ -11107,6 +11707,7 @@ func (v UserPropertyBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertyKind is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertyKind struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -11127,6 +11728,7 @@ func (v UserPropertyKind) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertyLeaseExtension is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertyLeaseExtension struct {
 	Cost      *int64                     `json:"cost"`
 	Period    *uint64                    `json:"period"`
@@ -11148,6 +11750,7 @@ func (v UserPropertyLeaseExtension) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertyStaffEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertyStaffEntry struct {
 	StaffType *string                    `json:"type"`
 	Amount    *uint64                    `json:"amount"`
@@ -11168,6 +11771,7 @@ func (v UserPropertyStaffEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertySummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertySummary struct {
 	ID                    *uint64                     `json:"id"`
 	Owner                 *UserIdentitySummary        `json:"owner"`
@@ -11203,6 +11807,7 @@ func (v UserPropertySummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserPropertyUpkeep is a lenient compatibility model (see COMPATIBILITY.md).
 type UserPropertyUpkeep struct {
 	PropertyCost *int64                     `json:"property"`
 	Staff        *int64                     `json:"staff"`
@@ -11223,6 +11828,7 @@ func (v UserPropertyUpkeep) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRace is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRace struct {
 	ID           *uint64                    `json:"id"`
 	Title        *string                    `json:"title"`
@@ -11250,6 +11856,7 @@ func (v *UserRace) UnmarshalJSON(data []byte) error {
 }
 func (v UserRace) MarshalJSON() ([]byte, error) { type plain UserRace; return encodeStruct(plain(v)) }
 
+// UserRaceParticipants is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRaceParticipants struct {
 	Minimum *uint64                    `json:"minimum"`
 	Maximum *uint64                    `json:"maximum"`
@@ -11271,6 +11878,7 @@ func (v UserRaceParticipants) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRaceRequirements is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRaceRequirements struct {
 	DriverClass      *string                    `json:"driver_class"`
 	CarClass         *string                    `json:"car_class"`
@@ -11295,6 +11903,7 @@ func (v UserRaceRequirements) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRaceResult is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRaceResult struct {
 	DriverID    *uint64                    `json:"driver_id"`
 	Position    *uint64                    `json:"position"`
@@ -11323,6 +11932,7 @@ func (v UserRaceResult) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRaceSchedule is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRaceSchedule struct {
 	JoinFrom  *uint64                    `json:"join_from"`
 	JoinUntil *uint64                    `json:"join_until"`
@@ -11345,6 +11955,7 @@ func (v UserRaceSchedule) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRaceTrackSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRaceTrackSummary struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -11365,6 +11976,7 @@ func (v UserRaceTrackSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRacesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRacesBundle struct {
 	Races    []UserRace         `json:"races"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -11384,6 +11996,7 @@ func (v UserRacesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRacingLapRecord is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRacingLapRecord struct {
 	CarID   *uint64                    `json:"car_id"`
 	CarName *string                    `json:"car_name"`
@@ -11405,6 +12018,7 @@ func (v UserRacingLapRecord) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRacingRecordSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRacingRecordSummary struct {
 	Track   *UserRaceTrackSummary      `json:"track"`
 	Records []UserRacingLapRecord      `json:"records"`
@@ -11425,6 +12039,7 @@ func (v UserRacingRecordSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRacingRecordsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRacingRecordsBundle struct {
 	Racingrecords []UserRacingRecordSummary `json:"racingrecords"`
 }
@@ -11443,6 +12058,7 @@ func (v UserRacingRecordsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRefills is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRefills struct {
 	Energy       *bool                      `json:"energy"`
 	Nerve        *bool                      `json:"nerve"`
@@ -11465,6 +12081,7 @@ func (v UserRefills) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRefillsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRefillsBundle struct {
 	Refills UserRefills `json:"refills"`
 }
@@ -11483,6 +12100,7 @@ func (v UserRefillsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReportDetails is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReportDetails struct {
 	Fields map[string]DynamicValue `json:"-"`
 }
@@ -11501,6 +12119,7 @@ func (v UserReportDetails) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReportSummary is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReportSummary struct {
 	ReportType *string                    `json:"type"`
 	TargetID   *uint64                    `json:"target_id"`
@@ -11525,6 +12144,7 @@ func (v UserReportSummary) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReportsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReportsBundle struct {
 	Reports  []UserReportSummary `json:"reports"`
 	Metadata *PaginatedMetadata  `json:"_metadata"`
@@ -11544,6 +12164,7 @@ func (v UserReportsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserResourceBar is a lenient compatibility model (see COMPATIBILITY.md).
 type UserResourceBar struct {
 	Increment *uint64                    `json:"increment"`
 	Interval  *uint64                    `json:"interval"`
@@ -11568,6 +12189,7 @@ func (v UserResourceBar) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRevive is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRevive struct {
 	ID            *uint64                    `json:"id"`
 	Reviver       *UserReviveReviver         `json:"reviver"`
@@ -11592,6 +12214,7 @@ func (v UserRevive) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReviveFull is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReviveFull struct {
 	ID            *uint64                    `json:"id"`
 	Reviver       *UserReviveReviver         `json:"reviver"`
@@ -11616,6 +12239,7 @@ func (v UserReviveFull) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReviveLastAction is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReviveLastAction struct {
 	UserLastAction *UserLastAction  `json:"-"`
 	Uint64         *uint64          `json:"-"`
@@ -11659,6 +12283,8 @@ func (v UserReviveLastAction) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsUserLastAction returns the UserLastAction variant and whether it is set.
 func (v UserReviveLastAction) AsUserLastAction() (UserLastAction, bool) {
 	if v.UserLastAction != nil {
 		return *v.UserLastAction, true
@@ -11666,6 +12292,8 @@ func (v UserReviveLastAction) AsUserLastAction() (UserLastAction, bool) {
 	var zero UserLastAction
 	return zero, false
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v UserReviveLastAction) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -11673,6 +12301,8 @@ func (v UserReviveLastAction) AsUint64() (uint64, bool) {
 	var zero uint64
 	return zero, false
 }
+
+// AsRaw returns the Raw variant and whether it is set.
 func (v UserReviveLastAction) AsRaw() (json.RawMessage, bool) {
 	if v.Raw != nil {
 		return *v.Raw, true
@@ -11681,6 +12311,7 @@ func (v UserReviveLastAction) AsRaw() (json.RawMessage, bool) {
 	return zero, false
 }
 
+// UserReviveReviver is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReviveReviver struct {
 	ID        *uint64                    `json:"id"`
 	Name      *string                    `json:"name"`
@@ -11704,6 +12335,7 @@ func (v UserReviveReviver) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserReviveTarget is a lenient compatibility model (see COMPATIBILITY.md).
 type UserReviveTarget struct {
 	ID             *uint64                    `json:"id"`
 	Name           *string                    `json:"name"`
@@ -11730,6 +12362,7 @@ func (v UserReviveTarget) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRevivesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRevivesBundle struct {
 	Revives  []UserRevive       `json:"revives"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -11749,6 +12382,7 @@ func (v UserRevivesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRevivesFullBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRevivesFullBundle struct {
 	Revives  []UserReviveFull   `json:"revives"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -11768,6 +12402,7 @@ func (v UserRevivesFullBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserRpsCompetition is a lenient compatibility model (see COMPATIBILITY.md).
 type UserRpsCompetition struct {
 	Name   *string                    `json:"name"`
 	Status *string                    `json:"status"`
@@ -11789,6 +12424,7 @@ func (v UserRpsCompetition) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserSkill is a lenient compatibility model (see COMPATIBILITY.md).
 type UserSkill struct {
 	Slug  *string                    `json:"slug"`
 	Name  *string                    `json:"name"`
@@ -11807,6 +12443,7 @@ func (v *UserSkill) UnmarshalJSON(data []byte) error {
 }
 func (v UserSkill) MarshalJSON() ([]byte, error) { type plain UserSkill; return encodeStruct(plain(v)) }
 
+// UserSkillsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserSkillsBundle struct {
 	Skills []UserSkill `json:"skills"`
 }
@@ -11825,6 +12462,7 @@ func (v UserSkillsBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserStatus is a lenient compatibility model (see COMPATIBILITY.md).
 type UserStatus struct {
 	State          *string                    `json:"state"`
 	Color          *string                    `json:"color"`
@@ -11849,6 +12487,7 @@ func (v UserStatus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserStockBonus is a lenient compatibility model (see COMPATIBILITY.md).
 type UserStockBonus struct {
 	Available *bool                      `json:"available"`
 	Increment *uint64                    `json:"increment"`
@@ -11871,6 +12510,7 @@ func (v UserStockBonus) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserStockHolding is a lenient compatibility model (see COMPATIBILITY.md).
 type UserStockHolding struct {
 	ID           *uint64                    `json:"id"`
 	Shares       *int64                     `json:"shares"`
@@ -11893,6 +12533,7 @@ func (v UserStockHolding) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserStockTransaction is a lenient compatibility model (see COMPATIBILITY.md).
 type UserStockTransaction struct {
 	ID        *uint64                    `json:"id"`
 	Shares    *int64                     `json:"shares"`
@@ -11915,6 +12556,7 @@ func (v UserStockTransaction) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserStocksBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserStocksBundle struct {
 	Stocks []UserStockHolding `json:"stocks"`
 }
@@ -11933,6 +12575,7 @@ func (v UserStocksBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTimestampBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTimestampBundle struct {
 	Timestamp *uint64                    `json:"timestamp"`
 	Extra     map[string]json.RawMessage `json:"-"`
@@ -11952,6 +12595,7 @@ func (v UserTimestampBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTrade is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTrade struct {
 	CompletedAt *uint64                    `json:"completed_at"`
 	ExpiresAt   *uint64                    `json:"expires_at"`
@@ -11975,6 +12619,7 @@ func (v *UserTrade) UnmarshalJSON(data []byte) error {
 }
 func (v UserTrade) MarshalJSON() ([]byte, error) { type plain UserTrade; return encodeStruct(plain(v)) }
 
+// UserTradeBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTradeBundle struct {
 	Trade UserTradeDetailed `json:"trade"`
 }
@@ -11993,6 +12638,7 @@ func (v UserTradeBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTradeDetailed is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTradeDetailed struct {
 	CompletedAt *uint64                    `json:"completed_at"`
 	ExpiresAt   *uint64                    `json:"expires_at"`
@@ -12021,6 +12667,7 @@ func (v UserTradeDetailed) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTradeParticipant is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTradeParticipant struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -12041,6 +12688,7 @@ func (v UserTradeParticipant) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTradeTimestamp is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTradeTimestamp struct {
 	Null   *Null            `json:"-"`
 	Uint64 *uint64          `json:"-"`
@@ -12095,6 +12743,8 @@ func (v UserTradeTimestamp) MarshalJSON() ([]byte, error) {
 	}
 	return []byte("null"), nil
 }
+
+// AsNull returns the Null variant and whether it is set.
 func (v UserTradeTimestamp) AsNull() (Null, bool) {
 	if v.Null != nil {
 		return *v.Null, true
@@ -12102,6 +12752,8 @@ func (v UserTradeTimestamp) AsNull() (Null, bool) {
 	var zero Null
 	return zero, false
 }
+
+// AsUint64 returns the Uint64 variant and whether it is set.
 func (v UserTradeTimestamp) AsUint64() (uint64, bool) {
 	if v.Uint64 != nil {
 		return *v.Uint64, true
@@ -12109,6 +12761,8 @@ func (v UserTradeTimestamp) AsUint64() (uint64, bool) {
 	var zero uint64
 	return zero, false
 }
+
+// AsBool returns the Bool variant and whether it is set.
 func (v UserTradeTimestamp) AsBool() (bool, bool) {
 	if v.Bool != nil {
 		return *v.Bool, true
@@ -12116,6 +12770,8 @@ func (v UserTradeTimestamp) AsBool() (bool, bool) {
 	var zero bool
 	return zero, false
 }
+
+// AsRaw returns the Raw variant and whether it is set.
 func (v UserTradeTimestamp) AsRaw() (json.RawMessage, bool) {
 	if v.Raw != nil {
 		return *v.Raw, true
@@ -12124,6 +12780,7 @@ func (v UserTradeTimestamp) AsRaw() (json.RawMessage, bool) {
 	return zero, false
 }
 
+// UserTradesBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTradesBundle struct {
 	Trades   []UserTrade        `json:"trades"`
 	Metadata *PaginatedMetadata `json:"_metadata"`
@@ -12143,6 +12800,7 @@ func (v UserTradesBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTravel is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTravel struct {
 	Destination *string                    `json:"destination"`
 	Method      *string                    `json:"method"`
@@ -12166,6 +12824,7 @@ func (v UserTravel) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserTravelBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserTravelBundle struct {
 	Travel UserTravel `json:"travel"`
 }
@@ -12184,6 +12843,7 @@ func (v UserTravelBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserWeaponExpBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserWeaponExpBundle struct {
 	Weaponexp []UserWeaponExpEntry `json:"weaponexp"`
 }
@@ -12202,6 +12862,7 @@ func (v UserWeaponExpBundle) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserWeaponExpEntry is a lenient compatibility model (see COMPATIBILITY.md).
 type UserWeaponExpEntry struct {
 	ID    *uint64                    `json:"id"`
 	Name  *string                    `json:"name"`
@@ -12223,6 +12884,7 @@ func (v UserWeaponExpEntry) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserWorkStats is a lenient compatibility model (see COMPATIBILITY.md).
 type UserWorkStats struct {
 	Endurance    *uint64                    `json:"endurance"`
 	Intelligence *uint64                    `json:"intelligence"`
@@ -12245,6 +12907,7 @@ func (v UserWorkStats) MarshalJSON() ([]byte, error) {
 	return encodeStruct(plain(v))
 }
 
+// UserWorkStatsBundle is a lenient compatibility model (see COMPATIBILITY.md).
 type UserWorkStatsBundle struct {
 	Workstats UserWorkStats `json:"workstats"`
 }
@@ -12262,8 +12925,14 @@ func (v UserWorkStatsBundle) MarshalJSON() ([]byte, error) {
 	type plain UserWorkStatsBundle
 	return encodeStruct(plain(v))
 }
-func (v CompanyProfileBundle) Profile() CompanyProfile          { return v.Company }
+
+// Profile returns the company profile.
+func (v CompanyProfileBundle) Profile() CompanyProfile { return v.Company }
+
+// Get returns one report field.
 func (v UserReportDetails) Get(key string) (DynamicValue, bool) { x, ok := v.Fields[key]; return x, ok }
+
+// Get returns one personal stat.
 func (v UserPersonalStatsBucket) Get(key string) (DynamicValue, bool) {
 	x, ok := v.Stats[key]
 	return x, ok

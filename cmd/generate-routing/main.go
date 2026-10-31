@@ -274,6 +274,26 @@ func main() {
 			typed++
 		}
 	}
+	// v1-only selections without a capability entry (and therefore without a
+	// published schema) get raw helpers so every catalogued name is reachable.
+	for _, l := range legacyCatalog {
+		if !l.LegacyOnly {
+			continue
+		}
+		covered := false
+		for _, c := range catalog {
+			if c.Resource == l.Resource && c.Name == l.Name {
+				covered = true
+			}
+		}
+		if covered {
+			continue
+		}
+		n := exported(l.Resource) + exported(l.Name)
+		fmt.Fprintf(&out, "// Raw%s requests the v1-only %s/%s selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).\n", n, l.Resource, l.Name)
+		fmt.Fprintf(&out, "func(c *Client) Raw%s(ctx context.Context,params map[string]any,opts RequestOptions)(ExecutionResult,error){return c.RawSelections(ctx,%q,[]string{%q},params,opts)}\n", n, l.Resource, l.Name)
+		raw++
+	}
 	fmt.Fprintln(&out, `// CompanyDetailed is an alias of CompanyProfile.
 func(c *Client) CompanyDetailed(ctx context.Context,params map[string]any,opts RequestOptions)(compat.CompanyDetailedBundle,ExecutionReport,error){return c.CompanyProfile(ctx,params,opts)}
 // TornStock requests torn/stocks for one stock id.

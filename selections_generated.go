@@ -2600,6 +2600,101 @@ func (c *Client) UserWorkstats(ctx context.Context, params map[string]any, opts 
 	return Fetch(ctx, c, UserSelections.Workstats, params, opts)
 }
 
+// RawFactionArmorynews requests the v1-only faction/armorynews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionArmorynews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"armorynews"}, params, opts)
+}
+
+// RawFactionAttacknews requests the v1-only faction/attacknews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionAttacknews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"attacknews"}, params, opts)
+}
+
+// RawFactionCrimenews requests the v1-only faction/crimenews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionCrimenews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"crimenews"}, params, opts)
+}
+
+// RawFactionCurrency requests the v1-only faction/currency selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionCurrency(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"currency"}, params, opts)
+}
+
+// RawFactionDonations requests the v1-only faction/donations selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionDonations(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"donations"}, params, opts)
+}
+
+// RawFactionFundsnews requests the v1-only faction/fundsnews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionFundsnews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"fundsnews"}, params, opts)
+}
+
+// RawFactionMainnews requests the v1-only faction/mainnews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionMainnews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"mainnews"}, params, opts)
+}
+
+// RawFactionMembershipnews requests the v1-only faction/membershipnews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionMembershipnews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"membershipnews"}, params, opts)
+}
+
+// RawFactionTerritorynews requests the v1-only faction/territorynews selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawFactionTerritorynews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "faction", []string{"territorynews"}, params, opts)
+}
+
+// RawTornChainreport requests the v1-only torn/chainreport selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornChainreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"chainreport"}, params, opts)
+}
+
+// RawTornDirtybombs requests the v1-only torn/dirtybombs selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornDirtybombs(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"dirtybombs"}, params, opts)
+}
+
+// RawTornRackets requests the v1-only torn/rackets selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornRackets(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"rackets"}, params, opts)
+}
+
+// RawTornRaidreport requests the v1-only torn/raidreport selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornRaidreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"raidreport"}, params, opts)
+}
+
+// RawTornRaids requests the v1-only torn/raids selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornRaids(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"raids"}, params, opts)
+}
+
+// RawTornRankedwarreport requests the v1-only torn/rankedwarreport selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornRankedwarreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"rankedwarreport"}, params, opts)
+}
+
+// RawTornRankedwars requests the v1-only torn/rankedwars selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornRankedwars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"rankedwars"}, params, opts)
+}
+
+// RawTornTerritorynames requests the v1-only torn/territorynames selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornTerritorynames(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"territorynames"}, params, opts)
+}
+
+// RawTornTerritorywarreport requests the v1-only torn/territorywarreport selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornTerritorywarreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"territorywarreport"}, params, opts)
+}
+
+// RawTornTerritorywars requests the v1-only torn/territorywars selection and returns its raw JSON. It stays raw: Torn publishes no schema for v1 payloads (see COVERAGE.md).
+func (c *Client) RawTornTerritorywars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
+	return c.RawSelections(ctx, "torn", []string{"territorywars"}, params, opts)
+}
+
 // CompanyDetailed is an alias of CompanyProfile.
 func (c *Client) CompanyDetailed(ctx context.Context, params map[string]any, opts RequestOptions) (compat.CompanyDetailedBundle, ExecutionReport, error) {
 	return c.CompanyProfile(ctx, params, opts)
