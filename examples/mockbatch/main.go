@@ -15,7 +15,7 @@ type mockTransport struct{ calls int }
 
 func (t *mockTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	t.calls++
-	if r.URL.Path != "/v2/user" || r.URL.Query().Get("selections") != "job,profile" {
+	if r.URL.Path != "/v2/user" || r.URL.Query().Get("selections") != "profile,job" {
 		return nil, fmt.Errorf("unexpected mock batch request")
 	}
 	return &http.Response{StatusCode: 200, Header: http.Header{"Content-Type": {"application/json"}}, Body: io.NopCloser(strings.NewReader(fixture)), Request: r}, nil
