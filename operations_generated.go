@@ -4,8955 +4,10773 @@ package torn
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"github.com/swervelord/Torn-Go-SDK/models"
+	"iter"
+	"sync"
 )
 
 var _ = models.Validate
+var _ iter.Seq[int]
 
 // GetCompanyGenericParams contains documented parameters for GET /company.
 type GetCompanyGenericParams struct {
-	Selections *[]models.CompanySelectionName          `json:"selections,omitempty"`
-	ID         *models.GetCompanyGenericParamID        `json:"id,omitempty"`
-	Legacy     *[]models.CompanySelectionName          `json:"legacy,omitempty"`
-	Cat        *models.GetCompanyGenericParamCat       `json:"cat,omitempty"`
-	Limit      *int64                                  `json:"limit,omitempty"`
-	Striptags  *models.GetCompanyGenericParamStriptags `json:"striptags,omitempty"`
-	Offset     *int64                                  `json:"offset,omitempty"`
-	Timestamp  *models.GetCompanyGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                                 `json:"comment,omitempty"`
-	Key        *string                                 `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.CompanySelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetCompanyGenericParamID `json:"id,omitempty"`
+	// Legacy is the query parameter "legacy".
+	Legacy *[]models.CompanySelectionName `json:"legacy,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat   *models.GetCompanyGenericParamCat `json:"cat,omitempty"`
+	Limit *int64                            `json:"limit,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetCompanyGenericParamStriptags `json:"striptags,omitempty"`
+	Offset    *int64                                  `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetCompanyGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompanyGenericResponse is the decoded 200 response of getCompanyGeneric.
 type GetCompanyGenericResponse = models.GetCompanyGenericResponseBody
 
-// GetCompanyGeneric executes operation getCompanyGeneric using its exact documented path.
+var getCompanyGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/CompanyNewsCategory\"}]},\"comment\":{\"type\":\"string\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/CompanyId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/CompanySelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/CompanySelectionName\"},\"type\":\"array\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetCompanyGeneric executes operation getCompanyGeneric (GET /company; key access: public) using its exact documented path.
 func (c *Client) GetCompanyGeneric(ctx context.Context, params GetCompanyGenericParams, opts ...RequestOptions) (GetCompanyGenericResponse, ExecutionReport, error) {
 	var out GetCompanyGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/CompanyNewsCategory\"}]},\"comment\":{\"type\":\"string\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/CompanyId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/CompanySelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/CompanySelectionName\"},\"type\":\"array\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompanyGeneric parameters: %w", err)
+	if err = getCompanyGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompanyGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompanyGeneric", Path: "/company", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompanyGeneric", "GetCompanyGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCompanyApplicationsParams contains documented parameters for GET /company/applications.
 type GetMyCompanyApplicationsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompanyApplicationsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompanyApplicationsResponse is the decoded 200 response of getMyCompanyApplications.
 type GetMyCompanyApplicationsResponse = models.CompanyApplicationsResponse
 
-// GetMyCompanyApplications executes operation getMyCompanyApplications using its exact documented path.
+var getMyCompanyApplicationsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCompanyApplications executes operation getMyCompanyApplications (GET /company/applications; key access: limited) using its exact documented path.
 func (c *Client) GetMyCompanyApplications(ctx context.Context, params GetMyCompanyApplicationsParams, opts ...RequestOptions) (GetMyCompanyApplicationsResponse, ExecutionReport, error) {
 	var out GetMyCompanyApplicationsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompanyApplications parameters: %w", err)
+	if err = getMyCompanyApplicationsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompanyApplications", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompanyApplications", Path: "/company/applications", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompanyApplications", "CompanyApplicationsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCompanyEmployeesParams contains documented parameters for GET /company/employees.
 type GetMyCompanyEmployeesParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyCompanyEmployeesParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompanyEmployeesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompanyEmployeesResponse is the decoded 200 response of getMyCompanyEmployees.
 type GetMyCompanyEmployeesResponse = models.CompanyEmployeesResponse
 
-// GetMyCompanyEmployees executes operation getMyCompanyEmployees using its exact documented path.
+var getMyCompanyEmployeesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCompanyEmployees executes operation getMyCompanyEmployees (GET /company/employees; key access: public) using its exact documented path.
 func (c *Client) GetMyCompanyEmployees(ctx context.Context, params GetMyCompanyEmployeesParams, opts ...RequestOptions) (GetMyCompanyEmployeesResponse, ExecutionReport, error) {
 	var out GetMyCompanyEmployeesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompanyEmployees parameters: %w", err)
+	if err = getMyCompanyEmployeesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompanyEmployees", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompanyEmployees", Path: "/company/employees", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompanyEmployees", "CompanyEmployeesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompanyLookupParams contains documented parameters for GET /company/lookup.
 type GetCompanyLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompanyLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompanyLookupResponse is the decoded 200 response of getCompanyLookup.
 type GetCompanyLookupResponse = models.CompanyLookupResponse
 
-// GetCompanyLookup executes operation getCompanyLookup using its exact documented path.
+var getCompanyLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetCompanyLookup executes operation getCompanyLookup (GET /company/lookup; key access: public) using its exact documented path.
 func (c *Client) GetCompanyLookup(ctx context.Context, params GetCompanyLookupParams, opts ...RequestOptions) (GetCompanyLookupResponse, ExecutionReport, error) {
 	var out GetCompanyLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompanyLookup parameters: %w", err)
+	if err = getCompanyLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompanyLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompanyLookup", Path: "/company/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompanyLookup", "CompanyLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCompanyNewsParams contains documented parameters for GET /company/news.
 type GetMyCompanyNewsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyCompanyNewsParamStriptags `json:"striptags,omitempty"`
 	Limit     *int64                                 `json:"limit,omitempty"`
-	Sort      *models.GetMyCompanyNewsParamSort      `json:"sort,omitempty"`
-	To        *int64                                 `json:"to,omitempty"`
-	From      *int64                                 `json:"from,omitempty"`
-	Cat       models.CompanyNewsCategory             `json:"cat"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyCompanyNewsParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.CompanyNewsCategory `json:"cat"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompanyNewsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompanyNewsResponse is the decoded 200 response of getMyCompanyNews.
 type GetMyCompanyNewsResponse = models.NewsResponse
 
-// GetMyCompanyNews executes operation getMyCompanyNews using its exact documented path.
+var getMyCompanyNewsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/CompanyNewsCategory\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetMyCompanyNews executes operation getMyCompanyNews (GET /company/news; key access: limited) using its exact documented path.
 func (c *Client) GetMyCompanyNews(ctx context.Context, params GetMyCompanyNewsParams, opts ...RequestOptions) (GetMyCompanyNewsResponse, ExecutionReport, error) {
 	var out GetMyCompanyNewsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/CompanyNewsCategory\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompanyNews parameters: %w", err)
+	if err = getMyCompanyNewsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompanyNews", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompanyNews", Path: "/company/news", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompanyNews", "NewsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyCompanyNewsPager pages through getMyCompanyNews by following _metadata.links (P7.1).
+func (c *Client) GetMyCompanyNewsPager(params GetMyCompanyNewsParams, opts ...PageOptions) *Pager[GetMyCompanyNewsResponse] {
+	return newOperationPager[GetMyCompanyNewsResponse](c, Operation{ID: "getMyCompanyNews", Path: "/company/news", Method: "GET"}, params, "NewsResponse", opts)
+}
+
+// GetMyCompanyNewsItems iterates the "news" items of every getMyCompanyNews page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyCompanyNewsItems(ctx context.Context, params GetMyCompanyNewsParams, opts ...PageOptions) iter.Seq2[models.News, error] {
+	return Items(ctx, c.GetMyCompanyNewsPager(params, opts...), func(page GetMyCompanyNewsResponse) []models.News { return page.News })
 }
 
 // GetMyCompanyProfileParams contains documented parameters for GET /company/profile.
 type GetMyCompanyProfileParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyCompanyProfileParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompanyProfileParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompanyProfileResponse is the decoded 200 response of getMyCompanyProfile.
 type GetMyCompanyProfileResponse = models.CompanyProfileResponseMixed
 
-// GetMyCompanyProfile executes operation getMyCompanyProfile using its exact documented path.
+var getMyCompanyProfileParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCompanyProfile executes operation getMyCompanyProfile (GET /company/profile; key access: public) using its exact documented path.
 func (c *Client) GetMyCompanyProfile(ctx context.Context, params GetMyCompanyProfileParams, opts ...RequestOptions) (GetMyCompanyProfileResponse, ExecutionReport, error) {
 	var out GetMyCompanyProfileResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompanyProfile parameters: %w", err)
+	if err = getMyCompanyProfileParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompanyProfile", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompanyProfile", Path: "/company/profile", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompanyProfile", "CompanyProfileResponseMixed", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompaniesSearchParams contains documented parameters for GET /company/search.
 type GetCompaniesSearchParams struct {
-	Name      *string                                      `json:"name,omitempty"`
-	Filters   *[]models.GetCompaniesSearchParamFiltersItem `json:"filters,omitempty"`
-	Limit     *int64                                       `json:"limit,omitempty"`
-	Offset    *int64                                       `json:"offset,omitempty"`
-	Timestamp *models.GetCompaniesSearchParamTimestamp     `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Name is the query parameter "name".
+	Name *string `json:"name,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.GetCompaniesSearchParamFiltersItem `json:"filters,omitempty"`
+	Limit   *int64                                       `json:"limit,omitempty"`
+	Offset  *int64                                       `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetCompaniesSearchParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompaniesSearchResponse is the decoded 200 response of getCompaniesSearch.
 type GetCompaniesSearchResponse = models.CompaniesSearchResponse
 
-// GetCompaniesSearch executes operation getCompaniesSearch using its exact documented path.
+var getCompaniesSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|type|daysOld|rating|dailyIncome|weeklyIncome|dailyCustomers|weeklyCustomers):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"CompanySearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetCompaniesSearch executes operation getCompaniesSearch (GET /company/search; key access: public) using its exact documented path.
 func (c *Client) GetCompaniesSearch(ctx context.Context, params GetCompaniesSearchParams, opts ...RequestOptions) (GetCompaniesSearchResponse, ExecutionReport, error) {
 	var out GetCompaniesSearchResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|type|daysOld|rating|dailyIncome|weeklyIncome|dailyCustomers|weeklyCustomers):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"CompanySearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompaniesSearch parameters: %w", err)
+	if err = getCompaniesSearchParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompaniesSearch", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompaniesSearch", Path: "/company/search", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompaniesSearch", "CompaniesSearchResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetCompaniesSearchPager pages through getCompaniesSearch by following _metadata.links (P7.1).
+func (c *Client) GetCompaniesSearchPager(params GetCompaniesSearchParams, opts ...PageOptions) *Pager[GetCompaniesSearchResponse] {
+	return newOperationPager[GetCompaniesSearchResponse](c, Operation{ID: "getCompaniesSearch", Path: "/company/search", Method: "GET"}, params, "CompaniesSearchResponse", opts)
+}
+
+// GetCompaniesSearchItems iterates the "search" items of every getCompaniesSearch page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetCompaniesSearchItems(ctx context.Context, params GetCompaniesSearchParams, opts ...PageOptions) iter.Seq2[models.CompanySearchProfile, error] {
+	return Items(ctx, c.GetCompaniesSearchPager(params, opts...), func(page GetCompaniesSearchResponse) []models.CompanySearchProfile { return page.Search })
 }
 
 // GetCompaniesSnapshotParams contains documented parameters for GET /company/snapshot.
 type GetCompaniesSnapshotParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompaniesSnapshotParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompaniesSnapshotResponse is the decoded 200 response of getCompaniesSnapshot.
 type GetCompaniesSnapshotResponse = string
 
-// GetCompaniesSnapshot executes operation getCompaniesSnapshot using its exact documented path.
+var getCompaniesSnapshotParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetCompaniesSnapshot executes operation getCompaniesSnapshot (GET /company/snapshot; key access: public) using its exact documented path.
 func (c *Client) GetCompaniesSnapshot(ctx context.Context, params GetCompaniesSnapshotParams, opts ...RequestOptions) (GetCompaniesSnapshotResponse, ExecutionReport, error) {
 	var out GetCompaniesSnapshotResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompaniesSnapshot parameters: %w", err)
+	if err = getCompaniesSnapshotParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompaniesSnapshot", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompaniesSnapshot", Path: "/company/snapshot", Method: "GET", CSV: true}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompaniesSnapshot", "", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCompanyStockParams contains documented parameters for GET /company/stock.
 type GetMyCompanyStockParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompanyStockParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompanyStockResponse is the decoded 200 response of getMyCompanyStock.
 type GetMyCompanyStockResponse = models.CompanyStockResponse
 
-// GetMyCompanyStock executes operation getMyCompanyStock using its exact documented path.
+var getMyCompanyStockParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCompanyStock executes operation getMyCompanyStock (GET /company/stock; key access: limited) using its exact documented path.
 func (c *Client) GetMyCompanyStock(ctx context.Context, params GetMyCompanyStockParams, opts ...RequestOptions) (GetMyCompanyStockResponse, ExecutionReport, error) {
 	var out GetMyCompanyStockResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompanyStock parameters: %w", err)
+	if err = getMyCompanyStockParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompanyStock", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompanyStock", Path: "/company/stock", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompanyStock", "CompanyStockResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompanyTimestampParams contains documented parameters for GET /company/timestamp.
 type GetCompanyTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompanyTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompanyTimestampResponse is the decoded 200 response of getCompanyTimestamp.
 type GetCompanyTimestampResponse = models.TimestampResponse
 
-// GetCompanyTimestamp executes operation getCompanyTimestamp using its exact documented path.
+var getCompanyTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetCompanyTimestamp executes operation getCompanyTimestamp (GET /company/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetCompanyTimestamp(ctx context.Context, params GetCompanyTimestampParams, opts ...RequestOptions) (GetCompanyTimestampResponse, ExecutionReport, error) {
 	var out GetCompanyTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompanyTimestamp parameters: %w", err)
+	if err = getCompanyTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompanyTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompanyTimestamp", Path: "/company/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompanyTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompanyEmployeesParams contains documented parameters for GET /company/{id}/employees.
 type GetCompanyEmployeesParams struct {
-	ID        models.CompanyId                          `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.CompanyId `json:"id" path:"id"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetCompanyEmployeesParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompanyEmployeesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompanyEmployeesResponse is the decoded 200 response of getCompanyEmployees.
 type GetCompanyEmployeesResponse = models.CompanyEmployeesResponseBasic
 
-// GetCompanyEmployees executes operation getCompanyEmployees using its exact documented path.
+var getCompanyEmployeesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/CompanyId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetCompanyEmployees executes operation getCompanyEmployees (GET /company/{id}/employees; key access: public) using its exact documented path.
 func (c *Client) GetCompanyEmployees(ctx context.Context, params GetCompanyEmployeesParams, opts ...RequestOptions) (GetCompanyEmployeesResponse, ExecutionReport, error) {
 	var out GetCompanyEmployeesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/CompanyId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompanyEmployees parameters: %w", err)
+	if err = getCompanyEmployeesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompanyEmployees", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompanyEmployees", Path: "/company/{id}/employees", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompanyEmployees", "CompanyEmployeesResponseBasic", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompanyProfileParams contains documented parameters for GET /company/{id}/profile.
 type GetCompanyProfileParams struct {
-	ID        models.CompanyId                        `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.CompanyId `json:"id" path:"id"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetCompanyProfileParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompanyProfileParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompanyProfileResponse is the decoded 200 response of getCompanyProfile.
 type GetCompanyProfileResponse = models.CompanyProfileResponse
 
-// GetCompanyProfile executes operation getCompanyProfile using its exact documented path.
+var getCompanyProfileParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/CompanyId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetCompanyProfile executes operation getCompanyProfile (GET /company/{id}/profile; key access: public) using its exact documented path.
 func (c *Client) GetCompanyProfile(ctx context.Context, params GetCompanyProfileParams, opts ...RequestOptions) (GetCompanyProfileResponse, ExecutionReport, error) {
 	var out GetCompanyProfileResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/CompanyId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompanyProfile parameters: %w", err)
+	if err = getCompanyProfileParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompanyProfile", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompanyProfile", Path: "/company/{id}/profile", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompanyProfile", "CompanyProfileResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetCompaniesListParams contains documented parameters for GET /company/{typeId}/companies.
 type GetCompaniesListParams struct {
-	TypeId    models.CompanyTypeId                   `json:"typeId" path:"typeId"`
-	Limit     *int64                                 `json:"limit,omitempty"`
-	Offset    *int64                                 `json:"offset,omitempty"`
+	// TypeId is the path parameter "typeId".
+	TypeId models.CompanyTypeId `json:"typeId" path:"typeId"`
+	Limit  *int64               `json:"limit,omitempty"`
+	Offset *int64               `json:"offset,omitempty"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetCompaniesListParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompaniesListParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetCompaniesListResponse is the decoded 200 response of getCompaniesList.
 type GetCompaniesListResponse = models.CompaniesResponse
 
-// GetCompaniesList executes operation getCompaniesList using its exact documented path.
+var getCompaniesListParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"typeId\":{\"$ref\":\"#/components/schemas/CompanyTypeId\"}},\"required\":[\"typeId\"],\"type\":\"object\"}")
+})
+
+// GetCompaniesList executes operation getCompaniesList (GET /company/{typeId}/companies; key access: public) using its exact documented path.
 func (c *Client) GetCompaniesList(ctx context.Context, params GetCompaniesListParams, opts ...RequestOptions) (GetCompaniesListResponse, ExecutionReport, error) {
 	var out GetCompaniesListResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"typeId\":{\"$ref\":\"#/components/schemas/CompanyTypeId\"}},\"required\":[\"typeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getCompaniesList parameters: %w", err)
+	if err = getCompaniesListParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getCompaniesList", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getCompaniesList", Path: "/company/{typeId}/companies", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getCompaniesList", "CompaniesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetCompaniesListPager pages through getCompaniesList by following _metadata.links (P7.1).
+func (c *Client) GetCompaniesListPager(params GetCompaniesListParams, opts ...PageOptions) *Pager[GetCompaniesListResponse] {
+	return newOperationPager[GetCompaniesListResponse](c, Operation{ID: "getCompaniesList", Path: "/company/{typeId}/companies", Method: "GET"}, params, "CompaniesResponse", opts)
+}
+
+// GetCompaniesListItems iterates the "companies" items of every getCompaniesList page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetCompaniesListItems(ctx context.Context, params GetCompaniesListParams, opts ...PageOptions) iter.Seq2[models.CompanyProfile, error] {
+	return Items(ctx, c.GetCompaniesListPager(params, opts...), func(page GetCompaniesListResponse) []models.CompanyProfile { return page.Companies })
 }
 
 // GetFactionGenericParams contains documented parameters for GET /faction.
 type GetFactionGenericParams struct {
-	Selections *[]models.FactionSelectionName          `json:"selections,omitempty"`
-	ID         *models.GetFactionGenericParamID        `json:"id,omitempty"`
-	Legacy     *[]models.FactionSelectionName          `json:"legacy,omitempty"`
-	Limit      *int64                                  `json:"limit,omitempty"`
-	From       *int64                                  `json:"from,omitempty"`
-	To         *int64                                  `json:"to,omitempty"`
-	Cat        *models.GetFactionGenericParamCat       `json:"cat,omitempty"`
-	Stat       *models.FactionStatEnum                 `json:"stat,omitempty"`
-	Filters    *models.GetFactionGenericParamFilters   `json:"filters,omitempty"`
-	Striptags  *models.GetFactionGenericParamStriptags `json:"striptags,omitempty"`
-	Sort       *models.GetFactionGenericParamSort      `json:"sort,omitempty"`
-	Offset     *int64                                  `json:"offset,omitempty"`
-	Timestamp  *models.GetFactionGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                                 `json:"comment,omitempty"`
-	Key        *string                                 `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.FactionSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetFactionGenericParamID `json:"id,omitempty"`
+	// Legacy is the query parameter "legacy".
+	Legacy *[]models.FactionSelectionName `json:"legacy,omitempty"`
+	Limit  *int64                         `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.GetFactionGenericParamCat `json:"cat,omitempty"`
+	// Stat is the query parameter "stat".
+	Stat    *models.FactionStatEnum               `json:"stat,omitempty"`
+	Filters *models.GetFactionGenericParamFilters `json:"filters,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetFactionGenericParamStriptags `json:"striptags,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort   *models.GetFactionGenericParamSort `json:"sort,omitempty"`
+	Offset *int64                             `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetFactionGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionGenericResponse is the decoded 200 response of getFactionGeneric.
 type GetFactionGenericResponse = models.GetFactionGenericResponseBody
 
-// GetFactionGeneric executes operation getFactionGeneric using its exact documented path.
+var getFactionGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},{\"enum\":[\"all\",\"recruiting\",\"planning\",\"failure\",\"successful\",\"expired\",\"available\",\"completed\"],\"type\":\"string\"},{\"$ref\":\"#/components/schemas/FactionNewsCategory\"},{\"$ref\":\"#/components/schemas/FactionRankedWarsCategoryEnum\"},{\"$ref\":\"#/components/schemas/FactionArmoryCategoryEnum\"},{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},{\"$ref\":\"#/components/schemas/FactionWarfareTypeEnum\"},{\"$ref\":\"#/components/schemas/FactionTerritoryWarsCategoryEnum\"}]},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"created_at\",\"executed_at\",\"ready_at\",\"expired_at\",\"incoming\",\"outgoing\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/FactionId\"},{\"$ref\":\"#/components/schemas/FactionCrimeId\"},{\"$ref\":\"#/components/schemas/ChainId\"},{\"$ref\":\"#/components/schemas/RankedWarId\"},{\"$ref\":\"#/components/schemas/TerritoryWarId\"},{\"$ref\":\"#/components/schemas/RaidWarId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/FactionSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/FactionSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"stat\":{\"$ref\":\"#/components/schemas/FactionStatEnum\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionGeneric executes operation getFactionGeneric (GET /faction; key access: public) using its exact documented path.
 func (c *Client) GetFactionGeneric(ctx context.Context, params GetFactionGenericParams, opts ...RequestOptions) (GetFactionGenericResponse, ExecutionReport, error) {
 	var out GetFactionGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"oneOf\":[{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},{\"enum\":[\"all\",\"recruiting\",\"planning\",\"failure\",\"successful\",\"expired\",\"available\",\"completed\"],\"type\":\"string\"},{\"$ref\":\"#/components/schemas/FactionNewsCategory\"},{\"$ref\":\"#/components/schemas/FactionRankedWarsCategoryEnum\"},{\"$ref\":\"#/components/schemas/FactionArmoryCategoryEnum\"},{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},{\"$ref\":\"#/components/schemas/FactionWarfareTypeEnum\"},{\"$ref\":\"#/components/schemas/FactionTerritoryWarsCategoryEnum\"}]},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"created_at\",\"executed_at\",\"ready_at\",\"expired_at\",\"incoming\",\"outgoing\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/FactionId\"},{\"$ref\":\"#/components/schemas/FactionCrimeId\"},{\"$ref\":\"#/components/schemas/ChainId\"},{\"$ref\":\"#/components/schemas/RankedWarId\"},{\"$ref\":\"#/components/schemas/TerritoryWarId\"},{\"$ref\":\"#/components/schemas/RaidWarId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/FactionSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/FactionSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"stat\":{\"$ref\":\"#/components/schemas/FactionStatEnum\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionGeneric parameters: %w", err)
+	if err = getFactionGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionGeneric", Path: "/faction", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionGeneric", "GetFactionGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionApplicationsParams contains documented parameters for GET /faction/applications.
 type GetMyFactionApplicationsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionApplicationsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionApplicationsResponse is the decoded 200 response of getMyFactionApplications.
 type GetMyFactionApplicationsResponse = models.FactionApplicationsResponse
 
-// GetMyFactionApplications executes operation getMyFactionApplications using its exact documented path.
+var getMyFactionApplicationsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionApplications executes operation getMyFactionApplications (GET /faction/applications; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionApplications(ctx context.Context, params GetMyFactionApplicationsParams, opts ...RequestOptions) (GetMyFactionApplicationsResponse, ExecutionReport, error) {
 	var out GetMyFactionApplicationsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionApplications parameters: %w", err)
+	if err = getMyFactionApplicationsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionApplications", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionApplications", Path: "/faction/applications", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionApplications", "FactionApplicationsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionAttacksParams contains documented parameters for GET /faction/attacks.
 type GetMyFactionAttacksParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum    `json:"filters,omitempty"`
-	Limit     *int64                                    `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionAttacksParamSort      `json:"sort,omitempty"`
-	To        *int64                                    `json:"to,omitempty"`
-	From      *int64                                    `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionAttacksParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionAttacksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionAttacksResponse is the decoded 200 response of getMyFactionAttacks.
 type GetMyFactionAttacksResponse = models.AttacksResponse
 
-// GetMyFactionAttacks executes operation getMyFactionAttacks using its exact documented path.
+var getMyFactionAttacksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionAttacks executes operation getMyFactionAttacks (GET /faction/attacks; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionAttacks(ctx context.Context, params GetMyFactionAttacksParams, opts ...RequestOptions) (GetMyFactionAttacksResponse, ExecutionReport, error) {
 	var out GetMyFactionAttacksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionAttacks parameters: %w", err)
+	if err = getMyFactionAttacksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionAttacks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionAttacks", Path: "/faction/attacks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionAttacks", "AttacksResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionAttacksPager pages through getMyFactionAttacks by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionAttacksPager(params GetMyFactionAttacksParams, opts ...PageOptions) *Pager[GetMyFactionAttacksResponse] {
+	return newOperationPager[GetMyFactionAttacksResponse](c, Operation{ID: "getMyFactionAttacks", Path: "/faction/attacks", Method: "GET"}, params, "AttacksResponse", opts)
+}
+
+// GetMyFactionAttacksItems iterates the "attacks" items of every getMyFactionAttacks page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionAttacksItems(ctx context.Context, params GetMyFactionAttacksParams, opts ...PageOptions) iter.Seq2[models.Attack, error] {
+	return Items(ctx, c.GetMyFactionAttacksPager(params, opts...), func(page GetMyFactionAttacksResponse) []models.Attack { return page.Attacks })
 }
 
 // GetMyFactionAttacksSimplifiedParams contains documented parameters for GET /faction/attacksfull.
 type GetMyFactionAttacksSimplifiedParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum              `json:"filters,omitempty"`
-	Limit     *int64                                              `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionAttacksSimplifiedParamSort      `json:"sort,omitempty"`
-	To        *int64                                              `json:"to,omitempty"`
-	From      *int64                                              `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionAttacksSimplifiedParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionAttacksSimplifiedParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                             `json:"comment,omitempty"`
-	Key       *string                                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionAttacksSimplifiedResponse is the decoded 200 response of getMyFactionAttacksSimplified.
 type GetMyFactionAttacksSimplifiedResponse = models.AttacksFullResponse
 
-// GetMyFactionAttacksSimplified executes operation getMyFactionAttacksSimplified using its exact documented path.
+var getMyFactionAttacksSimplifiedParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionAttacksSimplified executes operation getMyFactionAttacksSimplified (GET /faction/attacksfull; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionAttacksSimplified(ctx context.Context, params GetMyFactionAttacksSimplifiedParams, opts ...RequestOptions) (GetMyFactionAttacksSimplifiedResponse, ExecutionReport, error) {
 	var out GetMyFactionAttacksSimplifiedResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionAttacksSimplified parameters: %w", err)
+	if err = getMyFactionAttacksSimplifiedParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionAttacksSimplified", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionAttacksSimplified", Path: "/faction/attacksfull", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionAttacksSimplified", "AttacksFullResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionAttacksSimplifiedPager pages through getMyFactionAttacksSimplified by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionAttacksSimplifiedPager(params GetMyFactionAttacksSimplifiedParams, opts ...PageOptions) *Pager[GetMyFactionAttacksSimplifiedResponse] {
+	return newOperationPager[GetMyFactionAttacksSimplifiedResponse](c, Operation{ID: "getMyFactionAttacksSimplified", Path: "/faction/attacksfull", Method: "GET"}, params, "AttacksFullResponse", opts)
+}
+
+// GetMyFactionAttacksSimplifiedItems iterates the "attacks" items of every getMyFactionAttacksSimplified page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionAttacksSimplifiedItems(ctx context.Context, params GetMyFactionAttacksSimplifiedParams, opts ...PageOptions) iter.Seq2[models.AttackSimplified, error] {
+	return Items(ctx, c.GetMyFactionAttacksSimplifiedPager(params, opts...), func(page GetMyFactionAttacksSimplifiedResponse) []models.AttackSimplified { return page.Attacks })
 }
 
 // GetMyFactionBalanceParams contains documented parameters for GET /faction/balance.
 type GetMyFactionBalanceParams struct {
-	Cat       *models.GetMyFactionBalanceParamCat       `json:"cat,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.GetMyFactionBalanceParamCat `json:"cat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionBalanceParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionBalanceResponse is the decoded 200 response of getMyFactionBalance.
 type GetMyFactionBalanceResponse = models.FactionBalanceResponse
 
-// GetMyFactionBalance executes operation getMyFactionBalance using its exact documented path.
+var getMyFactionBalanceParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionBalance executes operation getMyFactionBalance (GET /faction/balance; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionBalance(ctx context.Context, params GetMyFactionBalanceParams, opts ...RequestOptions) (GetMyFactionBalanceResponse, ExecutionReport, error) {
 	var out GetMyFactionBalanceResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionBalance parameters: %w", err)
+	if err = getMyFactionBalanceParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionBalance", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionBalance", Path: "/faction/balance", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionBalance", "FactionBalanceResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionBasicInformationParams contains documented parameters for GET /faction/basic.
 type GetMyFactionBasicInformationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionBasicInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                            `json:"comment,omitempty"`
-	Key       *string                                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionBasicInformationResponse is the decoded 200 response of getMyFactionBasicInformation.
 type GetMyFactionBasicInformationResponse = models.FactionBasicResponse
 
-// GetMyFactionBasicInformation executes operation getMyFactionBasicInformation using its exact documented path.
+var getMyFactionBasicInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionBasicInformation executes operation getMyFactionBasicInformation (GET /faction/basic; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionBasicInformation(ctx context.Context, params GetMyFactionBasicInformationParams, opts ...RequestOptions) (GetMyFactionBasicInformationResponse, ExecutionReport, error) {
 	var out GetMyFactionBasicInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionBasicInformation parameters: %w", err)
+	if err = getMyFactionBasicInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionBasicInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionBasicInformation", Path: "/faction/basic", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionBasicInformation", "FactionBasicResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionChainParams contains documented parameters for GET /faction/chain.
 type GetMyFactionChainParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionChainParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionChainResponse is the decoded 200 response of getMyFactionChain.
 type GetMyFactionChainResponse = models.FactionOngoingChainResponse
 
-// GetMyFactionChain executes operation getMyFactionChain using its exact documented path.
+var getMyFactionChainParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionChain executes operation getMyFactionChain (GET /faction/chain; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionChain(ctx context.Context, params GetMyFactionChainParams, opts ...RequestOptions) (GetMyFactionChainResponse, ExecutionReport, error) {
 	var out GetMyFactionChainResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionChain parameters: %w", err)
+	if err = getMyFactionChainParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionChain", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionChain", Path: "/faction/chain", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionChain", "FactionOngoingChainResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionLatestChainReportParams contains documented parameters for GET /faction/chainreport.
 type GetMyFactionLatestChainReportParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionLatestChainReportParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                             `json:"comment,omitempty"`
-	Key       *string                                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionLatestChainReportResponse is the decoded 200 response of getMyFactionLatestChainReport.
 type GetMyFactionLatestChainReportResponse = models.FactionChainReportResponse
 
-// GetMyFactionLatestChainReport executes operation getMyFactionLatestChainReport using its exact documented path.
+var getMyFactionLatestChainReportParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionLatestChainReport executes operation getMyFactionLatestChainReport (GET /faction/chainreport; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionLatestChainReport(ctx context.Context, params GetMyFactionLatestChainReportParams, opts ...RequestOptions) (GetMyFactionLatestChainReportResponse, ExecutionReport, error) {
 	var out GetMyFactionLatestChainReportResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionLatestChainReport parameters: %w", err)
+	if err = getMyFactionLatestChainReportParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionLatestChainReport", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionLatestChainReport", Path: "/faction/chainreport", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionLatestChainReport", "FactionChainReportResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionCompletedChainsParams contains documented parameters for GET /faction/chains.
 type GetMyFactionCompletedChainsParams struct {
-	Limit     *int64                                            `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionCompletedChainsParamSort      `json:"sort,omitempty"`
-	To        *int64                                            `json:"to,omitempty"`
-	From      *int64                                            `json:"from,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionCompletedChainsParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionCompletedChainsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                           `json:"comment,omitempty"`
-	Key       *string                                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionCompletedChainsResponse is the decoded 200 response of getMyFactionCompletedChains.
 type GetMyFactionCompletedChainsResponse = models.FactionChainsResponse
 
-// GetMyFactionCompletedChains executes operation getMyFactionCompletedChains using its exact documented path.
+var getMyFactionCompletedChainsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionCompletedChains executes operation getMyFactionCompletedChains (GET /faction/chains; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionCompletedChains(ctx context.Context, params GetMyFactionCompletedChainsParams, opts ...RequestOptions) (GetMyFactionCompletedChainsResponse, ExecutionReport, error) {
 	var out GetMyFactionCompletedChainsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionCompletedChains parameters: %w", err)
+	if err = getMyFactionCompletedChainsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionCompletedChains", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionCompletedChains", Path: "/faction/chains", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionCompletedChains", "FactionChainsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionCompletedChainsPager pages through getMyFactionCompletedChains by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionCompletedChainsPager(params GetMyFactionCompletedChainsParams, opts ...PageOptions) *Pager[GetMyFactionCompletedChainsResponse] {
+	return newOperationPager[GetMyFactionCompletedChainsResponse](c, Operation{ID: "getMyFactionCompletedChains", Path: "/faction/chains", Method: "GET"}, params, "FactionChainsResponse", opts)
+}
+
+// GetMyFactionCompletedChainsItems iterates the "chains" items of every getMyFactionCompletedChains page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionCompletedChainsItems(ctx context.Context, params GetMyFactionCompletedChainsParams, opts ...PageOptions) iter.Seq2[models.FactionChain, error] {
+	return Items(ctx, c.GetMyFactionCompletedChainsPager(params, opts...), func(page GetMyFactionCompletedChainsResponse) []models.FactionChain { return page.Chains })
 }
 
 // GetMyFactionContributorsParams contains documented parameters for GET /faction/contributors.
 type GetMyFactionContributorsParams struct {
-	Stat      models.FactionStatEnum                         `json:"stat"`
-	Cat       *models.GetMyFactionContributorsParamCat       `json:"cat,omitempty"`
+	// Stat is the query parameter "stat".
+	Stat models.FactionStatEnum `json:"stat"`
+	// Cat is the query parameter "cat".
+	Cat *models.GetMyFactionContributorsParamCat `json:"cat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionContributorsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionContributorsResponse is the decoded 200 response of getMyFactionContributors.
 type GetMyFactionContributorsResponse = models.FactionContributorsResponse
 
-// GetMyFactionContributors executes operation getMyFactionContributors using its exact documented path.
+var getMyFactionContributorsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stat\":{\"$ref\":\"#/components/schemas/FactionStatEnum\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"stat\"],\"type\":\"object\"}")
+})
+
+// GetMyFactionContributors executes operation getMyFactionContributors (GET /faction/contributors; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionContributors(ctx context.Context, params GetMyFactionContributorsParams, opts ...RequestOptions) (GetMyFactionContributorsResponse, ExecutionReport, error) {
 	var out GetMyFactionContributorsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"current\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stat\":{\"$ref\":\"#/components/schemas/FactionStatEnum\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"stat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionContributors parameters: %w", err)
+	if err = getMyFactionContributorsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionContributors", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionContributors", Path: "/faction/contributors", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionContributors", "FactionContributorsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionCrimeExpParams contains documented parameters for GET /faction/crimeexp.
 type GetMyFactionCrimeExpParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionCrimeExpParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionCrimeExpResponse is the decoded 200 response of getMyFactionCrimeExp.
 type GetMyFactionCrimeExpResponse = models.FactionCrimeExpResponse
 
-// GetMyFactionCrimeExp executes operation getMyFactionCrimeExp using its exact documented path.
+var getMyFactionCrimeExpParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionCrimeExp executes operation getMyFactionCrimeExp (GET /faction/crimeexp; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionCrimeExp(ctx context.Context, params GetMyFactionCrimeExpParams, opts ...RequestOptions) (GetMyFactionCrimeExpResponse, ExecutionReport, error) {
 	var out GetMyFactionCrimeExpResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionCrimeExp parameters: %w", err)
+	if err = getMyFactionCrimeExpParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionCrimeExp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionCrimeExp", Path: "/faction/crimeexp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionCrimeExp", "FactionCrimeExpResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionOrganizedCrimesParams contains documented parameters for GET /faction/crimes.
 type GetMyFactionOrganizedCrimesParams struct {
-	Cat       *models.GetMyFactionOrganizedCrimesParamCat       `json:"cat,omitempty"`
-	Filters   *models.GetMyFactionOrganizedCrimesParamFilters   `json:"filters,omitempty"`
-	Limit     *int64                                            `json:"limit,omitempty"`
-	Offset    *int64                                            `json:"offset,omitempty"`
-	From      *int64                                            `json:"from,omitempty"`
-	To        *int64                                            `json:"to,omitempty"`
-	Sort      *models.GetMyFactionOrganizedCrimesParamSort      `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.GetMyFactionOrganizedCrimesParamCat `json:"cat,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *models.GetMyFactionOrganizedCrimesParamFilters `json:"filters,omitempty"`
+	Limit   *int64                                          `json:"limit,omitempty"`
+	Offset  *int64                                          `json:"offset,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionOrganizedCrimesParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionOrganizedCrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                           `json:"comment,omitempty"`
-	Key       *string                                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionOrganizedCrimesResponse is the decoded 200 response of getMyFactionOrganizedCrimes.
 type GetMyFactionOrganizedCrimesResponse = models.FactionCrimesResponse
 
-// GetMyFactionOrganizedCrimes executes operation getMyFactionOrganizedCrimes using its exact documented path.
+var getMyFactionOrganizedCrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"recruiting\",\"planning\",\"failure\",\"successful\",\"expired\",\"available\",\"completed\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"created_at\",\"executed_at\",\"ready_at\",\"expired_at\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionOrganizedCrimes executes operation getMyFactionOrganizedCrimes (GET /faction/crimes; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionOrganizedCrimes(ctx context.Context, params GetMyFactionOrganizedCrimesParams, opts ...RequestOptions) (GetMyFactionOrganizedCrimesResponse, ExecutionReport, error) {
 	var out GetMyFactionOrganizedCrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"enum\":[\"all\",\"recruiting\",\"planning\",\"failure\",\"successful\",\"expired\",\"available\",\"completed\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"created_at\",\"executed_at\",\"ready_at\",\"expired_at\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionOrganizedCrimes parameters: %w", err)
+	if err = getMyFactionOrganizedCrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionOrganizedCrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionOrganizedCrimes", Path: "/faction/crimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionOrganizedCrimes", "FactionCrimesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionOrganizedCrimesPager pages through getMyFactionOrganizedCrimes by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionOrganizedCrimesPager(params GetMyFactionOrganizedCrimesParams, opts ...PageOptions) *Pager[GetMyFactionOrganizedCrimesResponse] {
+	return newOperationPager[GetMyFactionOrganizedCrimesResponse](c, Operation{ID: "getMyFactionOrganizedCrimes", Path: "/faction/crimes", Method: "GET"}, params, "FactionCrimesResponse", opts)
+}
+
+// GetMyFactionOrganizedCrimesItems iterates the "crimes" items of every getMyFactionOrganizedCrimes page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionOrganizedCrimesItems(ctx context.Context, params GetMyFactionOrganizedCrimesParams, opts ...PageOptions) iter.Seq2[models.FactionCrime, error] {
+	return Items(ctx, c.GetMyFactionOrganizedCrimesPager(params, opts...), func(page GetMyFactionOrganizedCrimesResponse) []models.FactionCrime { return page.Crimes })
 }
 
 // GetWarfareDirtyBombsParams contains documented parameters for GET /faction/dirtybombs.
 type GetWarfareDirtyBombsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareDirtyBombsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareDirtyBombsResponse is the decoded 200 response of getWarfareDirtyBombs.
 type GetWarfareDirtyBombsResponse = models.FactionWarfareDirtyBombsResponse
 
-// GetWarfareDirtyBombs executes operation getWarfareDirtyBombs using its exact documented path.
+var getWarfareDirtyBombsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetWarfareDirtyBombs executes operation getWarfareDirtyBombs (GET /faction/dirtybombs; key access: public) using its exact documented path.
 func (c *Client) GetWarfareDirtyBombs(ctx context.Context, params GetWarfareDirtyBombsParams, opts ...RequestOptions) (GetWarfareDirtyBombsResponse, ExecutionReport, error) {
 	var out GetWarfareDirtyBombsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfareDirtyBombs parameters: %w", err)
+	if err = getWarfareDirtyBombsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfareDirtyBombs", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfareDirtyBombs", Path: "/faction/dirtybombs", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfareDirtyBombs", "FactionWarfareDirtyBombsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionHoFParams contains documented parameters for GET /faction/hof.
 type GetMyFactionHoFParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionHoFResponse is the decoded 200 response of getMyFactionHoF.
 type GetMyFactionHoFResponse = models.FactionHofResponse
 
-// GetMyFactionHoF executes operation getMyFactionHoF using its exact documented path.
+var getMyFactionHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionHoF executes operation getMyFactionHoF (GET /faction/hof; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionHoF(ctx context.Context, params GetMyFactionHoFParams, opts ...RequestOptions) (GetMyFactionHoFResponse, ExecutionReport, error) {
 	var out GetMyFactionHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionHoF parameters: %w", err)
+	if err = getMyFactionHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionHoF", Path: "/faction/hof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionHoF", "FactionHofResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionInventoryParams contains documented parameters for GET /faction/inventory.
 type GetMyFactionInventoryParams struct {
-	Cat       models.FactionArmoryCategoryEnum            `json:"cat"`
-	Limit     *int64                                      `json:"limit,omitempty"`
-	Offset    *int64                                      `json:"offset,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat    models.FactionArmoryCategoryEnum `json:"cat"`
+	Limit  *int64                           `json:"limit,omitempty"`
+	Offset *int64                           `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionInventoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionInventoryResponse is the decoded 200 response of getMyFactionInventory.
 type GetMyFactionInventoryResponse = models.FactionInventoryResponse
 
-// GetMyFactionInventory executes operation getMyFactionInventory using its exact documented path.
+var getMyFactionInventoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionArmoryCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetMyFactionInventory executes operation getMyFactionInventory (GET /faction/inventory; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionInventory(ctx context.Context, params GetMyFactionInventoryParams, opts ...RequestOptions) (GetMyFactionInventoryResponse, ExecutionReport, error) {
 	var out GetMyFactionInventoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionArmoryCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionInventory parameters: %w", err)
+	if err = getMyFactionInventoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionInventory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionInventory", Path: "/faction/inventory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionInventory", "FactionInventoryResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionInventoryPager pages through getMyFactionInventory by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionInventoryPager(params GetMyFactionInventoryParams, opts ...PageOptions) *Pager[GetMyFactionInventoryResponse] {
+	return newOperationPager[GetMyFactionInventoryResponse](c, Operation{ID: "getMyFactionInventory", Path: "/faction/inventory", Method: "GET"}, params, "FactionInventoryResponse", opts)
+}
+
+// GetMyFactionInventoryItems iterates the "inventory" items of every getMyFactionInventory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionInventoryItems(ctx context.Context, params GetMyFactionInventoryParams, opts ...PageOptions) iter.Seq2[models.FactionInventoryItem, error] {
+	return Items(ctx, c.GetMyFactionInventoryPager(params, opts...), func(page GetMyFactionInventoryResponse) []models.FactionInventoryItem { return page.Inventory })
 }
 
 // GetFactionLookupParams contains documented parameters for GET /faction/lookup.
 type GetFactionLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionLookupResponse is the decoded 200 response of getFactionLookup.
 type GetFactionLookupResponse = models.FactionLookupResponse
 
-// GetFactionLookup executes operation getFactionLookup using its exact documented path.
+var getFactionLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionLookup executes operation getFactionLookup (GET /faction/lookup; key access: public) using its exact documented path.
 func (c *Client) GetFactionLookup(ctx context.Context, params GetFactionLookupParams, opts ...RequestOptions) (GetFactionLookupResponse, ExecutionReport, error) {
 	var out GetFactionLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionLookup parameters: %w", err)
+	if err = getFactionLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionLookup", Path: "/faction/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionLookup", "FactionLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionMembersParams contains documented parameters for GET /faction/members.
 type GetMyFactionMembersParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyFactionMembersParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionMembersParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionMembersResponse is the decoded 200 response of getMyFactionMembers.
 type GetMyFactionMembersResponse = models.FactionMembersResponse
 
-// GetMyFactionMembers executes operation getMyFactionMembers using its exact documented path.
+var getMyFactionMembersParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionMembers executes operation getMyFactionMembers (GET /faction/members; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionMembers(ctx context.Context, params GetMyFactionMembersParams, opts ...RequestOptions) (GetMyFactionMembersResponse, ExecutionReport, error) {
 	var out GetMyFactionMembersResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionMembers parameters: %w", err)
+	if err = getMyFactionMembersParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionMembers", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionMembers", Path: "/faction/members", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionMembers", "FactionMembersResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionNewsParams contains documented parameters for GET /faction/news.
 type GetMyFactionNewsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyFactionNewsParamStriptags `json:"striptags,omitempty"`
 	Limit     *int64                                 `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionNewsParamSort      `json:"sort,omitempty"`
-	To        *int64                                 `json:"to,omitempty"`
-	From      *int64                                 `json:"from,omitempty"`
-	Cat       models.FactionNewsCategory             `json:"cat"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionNewsParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.FactionNewsCategory `json:"cat"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionNewsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionNewsResponse is the decoded 200 response of getMyFactionNews.
 type GetMyFactionNewsResponse = models.NewsResponse
 
-// GetMyFactionNews executes operation getMyFactionNews using its exact documented path.
+var getMyFactionNewsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionNewsCategory\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetMyFactionNews executes operation getMyFactionNews (GET /faction/news; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionNews(ctx context.Context, params GetMyFactionNewsParams, opts ...RequestOptions) (GetMyFactionNewsResponse, ExecutionReport, error) {
 	var out GetMyFactionNewsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionNewsCategory\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionNews parameters: %w", err)
+	if err = getMyFactionNewsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionNews", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionNews", Path: "/faction/news", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionNews", "NewsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionNewsPager pages through getMyFactionNews by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionNewsPager(params GetMyFactionNewsParams, opts ...PageOptions) *Pager[GetMyFactionNewsResponse] {
+	return newOperationPager[GetMyFactionNewsResponse](c, Operation{ID: "getMyFactionNews", Path: "/faction/news", Method: "GET"}, params, "NewsResponse", opts)
+}
+
+// GetMyFactionNewsItems iterates the "news" items of every getMyFactionNews page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionNewsItems(ctx context.Context, params GetMyFactionNewsParams, opts ...PageOptions) iter.Seq2[models.News, error] {
+	return Items(ctx, c.GetMyFactionNewsPager(params, opts...), func(page GetMyFactionNewsResponse) []models.News { return page.News })
 }
 
 // GetMyFactionPositionsParams contains documented parameters for GET /faction/positions.
 type GetMyFactionPositionsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionPositionsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionPositionsResponse is the decoded 200 response of getMyFactionPositions.
 type GetMyFactionPositionsResponse = models.FactionPositionsResponse
 
-// GetMyFactionPositions executes operation getMyFactionPositions using its exact documented path.
+var getMyFactionPositionsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionPositions executes operation getMyFactionPositions (GET /faction/positions; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionPositions(ctx context.Context, params GetMyFactionPositionsParams, opts ...RequestOptions) (GetMyFactionPositionsResponse, ExecutionReport, error) {
 	var out GetMyFactionPositionsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionPositions parameters: %w", err)
+	if err = getMyFactionPositionsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionPositions", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionPositions", Path: "/faction/positions", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionPositions", "FactionPositionsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionRacketsParams contains documented parameters for GET /faction/rackets.
 type GetFactionRacketsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionRacketsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionRacketsResponse is the decoded 200 response of getFactionRackets.
 type GetFactionRacketsResponse = models.FactionRacketsResponse
 
-// GetFactionRackets executes operation getFactionRackets using its exact documented path.
+var getFactionRacketsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionRackets executes operation getFactionRackets (GET /faction/rackets; key access: public) using its exact documented path.
 func (c *Client) GetFactionRackets(ctx context.Context, params GetFactionRacketsParams, opts ...RequestOptions) (GetFactionRacketsResponse, ExecutionReport, error) {
 	var out GetFactionRacketsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionRackets parameters: %w", err)
+	if err = getFactionRacketsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionRackets", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionRackets", Path: "/faction/rackets", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionRackets", "FactionRacketsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionRaidsHistoryParams contains documented parameters for GET /faction/raids.
 type GetMyFactionRaidsHistoryParams struct {
-	From      *int64                                         `json:"from,omitempty"`
-	To        *int64                                         `json:"to,omitempty"`
-	Sort      *models.GetMyFactionRaidsHistoryParamSort      `json:"sort,omitempty"`
-	Limit     *int64                                         `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort  *models.GetMyFactionRaidsHistoryParamSort `json:"sort,omitempty"`
+	Limit *int64                                    `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionRaidsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionRaidsHistoryResponse is the decoded 200 response of getMyFactionRaidsHistory.
 type GetMyFactionRaidsHistoryResponse = models.FactionRaidsResponse
 
-// GetMyFactionRaidsHistory executes operation getMyFactionRaidsHistory using its exact documented path.
+var getMyFactionRaidsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionRaidsHistory executes operation getMyFactionRaidsHistory (GET /faction/raids; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionRaidsHistory(ctx context.Context, params GetMyFactionRaidsHistoryParams, opts ...RequestOptions) (GetMyFactionRaidsHistoryResponse, ExecutionReport, error) {
 	var out GetMyFactionRaidsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionRaidsHistory parameters: %w", err)
+	if err = getMyFactionRaidsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionRaidsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionRaidsHistory", Path: "/faction/raids", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionRaidsHistory", "FactionRaidsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionRaidsHistoryPager pages through getMyFactionRaidsHistory by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionRaidsHistoryPager(params GetMyFactionRaidsHistoryParams, opts ...PageOptions) *Pager[GetMyFactionRaidsHistoryResponse] {
+	return newOperationPager[GetMyFactionRaidsHistoryResponse](c, Operation{ID: "getMyFactionRaidsHistory", Path: "/faction/raids", Method: "GET"}, params, "FactionRaidsResponse", opts)
+}
+
+// GetMyFactionRaidsHistoryItems iterates the "raids" items of every getMyFactionRaidsHistory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionRaidsHistoryItems(ctx context.Context, params GetMyFactionRaidsHistoryParams, opts ...PageOptions) iter.Seq2[models.FactionRaidWarfare, error] {
+	return Items(ctx, c.GetMyFactionRaidsHistoryPager(params, opts...), func(page GetMyFactionRaidsHistoryResponse) []models.FactionRaidWarfare { return page.Raids })
 }
 
 // GetMyFactionRankedWarsHistoryParams contains documented parameters for GET /faction/rankedwars.
 type GetMyFactionRankedWarsHistoryParams struct {
-	Offset    *int64                                              `json:"offset,omitempty"`
-	Limit     *int64                                              `json:"limit,omitempty"`
-	From      *int64                                              `json:"from,omitempty"`
-	To        *int64                                              `json:"to,omitempty"`
-	Sort      *models.GetMyFactionRankedWarsHistoryParamSort      `json:"sort,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	Limit  *int64 `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionRankedWarsHistoryParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionRankedWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                             `json:"comment,omitempty"`
-	Key       *string                                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionRankedWarsHistoryResponse is the decoded 200 response of getMyFactionRankedWarsHistory.
 type GetMyFactionRankedWarsHistoryResponse = models.FactionRankedWarResponse
 
-// GetMyFactionRankedWarsHistory executes operation getMyFactionRankedWarsHistory using its exact documented path.
+var getMyFactionRankedWarsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionRankedWarsHistory executes operation getMyFactionRankedWarsHistory (GET /faction/rankedwars; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionRankedWarsHistory(ctx context.Context, params GetMyFactionRankedWarsHistoryParams, opts ...RequestOptions) (GetMyFactionRankedWarsHistoryResponse, ExecutionReport, error) {
 	var out GetMyFactionRankedWarsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionRankedWarsHistory parameters: %w", err)
+	if err = getMyFactionRankedWarsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionRankedWarsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionRankedWarsHistory", Path: "/faction/rankedwars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionRankedWarsHistory", "FactionRankedWarResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionRankedWarsHistoryPager pages through getMyFactionRankedWarsHistory by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionRankedWarsHistoryPager(params GetMyFactionRankedWarsHistoryParams, opts ...PageOptions) *Pager[GetMyFactionRankedWarsHistoryResponse] {
+	return newOperationPager[GetMyFactionRankedWarsHistoryResponse](c, Operation{ID: "getMyFactionRankedWarsHistory", Path: "/faction/rankedwars", Method: "GET"}, params, "FactionRankedWarResponse", opts)
+}
+
+// GetMyFactionRankedWarsHistoryItems iterates the "rankedwars" items of every getMyFactionRankedWarsHistory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionRankedWarsHistoryItems(ctx context.Context, params GetMyFactionRankedWarsHistoryParams, opts ...PageOptions) iter.Seq2[models.FactionRankedWarDetails, error] {
+	return Items(ctx, c.GetMyFactionRankedWarsHistoryPager(params, opts...), func(page GetMyFactionRankedWarsHistoryResponse) []models.FactionRankedWarDetails {
+		return page.Rankedwars
+	})
 }
 
 // GetMyFactionReportsParams contains documented parameters for GET /faction/reports.
 type GetMyFactionReportsParams struct {
-	Cat       *models.ReportTypeEnum                    `json:"cat,omitempty"`
-	Target    *models.UserId                            `json:"target,omitempty"`
-	Limit     *int64                                    `json:"limit,omitempty"`
-	Offset    *int64                                    `json:"offset,omitempty"`
-	Sort      *models.GetMyFactionReportsParamSort      `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.ReportTypeEnum `json:"cat,omitempty"`
+	// Target is the query parameter "target".
+	Target *models.UserId `json:"target,omitempty"`
+	Limit  *int64         `json:"limit,omitempty"`
+	Offset *int64         `json:"offset,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionReportsParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionReportsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionReportsResponse is the decoded 200 response of getMyFactionReports.
 type GetMyFactionReportsResponse = models.ReportsResponse
 
-// GetMyFactionReports executes operation getMyFactionReports using its exact documented path.
+var getMyFactionReportsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionReports executes operation getMyFactionReports (GET /faction/reports; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionReports(ctx context.Context, params GetMyFactionReportsParams, opts ...RequestOptions) (GetMyFactionReportsResponse, ExecutionReport, error) {
 	var out GetMyFactionReportsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionReports parameters: %w", err)
+	if err = getMyFactionReportsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionReports", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionReports", Path: "/faction/reports", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionReports", "ReportsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionReportsPager pages through getMyFactionReports by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionReportsPager(params GetMyFactionReportsParams, opts ...PageOptions) *Pager[GetMyFactionReportsResponse] {
+	return newOperationPager[GetMyFactionReportsResponse](c, Operation{ID: "getMyFactionReports", Path: "/faction/reports", Method: "GET"}, params, "ReportsResponse", opts)
+}
+
+// GetMyFactionReportsItems iterates the "reports" items of every getMyFactionReports page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionReportsItems(ctx context.Context, params GetMyFactionReportsParams, opts ...PageOptions) iter.Seq2[models.Report, error] {
+	return Items(ctx, c.GetMyFactionReportsPager(params, opts...), func(page GetMyFactionReportsResponse) []models.Report { return page.Reports })
 }
 
 // GetMyFactionRevivesParams contains documented parameters for GET /faction/revives.
 type GetMyFactionRevivesParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum    `json:"filters,omitempty"`
-	Limit     *int64                                    `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionRevivesParamSort      `json:"sort,omitempty"`
-	To        *int64                                    `json:"to,omitempty"`
-	From      *int64                                    `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionRevivesParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyFactionRevivesParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionRevivesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionRevivesResponse is the decoded 200 response of getMyFactionRevives.
 type GetMyFactionRevivesResponse = models.RevivesResponse
 
-// GetMyFactionRevives executes operation getMyFactionRevives using its exact documented path.
+var getMyFactionRevivesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionRevives executes operation getMyFactionRevives (GET /faction/revives; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionRevives(ctx context.Context, params GetMyFactionRevivesParams, opts ...RequestOptions) (GetMyFactionRevivesResponse, ExecutionReport, error) {
 	var out GetMyFactionRevivesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionRevives parameters: %w", err)
+	if err = getMyFactionRevivesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionRevives", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionRevives", Path: "/faction/revives", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionRevives", "RevivesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionRevivesPager pages through getMyFactionRevives by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionRevivesPager(params GetMyFactionRevivesParams, opts ...PageOptions) *Pager[GetMyFactionRevivesResponse] {
+	return newOperationPager[GetMyFactionRevivesResponse](c, Operation{ID: "getMyFactionRevives", Path: "/faction/revives", Method: "GET"}, params, "RevivesResponse", opts)
+}
+
+// GetMyFactionRevivesItems iterates the "revives" items of every getMyFactionRevives page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionRevivesItems(ctx context.Context, params GetMyFactionRevivesParams, opts ...PageOptions) iter.Seq2[models.Revive, error] {
+	return Items(ctx, c.GetMyFactionRevivesPager(params, opts...), func(page GetMyFactionRevivesResponse) []models.Revive { return page.Revives })
 }
 
 // GetMyFactionRevivesSimplifiedParams contains documented parameters for GET /faction/revivesFull.
 type GetMyFactionRevivesSimplifiedParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum              `json:"filters,omitempty"`
-	Limit     *int64                                              `json:"limit,omitempty"`
-	Sort      *models.GetMyFactionRevivesSimplifiedParamSort      `json:"sort,omitempty"`
-	To        *int64                                              `json:"to,omitempty"`
-	From      *int64                                              `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyFactionRevivesSimplifiedParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyFactionRevivesSimplifiedParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionRevivesSimplifiedParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                             `json:"comment,omitempty"`
-	Key       *string                                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionRevivesSimplifiedResponse is the decoded 200 response of getMyFactionRevivesSimplified.
 type GetMyFactionRevivesSimplifiedResponse = models.RevivesFullResponse
 
-// GetMyFactionRevivesSimplified executes operation getMyFactionRevivesSimplified using its exact documented path.
+var getMyFactionRevivesSimplifiedParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionRevivesSimplified executes operation getMyFactionRevivesSimplified (GET /faction/revivesFull; key access: limited) using its exact documented path.
 func (c *Client) GetMyFactionRevivesSimplified(ctx context.Context, params GetMyFactionRevivesSimplifiedParams, opts ...RequestOptions) (GetMyFactionRevivesSimplifiedResponse, ExecutionReport, error) {
 	var out GetMyFactionRevivesSimplifiedResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionRevivesSimplified parameters: %w", err)
+	if err = getMyFactionRevivesSimplifiedParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionRevivesSimplified", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionRevivesSimplified", Path: "/faction/revivesFull", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionRevivesSimplified", "RevivesFullResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyFactionRevivesSimplifiedPager pages through getMyFactionRevivesSimplified by following _metadata.links (P7.1).
+func (c *Client) GetMyFactionRevivesSimplifiedPager(params GetMyFactionRevivesSimplifiedParams, opts ...PageOptions) *Pager[GetMyFactionRevivesSimplifiedResponse] {
+	return newOperationPager[GetMyFactionRevivesSimplifiedResponse](c, Operation{ID: "getMyFactionRevivesSimplified", Path: "/faction/revivesFull", Method: "GET"}, params, "RevivesFullResponse", opts)
+}
+
+// GetMyFactionRevivesSimplifiedItems iterates the "revives" items of every getMyFactionRevivesSimplified page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyFactionRevivesSimplifiedItems(ctx context.Context, params GetMyFactionRevivesSimplifiedParams, opts ...PageOptions) iter.Seq2[models.ReviveSimplified, error] {
+	return Items(ctx, c.GetMyFactionRevivesSimplifiedPager(params, opts...), func(page GetMyFactionRevivesSimplifiedResponse) []models.ReviveSimplified { return page.Revives })
 }
 
 // GetFactionSearchParams contains documented parameters for GET /faction/search.
 type GetFactionSearchParams struct {
-	Name      *string                                    `json:"name,omitempty"`
-	Filters   *[]models.GetFactionSearchParamFiltersItem `json:"filters,omitempty"`
-	Limit     *int64                                     `json:"limit,omitempty"`
-	Offset    *int64                                     `json:"offset,omitempty"`
-	Timestamp *models.GetFactionSearchParamTimestamp     `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Name is the query parameter "name".
+	Name *string `json:"name,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.GetFactionSearchParamFiltersItem `json:"filters,omitempty"`
+	Limit   *int64                                     `json:"limit,omitempty"`
+	Offset  *int64                                     `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetFactionSearchParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionSearchResponse is the decoded 200 response of getFactionSearch.
 type GetFactionSearchResponse = models.FactionSearchResponse
 
-// GetFactionSearch executes operation getFactionSearch using its exact documented path.
+var getFactionSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"destroyed\",\"notDestroyed\",\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|respect|members|membersMax):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"Parameters\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionSearch executes operation getFactionSearch (GET /faction/search; key access: public) using its exact documented path.
 func (c *Client) GetFactionSearch(ctx context.Context, params GetFactionSearchParams, opts ...RequestOptions) (GetFactionSearchResponse, ExecutionReport, error) {
 	var out GetFactionSearchResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"destroyed\",\"notDestroyed\",\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|respect|members|membersMax):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"Parameters\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionSearch parameters: %w", err)
+	if err = getFactionSearchParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionSearch", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionSearch", Path: "/faction/search", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionSearch", "FactionSearchResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetFactionSearchPager pages through getFactionSearch by following _metadata.links (P7.1).
+func (c *Client) GetFactionSearchPager(params GetFactionSearchParams, opts ...PageOptions) *Pager[GetFactionSearchResponse] {
+	return newOperationPager[GetFactionSearchResponse](c, Operation{ID: "getFactionSearch", Path: "/faction/search", Method: "GET"}, params, "FactionSearchResponse", opts)
+}
+
+// GetFactionSearchItems iterates the "search" items of every getFactionSearch page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetFactionSearchItems(ctx context.Context, params GetFactionSearchParams, opts ...PageOptions) iter.Seq2[models.FactionSearch, error] {
+	return Items(ctx, c.GetFactionSearchPager(params, opts...), func(page GetFactionSearchResponse) []models.FactionSearch { return page.Search })
 }
 
 // GetFactionsSnapshotParams contains documented parameters for GET /faction/snapshot.
 type GetFactionsSnapshotParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionsSnapshotParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionsSnapshotResponse is the decoded 200 response of getFactionsSnapshot.
 type GetFactionsSnapshotResponse = string
 
-// GetFactionsSnapshot executes operation getFactionsSnapshot using its exact documented path.
+var getFactionsSnapshotParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionsSnapshot executes operation getFactionsSnapshot (GET /faction/snapshot; key access: public) using its exact documented path.
 func (c *Client) GetFactionsSnapshot(ctx context.Context, params GetFactionsSnapshotParams, opts ...RequestOptions) (GetFactionsSnapshotResponse, ExecutionReport, error) {
 	var out GetFactionsSnapshotResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionsSnapshot parameters: %w", err)
+	if err = getFactionsSnapshotParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionsSnapshot", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionsSnapshot", Path: "/faction/snapshot", Method: "GET", CSV: true}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionsSnapshot", "", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionStatsParams contains documented parameters for GET /faction/stats.
 type GetMyFactionStatsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionStatsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionStatsResponse is the decoded 200 response of getMyFactionStats.
 type GetMyFactionStatsResponse = models.FactionStatsResponse
 
-// GetMyFactionStats executes operation getMyFactionStats using its exact documented path.
+var getMyFactionStatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionStats executes operation getMyFactionStats (GET /faction/stats; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionStats(ctx context.Context, params GetMyFactionStatsParams, opts ...RequestOptions) (GetMyFactionStatsResponse, ExecutionReport, error) {
 	var out GetMyFactionStatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionStats parameters: %w", err)
+	if err = getMyFactionStatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionStats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionStats", Path: "/faction/stats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionStats", "FactionStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionTerritoryParams contains documented parameters for GET /faction/territory.
 type GetMyFactionTerritoryParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionTerritoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionTerritoryResponse is the decoded 200 response of getMyFactionTerritory.
 type GetMyFactionTerritoryResponse = models.FactionTerritoriesResponse
 
-// GetMyFactionTerritory executes operation getMyFactionTerritory using its exact documented path.
+var getMyFactionTerritoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionTerritory executes operation getMyFactionTerritory (GET /faction/territory; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionTerritory(ctx context.Context, params GetMyFactionTerritoryParams, opts ...RequestOptions) (GetMyFactionTerritoryResponse, ExecutionReport, error) {
 	var out GetMyFactionTerritoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionTerritory parameters: %w", err)
+	if err = getMyFactionTerritoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionTerritory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionTerritory", Path: "/faction/territory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionTerritory", "FactionTerritoriesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTerritoryOwnershipParams contains documented parameters for GET /faction/territoryownership.
 type GetTerritoryOwnershipParams struct {
-	Offset    *int64                                      `json:"offset,omitempty"`
-	Limit     *int64                                      `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	Limit  *int64 `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTerritoryOwnershipParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTerritoryOwnershipResponse is the decoded 200 response of getTerritoryOwnership.
 type GetTerritoryOwnershipResponse = models.FactionTerritoriesOwnershipResponse
 
-// GetTerritoryOwnership executes operation getTerritoryOwnership using its exact documented path.
+var getTerritoryOwnershipParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":500,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTerritoryOwnership executes operation getTerritoryOwnership (GET /faction/territoryownership; key access: public) using its exact documented path.
 func (c *Client) GetTerritoryOwnership(ctx context.Context, params GetTerritoryOwnershipParams, opts ...RequestOptions) (GetTerritoryOwnershipResponse, ExecutionReport, error) {
 	var out GetTerritoryOwnershipResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":500,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTerritoryOwnership parameters: %w", err)
+	if err = getTerritoryOwnershipParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTerritoryOwnership", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTerritoryOwnership", Path: "/faction/territoryownership", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTerritoryOwnership", "FactionTerritoriesOwnershipResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionTerritoryWarsHistoryParams contains documented parameters for GET /faction/territorywars.
 type GetMyFactionTerritoryWarsHistoryParams struct {
-	From      *int64                                                 `json:"from,omitempty"`
-	To        *int64                                                 `json:"to,omitempty"`
-	Sort      *models.GetMyFactionTerritoryWarsHistoryParamSort      `json:"sort,omitempty"`
-	Limit     *int64                                                 `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort  *models.GetMyFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
+	Limit *int64                                            `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionTerritoryWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                                `json:"comment,omitempty"`
-	Key       *string                                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionTerritoryWarsHistoryResponse is the decoded 200 response of getMyFactionTerritoryWarsHistory.
 type GetMyFactionTerritoryWarsHistoryResponse = models.FactionTerritoryWarsHistoryResponse
 
-// GetMyFactionTerritoryWarsHistory executes operation getMyFactionTerritoryWarsHistory using its exact documented path.
+var getMyFactionTerritoryWarsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionTerritoryWarsHistory executes operation getMyFactionTerritoryWarsHistory (GET /faction/territorywars; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionTerritoryWarsHistory(ctx context.Context, params GetMyFactionTerritoryWarsHistoryParams, opts ...RequestOptions) (GetMyFactionTerritoryWarsHistoryResponse, ExecutionReport, error) {
 	var out GetMyFactionTerritoryWarsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionTerritoryWarsHistory parameters: %w", err)
+	if err = getMyFactionTerritoryWarsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionTerritoryWarsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionTerritoryWarsHistory", Path: "/faction/territorywars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionTerritoryWarsHistory", "FactionTerritoryWarsHistoryResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionTimestampParams contains documented parameters for GET /faction/timestamp.
 type GetFactionTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionTimestampResponse is the decoded 200 response of getFactionTimestamp.
 type GetFactionTimestampResponse = models.TimestampResponse
 
-// GetFactionTimestamp executes operation getFactionTimestamp using its exact documented path.
+var getFactionTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetFactionTimestamp executes operation getFactionTimestamp (GET /faction/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetFactionTimestamp(ctx context.Context, params GetFactionTimestampParams, opts ...RequestOptions) (GetFactionTimestampResponse, ExecutionReport, error) {
 	var out GetFactionTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionTimestamp parameters: %w", err)
+	if err = getFactionTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionTimestamp", Path: "/faction/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionUpgradesParams contains documented parameters for GET /faction/upgrades.
 type GetMyFactionUpgradesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionUpgradesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionUpgradesResponse is the decoded 200 response of getMyFactionUpgrades.
 type GetMyFactionUpgradesResponse = models.FactionUpgradesResponse
 
-// GetMyFactionUpgrades executes operation getMyFactionUpgrades using its exact documented path.
+var getMyFactionUpgradesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionUpgrades executes operation getMyFactionUpgrades (GET /faction/upgrades; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionUpgrades(ctx context.Context, params GetMyFactionUpgradesParams, opts ...RequestOptions) (GetMyFactionUpgradesResponse, ExecutionReport, error) {
 	var out GetMyFactionUpgradesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionUpgrades parameters: %w", err)
+	if err = getMyFactionUpgradesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionUpgrades", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionUpgrades", Path: "/faction/upgrades", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionUpgrades", "FactionUpgradesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetWarfareParams contains documented parameters for GET /faction/warfare.
 type GetWarfareParams struct {
-	Cat       models.FactionWarfareTypeEnum    `json:"cat"`
-	Limit     *int64                           `json:"limit,omitempty"`
-	Sort      *models.GetWarfareParamSort      `json:"sort,omitempty"`
-	From      *int64                           `json:"from,omitempty"`
-	To        *int64                           `json:"to,omitempty"`
+	Cat   models.FactionWarfareTypeEnum `json:"cat"`
+	Limit *int64                        `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetWarfareParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareResponse is the decoded 200 response of getWarfare.
 type GetWarfareResponse = models.FactionWarfareResponse
 
-// GetWarfare executes operation getWarfare using its exact documented path.
+var getWarfareParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionWarfareTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetWarfare executes operation getWarfare (GET /faction/warfare; key access: public) using its exact documented path.
 func (c *Client) GetWarfare(ctx context.Context, params GetWarfareParams, opts ...RequestOptions) (GetWarfareResponse, ExecutionReport, error) {
 	var out GetWarfareResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/FactionWarfareTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfare parameters: %w", err)
+	if err = getWarfareParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfare", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfare", Path: "/faction/warfare", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfare", "FactionWarfareResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetWarfarePager pages through getWarfare by following _metadata.links (P7.1).
+func (c *Client) GetWarfarePager(params GetWarfareParams, opts ...PageOptions) *Pager[GetWarfareResponse] {
+	return newOperationPager[GetWarfareResponse](c, Operation{ID: "getWarfare", Path: "/faction/warfare", Method: "GET"}, params, "FactionWarfareResponse", opts)
 }
 
 // GetWarfareChainsParams contains documented parameters for GET /faction/warfarechains.
 type GetWarfareChainsParams struct {
-	Cat       models.GetWarfareChainsParamCat        `json:"cat"`
-	Limit     *int64                                 `json:"limit,omitempty"`
-	Sort      *models.GetWarfareChainsParamSort      `json:"sort,omitempty"`
-	From      *int64                                 `json:"from,omitempty"`
-	To        *int64                                 `json:"to,omitempty"`
+	Cat   models.GetWarfareChainsParamCat `json:"cat"`
+	Limit *int64                          `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetWarfareChainsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareChainsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareChainsResponse is the decoded 200 response of getWarfareChains.
 type GetWarfareChainsResponse = models.FactionWarfareChainsResponse
 
-// GetWarfareChains executes operation getWarfareChains using its exact documented path.
+var getWarfareChainsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"enum\":[\"active\",\"complete\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetWarfareChains executes operation getWarfareChains (GET /faction/warfarechains; key access: public) using its exact documented path.
 func (c *Client) GetWarfareChains(ctx context.Context, params GetWarfareChainsParams, opts ...RequestOptions) (GetWarfareChainsResponse, ExecutionReport, error) {
 	var out GetWarfareChainsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"enum\":[\"active\",\"complete\"],\"type\":\"string\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfareChains parameters: %w", err)
+	if err = getWarfareChainsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfareChains", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfareChains", Path: "/faction/warfarechains", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfareChains", "FactionWarfareChainsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetWarfareChainsPager pages through getWarfareChains by following _metadata.links (P7.1).
+func (c *Client) GetWarfareChainsPager(params GetWarfareChainsParams, opts ...PageOptions) *Pager[GetWarfareChainsResponse] {
+	return newOperationPager[GetWarfareChainsResponse](c, Operation{ID: "getWarfareChains", Path: "/faction/warfarechains", Method: "GET"}, params, "FactionWarfareChainsResponse", opts)
+}
+
+// GetWarfareChainsItems iterates the "warfarechains" items of every getWarfareChains page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetWarfareChainsItems(ctx context.Context, params GetWarfareChainsParams, opts ...PageOptions) iter.Seq2[models.FactionChainWarfare, error] {
+	return Items(ctx, c.GetWarfareChainsPager(params, opts...), func(page GetWarfareChainsResponse) []models.FactionChainWarfare { return page.Warfarechains })
 }
 
 // GetWarfareRaidsParams contains documented parameters for GET /faction/warfareraids.
 type GetWarfareRaidsParams struct {
-	Limit     *int64                                `json:"limit,omitempty"`
-	Sort      *models.GetWarfareRaidsParamSort      `json:"sort,omitempty"`
-	From      *int64                                `json:"from,omitempty"`
-	To        *int64                                `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetWarfareRaidsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareRaidsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareRaidsResponse is the decoded 200 response of getWarfareRaids.
 type GetWarfareRaidsResponse = models.FactionWarfareRaidsResponse
 
-// GetWarfareRaids executes operation getWarfareRaids using its exact documented path.
+var getWarfareRaidsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetWarfareRaids executes operation getWarfareRaids (GET /faction/warfareraids; key access: public) using its exact documented path.
 func (c *Client) GetWarfareRaids(ctx context.Context, params GetWarfareRaidsParams, opts ...RequestOptions) (GetWarfareRaidsResponse, ExecutionReport, error) {
 	var out GetWarfareRaidsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfareRaids parameters: %w", err)
+	if err = getWarfareRaidsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfareRaids", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfareRaids", Path: "/faction/warfareraids", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfareRaids", "FactionWarfareRaidsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetWarfareRaidsPager pages through getWarfareRaids by following _metadata.links (P7.1).
+func (c *Client) GetWarfareRaidsPager(params GetWarfareRaidsParams, opts ...PageOptions) *Pager[GetWarfareRaidsResponse] {
+	return newOperationPager[GetWarfareRaidsResponse](c, Operation{ID: "getWarfareRaids", Path: "/faction/warfareraids", Method: "GET"}, params, "FactionWarfareRaidsResponse", opts)
+}
+
+// GetWarfareRaidsItems iterates the "warfareraids" items of every getWarfareRaids page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetWarfareRaidsItems(ctx context.Context, params GetWarfareRaidsParams, opts ...PageOptions) iter.Seq2[models.FactionRaidWarfare, error] {
+	return Items(ctx, c.GetWarfareRaidsPager(params, opts...), func(page GetWarfareRaidsResponse) []models.FactionRaidWarfare { return page.Warfareraids })
 }
 
 // GetWarfareRankedWarsParams contains documented parameters for GET /faction/warfareranked.
 type GetWarfareRankedWarsParams struct {
-	Limit     *int64                                     `json:"limit,omitempty"`
-	Sort      *models.GetWarfareRankedWarsParamSort      `json:"sort,omitempty"`
-	From      *int64                                     `json:"from,omitempty"`
-	To        *int64                                     `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetWarfareRankedWarsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareRankedWarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareRankedWarsResponse is the decoded 200 response of getWarfareRankedWars.
 type GetWarfareRankedWarsResponse = models.FactionWarfareRankedResponse
 
-// GetWarfareRankedWars executes operation getWarfareRankedWars using its exact documented path.
+var getWarfareRankedWarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetWarfareRankedWars executes operation getWarfareRankedWars (GET /faction/warfareranked; key access: public) using its exact documented path.
 func (c *Client) GetWarfareRankedWars(ctx context.Context, params GetWarfareRankedWarsParams, opts ...RequestOptions) (GetWarfareRankedWarsResponse, ExecutionReport, error) {
 	var out GetWarfareRankedWarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfareRankedWars parameters: %w", err)
+	if err = getWarfareRankedWarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfareRankedWars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfareRankedWars", Path: "/faction/warfareranked", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfareRankedWars", "FactionWarfareRankedResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetWarfareRankedWarsPager pages through getWarfareRankedWars by following _metadata.links (P7.1).
+func (c *Client) GetWarfareRankedWarsPager(params GetWarfareRankedWarsParams, opts ...PageOptions) *Pager[GetWarfareRankedWarsResponse] {
+	return newOperationPager[GetWarfareRankedWarsResponse](c, Operation{ID: "getWarfareRankedWars", Path: "/faction/warfareranked", Method: "GET"}, params, "FactionWarfareRankedResponse", opts)
+}
+
+// GetWarfareRankedWarsItems iterates the "warfareranked" items of every getWarfareRankedWars page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetWarfareRankedWarsItems(ctx context.Context, params GetWarfareRankedWarsParams, opts ...PageOptions) iter.Seq2[models.FactionRankedWarDetails, error] {
+	return Items(ctx, c.GetWarfareRankedWarsPager(params, opts...), func(page GetWarfareRankedWarsResponse) []models.FactionRankedWarDetails { return page.Warfareranked })
 }
 
 // GetWarfareTerritoryWarsParams contains documented parameters for GET /faction/warfareterritory.
 type GetWarfareTerritoryWarsParams struct {
-	Limit     *int64                                        `json:"limit,omitempty"`
-	Sort      *models.GetWarfareTerritoryWarsParamSort      `json:"sort,omitempty"`
-	From      *int64                                        `json:"from,omitempty"`
-	To        *int64                                        `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetWarfareTerritoryWarsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetWarfareTerritoryWarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                       `json:"comment,omitempty"`
-	Key       *string                                       `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetWarfareTerritoryWarsResponse is the decoded 200 response of getWarfareTerritoryWars.
 type GetWarfareTerritoryWarsResponse = models.FactionWarfareTerritoryWarsResponse
 
-// GetWarfareTerritoryWars executes operation getWarfareTerritoryWars using its exact documented path.
+var getWarfareTerritoryWarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetWarfareTerritoryWars executes operation getWarfareTerritoryWars (GET /faction/warfareterritory; key access: public) using its exact documented path.
 func (c *Client) GetWarfareTerritoryWars(ctx context.Context, params GetWarfareTerritoryWarsParams, opts ...RequestOptions) (GetWarfareTerritoryWarsResponse, ExecutionReport, error) {
 	var out GetWarfareTerritoryWarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getWarfareTerritoryWars parameters: %w", err)
+	if err = getWarfareTerritoryWarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getWarfareTerritoryWars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getWarfareTerritoryWars", Path: "/faction/warfareterritory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getWarfareTerritoryWars", "FactionWarfareTerritoryWarsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetWarfareTerritoryWarsPager pages through getWarfareTerritoryWars by following _metadata.links (P7.1).
+func (c *Client) GetWarfareTerritoryWarsPager(params GetWarfareTerritoryWarsParams, opts ...PageOptions) *Pager[GetWarfareTerritoryWarsResponse] {
+	return newOperationPager[GetWarfareTerritoryWarsResponse](c, Operation{ID: "getWarfareTerritoryWars", Path: "/faction/warfareterritory", Method: "GET"}, params, "FactionWarfareTerritoryWarsResponse", opts)
+}
+
+// GetWarfareTerritoryWarsItems iterates the "warfareterritory" items of every getWarfareTerritoryWars page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetWarfareTerritoryWarsItems(ctx context.Context, params GetWarfareTerritoryWarsParams, opts ...PageOptions) iter.Seq2[models.FactionTerritoryWarfare, error] {
+	return Items(ctx, c.GetWarfareTerritoryWarsPager(params, opts...), func(page GetWarfareTerritoryWarsResponse) []models.FactionTerritoryWarfare {
+		return page.Warfareterritory
+	})
 }
 
 // GetMyFactionWarsParams contains documented parameters for GET /faction/wars.
 type GetMyFactionWarsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionWarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionWarsResponse is the decoded 200 response of getMyFactionWars.
 type GetMyFactionWarsResponse = models.FactionWarsResponse
 
-// GetMyFactionWars executes operation getMyFactionWars using its exact documented path.
+var getMyFactionWarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFactionWars executes operation getMyFactionWars (GET /faction/wars; key access: public) using its exact documented path.
 func (c *Client) GetMyFactionWars(ctx context.Context, params GetMyFactionWarsParams, opts ...RequestOptions) (GetMyFactionWarsResponse, ExecutionReport, error) {
 	var out GetMyFactionWarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionWars parameters: %w", err)
+	if err = getMyFactionWarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionWars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionWars", Path: "/faction/wars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionWars", "FactionWarsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetChainReportParams contains documented parameters for GET /faction/{chainId}/chainreport.
 type GetChainReportParams struct {
-	ChainId   models.ChainId                       `json:"chainId" path:"chainId"`
+	// ChainId is the path parameter "chainId".
+	ChainId models.ChainId `json:"chainId" path:"chainId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetChainReportParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetChainReportResponse is the decoded 200 response of getChainReport.
 type GetChainReportResponse = models.FactionChainReportResponse
 
-// GetChainReport executes operation getChainReport using its exact documented path.
+var getChainReportParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"chainId\":{\"$ref\":\"#/components/schemas/ChainId\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"chainId\"],\"type\":\"object\"}")
+})
+
+// GetChainReport executes operation getChainReport (GET /faction/{chainId}/chainreport; key access: public) using its exact documented path.
 func (c *Client) GetChainReport(ctx context.Context, params GetChainReportParams, opts ...RequestOptions) (GetChainReportResponse, ExecutionReport, error) {
 	var out GetChainReportResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"chainId\":{\"$ref\":\"#/components/schemas/ChainId\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"chainId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getChainReport parameters: %w", err)
+	if err = getChainReportParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getChainReport", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getChainReport", Path: "/faction/{chainId}/chainreport", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getChainReport", "FactionChainReportResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyFactionOrganizedCrimeParams contains documented parameters for GET /faction/{crimeId}/crime.
 type GetMyFactionOrganizedCrimeParams struct {
-	CrimeId   models.FactionCrimeId                            `json:"crimeId" path:"crimeId"`
+	// CrimeId is the path parameter "crimeId".
+	CrimeId models.FactionCrimeId `json:"crimeId" path:"crimeId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionOrganizedCrimeParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                          `json:"comment,omitempty"`
-	Key       *string                                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionOrganizedCrimeResponse is the decoded 200 response of getMyFactionOrganizedCrime.
 type GetMyFactionOrganizedCrimeResponse = models.FactionCrimeResponse
 
-// GetMyFactionOrganizedCrime executes operation getMyFactionOrganizedCrime using its exact documented path.
+var getMyFactionOrganizedCrimeParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/FactionCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}")
+})
+
+// GetMyFactionOrganizedCrime executes operation getMyFactionOrganizedCrime (GET /faction/{crimeId}/crime; key access: minimal) using its exact documented path.
 func (c *Client) GetMyFactionOrganizedCrime(ctx context.Context, params GetMyFactionOrganizedCrimeParams, opts ...RequestOptions) (GetMyFactionOrganizedCrimeResponse, ExecutionReport, error) {
 	var out GetMyFactionOrganizedCrimeResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/FactionCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFactionOrganizedCrime parameters: %w", err)
+	if err = getMyFactionOrganizedCrimeParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFactionOrganizedCrime", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFactionOrganizedCrime", Path: "/faction/{crimeId}/crime", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFactionOrganizedCrime", "FactionCrimeResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionBasicInformationParams contains documented parameters for GET /faction/{id}/basic.
 type GetFactionBasicInformationParams struct {
-	ID        models.FactionId                                 `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionBasicInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                          `json:"comment,omitempty"`
-	Key       *string                                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionBasicInformationResponse is the decoded 200 response of getFactionBasicInformation.
 type GetFactionBasicInformationResponse = models.FactionBasicResponse
 
-// GetFactionBasicInformation executes operation getFactionBasicInformation using its exact documented path.
+var getFactionBasicInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionBasicInformation executes operation getFactionBasicInformation (GET /faction/{id}/basic; key access: public) using its exact documented path.
 func (c *Client) GetFactionBasicInformation(ctx context.Context, params GetFactionBasicInformationParams, opts ...RequestOptions) (GetFactionBasicInformationResponse, ExecutionReport, error) {
 	var out GetFactionBasicInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionBasicInformation parameters: %w", err)
+	if err = getFactionBasicInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionBasicInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionBasicInformation", Path: "/faction/{id}/basic", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionBasicInformation", "FactionBasicResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionChainParams contains documented parameters for GET /faction/{id}/chain.
 type GetFactionChainParams struct {
-	ID        models.FactionId                      `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionChainParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionChainResponse is the decoded 200 response of getFactionChain.
 type GetFactionChainResponse = models.FactionOngoingChainResponse
 
-// GetFactionChain executes operation getFactionChain using its exact documented path.
+var getFactionChainParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionChain executes operation getFactionChain (GET /faction/{id}/chain; key access: public) using its exact documented path.
 func (c *Client) GetFactionChain(ctx context.Context, params GetFactionChainParams, opts ...RequestOptions) (GetFactionChainResponse, ExecutionReport, error) {
 	var out GetFactionChainResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionChain parameters: %w", err)
+	if err = getFactionChainParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionChain", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionChain", Path: "/faction/{id}/chain", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionChain", "FactionOngoingChainResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionCompletedChainsParams contains documented parameters for GET /faction/{id}/chains.
 type GetFactionCompletedChainsParams struct {
-	ID        models.FactionId                                `json:"id" path:"id"`
-	Limit     *int64                                          `json:"limit,omitempty"`
-	Sort      *models.GetFactionCompletedChainsParamSort      `json:"sort,omitempty"`
-	To        *int64                                          `json:"to,omitempty"`
-	From      *int64                                          `json:"from,omitempty"`
+	// ID is the path parameter "id".
+	ID    models.FactionId `json:"id" path:"id"`
+	Limit *int64           `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetFactionCompletedChainsParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionCompletedChainsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                         `json:"comment,omitempty"`
-	Key       *string                                         `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionCompletedChainsResponse is the decoded 200 response of getFactionCompletedChains.
 type GetFactionCompletedChainsResponse = models.FactionChainsResponse
 
-// GetFactionCompletedChains executes operation getFactionCompletedChains using its exact documented path.
+var getFactionCompletedChainsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionCompletedChains executes operation getFactionCompletedChains (GET /faction/{id}/chains; key access: public) using its exact documented path.
 func (c *Client) GetFactionCompletedChains(ctx context.Context, params GetFactionCompletedChainsParams, opts ...RequestOptions) (GetFactionCompletedChainsResponse, ExecutionReport, error) {
 	var out GetFactionCompletedChainsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionCompletedChains parameters: %w", err)
+	if err = getFactionCompletedChainsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionCompletedChains", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionCompletedChains", Path: "/faction/{id}/chains", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionCompletedChains", "FactionChainsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetFactionCompletedChainsPager pages through getFactionCompletedChains by following _metadata.links (P7.1).
+func (c *Client) GetFactionCompletedChainsPager(params GetFactionCompletedChainsParams, opts ...PageOptions) *Pager[GetFactionCompletedChainsResponse] {
+	return newOperationPager[GetFactionCompletedChainsResponse](c, Operation{ID: "getFactionCompletedChains", Path: "/faction/{id}/chains", Method: "GET"}, params, "FactionChainsResponse", opts)
+}
+
+// GetFactionCompletedChainsItems iterates the "chains" items of every getFactionCompletedChains page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetFactionCompletedChainsItems(ctx context.Context, params GetFactionCompletedChainsParams, opts ...PageOptions) iter.Seq2[models.FactionChain, error] {
+	return Items(ctx, c.GetFactionCompletedChainsPager(params, opts...), func(page GetFactionCompletedChainsResponse) []models.FactionChain { return page.Chains })
 }
 
 // GetFactionHoFParams contains documented parameters for GET /faction/{id}/hof.
 type GetFactionHoFParams struct {
-	ID        models.FactionId                    `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionHoFResponse is the decoded 200 response of getFactionHoF.
 type GetFactionHoFResponse = models.FactionHofResponse
 
-// GetFactionHoF executes operation getFactionHoF using its exact documented path.
+var getFactionHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionHoF executes operation getFactionHoF (GET /faction/{id}/hof; key access: public) using its exact documented path.
 func (c *Client) GetFactionHoF(ctx context.Context, params GetFactionHoFParams, opts ...RequestOptions) (GetFactionHoFResponse, ExecutionReport, error) {
 	var out GetFactionHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionHoF parameters: %w", err)
+	if err = getFactionHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionHoF", Path: "/faction/{id}/hof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionHoF", "FactionHofResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionMembersParams contains documented parameters for GET /faction/{id}/members.
 type GetFactionMembersParams struct {
-	ID        models.FactionId                        `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetFactionMembersParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionMembersParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionMembersResponse is the decoded 200 response of getFactionMembers.
 type GetFactionMembersResponse = models.FactionMembersResponse
 
-// GetFactionMembers executes operation getFactionMembers using its exact documented path.
+var getFactionMembersParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionMembers executes operation getFactionMembers (GET /faction/{id}/members; key access: public) using its exact documented path.
 func (c *Client) GetFactionMembers(ctx context.Context, params GetFactionMembersParams, opts ...RequestOptions) (GetFactionMembersResponse, ExecutionReport, error) {
 	var out GetFactionMembersResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionMembers parameters: %w", err)
+	if err = getFactionMembersParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionMembers", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionMembers", Path: "/faction/{id}/members", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionMembers", "FactionMembersResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionRaidsHistoryParams contains documented parameters for GET /faction/{id}/raids.
 type GetFactionRaidsHistoryParams struct {
-	ID        models.FactionId                             `json:"id" path:"id"`
-	From      *int64                                       `json:"from,omitempty"`
-	To        *int64                                       `json:"to,omitempty"`
-	Sort      *models.GetFactionRaidsHistoryParamSort      `json:"sort,omitempty"`
-	Limit     *int64                                       `json:"limit,omitempty"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort  *models.GetFactionRaidsHistoryParamSort `json:"sort,omitempty"`
+	Limit *int64                                  `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionRaidsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionRaidsHistoryResponse is the decoded 200 response of getFactionRaidsHistory.
 type GetFactionRaidsHistoryResponse = models.FactionRaidsResponse
 
-// GetFactionRaidsHistory executes operation getFactionRaidsHistory using its exact documented path.
+var getFactionRaidsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionRaidsHistory executes operation getFactionRaidsHistory (GET /faction/{id}/raids; key access: public) using its exact documented path.
 func (c *Client) GetFactionRaidsHistory(ctx context.Context, params GetFactionRaidsHistoryParams, opts ...RequestOptions) (GetFactionRaidsHistoryResponse, ExecutionReport, error) {
 	var out GetFactionRaidsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionRaidsHistory parameters: %w", err)
+	if err = getFactionRaidsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionRaidsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionRaidsHistory", Path: "/faction/{id}/raids", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionRaidsHistory", "FactionRaidsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetFactionRaidsHistoryPager pages through getFactionRaidsHistory by following _metadata.links (P7.1).
+func (c *Client) GetFactionRaidsHistoryPager(params GetFactionRaidsHistoryParams, opts ...PageOptions) *Pager[GetFactionRaidsHistoryResponse] {
+	return newOperationPager[GetFactionRaidsHistoryResponse](c, Operation{ID: "getFactionRaidsHistory", Path: "/faction/{id}/raids", Method: "GET"}, params, "FactionRaidsResponse", opts)
+}
+
+// GetFactionRaidsHistoryItems iterates the "raids" items of every getFactionRaidsHistory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetFactionRaidsHistoryItems(ctx context.Context, params GetFactionRaidsHistoryParams, opts ...PageOptions) iter.Seq2[models.FactionRaidWarfare, error] {
+	return Items(ctx, c.GetFactionRaidsHistoryPager(params, opts...), func(page GetFactionRaidsHistoryResponse) []models.FactionRaidWarfare { return page.Raids })
 }
 
 // GetFactionRankedWarsHistoryParams contains documented parameters for GET /faction/{id}/rankedwars.
 type GetFactionRankedWarsHistoryParams struct {
-	ID        models.FactionId                                  `json:"id" path:"id"`
-	Offset    *int64                                            `json:"offset,omitempty"`
-	Limit     *int64                                            `json:"limit,omitempty"`
+	// ID is the path parameter "id".
+	ID     models.FactionId `json:"id" path:"id"`
+	Offset *int64           `json:"offset,omitempty"`
+	Limit  *int64           `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionRankedWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                           `json:"comment,omitempty"`
-	Key       *string                                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionRankedWarsHistoryResponse is the decoded 200 response of getFactionRankedWarsHistory.
 type GetFactionRankedWarsHistoryResponse = models.FactionRankedWarResponse
 
-// GetFactionRankedWarsHistory executes operation getFactionRankedWarsHistory using its exact documented path.
+var getFactionRankedWarsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionRankedWarsHistory executes operation getFactionRankedWarsHistory (GET /faction/{id}/rankedwars; key access: public) using its exact documented path.
 func (c *Client) GetFactionRankedWarsHistory(ctx context.Context, params GetFactionRankedWarsHistoryParams, opts ...RequestOptions) (GetFactionRankedWarsHistoryResponse, ExecutionReport, error) {
 	var out GetFactionRankedWarsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionRankedWarsHistory parameters: %w", err)
+	if err = getFactionRankedWarsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionRankedWarsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionRankedWarsHistory", Path: "/faction/{id}/rankedwars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionRankedWarsHistory", "FactionRankedWarResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetFactionRankedWarsHistoryPager pages through getFactionRankedWarsHistory by following _metadata.links (P7.1).
+func (c *Client) GetFactionRankedWarsHistoryPager(params GetFactionRankedWarsHistoryParams, opts ...PageOptions) *Pager[GetFactionRankedWarsHistoryResponse] {
+	return newOperationPager[GetFactionRankedWarsHistoryResponse](c, Operation{ID: "getFactionRankedWarsHistory", Path: "/faction/{id}/rankedwars", Method: "GET"}, params, "FactionRankedWarResponse", opts)
+}
+
+// GetFactionRankedWarsHistoryItems iterates the "rankedwars" items of every getFactionRankedWarsHistory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetFactionRankedWarsHistoryItems(ctx context.Context, params GetFactionRankedWarsHistoryParams, opts ...PageOptions) iter.Seq2[models.FactionRankedWarDetails, error] {
+	return Items(ctx, c.GetFactionRankedWarsHistoryPager(params, opts...), func(page GetFactionRankedWarsHistoryResponse) []models.FactionRankedWarDetails {
+		return page.Rankedwars
+	})
 }
 
 // GetFactionTerritoryParams contains documented parameters for GET /faction/{id}/territory.
 type GetFactionTerritoryParams struct {
-	ID        models.FactionId                          `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionTerritoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionTerritoryResponse is the decoded 200 response of getFactionTerritory.
 type GetFactionTerritoryResponse = models.FactionTerritoriesResponse
 
-// GetFactionTerritory executes operation getFactionTerritory using its exact documented path.
+var getFactionTerritoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionTerritory executes operation getFactionTerritory (GET /faction/{id}/territory; key access: public) using its exact documented path.
 func (c *Client) GetFactionTerritory(ctx context.Context, params GetFactionTerritoryParams, opts ...RequestOptions) (GetFactionTerritoryResponse, ExecutionReport, error) {
 	var out GetFactionTerritoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionTerritory parameters: %w", err)
+	if err = getFactionTerritoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionTerritory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionTerritory", Path: "/faction/{id}/territory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionTerritory", "FactionTerritoriesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionTerritoryWarsHistoryParams contains documented parameters for GET /faction/{id}/territorywars.
 type GetFactionTerritoryWarsHistoryParams struct {
-	ID        models.FactionId                                     `json:"id" path:"id"`
-	From      *int64                                               `json:"from,omitempty"`
-	To        *int64                                               `json:"to,omitempty"`
-	Sort      *models.GetFactionTerritoryWarsHistoryParamSort      `json:"sort,omitempty"`
-	Limit     *int64                                               `json:"limit,omitempty"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort  *models.GetFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
+	Limit *int64                                          `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionTerritoryWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                              `json:"comment,omitempty"`
-	Key       *string                                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionTerritoryWarsHistoryResponse is the decoded 200 response of getFactionTerritoryWarsHistory.
 type GetFactionTerritoryWarsHistoryResponse = models.FactionTerritoryWarsHistoryResponse
 
-// GetFactionTerritoryWarsHistory executes operation getFactionTerritoryWarsHistory using its exact documented path.
+var getFactionTerritoryWarsHistoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionTerritoryWarsHistory executes operation getFactionTerritoryWarsHistory (GET /faction/{id}/territorywars; key access: public) using its exact documented path.
 func (c *Client) GetFactionTerritoryWarsHistory(ctx context.Context, params GetFactionTerritoryWarsHistoryParams, opts ...RequestOptions) (GetFactionTerritoryWarsHistoryResponse, ExecutionReport, error) {
 	var out GetFactionTerritoryWarsHistoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionTerritoryWarsHistory parameters: %w", err)
+	if err = getFactionTerritoryWarsHistoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionTerritoryWarsHistory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionTerritoryWarsHistory", Path: "/faction/{id}/territorywars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionTerritoryWarsHistory", "FactionTerritoryWarsHistoryResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetFactionWarsParams contains documented parameters for GET /faction/{id}/wars.
 type GetFactionWarsParams struct {
-	ID        models.FactionId                     `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.FactionId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionWarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetFactionWarsResponse is the decoded 200 response of getFactionWars.
 type GetFactionWarsResponse = models.FactionWarsResponse
 
-// GetFactionWars executes operation getFactionWars using its exact documented path.
+var getFactionWarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetFactionWars executes operation getFactionWars (GET /faction/{id}/wars; key access: public) using its exact documented path.
 func (c *Client) GetFactionWars(ctx context.Context, params GetFactionWarsParams, opts ...RequestOptions) (GetFactionWarsResponse, ExecutionReport, error) {
 	var out GetFactionWarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/FactionId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getFactionWars parameters: %w", err)
+	if err = getFactionWarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getFactionWars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getFactionWars", Path: "/faction/{id}/wars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getFactionWars", "FactionWarsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRaidReportParams contains documented parameters for GET /faction/{raidWarId}/raidreport.
 type GetRaidReportParams struct {
-	RaidWarId models.RaidWarId                    `json:"raidWarId" path:"raidWarId"`
+	// RaidWarId is the path parameter "raidWarId".
+	RaidWarId models.RaidWarId `json:"raidWarId" path:"raidWarId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRaidReportParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRaidReportResponse is the decoded 200 response of getRaidReport.
 type GetRaidReportResponse = models.FactionRaidWarReportResponse
 
-// GetRaidReport executes operation getRaidReport using its exact documented path.
+var getRaidReportParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"raidWarId\":{\"$ref\":\"#/components/schemas/RaidWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"raidWarId\"],\"type\":\"object\"}")
+})
+
+// GetRaidReport executes operation getRaidReport (GET /faction/{raidWarId}/raidreport; key access: public) using its exact documented path.
 func (c *Client) GetRaidReport(ctx context.Context, params GetRaidReportParams, opts ...RequestOptions) (GetRaidReportResponse, ExecutionReport, error) {
 	var out GetRaidReportResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"raidWarId\":{\"$ref\":\"#/components/schemas/RaidWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"raidWarId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRaidReport parameters: %w", err)
+	if err = getRaidReportParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRaidReport", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRaidReport", Path: "/faction/{raidWarId}/raidreport", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRaidReport", "FactionRaidWarReportResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRankedWarReportParams contains documented parameters for GET /faction/{rankedWarId}/rankedwarreport.
 type GetRankedWarReportParams struct {
-	RankedWarId models.RankedWarId                       `json:"rankedWarId" path:"rankedWarId"`
-	Timestamp   *models.GetRankedWarReportParamTimestamp `json:"timestamp,omitempty"`
-	Comment     *string                                  `json:"comment,omitempty"`
-	Key         *string                                  `json:"key,omitempty"`
+	// RankedWarId is the path parameter "rankedWarId".
+	RankedWarId models.RankedWarId `json:"rankedWarId" path:"rankedWarId"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetRankedWarReportParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRankedWarReportResponse is the decoded 200 response of getRankedWarReport.
 type GetRankedWarReportResponse = models.FactionRankedWarReportResponse
 
-// GetRankedWarReport executes operation getRankedWarReport using its exact documented path.
+var getRankedWarReportParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"rankedWarId\":{\"$ref\":\"#/components/schemas/RankedWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"rankedWarId\"],\"type\":\"object\"}")
+})
+
+// GetRankedWarReport executes operation getRankedWarReport (GET /faction/{rankedWarId}/rankedwarreport; key access: public) using its exact documented path.
 func (c *Client) GetRankedWarReport(ctx context.Context, params GetRankedWarReportParams, opts ...RequestOptions) (GetRankedWarReportResponse, ExecutionReport, error) {
 	var out GetRankedWarReportResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"rankedWarId\":{\"$ref\":\"#/components/schemas/RankedWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"rankedWarId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRankedWarReport parameters: %w", err)
+	if err = getRankedWarReportParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRankedWarReport", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRankedWarReport", Path: "/faction/{rankedWarId}/rankedwarreport", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRankedWarReport", "FactionRankedWarReportResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTerritoryWarReportParams contains documented parameters for GET /faction/{territoryWarId}/territorywarreport.
 type GetTerritoryWarReportParams struct {
-	TerritoryWarId models.TerritoryWarId                       `json:"territoryWarId" path:"territoryWarId"`
-	Timestamp      *models.GetTerritoryWarReportParamTimestamp `json:"timestamp,omitempty"`
-	Comment        *string                                     `json:"comment,omitempty"`
-	Key            *string                                     `json:"key,omitempty"`
+	// TerritoryWarId is the path parameter "territoryWarId".
+	TerritoryWarId models.TerritoryWarId `json:"territoryWarId" path:"territoryWarId"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetTerritoryWarReportParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTerritoryWarReportResponse is the decoded 200 response of getTerritoryWarReport.
 type GetTerritoryWarReportResponse = models.FactionTerritoryWarReportResponse
 
-// GetTerritoryWarReport executes operation getTerritoryWarReport using its exact documented path.
+var getTerritoryWarReportParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"territoryWarId\":{\"$ref\":\"#/components/schemas/TerritoryWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"territoryWarId\"],\"type\":\"object\"}")
+})
+
+// GetTerritoryWarReport executes operation getTerritoryWarReport (GET /faction/{territoryWarId}/territorywarreport; key access: public) using its exact documented path.
 func (c *Client) GetTerritoryWarReport(ctx context.Context, params GetTerritoryWarReportParams, opts ...RequestOptions) (GetTerritoryWarReportResponse, ExecutionReport, error) {
 	var out GetTerritoryWarReportResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"territoryWarId\":{\"$ref\":\"#/components/schemas/TerritoryWarId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"territoryWarId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTerritoryWarReport parameters: %w", err)
+	if err = getTerritoryWarReportParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTerritoryWarReport", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTerritoryWarReport", Path: "/faction/{territoryWarId}/territorywarreport", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTerritoryWarReport", "FactionTerritoryWarReportResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetForumGenericParams contains documented parameters for GET /forum.
 type GetForumGenericParams struct {
-	Selections *[]models.ForumSelectionName          `json:"selections,omitempty"`
-	ID         *models.GetForumGenericParamID        `json:"id,omitempty"`
-	Striptags  *models.GetForumGenericParamStriptags `json:"striptags,omitempty"`
-	Limit      *int64                                `json:"limit,omitempty"`
-	Sort       *models.GetForumGenericParamSort      `json:"sort,omitempty"`
-	From       *int64                                `json:"from,omitempty"`
-	To         *int64                                `json:"to,omitempty"`
-	Offset     *int64                                `json:"offset,omitempty"`
-	Timestamp  *models.GetForumGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                               `json:"comment,omitempty"`
-	Key        *string                               `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.ForumSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetForumGenericParamID `json:"id,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetForumGenericParamStriptags `json:"striptags,omitempty"`
+	Limit     *int64                                `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetForumGenericParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To     *int64 `json:"to,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetForumGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumGenericResponse is the decoded 200 response of getForumGeneric.
 type GetForumGenericResponse = models.GetForumGenericResponseBody
 
-// GetForumGeneric executes operation getForumGeneric using its exact documented path.
+var getForumGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ForumThreadId\"},{\"items\":{\"$ref\":\"#/components/schemas/ForumId\"},\"type\":\"array\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/ForumSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetForumGeneric executes operation getForumGeneric (GET /forum; key access: public) using its exact documented path.
 func (c *Client) GetForumGeneric(ctx context.Context, params GetForumGenericParams, opts ...RequestOptions) (GetForumGenericResponse, ExecutionReport, error) {
 	var out GetForumGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ForumThreadId\"},{\"items\":{\"$ref\":\"#/components/schemas/ForumId\"},\"type\":\"array\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/ForumSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumGeneric parameters: %w", err)
+	if err = getForumGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumGeneric", Path: "/forum", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumGeneric", "GetForumGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetForumCategoriesParams contains documented parameters for GET /forum/categories.
 type GetForumCategoriesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumCategoriesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumCategoriesResponse is the decoded 200 response of getForumCategories.
 type GetForumCategoriesResponse = models.ForumCategoriesResponse
 
-// GetForumCategories executes operation getForumCategories using its exact documented path.
+var getForumCategoriesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetForumCategories executes operation getForumCategories (GET /forum/categories; key access: public) using its exact documented path.
 func (c *Client) GetForumCategories(ctx context.Context, params GetForumCategoriesParams, opts ...RequestOptions) (GetForumCategoriesResponse, ExecutionReport, error) {
 	var out GetForumCategoriesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumCategories parameters: %w", err)
+	if err = getForumCategoriesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumCategories", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumCategories", Path: "/forum/categories", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumCategories", "ForumCategoriesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetForumLookupParams contains documented parameters for GET /forum/lookup.
 type GetForumLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumLookupResponse is the decoded 200 response of getForumLookup.
 type GetForumLookupResponse = models.ForumLookupResponse
 
-// GetForumLookup executes operation getForumLookup using its exact documented path.
+var getForumLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetForumLookup executes operation getForumLookup (GET /forum/lookup; key access: public) using its exact documented path.
 func (c *Client) GetForumLookup(ctx context.Context, params GetForumLookupParams, opts ...RequestOptions) (GetForumLookupResponse, ExecutionReport, error) {
 	var out GetForumLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumLookup parameters: %w", err)
+	if err = getForumLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumLookup", Path: "/forum/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumLookup", "ForumLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetForumAllThreadsParams contains documented parameters for GET /forum/threads.
 type GetForumAllThreadsParams struct {
-	Limit     *int64                                   `json:"limit,omitempty"`
-	Sort      *models.GetForumAllThreadsParamSort      `json:"sort,omitempty"`
-	From      *int64                                   `json:"from,omitempty"`
-	To        *int64                                   `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetForumAllThreadsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumAllThreadsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumAllThreadsResponse is the decoded 200 response of getForumAllThreads.
 type GetForumAllThreadsResponse = models.ForumThreadsResponse
 
-// GetForumAllThreads executes operation getForumAllThreads using its exact documented path.
+var getForumAllThreadsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetForumAllThreads executes operation getForumAllThreads (GET /forum/threads; key access: public) using its exact documented path.
 func (c *Client) GetForumAllThreads(ctx context.Context, params GetForumAllThreadsParams, opts ...RequestOptions) (GetForumAllThreadsResponse, ExecutionReport, error) {
 	var out GetForumAllThreadsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumAllThreads parameters: %w", err)
+	if err = getForumAllThreadsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumAllThreads", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumAllThreads", Path: "/forum/threads", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumAllThreads", "ForumThreadsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetForumAllThreadsPager pages through getForumAllThreads by following _metadata.links (P7.1).
+func (c *Client) GetForumAllThreadsPager(params GetForumAllThreadsParams, opts ...PageOptions) *Pager[GetForumAllThreadsResponse] {
+	return newOperationPager[GetForumAllThreadsResponse](c, Operation{ID: "getForumAllThreads", Path: "/forum/threads", Method: "GET"}, params, "ForumThreadsResponse", opts)
+}
+
+// GetForumAllThreadsItems iterates the "threads" items of every getForumAllThreads page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetForumAllThreadsItems(ctx context.Context, params GetForumAllThreadsParams, opts ...PageOptions) iter.Seq2[models.ForumThreadBase, error] {
+	return Items(ctx, c.GetForumAllThreadsPager(params, opts...), func(page GetForumAllThreadsResponse) []models.ForumThreadBase { return page.Threads })
 }
 
 // GetForumTimestampParams contains documented parameters for GET /forum/timestamp.
 type GetForumTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumTimestampResponse is the decoded 200 response of getForumTimestamp.
 type GetForumTimestampResponse = models.TimestampResponse
 
-// GetForumTimestamp executes operation getForumTimestamp using its exact documented path.
+var getForumTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetForumTimestamp executes operation getForumTimestamp (GET /forum/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetForumTimestamp(ctx context.Context, params GetForumTimestampParams, opts ...RequestOptions) (GetForumTimestampResponse, ExecutionReport, error) {
 	var out GetForumTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumTimestamp parameters: %w", err)
+	if err = getForumTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumTimestamp", Path: "/forum/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetForumThreadsParams contains documented parameters for GET /forum/{categoryIds}/threads.
 type GetForumThreadsParams struct {
-	Limit       *int64                                `json:"limit,omitempty"`
-	Sort        *models.GetForumThreadsParamSort      `json:"sort,omitempty"`
-	From        *int64                                `json:"from,omitempty"`
-	To          *int64                                `json:"to,omitempty"`
-	CategoryIds []models.ForumId                      `json:"categoryIds" path:"categoryIds"`
-	Timestamp   *models.GetForumThreadsParamTimestamp `json:"timestamp,omitempty"`
-	Comment     *string                               `json:"comment,omitempty"`
-	Key         *string                               `json:"key,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetForumThreadsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// CategoryIds is the path parameter "categoryIds".
+	CategoryIds []models.ForumId `json:"categoryIds" path:"categoryIds"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetForumThreadsParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumThreadsResponse is the decoded 200 response of getForumThreads.
 type GetForumThreadsResponse = models.ForumThreadsResponse
 
-// GetForumThreads executes operation getForumThreads using its exact documented path.
+var getForumThreadsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"categoryIds\":{\"items\":{\"$ref\":\"#/components/schemas/ForumId\"},\"type\":\"array\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"categoryIds\"],\"type\":\"object\"}")
+})
+
+// GetForumThreads executes operation getForumThreads (GET /forum/{categoryIds}/threads; key access: public) using its exact documented path.
 func (c *Client) GetForumThreads(ctx context.Context, params GetForumThreadsParams, opts ...RequestOptions) (GetForumThreadsResponse, ExecutionReport, error) {
 	var out GetForumThreadsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"categoryIds\":{\"items\":{\"$ref\":\"#/components/schemas/ForumId\"},\"type\":\"array\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"categoryIds\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumThreads parameters: %w", err)
+	if err = getForumThreadsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumThreads", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumThreads", Path: "/forum/{categoryIds}/threads", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumThreads", "ForumThreadsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetForumThreadsPager pages through getForumThreads by following _metadata.links (P7.1).
+func (c *Client) GetForumThreadsPager(params GetForumThreadsParams, opts ...PageOptions) *Pager[GetForumThreadsResponse] {
+	return newOperationPager[GetForumThreadsResponse](c, Operation{ID: "getForumThreads", Path: "/forum/{categoryIds}/threads", Method: "GET"}, params, "ForumThreadsResponse", opts)
+}
+
+// GetForumThreadsItems iterates the "threads" items of every getForumThreads page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetForumThreadsItems(ctx context.Context, params GetForumThreadsParams, opts ...PageOptions) iter.Seq2[models.ForumThreadBase, error] {
+	return Items(ctx, c.GetForumThreadsPager(params, opts...), func(page GetForumThreadsResponse) []models.ForumThreadBase { return page.Threads })
 }
 
 // GetForumThreadPostsParams contains documented parameters for GET /forum/{threadId}/posts.
 type GetForumThreadPostsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetForumThreadPostsParamStriptags `json:"striptags,omitempty"`
 	Offset    *int64                                    `json:"offset,omitempty"`
-	Sort      *models.GetForumThreadPostsParamSort      `json:"sort,omitempty"`
-	From      *int64                                    `json:"from,omitempty"`
-	To        *int64                                    `json:"to,omitempty"`
-	ThreadId  models.ForumThreadId                      `json:"threadId" path:"threadId"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetForumThreadPostsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// ThreadId is the path parameter "threadId".
+	ThreadId models.ForumThreadId `json:"threadId" path:"threadId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumThreadPostsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumThreadPostsResponse is the decoded 200 response of getForumThreadPosts.
 type GetForumThreadPostsResponse = models.ForumPostsResponse
 
-// GetForumThreadPosts executes operation getForumThreadPosts using its exact documented path.
+var getForumThreadPostsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"threadId\":{\"$ref\":\"#/components/schemas/ForumThreadId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"threadId\"],\"type\":\"object\"}")
+})
+
+// GetForumThreadPosts executes operation getForumThreadPosts (GET /forum/{threadId}/posts; key access: public) using its exact documented path.
 func (c *Client) GetForumThreadPosts(ctx context.Context, params GetForumThreadPostsParams, opts ...RequestOptions) (GetForumThreadPostsResponse, ExecutionReport, error) {
 	var out GetForumThreadPostsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"threadId\":{\"$ref\":\"#/components/schemas/ForumThreadId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"threadId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumThreadPosts parameters: %w", err)
+	if err = getForumThreadPostsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumThreadPosts", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumThreadPosts", Path: "/forum/{threadId}/posts", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumThreadPosts", "ForumPostsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetForumThreadPostsPager pages through getForumThreadPosts by following _metadata.links (P7.1).
+func (c *Client) GetForumThreadPostsPager(params GetForumThreadPostsParams, opts ...PageOptions) *Pager[GetForumThreadPostsResponse] {
+	return newOperationPager[GetForumThreadPostsResponse](c, Operation{ID: "getForumThreadPosts", Path: "/forum/{threadId}/posts", Method: "GET"}, params, "ForumPostsResponse", opts)
+}
+
+// GetForumThreadPostsItems iterates the "posts" items of every getForumThreadPosts page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetForumThreadPostsItems(ctx context.Context, params GetForumThreadPostsParams, opts ...PageOptions) iter.Seq2[models.ForumPost, error] {
+	return Items(ctx, c.GetForumThreadPostsPager(params, opts...), func(page GetForumThreadPostsResponse) []models.ForumPost { return page.Posts })
 }
 
 // GetForumThreadParams contains documented parameters for GET /forum/{threadId}/thread.
 type GetForumThreadParams struct {
-	ThreadId  models.ForumThreadId                 `json:"threadId" path:"threadId"`
+	// ThreadId is the path parameter "threadId".
+	ThreadId models.ForumThreadId `json:"threadId" path:"threadId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumThreadParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetForumThreadResponse is the decoded 200 response of getForumThread.
 type GetForumThreadResponse = models.ForumThreadResponse
 
-// GetForumThread executes operation getForumThread using its exact documented path.
+var getForumThreadParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"threadId\":{\"$ref\":\"#/components/schemas/ForumThreadId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"threadId\"],\"type\":\"object\"}")
+})
+
+// GetForumThread executes operation getForumThread (GET /forum/{threadId}/thread; key access: public) using its exact documented path.
 func (c *Client) GetForumThread(ctx context.Context, params GetForumThreadParams, opts ...RequestOptions) (GetForumThreadResponse, ExecutionReport, error) {
 	var out GetForumThreadResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"threadId\":{\"$ref\":\"#/components/schemas/ForumThreadId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"threadId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getForumThread parameters: %w", err)
+	if err = getForumThreadParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getForumThread", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getForumThread", Path: "/forum/{threadId}/thread", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getForumThread", "ForumThreadResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetKeyGenericParams contains documented parameters for GET /key.
 type GetKeyGenericParams struct {
-	Selections *[]models.KeySelectionName          `json:"selections,omitempty"`
-	Limit      *int64                              `json:"limit,omitempty"`
-	Offset     *int64                              `json:"offset,omitempty"`
-	Timestamp  *models.GetKeyGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                             `json:"comment,omitempty"`
-	Key        *string                             `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.KeySelectionName `json:"selections,omitempty"`
+	Limit      *int64                     `json:"limit,omitempty"`
+	Offset     *int64                     `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetKeyGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetKeyGenericResponse is the decoded 200 response of getKeyGeneric.
 type GetKeyGenericResponse = models.GetKeyGenericResponseBody
 
-// GetKeyGeneric executes operation getKeyGeneric using its exact documented path.
+var getKeyGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/KeySelectionName\"},\"type\":\"array\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetKeyGeneric executes operation getKeyGeneric (GET /key; key access: public) using its exact documented path.
 func (c *Client) GetKeyGeneric(ctx context.Context, params GetKeyGenericParams, opts ...RequestOptions) (GetKeyGenericResponse, ExecutionReport, error) {
 	var out GetKeyGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/KeySelectionName\"},\"type\":\"array\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getKeyGeneric parameters: %w", err)
+	if err = getKeyGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getKeyGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getKeyGeneric", Path: "/key", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getKeyGeneric", "GetKeyGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetKeyInfoParams contains documented parameters for GET /key/info.
 type GetKeyInfoParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetKeyInfoParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetKeyInfoResponse is the decoded 200 response of getKeyInfo.
 type GetKeyInfoResponse = models.KeyInfoResponse
 
-// GetKeyInfo executes operation getKeyInfo using its exact documented path.
+var getKeyInfoParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetKeyInfo executes operation getKeyInfo (GET /key/info; key access: public) using its exact documented path.
 func (c *Client) GetKeyInfo(ctx context.Context, params GetKeyInfoParams, opts ...RequestOptions) (GetKeyInfoResponse, ExecutionReport, error) {
 	var out GetKeyInfoResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getKeyInfo parameters: %w", err)
+	if err = getKeyInfoParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getKeyInfo", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getKeyInfo", Path: "/key/info", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getKeyInfo", "KeyInfoResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetKeyLogParams contains documented parameters for GET /key/log.
 type GetKeyLogParams struct {
-	Limit     *int64                          `json:"limit,omitempty"`
-	Offset    *int64                          `json:"offset,omitempty"`
+	Limit  *int64 `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetKeyLogParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                         `json:"comment,omitempty"`
-	Key       *string                         `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetKeyLogResponse is the decoded 200 response of getKeyLog.
 type GetKeyLogResponse = models.KeyLogResponse
 
-// GetKeyLog executes operation getKeyLog using its exact documented path.
+var getKeyLogParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetKeyLog executes operation getKeyLog (GET /key/log; key access: public) using its exact documented path.
 func (c *Client) GetKeyLog(ctx context.Context, params GetKeyLogParams, opts ...RequestOptions) (GetKeyLogResponse, ExecutionReport, error) {
 	var out GetKeyLogResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getKeyLog parameters: %w", err)
+	if err = getKeyLogParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getKeyLog", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getKeyLog", Path: "/key/log", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getKeyLog", "KeyLogResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketGenericParams contains documented parameters for GET /market.
 type GetMarketGenericParams struct {
-	Selections *[]models.MarketSelectionName               `json:"selections,omitempty"`
-	ID         *models.GetMarketGenericParamID             `json:"id,omitempty"`
-	Legacy     *[]models.MarketSelectionName               `json:"legacy,omitempty"`
-	Cat        *models.MarketSpecializedBazaarCategoryEnum `json:"cat,omitempty"`
-	Bonus      *models.WeaponBonusEnum                     `json:"bonus,omitempty"`
-	Sort       *models.GetMarketGenericParamSort           `json:"sort,omitempty"`
-	Offset     *int64                                      `json:"offset,omitempty"`
-	Limit      *int64                                      `json:"limit,omitempty"`
-	Timestamp  *models.GetMarketGenericParamTimestamp      `json:"timestamp,omitempty"`
-	Comment    *string                                     `json:"comment,omitempty"`
-	Key        *string                                     `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.MarketSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetMarketGenericParamID `json:"id,omitempty"`
+	// Legacy is the query parameter "legacy".
+	Legacy *[]models.MarketSelectionName `json:"legacy,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.MarketSpecializedBazaarCategoryEnum `json:"cat,omitempty"`
+	// Bonus is the query parameter "bonus".
+	Bonus *models.WeaponBonusEnum `json:"bonus,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort   *models.GetMarketGenericParamSort `json:"sort,omitempty"`
+	Offset *int64                            `json:"offset,omitempty"`
+	Limit  *int64                            `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMarketGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketGenericResponse is the decoded 200 response of getMarketGeneric.
 type GetMarketGenericResponse = models.GetMarketGenericResponseBody
 
-// GetMarketGeneric executes operation getMarketGeneric using its exact documented path.
+var getMarketGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"bonus\":{\"$ref\":\"#/components/schemas/WeaponBonusEnum\"},\"cat\":{\"$ref\":\"#/components/schemas/MarketSpecializedBazaarCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ItemId\"},{\"$ref\":\"#/components/schemas/AuctionListingId\"},{\"$ref\":\"#/components/schemas/PropertyTypeId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/MarketSelectionName\"},\"type\":\"array\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/MarketSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketGeneric executes operation getMarketGeneric (GET /market; key access: public) using its exact documented path.
 func (c *Client) GetMarketGeneric(ctx context.Context, params GetMarketGenericParams, opts ...RequestOptions) (GetMarketGenericResponse, ExecutionReport, error) {
 	var out GetMarketGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"bonus\":{\"$ref\":\"#/components/schemas/WeaponBonusEnum\"},\"cat\":{\"$ref\":\"#/components/schemas/MarketSpecializedBazaarCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ItemId\"},{\"$ref\":\"#/components/schemas/AuctionListingId\"},{\"$ref\":\"#/components/schemas/PropertyTypeId\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/MarketSelectionName\"},\"type\":\"array\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/MarketSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketGeneric parameters: %w", err)
+	if err = getMarketGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketGeneric", Path: "/market", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketGeneric", "GetMarketGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketAuctionHouseParams contains documented parameters for GET /market/auctionhouse.
 type GetMarketAuctionHouseParams struct {
-	Limit     *int64                                      `json:"limit,omitempty"`
-	Sort      *models.GetMarketAuctionHouseParamSort      `json:"sort,omitempty"`
-	From      *int64                                      `json:"from,omitempty"`
-	To        *int64                                      `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMarketAuctionHouseParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketAuctionHouseParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketAuctionHouseResponse is the decoded 200 response of getMarketAuctionHouse.
 type GetMarketAuctionHouseResponse = models.AuctionHouseResponse
 
-// GetMarketAuctionHouse executes operation getMarketAuctionHouse using its exact documented path.
+var getMarketAuctionHouseParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketAuctionHouse executes operation getMarketAuctionHouse (GET /market/auctionhouse; key access: public) using its exact documented path.
 func (c *Client) GetMarketAuctionHouse(ctx context.Context, params GetMarketAuctionHouseParams, opts ...RequestOptions) (GetMarketAuctionHouseResponse, ExecutionReport, error) {
 	var out GetMarketAuctionHouseResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketAuctionHouse parameters: %w", err)
+	if err = getMarketAuctionHouseParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketAuctionHouse", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketAuctionHouse", Path: "/market/auctionhouse", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketAuctionHouse", "AuctionHouseResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMarketAuctionHousePager pages through getMarketAuctionHouse by following _metadata.links (P7.1).
+func (c *Client) GetMarketAuctionHousePager(params GetMarketAuctionHouseParams, opts ...PageOptions) *Pager[GetMarketAuctionHouseResponse] {
+	return newOperationPager[GetMarketAuctionHouseResponse](c, Operation{ID: "getMarketAuctionHouse", Path: "/market/auctionhouse", Method: "GET"}, params, "AuctionHouseResponse", opts)
+}
+
+// GetMarketAuctionHouseItems iterates the "auctionhouse" items of every getMarketAuctionHouse page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMarketAuctionHouseItems(ctx context.Context, params GetMarketAuctionHouseParams, opts ...PageOptions) iter.Seq2[models.AuctionHouseListing, error] {
+	return Items(ctx, c.GetMarketAuctionHousePager(params, opts...), func(page GetMarketAuctionHouseResponse) []models.AuctionHouseListing { return page.Auctionhouse })
 }
 
 // GetMarketBazaarParams contains documented parameters for GET /market/bazaar.
 type GetMarketBazaarParams struct {
-	Cat       *models.MarketSpecializedBazaarCategoryEnum `json:"cat,omitempty"`
-	Timestamp *models.GetMarketBazaarParamTimestamp       `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.MarketSpecializedBazaarCategoryEnum `json:"cat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMarketBazaarParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketBazaarResponse is the decoded 200 response of getMarketBazaar.
 type GetMarketBazaarResponse = models.BazaarResponse
 
-// GetMarketBazaar executes operation getMarketBazaar using its exact documented path.
+var getMarketBazaarParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/MarketSpecializedBazaarCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketBazaar executes operation getMarketBazaar (GET /market/bazaar; key access: public) using its exact documented path.
 func (c *Client) GetMarketBazaar(ctx context.Context, params GetMarketBazaarParams, opts ...RequestOptions) (GetMarketBazaarResponse, ExecutionReport, error) {
 	var out GetMarketBazaarResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/MarketSpecializedBazaarCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketBazaar parameters: %w", err)
+	if err = getMarketBazaarParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketBazaar", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketBazaar", Path: "/market/bazaar", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketBazaar", "BazaarResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketLookupParams contains documented parameters for GET /market/lookup.
 type GetMarketLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketLookupResponse is the decoded 200 response of getMarketLookup.
 type GetMarketLookupResponse = models.MarketLookupResponse
 
-// GetMarketLookup executes operation getMarketLookup using its exact documented path.
+var getMarketLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketLookup executes operation getMarketLookup (GET /market/lookup; key access: public) using its exact documented path.
 func (c *Client) GetMarketLookup(ctx context.Context, params GetMarketLookupParams, opts ...RequestOptions) (GetMarketLookupResponse, ExecutionReport, error) {
 	var out GetMarketLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketLookup parameters: %w", err)
+	if err = getMarketLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketLookup", Path: "/market/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketLookup", "MarketLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketPointsParams contains documented parameters for GET /market/pointsmarket.
 type GetMarketPointsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketPointsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketPointsResponse is the decoded 200 response of getMarketPoints.
 type GetMarketPointsResponse = models.PointsMarketResponse
 
-// GetMarketPoints executes operation getMarketPoints using its exact documented path.
+var getMarketPointsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketPoints executes operation getMarketPoints (GET /market/pointsmarket; key access: public) using its exact documented path.
 func (c *Client) GetMarketPoints(ctx context.Context, params GetMarketPointsParams, opts ...RequestOptions) (GetMarketPointsResponse, ExecutionReport, error) {
 	var out GetMarketPointsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketPoints parameters: %w", err)
+	if err = getMarketPointsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketPoints", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketPoints", Path: "/market/pointsmarket", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketPoints", "PointsMarketResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketTimestampParams contains documented parameters for GET /market/timestamp.
 type GetMarketTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketTimestampResponse is the decoded 200 response of getMarketTimestamp.
 type GetMarketTimestampResponse = models.TimestampResponse
 
-// GetMarketTimestamp executes operation getMarketTimestamp using its exact documented path.
+var getMarketTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMarketTimestamp executes operation getMarketTimestamp (GET /market/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetMarketTimestamp(ctx context.Context, params GetMarketTimestampParams, opts ...RequestOptions) (GetMarketTimestampResponse, ExecutionReport, error) {
 	var out GetMarketTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketTimestamp parameters: %w", err)
+	if err = getMarketTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketTimestamp", Path: "/market/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketAuctionHouseItemParams contains documented parameters for GET /market/{id}/auctionhouse.
 type GetMarketAuctionHouseItemParams struct {
-	ID        models.ItemId                                   `json:"id" path:"id"`
-	Limit     *int64                                          `json:"limit,omitempty"`
-	Sort      *models.GetMarketAuctionHouseItemParamSort      `json:"sort,omitempty"`
-	From      *int64                                          `json:"from,omitempty"`
-	To        *int64                                          `json:"to,omitempty"`
+	// ID is the path parameter "id".
+	ID    models.ItemId `json:"id" path:"id"`
+	Limit *int64        `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMarketAuctionHouseItemParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketAuctionHouseItemParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                         `json:"comment,omitempty"`
-	Key       *string                                         `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketAuctionHouseItemResponse is the decoded 200 response of getMarketAuctionHouseItem.
 type GetMarketAuctionHouseItemResponse = models.AuctionHouseResponse
 
-// GetMarketAuctionHouseItem executes operation getMarketAuctionHouseItem using its exact documented path.
+var getMarketAuctionHouseItemParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetMarketAuctionHouseItem executes operation getMarketAuctionHouseItem (GET /market/{id}/auctionhouse; key access: public) using its exact documented path.
 func (c *Client) GetMarketAuctionHouseItem(ctx context.Context, params GetMarketAuctionHouseItemParams, opts ...RequestOptions) (GetMarketAuctionHouseItemResponse, ExecutionReport, error) {
 	var out GetMarketAuctionHouseItemResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketAuctionHouseItem parameters: %w", err)
+	if err = getMarketAuctionHouseItemParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketAuctionHouseItem", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketAuctionHouseItem", Path: "/market/{id}/auctionhouse", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketAuctionHouseItem", "AuctionHouseResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMarketAuctionHouseItemPager pages through getMarketAuctionHouseItem by following _metadata.links (P7.1).
+func (c *Client) GetMarketAuctionHouseItemPager(params GetMarketAuctionHouseItemParams, opts ...PageOptions) *Pager[GetMarketAuctionHouseItemResponse] {
+	return newOperationPager[GetMarketAuctionHouseItemResponse](c, Operation{ID: "getMarketAuctionHouseItem", Path: "/market/{id}/auctionhouse", Method: "GET"}, params, "AuctionHouseResponse", opts)
+}
+
+// GetMarketAuctionHouseItemItems iterates the "auctionhouse" items of every getMarketAuctionHouseItem page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMarketAuctionHouseItemItems(ctx context.Context, params GetMarketAuctionHouseItemParams, opts ...PageOptions) iter.Seq2[models.AuctionHouseListing, error] {
+	return Items(ctx, c.GetMarketAuctionHouseItemPager(params, opts...), func(page GetMarketAuctionHouseItemResponse) []models.AuctionHouseListing { return page.Auctionhouse })
 }
 
 // GetMarketAuctionHouseListingParams contains documented parameters for GET /market/{id}/auctionhouselisting.
 type GetMarketAuctionHouseListingParams struct {
-	ID        models.AuctionListingId                            `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.AuctionListingId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketAuctionHouseListingParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                            `json:"comment,omitempty"`
-	Key       *string                                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketAuctionHouseListingResponse is the decoded 200 response of getMarketAuctionHouseListing.
 type GetMarketAuctionHouseListingResponse = models.AuctionHouseListingResponse
 
-// GetMarketAuctionHouseListing executes operation getMarketAuctionHouseListing using its exact documented path.
+var getMarketAuctionHouseListingParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/AuctionListingId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetMarketAuctionHouseListing executes operation getMarketAuctionHouseListing (GET /market/{id}/auctionhouselisting; key access: public) using its exact documented path.
 func (c *Client) GetMarketAuctionHouseListing(ctx context.Context, params GetMarketAuctionHouseListingParams, opts ...RequestOptions) (GetMarketAuctionHouseListingResponse, ExecutionReport, error) {
 	var out GetMarketAuctionHouseListingResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/AuctionListingId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketAuctionHouseListing parameters: %w", err)
+	if err = getMarketAuctionHouseListingParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketAuctionHouseListing", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketAuctionHouseListing", Path: "/market/{id}/auctionhouselisting", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketAuctionHouseListing", "AuctionHouseListingResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketBazaarItemParams contains documented parameters for GET /market/{id}/bazaar.
 type GetMarketBazaarItemParams struct {
-	ID        models.ItemId                             `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.ItemId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketBazaarItemParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketBazaarItemResponse is the decoded 200 response of getMarketBazaarItem.
 type GetMarketBazaarItemResponse = models.BazaarResponseSpecialized
 
-// GetMarketBazaarItem executes operation getMarketBazaarItem using its exact documented path.
+var getMarketBazaarItemParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetMarketBazaarItem executes operation getMarketBazaarItem (GET /market/{id}/bazaar; key access: public) using its exact documented path.
 func (c *Client) GetMarketBazaarItem(ctx context.Context, params GetMarketBazaarItemParams, opts ...RequestOptions) (GetMarketBazaarItemResponse, ExecutionReport, error) {
 	var out GetMarketBazaarItemResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketBazaarItem parameters: %w", err)
+	if err = getMarketBazaarItemParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketBazaarItem", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketBazaarItem", Path: "/market/{id}/bazaar", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketBazaarItem", "BazaarResponseSpecialized", raw, &out, options)
+	return out, report, err
 }
 
 // GetMarketItemMarketItemParams contains documented parameters for GET /market/{id}/itemmarket.
 type GetMarketItemMarketItemParams struct {
-	ID        models.ItemId                                 `json:"id" path:"id"`
-	Bonus     *models.WeaponBonusEnum                       `json:"bonus,omitempty"`
-	Limit     *int64                                        `json:"limit,omitempty"`
-	Offset    *int64                                        `json:"offset,omitempty"`
+	// ID is the path parameter "id".
+	ID models.ItemId `json:"id" path:"id"`
+	// Bonus is the query parameter "bonus".
+	Bonus  *models.WeaponBonusEnum `json:"bonus,omitempty"`
+	Limit  *int64                  `json:"limit,omitempty"`
+	Offset *int64                  `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketItemMarketItemParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                       `json:"comment,omitempty"`
-	Key       *string                                       `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketItemMarketItemResponse is the decoded 200 response of getMarketItemMarketItem.
 type GetMarketItemMarketItemResponse = models.MarketItemMarketResponse
 
-// GetMarketItemMarketItem executes operation getMarketItemMarketItem using its exact documented path.
+var getMarketItemMarketItemParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"bonus\":{\"$ref\":\"#/components/schemas/WeaponBonusEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetMarketItemMarketItem executes operation getMarketItemMarketItem (GET /market/{id}/itemmarket; key access: public) using its exact documented path.
 func (c *Client) GetMarketItemMarketItem(ctx context.Context, params GetMarketItemMarketItemParams, opts ...RequestOptions) (GetMarketItemMarketItemResponse, ExecutionReport, error) {
 	var out GetMarketItemMarketItemResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"bonus\":{\"$ref\":\"#/components/schemas/WeaponBonusEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/ItemId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketItemMarketItem parameters: %w", err)
+	if err = getMarketItemMarketItemParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketItemMarketItem", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketItemMarketItem", Path: "/market/{id}/itemmarket", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketItemMarketItem", "MarketItemMarketResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMarketItemMarketItemPager pages through getMarketItemMarketItem by following _metadata.links (P7.1).
+func (c *Client) GetMarketItemMarketItemPager(params GetMarketItemMarketItemParams, opts ...PageOptions) *Pager[GetMarketItemMarketItemResponse] {
+	return newOperationPager[GetMarketItemMarketItemResponse](c, Operation{ID: "getMarketItemMarketItem", Path: "/market/{id}/itemmarket", Method: "GET"}, params, "MarketItemMarketResponse", opts)
 }
 
 // GetMarketPropertiesParams contains documented parameters for GET /market/{propertyTypeId}/properties.
 type GetMarketPropertiesParams struct {
-	PropertyTypeId models.PropertyTypeId                     `json:"propertyTypeId" path:"propertyTypeId"`
-	Offset         *int64                                    `json:"offset,omitempty"`
-	Limit          *int64                                    `json:"limit,omitempty"`
-	Sort           *models.GetMarketPropertiesParamSort      `json:"sort,omitempty"`
-	Timestamp      *models.GetMarketPropertiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment        *string                                   `json:"comment,omitempty"`
-	Key            *string                                   `json:"key,omitempty"`
+	// PropertyTypeId is the path parameter "propertyTypeId".
+	PropertyTypeId models.PropertyTypeId `json:"propertyTypeId" path:"propertyTypeId"`
+	Offset         *int64                `json:"offset,omitempty"`
+	Limit          *int64                `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMarketPropertiesParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMarketPropertiesParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketPropertiesResponse is the decoded 200 response of getMarketProperties.
 type GetMarketPropertiesResponse = models.MarketPropertiesResponse
 
-// GetMarketProperties executes operation getMarketProperties using its exact documented path.
+var getMarketPropertiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"propertyTypeId\":{\"$ref\":\"#/components/schemas/PropertyTypeId\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"propertyTypeId\"],\"type\":\"object\"}")
+})
+
+// GetMarketProperties executes operation getMarketProperties (GET /market/{propertyTypeId}/properties; key access: public) using its exact documented path.
 func (c *Client) GetMarketProperties(ctx context.Context, params GetMarketPropertiesParams, opts ...RequestOptions) (GetMarketPropertiesResponse, ExecutionReport, error) {
 	var out GetMarketPropertiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"propertyTypeId\":{\"$ref\":\"#/components/schemas/PropertyTypeId\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"propertyTypeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketProperties parameters: %w", err)
+	if err = getMarketPropertiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketProperties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketProperties", Path: "/market/{propertyTypeId}/properties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketProperties", "MarketPropertiesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMarketPropertiesPager pages through getMarketProperties by following _metadata.links (P7.1).
+func (c *Client) GetMarketPropertiesPager(params GetMarketPropertiesParams, opts ...PageOptions) *Pager[GetMarketPropertiesResponse] {
+	return newOperationPager[GetMarketPropertiesResponse](c, Operation{ID: "getMarketProperties", Path: "/market/{propertyTypeId}/properties", Method: "GET"}, params, "MarketPropertiesResponse", opts)
 }
 
 // GetMarketPropertiesRentalParams contains documented parameters for GET /market/{propertyTypeId}/rentals.
 type GetMarketPropertiesRentalParams struct {
-	PropertyTypeId models.PropertyTypeId                           `json:"propertyTypeId" path:"propertyTypeId"`
-	Offset         *int64                                          `json:"offset,omitempty"`
-	Limit          *int64                                          `json:"limit,omitempty"`
-	Sort           *models.GetMarketPropertiesRentalParamSort      `json:"sort,omitempty"`
-	Timestamp      *models.GetMarketPropertiesRentalParamTimestamp `json:"timestamp,omitempty"`
-	Comment        *string                                         `json:"comment,omitempty"`
-	Key            *string                                         `json:"key,omitempty"`
+	// PropertyTypeId is the path parameter "propertyTypeId".
+	PropertyTypeId models.PropertyTypeId `json:"propertyTypeId" path:"propertyTypeId"`
+	Offset         *int64                `json:"offset,omitempty"`
+	Limit          *int64                `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMarketPropertiesRentalParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMarketPropertiesRentalParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMarketPropertiesRentalResponse is the decoded 200 response of getMarketPropertiesRental.
 type GetMarketPropertiesRentalResponse = models.MarketRentalsResponse
 
-// GetMarketPropertiesRental executes operation getMarketPropertiesRental using its exact documented path.
+var getMarketPropertiesRentalParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"propertyTypeId\":{\"$ref\":\"#/components/schemas/PropertyTypeId\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"propertyTypeId\"],\"type\":\"object\"}")
+})
+
+// GetMarketPropertiesRental executes operation getMarketPropertiesRental (GET /market/{propertyTypeId}/rentals; key access: public) using its exact documented path.
 func (c *Client) GetMarketPropertiesRental(ctx context.Context, params GetMarketPropertiesRentalParams, opts ...RequestOptions) (GetMarketPropertiesRentalResponse, ExecutionReport, error) {
 	var out GetMarketPropertiesRentalResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"propertyTypeId\":{\"$ref\":\"#/components/schemas/PropertyTypeId\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"propertyTypeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMarketPropertiesRental parameters: %w", err)
+	if err = getMarketPropertiesRentalParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMarketPropertiesRental", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMarketPropertiesRental", Path: "/market/{propertyTypeId}/rentals", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMarketPropertiesRental", "MarketRentalsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMarketPropertiesRentalPager pages through getMarketPropertiesRental by following _metadata.links (P7.1).
+func (c *Client) GetMarketPropertiesRentalPager(params GetMarketPropertiesRentalParams, opts ...PageOptions) *Pager[GetMarketPropertiesRentalResponse] {
+	return newOperationPager[GetMarketPropertiesRentalResponse](c, Operation{ID: "getMarketPropertiesRental", Path: "/market/{propertyTypeId}/rentals", Method: "GET"}, params, "MarketRentalsResponse", opts)
 }
 
 // GetPropertyGenericParams contains documented parameters for GET /property.
 type GetPropertyGenericParams struct {
-	Selections *[]models.PropertySelectionName          `json:"selections,omitempty"`
-	ID         models.PropertyId                        `json:"id"`
-	Timestamp  *models.GetPropertyGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                                  `json:"comment,omitempty"`
-	Key        *string                                  `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.PropertySelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID models.PropertyId `json:"id"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetPropertyGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetPropertyGenericResponse is the decoded 200 response of getPropertyGeneric.
 type GetPropertyGenericResponse = models.GetPropertyGenericResponseBody
 
-// GetPropertyGeneric executes operation getPropertyGeneric using its exact documented path.
+var getPropertyGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/PropertyId\"},\"key\":{\"type\":\"string\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/PropertySelectionName\"},\"type\":\"array\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetPropertyGeneric executes operation getPropertyGeneric (GET /property; key access: public) using its exact documented path.
 func (c *Client) GetPropertyGeneric(ctx context.Context, params GetPropertyGenericParams, opts ...RequestOptions) (GetPropertyGenericResponse, ExecutionReport, error) {
 	var out GetPropertyGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/PropertyId\"},\"key\":{\"type\":\"string\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/PropertySelectionName\"},\"type\":\"array\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getPropertyGeneric parameters: %w", err)
+	if err = getPropertyGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getPropertyGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getPropertyGeneric", Path: "/property", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getPropertyGeneric", "GetPropertyGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetPropertyLookupParams contains documented parameters for GET /property/lookup.
 type GetPropertyLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetPropertyLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetPropertyLookupResponse is the decoded 200 response of getPropertyLookup.
 type GetPropertyLookupResponse = models.PropertyLookupResponse
 
-// GetPropertyLookup executes operation getPropertyLookup using its exact documented path.
+var getPropertyLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetPropertyLookup executes operation getPropertyLookup (GET /property/lookup; key access: public) using its exact documented path.
 func (c *Client) GetPropertyLookup(ctx context.Context, params GetPropertyLookupParams, opts ...RequestOptions) (GetPropertyLookupResponse, ExecutionReport, error) {
 	var out GetPropertyLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getPropertyLookup parameters: %w", err)
+	if err = getPropertyLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getPropertyLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getPropertyLookup", Path: "/property/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getPropertyLookup", "PropertyLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetPropertyTimestampParams contains documented parameters for GET /property/timestamp.
 type GetPropertyTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetPropertyTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetPropertyTimestampResponse is the decoded 200 response of getPropertyTimestamp.
 type GetPropertyTimestampResponse = models.TimestampResponse
 
-// GetPropertyTimestamp executes operation getPropertyTimestamp using its exact documented path.
+var getPropertyTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetPropertyTimestamp executes operation getPropertyTimestamp (GET /property/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetPropertyTimestamp(ctx context.Context, params GetPropertyTimestampParams, opts ...RequestOptions) (GetPropertyTimestampResponse, ExecutionReport, error) {
 	var out GetPropertyTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getPropertyTimestamp parameters: %w", err)
+	if err = getPropertyTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getPropertyTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getPropertyTimestamp", Path: "/property/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getPropertyTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetPropertyParams contains documented parameters for GET /property/{id}/property.
 type GetPropertyParams struct {
-	ID        models.PropertyId                 `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.PropertyId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetPropertyParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetPropertyResponse is the decoded 200 response of getProperty.
 type GetPropertyResponse = models.PropertyPropertyResponse
 
-// GetProperty executes operation getProperty using its exact documented path.
+var getPropertyParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/PropertyId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetProperty executes operation getProperty (GET /property/{id}/property; key access: public) using its exact documented path.
 func (c *Client) GetProperty(ctx context.Context, params GetPropertyParams, opts ...RequestOptions) (GetPropertyResponse, ExecutionReport, error) {
 	var out GetPropertyResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/PropertyId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getProperty parameters: %w", err)
+	if err = getPropertyParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getProperty", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getProperty", Path: "/property/{id}/property", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getProperty", "PropertyPropertyResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingGenericParams contains documented parameters for GET /racing.
 type GetRacingGenericParams struct {
-	Selections *[]models.RacingSelectionName          `json:"selections,omitempty"`
-	ID         *models.GetRacingGenericParamID        `json:"id,omitempty"`
-	Limit      *int64                                 `json:"limit,omitempty"`
-	Sort       *models.GetRacingGenericParamSort      `json:"sort,omitempty"`
-	To         *int64                                 `json:"to,omitempty"`
-	From       *int64                                 `json:"from,omitempty"`
-	Cat        *models.GetRacingGenericParamCat       `json:"cat,omitempty"`
-	Offset     *int64                                 `json:"offset,omitempty"`
-	Timestamp  *models.GetRacingGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                                `json:"comment,omitempty"`
-	Key        *string                                `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.RacingSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID    *models.GetRacingGenericParamID `json:"id,omitempty"`
+	Limit *int64                          `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetRacingGenericParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat    *models.GetRacingGenericParamCat `json:"cat,omitempty"`
+	Offset *int64                           `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetRacingGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingGenericResponse is the decoded 200 response of getRacingGeneric.
 type GetRacingGenericResponse = models.GetRacingGenericResponseBody
 
-// GetRacingGeneric executes operation getRacingGeneric using its exact documented path.
+var getRacingGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},{\"$ref\":\"#/components/schemas/RaceClassEnum\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RaceId\"},{\"$ref\":\"#/components/schemas/RaceTrackId\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/RacingSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingGeneric executes operation getRacingGeneric (GET /racing; key access: public) using its exact documented path.
 func (c *Client) GetRacingGeneric(ctx context.Context, params GetRacingGenericParams, opts ...RequestOptions) (GetRacingGenericResponse, ExecutionReport, error) {
 	var out GetRacingGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},{\"$ref\":\"#/components/schemas/RaceClassEnum\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RaceId\"},{\"$ref\":\"#/components/schemas/RaceTrackId\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/RacingSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingGeneric parameters: %w", err)
+	if err = getRacingGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingGeneric", Path: "/racing", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingGeneric", "GetRacingGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingCarsParams contains documented parameters for GET /racing/cars.
 type GetRacingCarsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingCarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingCarsResponse is the decoded 200 response of getRacingCars.
 type GetRacingCarsResponse = models.RacingCarsResponse
 
-// GetRacingCars executes operation getRacingCars using its exact documented path.
+var getRacingCarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingCars executes operation getRacingCars (GET /racing/cars; key access: public) using its exact documented path.
 func (c *Client) GetRacingCars(ctx context.Context, params GetRacingCarsParams, opts ...RequestOptions) (GetRacingCarsResponse, ExecutionReport, error) {
 	var out GetRacingCarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingCars parameters: %w", err)
+	if err = getRacingCarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingCars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingCars", Path: "/racing/cars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingCars", "RacingCarsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingCarUpgradesParams contains documented parameters for GET /racing/carupgrades.
 type GetRacingCarUpgradesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingCarUpgradesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingCarUpgradesResponse is the decoded 200 response of getRacingCarUpgrades.
 type GetRacingCarUpgradesResponse = models.RacingCarUpgradesResponse
 
-// GetRacingCarUpgrades executes operation getRacingCarUpgrades using its exact documented path.
+var getRacingCarUpgradesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingCarUpgrades executes operation getRacingCarUpgrades (GET /racing/carupgrades; key access: public) using its exact documented path.
 func (c *Client) GetRacingCarUpgrades(ctx context.Context, params GetRacingCarUpgradesParams, opts ...RequestOptions) (GetRacingCarUpgradesResponse, ExecutionReport, error) {
 	var out GetRacingCarUpgradesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingCarUpgrades parameters: %w", err)
+	if err = getRacingCarUpgradesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingCarUpgrades", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingCarUpgrades", Path: "/racing/carupgrades", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingCarUpgrades", "RacingCarUpgradesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingLookupParams contains documented parameters for GET /racing/lookup.
 type GetRacingLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingLookupResponse is the decoded 200 response of getRacingLookup.
 type GetRacingLookupResponse = models.RacingLookupResponse
 
-// GetRacingLookup executes operation getRacingLookup using its exact documented path.
+var getRacingLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingLookup executes operation getRacingLookup (GET /racing/lookup; key access: public) using its exact documented path.
 func (c *Client) GetRacingLookup(ctx context.Context, params GetRacingLookupParams, opts ...RequestOptions) (GetRacingLookupResponse, ExecutionReport, error) {
 	var out GetRacingLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingLookup parameters: %w", err)
+	if err = getRacingLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingLookup", Path: "/racing/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingLookup", "RacingLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingRacesParams contains documented parameters for GET /racing/races.
 type GetRacingRacesParams struct {
-	Limit     *int64                               `json:"limit,omitempty"`
-	Sort      *models.GetRacingRacesParamSort      `json:"sort,omitempty"`
-	To        *int64                               `json:"to,omitempty"`
-	From      *int64                               `json:"from,omitempty"`
-	Cat       *models.RacingRaceTypeEnum           `json:"cat,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetRacingRacesParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.RacingRaceTypeEnum `json:"cat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingRacesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingRacesResponse is the decoded 200 response of getRacingRaces.
 type GetRacingRacesResponse = models.RacingRacesResponse
 
-// GetRacingRaces executes operation getRacingRaces using its exact documented path.
+var getRacingRacesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingRaces executes operation getRacingRaces (GET /racing/races; key access: public) using its exact documented path.
 func (c *Client) GetRacingRaces(ctx context.Context, params GetRacingRacesParams, opts ...RequestOptions) (GetRacingRacesResponse, ExecutionReport, error) {
 	var out GetRacingRacesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingRaces parameters: %w", err)
+	if err = getRacingRacesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingRaces", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingRaces", Path: "/racing/races", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingRaces", "RacingRacesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetRacingRacesPager pages through getRacingRaces by following _metadata.links (P7.1).
+func (c *Client) GetRacingRacesPager(params GetRacingRacesParams, opts ...PageOptions) *Pager[GetRacingRacesResponse] {
+	return newOperationPager[GetRacingRacesResponse](c, Operation{ID: "getRacingRaces", Path: "/racing/races", Method: "GET"}, params, "RacingRacesResponse", opts)
+}
+
+// GetRacingRacesItems iterates the "races" items of every getRacingRaces page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetRacingRacesItems(ctx context.Context, params GetRacingRacesParams, opts ...PageOptions) iter.Seq2[models.Race, error] {
+	return Items(ctx, c.GetRacingRacesPager(params, opts...), func(page GetRacingRacesResponse) []models.Race { return page.Races })
 }
 
 // GetRacingTimestampParams contains documented parameters for GET /racing/timestamp.
 type GetRacingTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingTimestampResponse is the decoded 200 response of getRacingTimestamp.
 type GetRacingTimestampResponse = models.TimestampResponse
 
-// GetRacingTimestamp executes operation getRacingTimestamp using its exact documented path.
+var getRacingTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingTimestamp executes operation getRacingTimestamp (GET /racing/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetRacingTimestamp(ctx context.Context, params GetRacingTimestampParams, opts ...RequestOptions) (GetRacingTimestampResponse, ExecutionReport, error) {
 	var out GetRacingTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingTimestamp parameters: %w", err)
+	if err = getRacingTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingTimestamp", Path: "/racing/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingTracksParams contains documented parameters for GET /racing/tracks.
 type GetRacingTracksParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingTracksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingTracksResponse is the decoded 200 response of getRacingTracks.
 type GetRacingTracksResponse = models.RacingTracksResponse
 
-// GetRacingTracks executes operation getRacingTracks using its exact documented path.
+var getRacingTracksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetRacingTracks executes operation getRacingTracks (GET /racing/tracks; key access: public) using its exact documented path.
 func (c *Client) GetRacingTracks(ctx context.Context, params GetRacingTracksParams, opts ...RequestOptions) (GetRacingTracksResponse, ExecutionReport, error) {
 	var out GetRacingTracksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingTracks parameters: %w", err)
+	if err = getRacingTracksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingTracks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingTracks", Path: "/racing/tracks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingTracks", "RacingTracksResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingRaceDetailsParams contains documented parameters for GET /racing/{raceId}/race.
 type GetRacingRaceDetailsParams struct {
-	RaceId    models.RaceId                              `json:"raceId" path:"raceId"`
+	// RaceId is the path parameter "raceId".
+	RaceId models.RaceId `json:"raceId" path:"raceId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingRaceDetailsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingRaceDetailsResponse is the decoded 200 response of getRacingRaceDetails.
 type GetRacingRaceDetailsResponse = models.RacingRaceDetailsResponse
 
-// GetRacingRaceDetails executes operation getRacingRaceDetails using its exact documented path.
+var getRacingRaceDetailsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"raceId\":{\"$ref\":\"#/components/schemas/RaceId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"raceId\"],\"type\":\"object\"}")
+})
+
+// GetRacingRaceDetails executes operation getRacingRaceDetails (GET /racing/{raceId}/race; key access: public) using its exact documented path.
 func (c *Client) GetRacingRaceDetails(ctx context.Context, params GetRacingRaceDetailsParams, opts ...RequestOptions) (GetRacingRaceDetailsResponse, ExecutionReport, error) {
 	var out GetRacingRaceDetailsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"raceId\":{\"$ref\":\"#/components/schemas/RaceId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"raceId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingRaceDetails parameters: %w", err)
+	if err = getRacingRaceDetailsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingRaceDetails", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingRaceDetails", Path: "/racing/{raceId}/race", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingRaceDetails", "RacingRaceDetailsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetRacingTrackRecordsParams contains documented parameters for GET /racing/{trackId}/records.
 type GetRacingTrackRecordsParams struct {
-	TrackId   models.RaceTrackId                          `json:"trackId" path:"trackId"`
-	Cat       models.RaceClassEnum                        `json:"cat"`
+	// TrackId is the path parameter "trackId".
+	TrackId models.RaceTrackId `json:"trackId" path:"trackId"`
+	// Cat is the query parameter "cat".
+	Cat models.RaceClassEnum `json:"cat"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingTrackRecordsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetRacingTrackRecordsResponse is the decoded 200 response of getRacingTrackRecords.
 type GetRacingTrackRecordsResponse = models.RacingTrackRecordsResponse
 
-// GetRacingTrackRecords executes operation getRacingTrackRecords using its exact documented path.
+var getRacingTrackRecordsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RaceClassEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"trackId\":{\"$ref\":\"#/components/schemas/RaceTrackId\"}},\"required\":[\"trackId\",\"cat\"],\"type\":\"object\"}")
+})
+
+// GetRacingTrackRecords executes operation getRacingTrackRecords (GET /racing/{trackId}/records; key access: public) using its exact documented path.
 func (c *Client) GetRacingTrackRecords(ctx context.Context, params GetRacingTrackRecordsParams, opts ...RequestOptions) (GetRacingTrackRecordsResponse, ExecutionReport, error) {
 	var out GetRacingTrackRecordsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RaceClassEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"trackId\":{\"$ref\":\"#/components/schemas/RaceTrackId\"}},\"required\":[\"trackId\",\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getRacingTrackRecords parameters: %w", err)
+	if err = getRacingTrackRecordsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getRacingTrackRecords", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getRacingTrackRecords", Path: "/racing/{trackId}/records", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getRacingTrackRecords", "RacingTrackRecordsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornGenericParams contains documented parameters for GET /torn.
 type GetTornGenericParams struct {
-	Selections *[]models.TornSelectionName          `json:"selections,omitempty"`
-	ID         *models.GetTornGenericParamID        `json:"id,omitempty"`
-	Legacy     *[]models.TornSelectionName          `json:"legacy,omitempty"`
-	Striptags  *models.GetTornGenericParamStriptags `json:"striptags,omitempty"`
-	Limit      *int64                               `json:"limit,omitempty"`
-	To         *int64                               `json:"to,omitempty"`
-	From       *int64                               `json:"from,omitempty"`
-	Sort       *models.GetTornGenericParamSort      `json:"sort,omitempty"`
-	Cat        *models.GetTornGenericParamCat       `json:"cat,omitempty"`
-	Offset     *int64                               `json:"offset,omitempty"`
-	Timestamp  *models.GetTornGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                              `json:"comment,omitempty"`
-	Key        *string                              `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.TornSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetTornGenericParamID `json:"id,omitempty"`
+	// Legacy is the query parameter "legacy".
+	Legacy *[]models.TornSelectionName `json:"legacy,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetTornGenericParamStriptags `json:"striptags,omitempty"`
+	Limit     *int64                               `json:"limit,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetTornGenericParamSort `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat    *models.GetTornGenericParamCat `json:"cat,omitempty"`
+	Offset *int64                         `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetTornGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornGenericResponse is the decoded 200 response of getTornGeneric.
 type GetTornGenericResponse = models.GetTornGenericResponseBody
 
-// GetTornGeneric executes operation getTornGeneric using its exact documented path.
+var getTornGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/TornFactionHofCategory\"},{\"$ref\":\"#/components/schemas/TornHofCategory\"},{\"$ref\":\"#/components/schemas/TornItemCategory\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/LogCategoryId\"},{\"$ref\":\"#/components/schemas/TornCrimeId\"},{\"$ref\":\"#/components/schemas/StockId\"},{\"$ref\":\"#/components/schemas/EliminationTeamId\"},{\"$ref\":\"#/components/schemas/CityShopId\"},{\"$ref\":\"#/components/schemas/ItemUid\"},{\"items\":{\"$ref\":\"#/components/schemas/ItemId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/MedalId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/HonorId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/FactionTerritoryEnum\"},\"type\":\"array\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/TornSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/TornSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornGeneric executes operation getTornGeneric (GET /torn; key access: public) using its exact documented path.
 func (c *Client) GetTornGeneric(ctx context.Context, params GetTornGenericParams, opts ...RequestOptions) (GetTornGenericResponse, ExecutionReport, error) {
 	var out GetTornGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/TornFactionHofCategory\"},{\"$ref\":\"#/components/schemas/TornHofCategory\"},{\"$ref\":\"#/components/schemas/TornItemCategory\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/LogCategoryId\"},{\"$ref\":\"#/components/schemas/TornCrimeId\"},{\"$ref\":\"#/components/schemas/StockId\"},{\"$ref\":\"#/components/schemas/EliminationTeamId\"},{\"$ref\":\"#/components/schemas/CityShopId\"},{\"$ref\":\"#/components/schemas/ItemUid\"},{\"items\":{\"$ref\":\"#/components/schemas/ItemId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/MedalId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/HonorId\"},\"type\":\"array\"},{\"items\":{\"$ref\":\"#/components/schemas/FactionTerritoryEnum\"},\"type\":\"array\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/TornSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/TornSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornGeneric parameters: %w", err)
+	if err = getTornGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornGeneric", Path: "/torn", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornGeneric", "GetTornGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornAttackLogParams contains documented parameters for GET /torn/attacklog.
 type GetTornAttackLogParams struct {
-	Log       models.AttackCode                      `json:"log"`
-	Offset    *int64                                 `json:"offset,omitempty"`
-	Sort      *models.GetTornAttackLogParamSort      `json:"sort,omitempty"`
+	// Log is the query parameter "log".
+	Log    models.AttackCode `json:"log"`
+	Offset *int64            `json:"offset,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetTornAttackLogParamSort `json:"sort,omitempty"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetTornAttackLogParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornAttackLogParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornAttackLogResponse is the decoded 200 response of getTornAttackLog.
 type GetTornAttackLogResponse = models.AttackLogResponse
 
-// GetTornAttackLog executes operation getTornAttackLog using its exact documented path.
+var getTornAttackLogParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"log\":{\"$ref\":\"#/components/schemas/AttackCode\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"log\"],\"type\":\"object\"}")
+})
+
+// GetTornAttackLog executes operation getTornAttackLog (GET /torn/attacklog; key access: public) using its exact documented path.
 func (c *Client) GetTornAttackLog(ctx context.Context, params GetTornAttackLogParams, opts ...RequestOptions) (GetTornAttackLogResponse, ExecutionReport, error) {
 	var out GetTornAttackLogResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"log\":{\"$ref\":\"#/components/schemas/AttackCode\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"log\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornAttackLog parameters: %w", err)
+	if err = getTornAttackLogParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornAttackLog", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornAttackLog", Path: "/torn/attacklog", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornAttackLog", "AttackLogResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornAttackLogPager pages through getTornAttackLog by following _metadata.links (P7.1).
+func (c *Client) GetTornAttackLogPager(params GetTornAttackLogParams, opts ...PageOptions) *Pager[GetTornAttackLogResponse] {
+	return newOperationPager[GetTornAttackLogResponse](c, Operation{ID: "getTornAttackLog", Path: "/torn/attacklog", Method: "GET"}, params, "AttackLogResponse", opts)
 }
 
 // GetTornBankParams contains documented parameters for GET /torn/bank.
 type GetTornBankParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornBankParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornBankResponse is the decoded 200 response of getTornBank.
 type GetTornBankResponse = models.TornBankResponse
 
-// GetTornBank executes operation getTornBank using its exact documented path.
+var getTornBankParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornBank executes operation getTornBank (GET /torn/bank; key access: public) using its exact documented path.
 func (c *Client) GetTornBank(ctx context.Context, params GetTornBankParams, opts ...RequestOptions) (GetTornBankResponse, ExecutionReport, error) {
 	var out GetTornBankResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornBank parameters: %w", err)
+	if err = getTornBankParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornBank", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornBank", Path: "/torn/bank", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornBank", "TornBankResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornBountiesParams contains documented parameters for GET /torn/bounties.
 type GetTornBountiesParams struct {
-	Limit     *int64                                `json:"limit,omitempty"`
-	Offset    *int64                                `json:"offset,omitempty"`
+	Limit  *int64 `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornBountiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornBountiesResponse is the decoded 200 response of getTornBounties.
 type GetTornBountiesResponse = models.TornBountiesResponse
 
-// GetTornBounties executes operation getTornBounties using its exact documented path.
+var getTornBountiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornBounties executes operation getTornBounties (GET /torn/bounties; key access: public) using its exact documented path.
 func (c *Client) GetTornBounties(ctx context.Context, params GetTornBountiesParams, opts ...RequestOptions) (GetTornBountiesResponse, ExecutionReport, error) {
 	var out GetTornBountiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornBounties parameters: %w", err)
+	if err = getTornBountiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornBounties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornBounties", Path: "/torn/bounties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornBounties", "TornBountiesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornBountiesPager pages through getTornBounties by following _metadata.links (P7.1).
+func (c *Client) GetTornBountiesPager(params GetTornBountiesParams, opts ...PageOptions) *Pager[GetTornBountiesResponse] {
+	return newOperationPager[GetTornBountiesResponse](c, Operation{ID: "getTornBounties", Path: "/torn/bounties", Method: "GET"}, params, "TornBountiesResponse", opts)
+}
+
+// GetTornBountiesItems iterates the "bounties" items of every getTornBounties page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetTornBountiesItems(ctx context.Context, params GetTornBountiesParams, opts ...PageOptions) iter.Seq2[models.Bounty, error] {
+	return Items(ctx, c.GetTornBountiesPager(params, opts...), func(page GetTornBountiesResponse) []models.Bounty { return page.Bounties })
 }
 
 // GetTornCalendarParams contains documented parameters for GET /torn/calendar.
 type GetTornCalendarParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCalendarParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCalendarResponse is the decoded 200 response of getTornCalendar.
 type GetTornCalendarResponse = models.TornCalendarResponse
 
-// GetTornCalendar executes operation getTornCalendar using its exact documented path.
+var getTornCalendarParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCalendar executes operation getTornCalendar (GET /torn/calendar; key access: public) using its exact documented path.
 func (c *Client) GetTornCalendar(ctx context.Context, params GetTornCalendarParams, opts ...RequestOptions) (GetTornCalendarResponse, ExecutionReport, error) {
 	var out GetTornCalendarResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCalendar parameters: %w", err)
+	if err = getTornCalendarParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCalendar", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCalendar", Path: "/torn/calendar", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCalendar", "TornCalendarResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCardsParams contains documented parameters for GET /torn/cards.
 type GetTornCardsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCardsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCardsResponse is the decoded 200 response of getTornCards.
 type GetTornCardsResponse = models.TornCardsResponse
 
-// GetTornCards executes operation getTornCards using its exact documented path.
+var getTornCardsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCards executes operation getTornCards (GET /torn/cards; key access: public) using its exact documented path.
 func (c *Client) GetTornCards(ctx context.Context, params GetTornCardsParams, opts ...RequestOptions) (GetTornCardsResponse, ExecutionReport, error) {
 	var out GetTornCardsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCards parameters: %w", err)
+	if err = getTornCardsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCards", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCards", Path: "/torn/cards", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCards", "TornCardsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCityShopsParams contains documented parameters for GET /torn/cityshops.
 type GetTornCityShopsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCityShopsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCityShopsResponse is the decoded 200 response of getTornCityShops.
 type GetTornCityShopsResponse = models.TornCityShopsResponse
 
-// GetTornCityShops executes operation getTornCityShops using its exact documented path.
+var getTornCityShopsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCityShops executes operation getTornCityShops (GET /torn/cityshops; key access: public) using its exact documented path.
 func (c *Client) GetTornCityShops(ctx context.Context, params GetTornCityShopsParams, opts ...RequestOptions) (GetTornCityShopsResponse, ExecutionReport, error) {
 	var out GetTornCityShopsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCityShops parameters: %w", err)
+	if err = getTornCityShopsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCityShops", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCityShops", Path: "/torn/cityshops", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCityShops", "TornCityShopsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCompaniesParams contains documented parameters for GET /torn/companies.
 type GetTornCompaniesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCompaniesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCompaniesResponse is the decoded 200 response of getTornCompanies.
 type GetTornCompaniesResponse = models.TornCompaniesResponse
 
-// GetTornCompanies executes operation getTornCompanies using its exact documented path.
+var getTornCompaniesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCompanies executes operation getTornCompanies (GET /torn/companies; key access: public) using its exact documented path.
 func (c *Client) GetTornCompanies(ctx context.Context, params GetTornCompaniesParams, opts ...RequestOptions) (GetTornCompaniesResponse, ExecutionReport, error) {
 	var out GetTornCompaniesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCompanies parameters: %w", err)
+	if err = getTornCompaniesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCompanies", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCompanies", Path: "/torn/companies", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCompanies", "TornCompaniesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCrimesParams contains documented parameters for GET /torn/crimes.
 type GetTornCrimesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCrimesResponse is the decoded 200 response of getTornCrimes.
 type GetTornCrimesResponse = models.TornCrimesResponse
 
-// GetTornCrimes executes operation getTornCrimes using its exact documented path.
+var getTornCrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCrimes executes operation getTornCrimes (GET /torn/crimes; key access: public) using its exact documented path.
 func (c *Client) GetTornCrimes(ctx context.Context, params GetTornCrimesParams, opts ...RequestOptions) (GetTornCrimesResponse, ExecutionReport, error) {
 	var out GetTornCrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCrimes parameters: %w", err)
+	if err = getTornCrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCrimes", Path: "/torn/crimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCrimes", "TornCrimesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornEducationParams contains documented parameters for GET /torn/education.
 type GetTornEducationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornEducationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornEducationResponse is the decoded 200 response of getTornEducation.
 type GetTornEducationResponse = models.TornEducationResponse
 
-// GetTornEducation executes operation getTornEducation using its exact documented path.
+var getTornEducationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornEducation executes operation getTornEducation (GET /torn/education; key access: public) using its exact documented path.
 func (c *Client) GetTornEducation(ctx context.Context, params GetTornEducationParams, opts ...RequestOptions) (GetTornEducationResponse, ExecutionReport, error) {
 	var out GetTornEducationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornEducation parameters: %w", err)
+	if err = getTornEducationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornEducation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornEducation", Path: "/torn/education", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornEducation", "TornEducationResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornEliminationParams contains documented parameters for GET /torn/elimination.
 type GetTornEliminationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornEliminationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornEliminationResponse is the decoded 200 response of getTornElimination.
 type GetTornEliminationResponse = models.TornEliminationTeamsResponse
 
-// GetTornElimination executes operation getTornElimination using its exact documented path.
+var getTornEliminationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornElimination executes operation getTornElimination (GET /torn/elimination; key access: public) using its exact documented path.
 func (c *Client) GetTornElimination(ctx context.Context, params GetTornEliminationParams, opts ...RequestOptions) (GetTornEliminationResponse, ExecutionReport, error) {
 	var out GetTornEliminationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornElimination parameters: %w", err)
+	if err = getTornEliminationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornElimination", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornElimination", Path: "/torn/elimination", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornElimination", "TornEliminationTeamsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornFactionHoFParams contains documented parameters for GET /torn/factionhof.
 type GetTornFactionHoFParams struct {
-	Limit     *int64                                  `json:"limit,omitempty"`
-	Offset    *int64                                  `json:"offset,omitempty"`
-	Cat       models.TornFactionHofCategory           `json:"cat"`
+	Limit  *int64 `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.TornFactionHofCategory `json:"cat"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornFactionHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornFactionHoFResponse is the decoded 200 response of getTornFactionHoF.
 type GetTornFactionHoFResponse = models.TornFactionHofResponse
 
-// GetTornFactionHoF executes operation getTornFactionHoF using its exact documented path.
+var getTornFactionHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornFactionHofCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetTornFactionHoF executes operation getTornFactionHoF (GET /torn/factionhof; key access: public) using its exact documented path.
 func (c *Client) GetTornFactionHoF(ctx context.Context, params GetTornFactionHoFParams, opts ...RequestOptions) (GetTornFactionHoFResponse, ExecutionReport, error) {
 	var out GetTornFactionHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornFactionHofCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornFactionHoF parameters: %w", err)
+	if err = getTornFactionHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornFactionHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornFactionHoF", Path: "/torn/factionhof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornFactionHoF", "TornFactionHofResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornFactionHoFPager pages through getTornFactionHoF by following _metadata.links (P7.1).
+func (c *Client) GetTornFactionHoFPager(params GetTornFactionHoFParams, opts ...PageOptions) *Pager[GetTornFactionHoFResponse] {
+	return newOperationPager[GetTornFactionHoFResponse](c, Operation{ID: "getTornFactionHoF", Path: "/torn/factionhof", Method: "GET"}, params, "TornFactionHofResponse", opts)
+}
+
+// GetTornFactionHoFItems iterates the "factionhof" items of every getTornFactionHoF page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetTornFactionHoFItems(ctx context.Context, params GetTornFactionHoFParams, opts ...PageOptions) iter.Seq2[models.TornFactionHof, error] {
+	return Items(ctx, c.GetTornFactionHoFPager(params, opts...), func(page GetTornFactionHoFResponse) []models.TornFactionHof { return page.Factionhof })
 }
 
 // GetTornFactionTreeParams contains documented parameters for GET /torn/factiontree.
 type GetTornFactionTreeParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornFactionTreeParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornFactionTreeResponse is the decoded 200 response of getTornFactionTree.
 type GetTornFactionTreeResponse = models.TornFactionTreeResponse
 
-// GetTornFactionTree executes operation getTornFactionTree using its exact documented path.
+var getTornFactionTreeParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornFactionTree executes operation getTornFactionTree (GET /torn/factiontree; key access: public) using its exact documented path.
 func (c *Client) GetTornFactionTree(ctx context.Context, params GetTornFactionTreeParams, opts ...RequestOptions) (GetTornFactionTreeResponse, ExecutionReport, error) {
 	var out GetTornFactionTreeResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornFactionTree parameters: %w", err)
+	if err = getTornFactionTreeParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornFactionTree", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornFactionTree", Path: "/torn/factiontree", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornFactionTree", "TornFactionTreeResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornGymsParams contains documented parameters for GET /torn/gyms.
 type GetTornGymsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornGymsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornGymsResponse is the decoded 200 response of getTornGyms.
 type GetTornGymsResponse = models.TornGymsResponse
 
-// GetTornGyms executes operation getTornGyms using its exact documented path.
+var getTornGymsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornGyms executes operation getTornGyms (GET /torn/gyms; key access: public) using its exact documented path.
 func (c *Client) GetTornGyms(ctx context.Context, params GetTornGymsParams, opts ...RequestOptions) (GetTornGymsResponse, ExecutionReport, error) {
 	var out GetTornGymsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornGyms parameters: %w", err)
+	if err = getTornGymsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornGyms", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornGyms", Path: "/torn/gyms", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornGyms", "TornGymsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornHalloweenParams contains documented parameters for GET /torn/halloween.
 type GetTornHalloweenParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornHalloweenParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornHalloweenResponse is the decoded 200 response of getTornHalloween.
 type GetTornHalloweenResponse = models.TornHalloweenResponse
 
-// GetTornHalloween executes operation getTornHalloween using its exact documented path.
+var getTornHalloweenParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornHalloween executes operation getTornHalloween (GET /torn/halloween; key access: minimal) using its exact documented path.
 func (c *Client) GetTornHalloween(ctx context.Context, params GetTornHalloweenParams, opts ...RequestOptions) (GetTornHalloweenResponse, ExecutionReport, error) {
 	var out GetTornHalloweenResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornHalloween parameters: %w", err)
+	if err = getTornHalloweenParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornHalloween", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornHalloween", Path: "/torn/halloween", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornHalloween", "TornHalloweenResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornHoFParams contains documented parameters for GET /torn/hof.
 type GetTornHoFParams struct {
-	Limit     *int64                           `json:"limit,omitempty"`
-	Offset    *int64                           `json:"offset,omitempty"`
-	Cat       models.TornHofCategory           `json:"cat"`
+	Limit  *int64 `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.TornHofCategory `json:"cat"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornHoFResponse is the decoded 200 response of getTornHoF.
 type GetTornHoFResponse = models.TornHofResponse
 
-// GetTornHoF executes operation getTornHoF using its exact documented path.
+var getTornHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornHofCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetTornHoF executes operation getTornHoF (GET /torn/hof; key access: public) using its exact documented path.
 func (c *Client) GetTornHoF(ctx context.Context, params GetTornHoFParams, opts ...RequestOptions) (GetTornHoFResponse, ExecutionReport, error) {
 	var out GetTornHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornHofCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornHoF parameters: %w", err)
+	if err = getTornHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornHoF", Path: "/torn/hof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornHoF", "TornHofResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornHoFPager pages through getTornHoF by following _metadata.links (P7.1).
+func (c *Client) GetTornHoFPager(params GetTornHoFParams, opts ...PageOptions) *Pager[GetTornHoFResponse] {
+	return newOperationPager[GetTornHoFResponse](c, Operation{ID: "getTornHoF", Path: "/torn/hof", Method: "GET"}, params, "TornHofResponse", opts)
+}
+
+// GetTornHoFItems iterates the "hof" items of every getTornHoF page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetTornHoFItems(ctx context.Context, params GetTornHoFParams, opts ...PageOptions) iter.Seq2[models.TornHof, error] {
+	return Items(ctx, c.GetTornHoFPager(params, opts...), func(page GetTornHoFResponse) []models.TornHof { return page.Hof })
 }
 
 // GetTornHonorsParams contains documented parameters for GET /torn/honors.
 type GetTornHonorsParams struct {
-	Limit     *int64                              `json:"limit,omitempty"`
-	Offset    *int64                              `json:"offset,omitempty"`
-	Sort      *models.GetTornHonorsParamSort      `json:"sort,omitempty"`
+	Limit  *int64 `json:"limit,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetTornHonorsParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornHonorsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornHonorsResponse is the decoded 200 response of getTornHonors.
 type GetTornHonorsResponse = models.TornHonorsResponse
 
-// GetTornHonors executes operation getTornHonors using its exact documented path.
+var getTornHonorsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornHonors executes operation getTornHonors (GET /torn/honors; key access: public) using its exact documented path.
 func (c *Client) GetTornHonors(ctx context.Context, params GetTornHonorsParams, opts ...RequestOptions) (GetTornHonorsResponse, ExecutionReport, error) {
 	var out GetTornHonorsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornHonors parameters: %w", err)
+	if err = getTornHonorsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornHonors", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornHonors", Path: "/torn/honors", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornHonors", "TornHonorsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemAmmoParams contains documented parameters for GET /torn/itemammo.
 type GetTornItemAmmoParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemAmmoParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemAmmoResponse is the decoded 200 response of getTornItemAmmo.
 type GetTornItemAmmoResponse = models.TornItemAmmoResponse
 
-// GetTornItemAmmo executes operation getTornItemAmmo using its exact documented path.
+var getTornItemAmmoParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornItemAmmo executes operation getTornItemAmmo (GET /torn/itemammo; key access: public) using its exact documented path.
 func (c *Client) GetTornItemAmmo(ctx context.Context, params GetTornItemAmmoParams, opts ...RequestOptions) (GetTornItemAmmoResponse, ExecutionReport, error) {
 	var out GetTornItemAmmoResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItemAmmo parameters: %w", err)
+	if err = getTornItemAmmoParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItemAmmo", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItemAmmo", Path: "/torn/itemammo", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItemAmmo", "TornItemAmmoResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemModsParams contains documented parameters for GET /torn/itemmods.
 type GetTornItemModsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemModsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemModsResponse is the decoded 200 response of getTornItemMods.
 type GetTornItemModsResponse = models.TornItemModsResponse
 
-// GetTornItemMods executes operation getTornItemMods using its exact documented path.
+var getTornItemModsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornItemMods executes operation getTornItemMods (GET /torn/itemmods; key access: public) using its exact documented path.
 func (c *Client) GetTornItemMods(ctx context.Context, params GetTornItemModsParams, opts ...RequestOptions) (GetTornItemModsResponse, ExecutionReport, error) {
 	var out GetTornItemModsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItemMods parameters: %w", err)
+	if err = getTornItemModsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItemMods", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItemMods", Path: "/torn/itemmods", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItemMods", "TornItemModsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemsParams contains documented parameters for GET /torn/items.
 type GetTornItemsParams struct {
-	Cat       *models.TornItemCategory           `json:"cat,omitempty"`
-	Sort      *models.GetTornItemsParamSort      `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.TornItemCategory `json:"cat,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetTornItemsParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemsResponse is the decoded 200 response of getTornItems.
 type GetTornItemsResponse = models.TornItemsResponse
 
-// GetTornItems executes operation getTornItems using its exact documented path.
+var getTornItemsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornItemCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornItems executes operation getTornItems (GET /torn/items; key access: public) using its exact documented path.
 func (c *Client) GetTornItems(ctx context.Context, params GetTornItemsParams, opts ...RequestOptions) (GetTornItemsResponse, ExecutionReport, error) {
 	var out GetTornItemsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornItemCategory\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItems parameters: %w", err)
+	if err = getTornItemsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItems", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItems", Path: "/torn/items", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItems", "TornItemsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornLogCategoriesParams contains documented parameters for GET /torn/logcategories.
 type GetTornLogCategoriesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornLogCategoriesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornLogCategoriesResponse is the decoded 200 response of getTornLogCategories.
 type GetTornLogCategoriesResponse = models.TornLogCategoriesResponse
 
-// GetTornLogCategories executes operation getTornLogCategories using its exact documented path.
+var getTornLogCategoriesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornLogCategories executes operation getTornLogCategories (GET /torn/logcategories; key access: public) using its exact documented path.
 func (c *Client) GetTornLogCategories(ctx context.Context, params GetTornLogCategoriesParams, opts ...RequestOptions) (GetTornLogCategoriesResponse, ExecutionReport, error) {
 	var out GetTornLogCategoriesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornLogCategories parameters: %w", err)
+	if err = getTornLogCategoriesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornLogCategories", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornLogCategories", Path: "/torn/logcategories", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornLogCategories", "TornLogCategoriesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornLogTypesParams contains documented parameters for GET /torn/logtypes.
 type GetTornLogTypesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornLogTypesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornLogTypesResponse is the decoded 200 response of getTornLogTypes.
 type GetTornLogTypesResponse = models.TornLogTypesResponse
 
-// GetTornLogTypes executes operation getTornLogTypes using its exact documented path.
+var getTornLogTypesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornLogTypes executes operation getTornLogTypes (GET /torn/logtypes; key access: public) using its exact documented path.
 func (c *Client) GetTornLogTypes(ctx context.Context, params GetTornLogTypesParams, opts ...RequestOptions) (GetTornLogTypesResponse, ExecutionReport, error) {
 	var out GetTornLogTypesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornLogTypes parameters: %w", err)
+	if err = getTornLogTypesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornLogTypes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornLogTypes", Path: "/torn/logtypes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornLogTypes", "TornLogTypesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornLookupParams contains documented parameters for GET /torn/lookup.
 type GetTornLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornLookupResponse is the decoded 200 response of getTornLookup.
 type GetTornLookupResponse = models.TornLookupResponse
 
-// GetTornLookup executes operation getTornLookup using its exact documented path.
+var getTornLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornLookup executes operation getTornLookup (GET /torn/lookup; key access: public) using its exact documented path.
 func (c *Client) GetTornLookup(ctx context.Context, params GetTornLookupParams, opts ...RequestOptions) (GetTornLookupResponse, ExecutionReport, error) {
 	var out GetTornLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornLookup parameters: %w", err)
+	if err = getTornLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornLookup", Path: "/torn/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornLookup", "TornLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornMedalsParams contains documented parameters for GET /torn/medals.
 type GetTornMedalsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornMedalsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornMedalsResponse is the decoded 200 response of getTornMedals.
 type GetTornMedalsResponse = models.TornMedalsResponse
 
-// GetTornMedals executes operation getTornMedals using its exact documented path.
+var getTornMedalsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornMedals executes operation getTornMedals (GET /torn/medals; key access: public) using its exact documented path.
 func (c *Client) GetTornMedals(ctx context.Context, params GetTornMedalsParams, opts ...RequestOptions) (GetTornMedalsResponse, ExecutionReport, error) {
 	var out GetTornMedalsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornMedals parameters: %w", err)
+	if err = getTornMedalsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornMedals", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornMedals", Path: "/torn/medals", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornMedals", "TornMedalsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornMeritsParams contains documented parameters for GET /torn/merits.
 type GetTornMeritsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornMeritsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornMeritsResponse is the decoded 200 response of getTornMerits.
 type GetTornMeritsResponse = models.TornMeritsResponse
 
-// GetTornMerits executes operation getTornMerits using its exact documented path.
+var getTornMeritsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornMerits executes operation getTornMerits (GET /torn/merits; key access: public) using its exact documented path.
 func (c *Client) GetTornMerits(ctx context.Context, params GetTornMeritsParams, opts ...RequestOptions) (GetTornMeritsResponse, ExecutionReport, error) {
 	var out GetTornMeritsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornMerits parameters: %w", err)
+	if err = getTornMeritsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornMerits", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornMerits", Path: "/torn/merits", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornMerits", "TornMeritsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornMuseumParams contains documented parameters for GET /torn/museum.
 type GetTornMuseumParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornMuseumParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornMuseumResponse is the decoded 200 response of getTornMuseum.
 type GetTornMuseumResponse = models.TornMuseumResponse
 
-// GetTornMuseum executes operation getTornMuseum using its exact documented path.
+var getTornMuseumParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornMuseum executes operation getTornMuseum (GET /torn/museum; key access: public) using its exact documented path.
 func (c *Client) GetTornMuseum(ctx context.Context, params GetTornMuseumParams, opts ...RequestOptions) (GetTornMuseumResponse, ExecutionReport, error) {
 	var out GetTornMuseumResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornMuseum parameters: %w", err)
+	if err = getTornMuseumParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornMuseum", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornMuseum", Path: "/torn/museum", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornMuseum", "TornMuseumResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornOrganizedCrimesParams contains documented parameters for GET /torn/organizedcrimes.
 type GetTornOrganizedCrimesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornOrganizedCrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornOrganizedCrimesResponse is the decoded 200 response of getTornOrganizedCrimes.
 type GetTornOrganizedCrimesResponse = models.TornOrganizedCrimeResponse
 
-// GetTornOrganizedCrimes executes operation getTornOrganizedCrimes using its exact documented path.
+var getTornOrganizedCrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornOrganizedCrimes executes operation getTornOrganizedCrimes (GET /torn/organizedcrimes; key access: public) using its exact documented path.
 func (c *Client) GetTornOrganizedCrimes(ctx context.Context, params GetTornOrganizedCrimesParams, opts ...RequestOptions) (GetTornOrganizedCrimesResponse, ExecutionReport, error) {
 	var out GetTornOrganizedCrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornOrganizedCrimes parameters: %w", err)
+	if err = getTornOrganizedCrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornOrganizedCrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornOrganizedCrimes", Path: "/torn/organizedcrimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornOrganizedCrimes", "TornOrganizedCrimeResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornPokerTablesParams contains documented parameters for GET /torn/pokertables.
 type GetTornPokerTablesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornPokerTablesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornPokerTablesResponse is the decoded 200 response of getTornPokerTables.
 type GetTornPokerTablesResponse = models.TornPokerTablesResponse
 
-// GetTornPokerTables executes operation getTornPokerTables using its exact documented path.
+var getTornPokerTablesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornPokerTables executes operation getTornPokerTables (GET /torn/pokertables; key access: public) using its exact documented path.
 func (c *Client) GetTornPokerTables(ctx context.Context, params GetTornPokerTablesParams, opts ...RequestOptions) (GetTornPokerTablesResponse, ExecutionReport, error) {
 	var out GetTornPokerTablesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornPokerTables parameters: %w", err)
+	if err = getTornPokerTablesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornPokerTables", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornPokerTables", Path: "/torn/pokertables", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornPokerTables", "TornPokerTablesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornPropertiesParams contains documented parameters for GET /torn/properties.
 type GetTornPropertiesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornPropertiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornPropertiesResponse is the decoded 200 response of getTornProperties.
 type GetTornPropertiesResponse = models.TornProperties
 
-// GetTornProperties executes operation getTornProperties using its exact documented path.
+var getTornPropertiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornProperties executes operation getTornProperties (GET /torn/properties; key access: public) using its exact documented path.
 func (c *Client) GetTornProperties(ctx context.Context, params GetTornPropertiesParams, opts ...RequestOptions) (GetTornPropertiesResponse, ExecutionReport, error) {
 	var out GetTornPropertiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornProperties parameters: %w", err)
+	if err = getTornPropertiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornProperties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornProperties", Path: "/torn/properties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornProperties", "TornProperties", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornRpsParams contains documented parameters for GET /torn/rockpaperscissors.
 type GetTornRpsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornRpsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornRpsResponse is the decoded 200 response of getTornRps.
 type GetTornRpsResponse = models.TornRockPaperScissorsResponse
 
-// GetTornRps executes operation getTornRps using its exact documented path.
+var getTornRpsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornRps executes operation getTornRps (GET /torn/rockpaperscissors; key access: public) using its exact documented path.
 func (c *Client) GetTornRps(ctx context.Context, params GetTornRpsParams, opts ...RequestOptions) (GetTornRpsResponse, ExecutionReport, error) {
 	var out GetTornRpsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornRps parameters: %w", err)
+	if err = getTornRpsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornRps", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornRps", Path: "/torn/rockpaperscissors", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornRps", "TornRockPaperScissorsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornSearchForCashParams contains documented parameters for GET /torn/searchforcash.
 type GetTornSearchForCashParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornSearchForCashParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornSearchForCashResponse is the decoded 200 response of getTornSearchForCash.
 type GetTornSearchForCashResponse = models.TornSearchForCashResponse
 
-// GetTornSearchForCash executes operation getTornSearchForCash using its exact documented path.
+var getTornSearchForCashParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornSearchForCash executes operation getTornSearchForCash (GET /torn/searchforcash; key access: public) using its exact documented path.
 func (c *Client) GetTornSearchForCash(ctx context.Context, params GetTornSearchForCashParams, opts ...RequestOptions) (GetTornSearchForCashResponse, ExecutionReport, error) {
 	var out GetTornSearchForCashResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornSearchForCash parameters: %w", err)
+	if err = getTornSearchForCashParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornSearchForCash", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornSearchForCash", Path: "/torn/searchforcash", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornSearchForCash", "TornSearchForCashResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornShopliftingParams contains documented parameters for GET /torn/shoplifting.
 type GetTornShopliftingParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornShopliftingParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornShopliftingResponse is the decoded 200 response of getTornShoplifting.
 type GetTornShopliftingResponse = models.TornShopliftingResponse
 
-// GetTornShoplifting executes operation getTornShoplifting using its exact documented path.
+var getTornShopliftingParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornShoplifting executes operation getTornShoplifting (GET /torn/shoplifting; key access: public) using its exact documented path.
 func (c *Client) GetTornShoplifting(ctx context.Context, params GetTornShopliftingParams, opts ...RequestOptions) (GetTornShopliftingResponse, ExecutionReport, error) {
 	var out GetTornShopliftingResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornShoplifting parameters: %w", err)
+	if err = getTornShopliftingParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornShoplifting", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornShoplifting", Path: "/torn/shoplifting", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornShoplifting", "TornShopliftingResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCityStatsParams contains documented parameters for GET /torn/stats.
 type GetTornCityStatsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCityStatsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCityStatsResponse is the decoded 200 response of getTornCityStats.
 type GetTornCityStatsResponse = models.TornCityStatsResponse
 
-// GetTornCityStats executes operation getTornCityStats using its exact documented path.
+var getTornCityStatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornCityStats executes operation getTornCityStats (GET /torn/stats; key access: public) using its exact documented path.
 func (c *Client) GetTornCityStats(ctx context.Context, params GetTornCityStatsParams, opts ...RequestOptions) (GetTornCityStatsResponse, ExecutionReport, error) {
 	var out GetTornCityStatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCityStats parameters: %w", err)
+	if err = getTornCityStatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCityStats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCityStats", Path: "/torn/stats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCityStats", "TornCityStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornStocksParams contains documented parameters for GET /torn/stocks.
 type GetTornStocksParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornStocksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornStocksResponse is the decoded 200 response of getTornStocks.
 type GetTornStocksResponse = models.TornStocksResponse
 
-// GetTornStocks executes operation getTornStocks using its exact documented path.
+var getTornStocksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornStocks executes operation getTornStocks (GET /torn/stocks; key access: public) using its exact documented path.
 func (c *Client) GetTornStocks(ctx context.Context, params GetTornStocksParams, opts ...RequestOptions) (GetTornStocksResponse, ExecutionReport, error) {
 	var out GetTornStocksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornStocks parameters: %w", err)
+	if err = getTornStocksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornStocks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornStocks", Path: "/torn/stocks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornStocks", "TornStocksResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornTerritoryParams contains documented parameters for GET /torn/territory.
 type GetTornTerritoryParams struct {
-	Ids       *[]models.FactionTerritoryEnum         `json:"ids,omitempty"`
-	Offset    *int64                                 `json:"offset,omitempty"`
-	Limit     *int64                                 `json:"limit,omitempty"`
+	// Ids is the query parameter "ids".
+	Ids    *[]models.FactionTerritoryEnum `json:"ids,omitempty"`
+	Offset *int64                         `json:"offset,omitempty"`
+	Limit  *int64                         `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornTerritoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornTerritoryResponse is the decoded 200 response of getTornTerritory.
 type GetTornTerritoryResponse = models.TornTerritoriesResponse
 
-// GetTornTerritory executes operation getTornTerritory using its exact documented path.
+var getTornTerritoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/FactionTerritoryEnum\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":250,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornTerritory executes operation getTornTerritory (GET /torn/territory; key access: public) using its exact documented path.
 func (c *Client) GetTornTerritory(ctx context.Context, params GetTornTerritoryParams, opts ...RequestOptions) (GetTornTerritoryResponse, ExecutionReport, error) {
 	var out GetTornTerritoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/FactionTerritoryEnum\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":250,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornTerritory parameters: %w", err)
+	if err = getTornTerritoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornTerritory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornTerritory", Path: "/torn/territory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornTerritory", "TornTerritoriesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornTerritoryPager pages through getTornTerritory by following _metadata.links (P7.1).
+func (c *Client) GetTornTerritoryPager(params GetTornTerritoryParams, opts ...PageOptions) *Pager[GetTornTerritoryResponse] {
+	return newOperationPager[GetTornTerritoryResponse](c, Operation{ID: "getTornTerritory", Path: "/torn/territory", Method: "GET"}, params, "TornTerritoriesResponse", opts)
+}
+
+// GetTornTerritoryItems iterates the "territory" items of every getTornTerritory page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetTornTerritoryItems(ctx context.Context, params GetTornTerritoryParams, opts ...PageOptions) iter.Seq2[models.TornTerritory, error] {
+	return Items(ctx, c.GetTornTerritoryPager(params, opts...), func(page GetTornTerritoryResponse) []models.TornTerritory { return page.Territory })
 }
 
 // GetTornTimestampParams contains documented parameters for GET /torn/timestamp.
 type GetTornTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornTimestampResponse is the decoded 200 response of getTornTimestamp.
 type GetTornTimestampResponse = models.TimestampResponse
 
-// GetTornTimestamp executes operation getTornTimestamp using its exact documented path.
+var getTornTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetTornTimestamp executes operation getTornTimestamp (GET /torn/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetTornTimestamp(ctx context.Context, params GetTornTimestampParams, opts ...RequestOptions) (GetTornTimestampResponse, ExecutionReport, error) {
 	var out GetTornTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornTimestamp parameters: %w", err)
+	if err = getTornTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornTimestamp", Path: "/torn/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornSubcrimesParams contains documented parameters for GET /torn/{crimeId}/subcrimes.
 type GetTornSubcrimesParams struct {
-	CrimeId   models.TornCrimeId                     `json:"crimeId" path:"crimeId"`
+	// CrimeId is the path parameter "crimeId".
+	CrimeId models.TornCrimeId `json:"crimeId" path:"crimeId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornSubcrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornSubcrimesResponse is the decoded 200 response of getTornSubcrimes.
 type GetTornSubcrimesResponse = models.TornSubcrimesResponse
 
-// GetTornSubcrimes executes operation getTornSubcrimes using its exact documented path.
+var getTornSubcrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/TornCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}")
+})
+
+// GetTornSubcrimes executes operation getTornSubcrimes (GET /torn/{crimeId}/subcrimes; key access: public) using its exact documented path.
 func (c *Client) GetTornSubcrimes(ctx context.Context, params GetTornSubcrimesParams, opts ...RequestOptions) (GetTornSubcrimesResponse, ExecutionReport, error) {
 	var out GetTornSubcrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/TornCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornSubcrimes parameters: %w", err)
+	if err = getTornSubcrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornSubcrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornSubcrimes", Path: "/torn/{crimeId}/subcrimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornSubcrimes", "TornSubcrimesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornHonorsSpecificParams contains documented parameters for GET /torn/{ids}/honors.
 type GetTornHonorsSpecificParams struct {
-	Ids       []models.HonorId                            `json:"ids" path:"ids"`
+	// Ids is the path parameter "ids".
+	Ids []models.HonorId `json:"ids" path:"ids"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornHonorsSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornHonorsSpecificResponse is the decoded 200 response of getTornHonorsSpecific.
 type GetTornHonorsSpecificResponse = models.TornHonorsResponse
 
-// GetTornHonorsSpecific executes operation getTornHonorsSpecific using its exact documented path.
+var getTornHonorsSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/HonorId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}")
+})
+
+// GetTornHonorsSpecific executes operation getTornHonorsSpecific (GET /torn/{ids}/honors; key access: public) using its exact documented path.
 func (c *Client) GetTornHonorsSpecific(ctx context.Context, params GetTornHonorsSpecificParams, opts ...RequestOptions) (GetTornHonorsSpecificResponse, ExecutionReport, error) {
 	var out GetTornHonorsSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/HonorId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornHonorsSpecific parameters: %w", err)
+	if err = getTornHonorsSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornHonorsSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornHonorsSpecific", Path: "/torn/{ids}/honors", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornHonorsSpecific", "TornHonorsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemDetailsParams contains documented parameters for GET /torn/{ids}/itemdetails.
 type GetTornItemDetailsParams struct {
-	Ids       []models.ItemUid                         `json:"ids" path:"ids"`
+	// Ids is the path parameter "ids".
+	Ids []models.ItemUid `json:"ids" path:"ids"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemDetailsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemDetailsResponse is the decoded 200 response of getTornItemDetails.
 type GetTornItemDetailsResponse = models.TornItemDetailsResponse
 
-// GetTornItemDetails executes operation getTornItemDetails using its exact documented path.
+var getTornItemDetailsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemUid\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}")
+})
+
+// GetTornItemDetails executes operation getTornItemDetails (GET /torn/{ids}/itemdetails; key access: public) using its exact documented path.
 func (c *Client) GetTornItemDetails(ctx context.Context, params GetTornItemDetailsParams, opts ...RequestOptions) (GetTornItemDetailsResponse, ExecutionReport, error) {
 	var out GetTornItemDetailsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemUid\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItemDetails parameters: %w", err)
+	if err = getTornItemDetailsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItemDetails", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItemDetails", Path: "/torn/{ids}/itemdetails", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItemDetails", "TornItemDetailsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemsSpecificParams contains documented parameters for GET /torn/{ids}/items.
 type GetTornItemsSpecificParams struct {
-	Ids       []models.ItemId                            `json:"ids" path:"ids"`
-	Sort      *models.GetTornItemsSpecificParamSort      `json:"sort,omitempty"`
+	// Ids is the path parameter "ids".
+	Ids []models.ItemId `json:"ids" path:"ids"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetTornItemsSpecificParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemsSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemsSpecificResponse is the decoded 200 response of getTornItemsSpecific.
 type GetTornItemsSpecificResponse = models.TornItemsResponse
 
-// GetTornItemsSpecific executes operation getTornItemsSpecific using its exact documented path.
+var getTornItemsSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}")
+})
+
+// GetTornItemsSpecific executes operation getTornItemsSpecific (GET /torn/{ids}/items; key access: public) using its exact documented path.
 func (c *Client) GetTornItemsSpecific(ctx context.Context, params GetTornItemsSpecificParams, opts ...RequestOptions) (GetTornItemsSpecificResponse, ExecutionReport, error) {
 	var out GetTornItemsSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItemsSpecific parameters: %w", err)
+	if err = getTornItemsSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItemsSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItemsSpecific", Path: "/torn/{ids}/items", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItemsSpecific", "TornItemsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornItemStatsParams contains documented parameters for GET /torn/{ids}/itemstats.
 type GetTornItemStatsParams struct {
-	Ids       []models.ItemUid                       `json:"ids" path:"ids"`
+	// Ids is the path parameter "ids".
+	Ids []models.ItemUid `json:"ids" path:"ids"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornItemStatsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornItemStatsResponse is the decoded 200 response of getTornItemStats.
 type GetTornItemStatsResponse = models.TornItemStatsResponse
 
-// GetTornItemStats executes operation getTornItemStats using its exact documented path.
+var getTornItemStatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemUid\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}")
+})
+
+// GetTornItemStats executes operation getTornItemStats (GET /torn/{ids}/itemstats; key access: public) using its exact documented path.
 func (c *Client) GetTornItemStats(ctx context.Context, params GetTornItemStatsParams, opts ...RequestOptions) (GetTornItemStatsResponse, ExecutionReport, error) {
 	var out GetTornItemStatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/ItemUid\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornItemStats parameters: %w", err)
+	if err = getTornItemStatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornItemStats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornItemStats", Path: "/torn/{ids}/itemstats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornItemStats", "TornItemStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornMedalsSpecificParams contains documented parameters for GET /torn/{ids}/medals.
 type GetTornMedalsSpecificParams struct {
-	Ids       []models.MedalId                            `json:"ids" path:"ids"`
+	// Ids is the path parameter "ids".
+	Ids []models.MedalId `json:"ids" path:"ids"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornMedalsSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornMedalsSpecificResponse is the decoded 200 response of getTornMedalsSpecific.
 type GetTornMedalsSpecificResponse = models.TornMedalsResponse
 
-// GetTornMedalsSpecific executes operation getTornMedalsSpecific using its exact documented path.
+var getTornMedalsSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/MedalId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}")
+})
+
+// GetTornMedalsSpecific executes operation getTornMedalsSpecific (GET /torn/{ids}/medals; key access: public) using its exact documented path.
 func (c *Client) GetTornMedalsSpecific(ctx context.Context, params GetTornMedalsSpecificParams, opts ...RequestOptions) (GetTornMedalsSpecificResponse, ExecutionReport, error) {
 	var out GetTornMedalsSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"ids\":{\"items\":{\"$ref\":\"#/components/schemas/MedalId\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"ids\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornMedalsSpecific parameters: %w", err)
+	if err = getTornMedalsSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornMedalsSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornMedalsSpecific", Path: "/torn/{ids}/medals", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornMedalsSpecific", "TornMedalsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornEliminationTeamParams contains documented parameters for GET /torn/{id}/eliminationteam.
 type GetTornEliminationTeamParams struct {
-	ID        models.EliminationTeamId                     `json:"id" path:"id"`
-	Limit     *int64                                       `json:"limit,omitempty"`
-	Offset    *int64                                       `json:"offset,omitempty"`
+	// ID is the path parameter "id".
+	ID     models.EliminationTeamId `json:"id" path:"id"`
+	Limit  *int64                   `json:"limit,omitempty"`
+	Offset *int64                   `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornEliminationTeamParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornEliminationTeamResponse is the decoded 200 response of getTornEliminationTeam.
 type GetTornEliminationTeamResponse = models.TornEliminationTeamPlayersResponse
 
-// GetTornEliminationTeam executes operation getTornEliminationTeam using its exact documented path.
+var getTornEliminationTeamParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/EliminationTeamId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetTornEliminationTeam executes operation getTornEliminationTeam (GET /torn/{id}/eliminationteam; key access: public) using its exact documented path.
 func (c *Client) GetTornEliminationTeam(ctx context.Context, params GetTornEliminationTeamParams, opts ...RequestOptions) (GetTornEliminationTeamResponse, ExecutionReport, error) {
 	var out GetTornEliminationTeamResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/EliminationTeamId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornEliminationTeam parameters: %w", err)
+	if err = getTornEliminationTeamParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornEliminationTeam", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornEliminationTeam", Path: "/torn/{id}/eliminationteam", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornEliminationTeam", "TornEliminationTeamPlayersResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetTornEliminationTeamPager pages through getTornEliminationTeam by following _metadata.links (P7.1).
+func (c *Client) GetTornEliminationTeamPager(params GetTornEliminationTeamParams, opts ...PageOptions) *Pager[GetTornEliminationTeamResponse] {
+	return newOperationPager[GetTornEliminationTeamResponse](c, Operation{ID: "getTornEliminationTeam", Path: "/torn/{id}/eliminationteam", Method: "GET"}, params, "TornEliminationTeamPlayersResponse", opts)
+}
+
+// GetTornEliminationTeamItems iterates the "eliminationteam" items of every getTornEliminationTeam page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetTornEliminationTeamItems(ctx context.Context, params GetTornEliminationTeamParams, opts ...PageOptions) iter.Seq2[models.TornEliminationTeamPlayer, error] {
+	return Items(ctx, c.GetTornEliminationTeamPager(params, opts...), func(page GetTornEliminationTeamResponse) []models.TornEliminationTeamPlayer {
+		return page.Eliminationteam
+	})
 }
 
 // GetTornLogTypesSpecificParams contains documented parameters for GET /torn/{logCategoryId}/logtypes.
 type GetTornLogTypesSpecificParams struct {
-	LogCategoryId models.LogCategoryId                          `json:"logCategoryId" path:"logCategoryId"`
-	Timestamp     *models.GetTornLogTypesSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment       *string                                       `json:"comment,omitempty"`
-	Key           *string                                       `json:"key,omitempty"`
+	// LogCategoryId is the path parameter "logCategoryId".
+	LogCategoryId models.LogCategoryId `json:"logCategoryId" path:"logCategoryId"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetTornLogTypesSpecificParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornLogTypesSpecificResponse is the decoded 200 response of getTornLogTypesSpecific.
 type GetTornLogTypesSpecificResponse = models.TornLogTypesResponse
 
-// GetTornLogTypesSpecific executes operation getTornLogTypesSpecific using its exact documented path.
+var getTornLogTypesSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"logCategoryId\":{\"$ref\":\"#/components/schemas/LogCategoryId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"logCategoryId\"],\"type\":\"object\"}")
+})
+
+// GetTornLogTypesSpecific executes operation getTornLogTypesSpecific (GET /torn/{logCategoryId}/logtypes; key access: public) using its exact documented path.
 func (c *Client) GetTornLogTypesSpecific(ctx context.Context, params GetTornLogTypesSpecificParams, opts ...RequestOptions) (GetTornLogTypesSpecificResponse, ExecutionReport, error) {
 	var out GetTornLogTypesSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"logCategoryId\":{\"$ref\":\"#/components/schemas/LogCategoryId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"logCategoryId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornLogTypesSpecific parameters: %w", err)
+	if err = getTornLogTypesSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornLogTypesSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornLogTypesSpecific", Path: "/torn/{logCategoryId}/logtypes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornLogTypesSpecific", "TornLogTypesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCityShopSpecificParams contains documented parameters for GET /torn/{shopId}/cityshops.
 type GetTornCityShopSpecificParams struct {
-	ShopId    models.CityShopId                             `json:"shopId" path:"shopId"`
+	// ShopId is the path parameter "shopId".
+	ShopId models.CityShopId `json:"shopId" path:"shopId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCityShopSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                       `json:"comment,omitempty"`
-	Key       *string                                       `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCityShopSpecificResponse is the decoded 200 response of getTornCityShopSpecific.
 type GetTornCityShopSpecificResponse = models.TornCityShopsResponse
 
-// GetTornCityShopSpecific executes operation getTornCityShopSpecific using its exact documented path.
+var getTornCityShopSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"shopId\":{\"$ref\":\"#/components/schemas/CityShopId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"shopId\"],\"type\":\"object\"}")
+})
+
+// GetTornCityShopSpecific executes operation getTornCityShopSpecific (GET /torn/{shopId}/cityshops; key access: public) using its exact documented path.
 func (c *Client) GetTornCityShopSpecific(ctx context.Context, params GetTornCityShopSpecificParams, opts ...RequestOptions) (GetTornCityShopSpecificResponse, ExecutionReport, error) {
 	var out GetTornCityShopSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"shopId\":{\"$ref\":\"#/components/schemas/CityShopId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"shopId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCityShopSpecific parameters: %w", err)
+	if err = getTornCityShopSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCityShopSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCityShopSpecific", Path: "/torn/{shopId}/cityshops", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCityShopSpecific", "TornCityShopsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetSpecificTornStockParams contains documented parameters for GET /torn/{stockId}/stocks.
 type GetSpecificTornStockParams struct {
-	StockId   models.StockId                             `json:"stockId" path:"stockId"`
+	// StockId is the path parameter "stockId".
+	StockId models.StockId `json:"stockId" path:"stockId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetSpecificTornStockParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetSpecificTornStockResponse is the decoded 200 response of getSpecificTornStock.
 type GetSpecificTornStockResponse = models.TornStockDetailedResponse
 
-// GetSpecificTornStock executes operation getSpecificTornStock using its exact documented path.
+var getSpecificTornStockParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stockId\":{\"$ref\":\"#/components/schemas/StockId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"stockId\"],\"type\":\"object\"}")
+})
+
+// GetSpecificTornStock executes operation getSpecificTornStock (GET /torn/{stockId}/stocks; key access: public) using its exact documented path.
 func (c *Client) GetSpecificTornStock(ctx context.Context, params GetSpecificTornStockParams, opts ...RequestOptions) (GetSpecificTornStockResponse, ExecutionReport, error) {
 	var out GetSpecificTornStockResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stockId\":{\"$ref\":\"#/components/schemas/StockId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"stockId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getSpecificTornStock parameters: %w", err)
+	if err = getSpecificTornStockParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getSpecificTornStock", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getSpecificTornStock", Path: "/torn/{stockId}/stocks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getSpecificTornStock", "TornStockDetailedResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetTornCompaniesSpecificParams contains documented parameters for GET /torn/{typeId}/companies.
 type GetTornCompaniesSpecificParams struct {
-	TypeId    models.CompanyTypeId                           `json:"typeId" path:"typeId"`
+	// TypeId is the path parameter "typeId".
+	TypeId models.CompanyTypeId `json:"typeId" path:"typeId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornCompaniesSpecificParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetTornCompaniesSpecificResponse is the decoded 200 response of getTornCompaniesSpecific.
 type GetTornCompaniesSpecificResponse = models.TornCompaniesResponse
 
-// GetTornCompaniesSpecific executes operation getTornCompaniesSpecific using its exact documented path.
+var getTornCompaniesSpecificParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"typeId\":{\"$ref\":\"#/components/schemas/CompanyTypeId\"}},\"required\":[\"typeId\"],\"type\":\"object\"}")
+})
+
+// GetTornCompaniesSpecific executes operation getTornCompaniesSpecific (GET /torn/{typeId}/companies; key access: public) using its exact documented path.
 func (c *Client) GetTornCompaniesSpecific(ctx context.Context, params GetTornCompaniesSpecificParams, opts ...RequestOptions) (GetTornCompaniesSpecificResponse, ExecutionReport, error) {
 	var out GetTornCompaniesSpecificResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"typeId\":{\"$ref\":\"#/components/schemas/CompanyTypeId\"}},\"required\":[\"typeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getTornCompaniesSpecific parameters: %w", err)
+	if err = getTornCompaniesSpecificParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getTornCompaniesSpecific", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getTornCompaniesSpecific", Path: "/torn/{typeId}/companies", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getTornCompaniesSpecific", "TornCompaniesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserGenericParams contains documented parameters for GET /user.
 type GetUserGenericParams struct {
-	Selections *[]models.UserSelectionName          `json:"selections,omitempty"`
-	ID         *models.GetUserGenericParamID        `json:"id,omitempty"`
-	Legacy     *[]models.UserSelectionName          `json:"legacy,omitempty"`
-	Limit      *int64                               `json:"limit,omitempty"`
-	From       *int64                               `json:"from,omitempty"`
-	To         *int64                               `json:"to,omitempty"`
-	Sort       *models.GetUserGenericParamSort      `json:"sort,omitempty"`
-	Cat        *models.GetUserGenericParamCat       `json:"cat,omitempty"`
-	Stat       *[]models.PersonalStatsStatName      `json:"stat,omitempty"`
-	Filters    *models.GetUserGenericParamFilters   `json:"filters,omitempty"`
-	Striptags  *models.GetUserGenericParamStriptags `json:"striptags,omitempty"`
-	Offset     *int64                               `json:"offset,omitempty"`
-	Timestamp  *models.GetUserGenericParamTimestamp `json:"timestamp,omitempty"`
-	Comment    *string                              `json:"comment,omitempty"`
-	Key        *string                              `json:"key,omitempty"`
+	// Selections is the query parameter "selections".
+	Selections *[]models.UserSelectionName `json:"selections,omitempty"`
+	// ID is the query parameter "id".
+	ID *models.GetUserGenericParamID `json:"id,omitempty"`
+	// Legacy is the query parameter "legacy".
+	Legacy *[]models.UserSelectionName `json:"legacy,omitempty"`
+	Limit  *int64                      `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetUserGenericParamSort `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.GetUserGenericParamCat `json:"cat,omitempty"`
+	// Stat is the query parameter "stat".
+	Stat *[]models.PersonalStatsStatName `json:"stat,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *models.GetUserGenericParamFilters `json:"filters,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetUserGenericParamStriptags `json:"striptags,omitempty"`
+	Offset    *int64                               `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetUserGenericParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserGenericResponse is the decoded 200 response of getUserGeneric.
 type GetUserGenericResponse = models.GetUserGenericResponseBody
 
-// GetUserGeneric executes operation getUserGeneric using its exact documented path.
+var getUserGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},{\"$ref\":\"#/components/schemas/UserListEnum\"},{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},{\"$ref\":\"#/components/schemas/TornInventoryItemType\"},{\"$ref\":\"#/components/schemas/TradeCategoryEnum\"}]},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"incoming\",\"outgoing\",\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},{\"$ref\":\"#/components/schemas/TornCrimeId\"},{\"$ref\":\"#/components/schemas/TradeId\"},{\"type\":\"string\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/UserSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/UserSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetUserGeneric executes operation getUserGeneric (GET /user; key access: public) using its exact documented path.
 func (c *Client) GetUserGeneric(ctx context.Context, params GetUserGenericParams, opts ...RequestOptions) (GetUserGenericResponse, ExecutionReport, error) {
 	var out GetUserGenericResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},{\"$ref\":\"#/components/schemas/UserListEnum\"},{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},{\"$ref\":\"#/components/schemas/TornInventoryItemType\"},{\"$ref\":\"#/components/schemas/TradeCategoryEnum\"}]},\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"incoming\",\"outgoing\",\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},{\"$ref\":\"#/components/schemas/TornCrimeId\"},{\"$ref\":\"#/components/schemas/TradeId\"},{\"type\":\"string\"}]},\"key\":{\"type\":\"string\"},\"legacy\":{\"items\":{\"$ref\":\"#/components/schemas/UserSelectionName\"},\"type\":\"array\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/UserSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"striptags\":{\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserGeneric parameters: %w", err)
+	if err = getUserGenericParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserGeneric", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserGeneric", Path: "/user", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserGeneric", "GetUserGenericResponseBody", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyAmmoParams contains documented parameters for GET /user/ammo.
 type GetMyAmmoParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyAmmoParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                         `json:"comment,omitempty"`
-	Key       *string                         `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyAmmoResponse is the decoded 200 response of getMyAmmo.
 type GetMyAmmoResponse = models.UserAmmoResponse
 
-// GetMyAmmo executes operation getMyAmmo using its exact documented path.
+var getMyAmmoParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyAmmo executes operation getMyAmmo (GET /user/ammo; key access: minimal) using its exact documented path.
 func (c *Client) GetMyAmmo(ctx context.Context, params GetMyAmmoParams, opts ...RequestOptions) (GetMyAmmoResponse, ExecutionReport, error) {
 	var out GetMyAmmoResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyAmmo parameters: %w", err)
+	if err = getMyAmmoParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyAmmo", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyAmmo", Path: "/user/ammo", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyAmmo", "UserAmmoResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyAttacksParams contains documented parameters for GET /user/attacks.
 type GetMyAttacksParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit     *int64                                 `json:"limit,omitempty"`
-	Sort      *models.GetMyAttacksParamSort          `json:"sort,omitempty"`
-	To        *int64                                 `json:"to,omitempty"`
-	From      *int64                                 `json:"from,omitempty"`
-	Timestamp *models.GetMyAttacksParamTimestamp     `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyAttacksParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMyAttacksParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyAttacksResponse is the decoded 200 response of getMyAttacks.
 type GetMyAttacksResponse = models.AttacksResponse
 
-// GetMyAttacks executes operation getMyAttacks using its exact documented path.
+var getMyAttacksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyAttacks executes operation getMyAttacks (GET /user/attacks; key access: limited) using its exact documented path.
 func (c *Client) GetMyAttacks(ctx context.Context, params GetMyAttacksParams, opts ...RequestOptions) (GetMyAttacksResponse, ExecutionReport, error) {
 	var out GetMyAttacksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyAttacks parameters: %w", err)
+	if err = getMyAttacksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyAttacks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyAttacks", Path: "/user/attacks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyAttacks", "AttacksResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyAttacksPager pages through getMyAttacks by following _metadata.links (P7.1).
+func (c *Client) GetMyAttacksPager(params GetMyAttacksParams, opts ...PageOptions) *Pager[GetMyAttacksResponse] {
+	return newOperationPager[GetMyAttacksResponse](c, Operation{ID: "getMyAttacks", Path: "/user/attacks", Method: "GET"}, params, "AttacksResponse", opts)
+}
+
+// GetMyAttacksItems iterates the "attacks" items of every getMyAttacks page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyAttacksItems(ctx context.Context, params GetMyAttacksParams, opts ...PageOptions) iter.Seq2[models.Attack, error] {
+	return Items(ctx, c.GetMyAttacksPager(params, opts...), func(page GetMyAttacksResponse) []models.Attack { return page.Attacks })
 }
 
 // GetMyAttacksSimplifiedParams contains documented parameters for GET /user/attacksfull.
 type GetMyAttacksSimplifiedParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum       `json:"filters,omitempty"`
-	Limit     *int64                                       `json:"limit,omitempty"`
-	Sort      *models.GetMyAttacksSimplifiedParamSort      `json:"sort,omitempty"`
-	To        *int64                                       `json:"to,omitempty"`
-	From      *int64                                       `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyAttacksSimplifiedParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyAttacksSimplifiedParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyAttacksSimplifiedResponse is the decoded 200 response of getMyAttacksSimplified.
 type GetMyAttacksSimplifiedResponse = models.AttacksFullResponse
 
-// GetMyAttacksSimplified executes operation getMyAttacksSimplified using its exact documented path.
+var getMyAttacksSimplifiedParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyAttacksSimplified executes operation getMyAttacksSimplified (GET /user/attacksfull; key access: limited) using its exact documented path.
 func (c *Client) GetMyAttacksSimplified(ctx context.Context, params GetMyAttacksSimplifiedParams, opts ...RequestOptions) (GetMyAttacksSimplifiedResponse, ExecutionReport, error) {
 	var out GetMyAttacksSimplifiedResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":1000,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyAttacksSimplified parameters: %w", err)
+	if err = getMyAttacksSimplifiedParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyAttacksSimplified", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyAttacksSimplified", Path: "/user/attacksfull", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyAttacksSimplified", "AttacksFullResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyAttacksSimplifiedPager pages through getMyAttacksSimplified by following _metadata.links (P7.1).
+func (c *Client) GetMyAttacksSimplifiedPager(params GetMyAttacksSimplifiedParams, opts ...PageOptions) *Pager[GetMyAttacksSimplifiedResponse] {
+	return newOperationPager[GetMyAttacksSimplifiedResponse](c, Operation{ID: "getMyAttacksSimplified", Path: "/user/attacksfull", Method: "GET"}, params, "AttacksFullResponse", opts)
+}
+
+// GetMyAttacksSimplifiedItems iterates the "attacks" items of every getMyAttacksSimplified page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyAttacksSimplifiedItems(ctx context.Context, params GetMyAttacksSimplifiedParams, opts ...PageOptions) iter.Seq2[models.AttackSimplified, error] {
+	return Items(ctx, c.GetMyAttacksSimplifiedPager(params, opts...), func(page GetMyAttacksSimplifiedResponse) []models.AttackSimplified { return page.Attacks })
 }
 
 // GetMyBarsParams contains documented parameters for GET /user/bars.
 type GetMyBarsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyBarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                         `json:"comment,omitempty"`
-	Key       *string                         `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyBarsResponse is the decoded 200 response of getMyBars.
 type GetMyBarsResponse = models.UserBarsResponse
 
-// GetMyBars executes operation getMyBars using its exact documented path.
+var getMyBarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyBars executes operation getMyBars (GET /user/bars; key access: minimal) using its exact documented path.
 func (c *Client) GetMyBars(ctx context.Context, params GetMyBarsParams, opts ...RequestOptions) (GetMyBarsResponse, ExecutionReport, error) {
 	var out GetMyBarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyBars parameters: %w", err)
+	if err = getMyBarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyBars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyBars", Path: "/user/bars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyBars", "UserBarsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyBasicInformationParams contains documented parameters for GET /user/basic.
 type GetMyBasicInformationParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyBasicInformationParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyBasicInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                     `json:"comment,omitempty"`
-	Key       *string                                     `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyBasicInformationResponse is the decoded 200 response of getMyBasicInformation.
 type GetMyBasicInformationResponse = models.UserBasicResponse
 
-// GetMyBasicInformation executes operation getMyBasicInformation using its exact documented path.
+var getMyBasicInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyBasicInformation executes operation getMyBasicInformation (GET /user/basic; key access: public) using its exact documented path.
 func (c *Client) GetMyBasicInformation(ctx context.Context, params GetMyBasicInformationParams, opts ...RequestOptions) (GetMyBasicInformationResponse, ExecutionReport, error) {
 	var out GetMyBasicInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyBasicInformation parameters: %w", err)
+	if err = getMyBasicInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyBasicInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyBasicInformation", Path: "/user/basic", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyBasicInformation", "UserBasicResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyBattlestatsParams contains documented parameters for GET /user/battlestats.
 type GetMyBattlestatsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyBattlestatsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyBattlestatsResponse is the decoded 200 response of getMyBattlestats.
 type GetMyBattlestatsResponse = models.UserBattleStatsResponse
 
-// GetMyBattlestats executes operation getMyBattlestats using its exact documented path.
+var getMyBattlestatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyBattlestats executes operation getMyBattlestats (GET /user/battlestats; key access: limited) using its exact documented path.
 func (c *Client) GetMyBattlestats(ctx context.Context, params GetMyBattlestatsParams, opts ...RequestOptions) (GetMyBattlestatsResponse, ExecutionReport, error) {
 	var out GetMyBattlestatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyBattlestats parameters: %w", err)
+	if err = getMyBattlestatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyBattlestats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyBattlestats", Path: "/user/battlestats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyBattlestats", "UserBattleStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyBountiesParams contains documented parameters for GET /user/bounties.
 type GetMyBountiesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyBountiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyBountiesResponse is the decoded 200 response of getMyBounties.
 type GetMyBountiesResponse = models.UserBountiesResponse
 
-// GetMyBounties executes operation getMyBounties using its exact documented path.
+var getMyBountiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyBounties executes operation getMyBounties (GET /user/bounties; key access: public) using its exact documented path.
 func (c *Client) GetMyBounties(ctx context.Context, params GetMyBountiesParams, opts ...RequestOptions) (GetMyBountiesResponse, ExecutionReport, error) {
 	var out GetMyBountiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyBounties parameters: %w", err)
+	if err = getMyBountiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyBounties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyBounties", Path: "/user/bounties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyBounties", "UserBountiesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCalendarTimeParams contains documented parameters for GET /user/calendar.
 type GetMyCalendarTimeParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCalendarTimeParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCalendarTimeResponse is the decoded 200 response of getMyCalendarTime.
 type GetMyCalendarTimeResponse = models.UserCalendarResponse
 
-// GetMyCalendarTime executes operation getMyCalendarTime using its exact documented path.
+var getMyCalendarTimeParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCalendarTime executes operation getMyCalendarTime (GET /user/calendar; key access: minimal) using its exact documented path.
 func (c *Client) GetMyCalendarTime(ctx context.Context, params GetMyCalendarTimeParams, opts ...RequestOptions) (GetMyCalendarTimeResponse, ExecutionReport, error) {
 	var out GetMyCalendarTimeResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCalendarTime parameters: %w", err)
+	if err = getMyCalendarTimeParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCalendarTime", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCalendarTime", Path: "/user/calendar", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCalendarTime", "UserCalendarResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCasinoStreakParams contains documented parameters for GET /user/casino.
 type GetMyCasinoStreakParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCasinoStreakParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCasinoStreakResponse is the decoded 200 response of getMyCasinoStreak.
 type GetMyCasinoStreakResponse = models.UserCasinoResponse
 
-// GetMyCasinoStreak executes operation getMyCasinoStreak using its exact documented path.
+var getMyCasinoStreakParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCasinoStreak executes operation getMyCasinoStreak (GET /user/casino; key access: limited) using its exact documented path.
 func (c *Client) GetMyCasinoStreak(ctx context.Context, params GetMyCasinoStreakParams, opts ...RequestOptions) (GetMyCasinoStreakResponse, ExecutionReport, error) {
 	var out GetMyCasinoStreakResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCasinoStreak parameters: %w", err)
+	if err = getMyCasinoStreakParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCasinoStreak", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCasinoStreak", Path: "/user/casino", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCasinoStreak", "UserCasinoResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCompetitionInfoParams contains documented parameters for GET /user/competition.
 type GetMyCompetitionInfoParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCompetitionInfoParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCompetitionInfoResponse is the decoded 200 response of getMyCompetitionInfo.
 type GetMyCompetitionInfoResponse = models.UserCompetitionResponse
 
-// GetMyCompetitionInfo executes operation getMyCompetitionInfo using its exact documented path.
+var getMyCompetitionInfoParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCompetitionInfo executes operation getMyCompetitionInfo (GET /user/competition; key access: public) using its exact documented path.
 func (c *Client) GetMyCompetitionInfo(ctx context.Context, params GetMyCompetitionInfoParams, opts ...RequestOptions) (GetMyCompetitionInfoResponse, ExecutionReport, error) {
 	var out GetMyCompetitionInfoResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCompetitionInfo parameters: %w", err)
+	if err = getMyCompetitionInfoParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCompetitionInfo", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCompetitionInfo", Path: "/user/competition", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCompetitionInfo", "UserCompetitionResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCooldownsParams contains documented parameters for GET /user/cooldowns.
 type GetMyCooldownsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCooldownsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCooldownsResponse is the decoded 200 response of getMyCooldowns.
 type GetMyCooldownsResponse = models.UserCooldownsResponse
 
-// GetMyCooldowns executes operation getMyCooldowns using its exact documented path.
+var getMyCooldownsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyCooldowns executes operation getMyCooldowns (GET /user/cooldowns; key access: minimal) using its exact documented path.
 func (c *Client) GetMyCooldowns(ctx context.Context, params GetMyCooldownsParams, opts ...RequestOptions) (GetMyCooldownsResponse, ExecutionReport, error) {
 	var out GetMyCooldownsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCooldowns parameters: %w", err)
+	if err = getMyCooldownsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCooldowns", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCooldowns", Path: "/user/cooldowns", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCooldowns", "UserCooldownsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyDiscordParams contains documented parameters for GET /user/discord.
 type GetMyDiscordParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyDiscordParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyDiscordResponse is the decoded 200 response of getMyDiscord.
 type GetMyDiscordResponse = models.UserDiscordResponse
 
-// GetMyDiscord executes operation getMyDiscord using its exact documented path.
+var getMyDiscordParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyDiscord executes operation getMyDiscord (GET /user/discord; key access: public) using its exact documented path.
 func (c *Client) GetMyDiscord(ctx context.Context, params GetMyDiscordParams, opts ...RequestOptions) (GetMyDiscordResponse, ExecutionReport, error) {
 	var out GetMyDiscordResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyDiscord parameters: %w", err)
+	if err = getMyDiscordParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyDiscord", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyDiscord", Path: "/user/discord", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyDiscord", "UserDiscordResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyEducationParams contains documented parameters for GET /user/education.
 type GetMyEducationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyEducationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyEducationResponse is the decoded 200 response of getMyEducation.
 type GetMyEducationResponse = models.UserEducationResponse
 
-// GetMyEducation executes operation getMyEducation using its exact documented path.
+var getMyEducationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyEducation executes operation getMyEducation (GET /user/education; key access: minimal) using its exact documented path.
 func (c *Client) GetMyEducation(ctx context.Context, params GetMyEducationParams, opts ...RequestOptions) (GetMyEducationResponse, ExecutionReport, error) {
 	var out GetMyEducationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyEducation parameters: %w", err)
+	if err = getMyEducationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyEducation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyEducation", Path: "/user/education", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyEducation", "UserEducationResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyEnlistedCarsParams contains documented parameters for GET /user/enlistedcars.
 type GetMyEnlistedCarsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyEnlistedCarsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyEnlistedCarsResponse is the decoded 200 response of getMyEnlistedCars.
 type GetMyEnlistedCarsResponse = models.UserEnlistedCarsResponse
 
-// GetMyEnlistedCars executes operation getMyEnlistedCars using its exact documented path.
+var getMyEnlistedCarsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyEnlistedCars executes operation getMyEnlistedCars (GET /user/enlistedcars; key access: minimal) using its exact documented path.
 func (c *Client) GetMyEnlistedCars(ctx context.Context, params GetMyEnlistedCarsParams, opts ...RequestOptions) (GetMyEnlistedCarsResponse, ExecutionReport, error) {
 	var out GetMyEnlistedCarsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyEnlistedCars parameters: %w", err)
+	if err = getMyEnlistedCarsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyEnlistedCars", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyEnlistedCars", Path: "/user/enlistedcars", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyEnlistedCars", "UserEnlistedCarsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyEquipmentParams contains documented parameters for GET /user/equipment.
 type GetMyEquipmentParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyEquipmentParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyEquipmentResponse is the decoded 200 response of getMyEquipment.
 type GetMyEquipmentResponse = models.UserEquipmentResponse
 
-// GetMyEquipment executes operation getMyEquipment using its exact documented path.
+var getMyEquipmentParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyEquipment executes operation getMyEquipment (GET /user/equipment; key access: minimal) using its exact documented path.
 func (c *Client) GetMyEquipment(ctx context.Context, params GetMyEquipmentParams, opts ...RequestOptions) (GetMyEquipmentResponse, ExecutionReport, error) {
 	var out GetMyEquipmentResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyEquipment parameters: %w", err)
+	if err = getMyEquipmentParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyEquipment", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyEquipment", Path: "/user/equipment", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyEquipment", "UserEquipmentResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyEventsParams contains documented parameters for GET /user/events.
 type GetMyEventsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyEventsParamStriptags `json:"striptags,omitempty"`
 	Limit     *int64                            `json:"limit,omitempty"`
-	From      *int64                            `json:"from,omitempty"`
-	To        *int64                            `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyEventsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyEventsResponse is the decoded 200 response of getMyEvents.
 type GetMyEventsResponse = models.UserEventsResponse
 
-// GetMyEvents executes operation getMyEvents using its exact documented path.
+var getMyEventsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyEvents executes operation getMyEvents (GET /user/events; key access: limited) using its exact documented path.
 func (c *Client) GetMyEvents(ctx context.Context, params GetMyEventsParams, opts ...RequestOptions) (GetMyEventsResponse, ExecutionReport, error) {
 	var out GetMyEventsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyEvents parameters: %w", err)
+	if err = getMyEventsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyEvents", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyEvents", Path: "/user/events", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyEvents", "UserEventsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyEventsPager pages through getMyEvents by following _metadata.links (P7.1).
+func (c *Client) GetMyEventsPager(params GetMyEventsParams, opts ...PageOptions) *Pager[GetMyEventsResponse] {
+	return newOperationPager[GetMyEventsResponse](c, Operation{ID: "getMyEvents", Path: "/user/events", Method: "GET"}, params, "UserEventsResponse", opts)
+}
+
+// GetMyEventsItems iterates the "events" items of every getMyEvents page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyEventsItems(ctx context.Context, params GetMyEventsParams, opts ...PageOptions) iter.Seq2[models.UserEvent, error] {
+	return Items(ctx, c.GetMyEventsPager(params, opts...), func(page GetMyEventsResponse) []models.UserEvent { return page.Events })
 }
 
 // GetMyFactionParams contains documented parameters for GET /user/faction.
 type GetMyFactionParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyFactionResponse is the decoded 200 response of getMyFaction.
 type GetMyFactionResponse = models.UserFactionResponse
 
-// GetMyFaction executes operation getMyFaction using its exact documented path.
+var getMyFactionParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyFaction executes operation getMyFaction (GET /user/faction; key access: public) using its exact documented path.
 func (c *Client) GetMyFaction(ctx context.Context, params GetMyFactionParams, opts ...RequestOptions) (GetMyFactionResponse, ExecutionReport, error) {
 	var out GetMyFactionResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyFaction parameters: %w", err)
+	if err = getMyFactionParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyFaction", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyFaction", Path: "/user/faction", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyFaction", "UserFactionResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyForumFeedParams contains documented parameters for GET /user/forumfeed.
 type GetMyForumFeedParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyForumFeedParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyForumFeedResponse is the decoded 200 response of getMyForumFeed.
 type GetMyForumFeedResponse = models.UserForumFeedResponse
 
-// GetMyForumFeed executes operation getMyForumFeed using its exact documented path.
+var getMyForumFeedParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyForumFeed executes operation getMyForumFeed (GET /user/forumfeed; key access: minimal) using its exact documented path.
 func (c *Client) GetMyForumFeed(ctx context.Context, params GetMyForumFeedParams, opts ...RequestOptions) (GetMyForumFeedResponse, ExecutionReport, error) {
 	var out GetMyForumFeedResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyForumFeed parameters: %w", err)
+	if err = getMyForumFeedParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyForumFeed", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyForumFeed", Path: "/user/forumfeed", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyForumFeed", "UserForumFeedResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyForumFriendsUpdatesParams contains documented parameters for GET /user/forumfriends.
 type GetMyForumFriendsUpdatesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyForumFriendsUpdatesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyForumFriendsUpdatesResponse is the decoded 200 response of getMyForumFriendsUpdates.
 type GetMyForumFriendsUpdatesResponse = models.UserForumFriendsResponse
 
-// GetMyForumFriendsUpdates executes operation getMyForumFriendsUpdates using its exact documented path.
+var getMyForumFriendsUpdatesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyForumFriendsUpdates executes operation getMyForumFriendsUpdates (GET /user/forumfriends; key access: minimal) using its exact documented path.
 func (c *Client) GetMyForumFriendsUpdates(ctx context.Context, params GetMyForumFriendsUpdatesParams, opts ...RequestOptions) (GetMyForumFriendsUpdatesResponse, ExecutionReport, error) {
 	var out GetMyForumFriendsUpdatesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyForumFriendsUpdates parameters: %w", err)
+	if err = getMyForumFriendsUpdatesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyForumFriendsUpdates", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyForumFriendsUpdates", Path: "/user/forumfriends", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyForumFriendsUpdates", "UserForumFriendsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyForumPostsParams contains documented parameters for GET /user/forumposts.
 type GetMyForumPostsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyForumPostsParamStriptags `json:"striptags,omitempty"`
 	Limit     *int64                                `json:"limit,omitempty"`
-	Sort      *models.GetMyForumPostsParamSort      `json:"sort,omitempty"`
-	From      *int64                                `json:"from,omitempty"`
-	To        *int64                                `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyForumPostsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyForumPostsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyForumPostsResponse is the decoded 200 response of getMyForumPosts.
 type GetMyForumPostsResponse = models.UserForumPostsResponse
 
-// GetMyForumPosts executes operation getMyForumPosts using its exact documented path.
+var getMyForumPostsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyForumPosts executes operation getMyForumPosts (GET /user/forumposts; key access: public) using its exact documented path.
 func (c *Client) GetMyForumPosts(ctx context.Context, params GetMyForumPostsParams, opts ...RequestOptions) (GetMyForumPostsResponse, ExecutionReport, error) {
 	var out GetMyForumPostsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyForumPosts parameters: %w", err)
+	if err = getMyForumPostsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyForumPosts", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyForumPosts", Path: "/user/forumposts", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyForumPosts", "UserForumPostsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyForumPostsPager pages through getMyForumPosts by following _metadata.links (P7.1).
+func (c *Client) GetMyForumPostsPager(params GetMyForumPostsParams, opts ...PageOptions) *Pager[GetMyForumPostsResponse] {
+	return newOperationPager[GetMyForumPostsResponse](c, Operation{ID: "getMyForumPosts", Path: "/user/forumposts", Method: "GET"}, params, "UserForumPostsResponse", opts)
+}
+
+// GetMyForumPostsItems iterates the "forumPosts" items of every getMyForumPosts page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyForumPostsItems(ctx context.Context, params GetMyForumPostsParams, opts ...PageOptions) iter.Seq2[models.ForumPost, error] {
+	return Items(ctx, c.GetMyForumPostsPager(params, opts...), func(page GetMyForumPostsResponse) []models.ForumPost { return page.ForumPosts })
 }
 
 // GetMyForumSubscribedThreadsParams contains documented parameters for GET /user/forumsubscribedthreads.
 type GetMyForumSubscribedThreadsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyForumSubscribedThreadsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                           `json:"comment,omitempty"`
-	Key       *string                                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyForumSubscribedThreadsResponse is the decoded 200 response of getMyForumSubscribedThreads.
 type GetMyForumSubscribedThreadsResponse = models.UserForumSubscribedThreadsResponse
 
-// GetMyForumSubscribedThreads executes operation getMyForumSubscribedThreads using its exact documented path.
+var getMyForumSubscribedThreadsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyForumSubscribedThreads executes operation getMyForumSubscribedThreads (GET /user/forumsubscribedthreads; key access: minimal) using its exact documented path.
 func (c *Client) GetMyForumSubscribedThreads(ctx context.Context, params GetMyForumSubscribedThreadsParams, opts ...RequestOptions) (GetMyForumSubscribedThreadsResponse, ExecutionReport, error) {
 	var out GetMyForumSubscribedThreadsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyForumSubscribedThreads parameters: %w", err)
+	if err = getMyForumSubscribedThreadsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyForumSubscribedThreads", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyForumSubscribedThreads", Path: "/user/forumsubscribedthreads", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyForumSubscribedThreads", "UserForumSubscribedThreadsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyForumThreadsParams contains documented parameters for GET /user/forumthreads.
 type GetMyForumThreadsParams struct {
-	Limit     *int64                                  `json:"limit,omitempty"`
-	Sort      *models.GetMyForumThreadsParamSort      `json:"sort,omitempty"`
-	From      *int64                                  `json:"from,omitempty"`
-	To        *int64                                  `json:"to,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyForumThreadsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyForumThreadsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyForumThreadsResponse is the decoded 200 response of getMyForumThreads.
 type GetMyForumThreadsResponse = models.UserForumThreadsResponse
 
-// GetMyForumThreads executes operation getMyForumThreads using its exact documented path.
+var getMyForumThreadsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyForumThreads executes operation getMyForumThreads (GET /user/forumthreads; key access: public) using its exact documented path.
 func (c *Client) GetMyForumThreads(ctx context.Context, params GetMyForumThreadsParams, opts ...RequestOptions) (GetMyForumThreadsResponse, ExecutionReport, error) {
 	var out GetMyForumThreadsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyForumThreads parameters: %w", err)
+	if err = getMyForumThreadsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyForumThreads", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyForumThreads", Path: "/user/forumthreads", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyForumThreads", "UserForumThreadsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyForumThreadsPager pages through getMyForumThreads by following _metadata.links (P7.1).
+func (c *Client) GetMyForumThreadsPager(params GetMyForumThreadsParams, opts ...PageOptions) *Pager[GetMyForumThreadsResponse] {
+	return newOperationPager[GetMyForumThreadsResponse](c, Operation{ID: "getMyForumThreads", Path: "/user/forumthreads", Method: "GET"}, params, "UserForumThreadsResponse", opts)
+}
+
+// GetMyForumThreadsItems iterates the "forumThreads" items of every getMyForumThreads page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyForumThreadsItems(ctx context.Context, params GetMyForumThreadsParams, opts ...PageOptions) iter.Seq2[models.ForumThreadUserExtended, error] {
+	return Items(ctx, c.GetMyForumThreadsPager(params, opts...), func(page GetMyForumThreadsResponse) []models.ForumThreadUserExtended { return page.ForumThreads })
 }
 
 // GetMyGymParams contains documented parameters for GET /user/gym.
 type GetMyGymParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyGymParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                        `json:"comment,omitempty"`
-	Key       *string                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyGymResponse is the decoded 200 response of getMyGym.
 type GetMyGymResponse = models.UserGymResponse
 
-// GetMyGym executes operation getMyGym using its exact documented path.
+var getMyGymParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyGym executes operation getMyGym (GET /user/gym; key access: public) using its exact documented path.
 func (c *Client) GetMyGym(ctx context.Context, params GetMyGymParams, opts ...RequestOptions) (GetMyGymResponse, ExecutionReport, error) {
 	var out GetMyGymResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyGym parameters: %w", err)
+	if err = getMyGymParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyGym", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyGym", Path: "/user/gym", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyGym", "UserGymResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyHalloweenParams contains documented parameters for GET /user/halloween.
 type GetMyHalloweenParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyHalloweenParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyHalloweenResponse is the decoded 200 response of getMyHalloween.
 type GetMyHalloweenResponse = models.UserHalloweenResponse
 
-// GetMyHalloween executes operation getMyHalloween using its exact documented path.
+var getMyHalloweenParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyHalloween executes operation getMyHalloween (GET /user/halloween; key access: minimal) using its exact documented path.
 func (c *Client) GetMyHalloween(ctx context.Context, params GetMyHalloweenParams, opts ...RequestOptions) (GetMyHalloweenResponse, ExecutionReport, error) {
 	var out GetMyHalloweenResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyHalloween parameters: %w", err)
+	if err = getMyHalloweenParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyHalloween", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyHalloween", Path: "/user/halloween", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyHalloween", "UserHalloweenResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyHoFParams contains documented parameters for GET /user/hof.
 type GetMyHoFParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                        `json:"comment,omitempty"`
-	Key       *string                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyHoFResponse is the decoded 200 response of getMyHoF.
 type GetMyHoFResponse = models.UserHofResponse
 
-// GetMyHoF executes operation getMyHoF using its exact documented path.
+var getMyHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyHoF executes operation getMyHoF (GET /user/hof; key access: public) using its exact documented path.
 func (c *Client) GetMyHoF(ctx context.Context, params GetMyHoFParams, opts ...RequestOptions) (GetMyHoFResponse, ExecutionReport, error) {
 	var out GetMyHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyHoF parameters: %w", err)
+	if err = getMyHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyHoF", Path: "/user/hof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyHoF", "UserHofResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyHonorsParams contains documented parameters for GET /user/honors.
 type GetMyHonorsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyHonorsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyHonorsResponse is the decoded 200 response of getMyHonors.
 type GetMyHonorsResponse = models.UserHonorsResponse
 
-// GetMyHonors executes operation getMyHonors using its exact documented path.
+var getMyHonorsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyHonors executes operation getMyHonors (GET /user/honors; key access: minimal) using its exact documented path.
 func (c *Client) GetMyHonors(ctx context.Context, params GetMyHonorsParams, opts ...RequestOptions) (GetMyHonorsResponse, ExecutionReport, error) {
 	var out GetMyHonorsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyHonors parameters: %w", err)
+	if err = getMyHonorsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyHonors", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyHonors", Path: "/user/honors", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyHonors", "UserHonorsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyIconsParams contains documented parameters for GET /user/icons.
 type GetMyIconsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyIconsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyIconsResponse is the decoded 200 response of getMyIcons.
 type GetMyIconsResponse = models.UserIconsResponse
 
-// GetMyIcons executes operation getMyIcons using its exact documented path.
+var getMyIconsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyIcons executes operation getMyIcons (GET /user/icons; key access: public) using its exact documented path.
 func (c *Client) GetMyIcons(ctx context.Context, params GetMyIconsParams, opts ...RequestOptions) (GetMyIconsResponse, ExecutionReport, error) {
 	var out GetMyIconsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyIcons parameters: %w", err)
+	if err = getMyIconsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyIcons", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyIcons", Path: "/user/icons", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyIcons", "UserIconsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyInventoryParams contains documented parameters for GET /user/inventory.
 type GetMyInventoryParams struct {
-	Cat       *models.TornInventoryItemType        `json:"cat,omitempty"`
-	Offset    *int64                               `json:"offset,omitempty"`
-	Limit     *int64                               `json:"limit,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat    *models.TornInventoryItemType `json:"cat,omitempty"`
+	Offset *int64                        `json:"offset,omitempty"`
+	Limit  *int64                        `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyInventoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyInventoryResponse is the decoded 200 response of getMyInventory.
 type GetMyInventoryResponse = models.UserInventoryResponse
 
-// GetMyInventory executes operation getMyInventory using its exact documented path.
+var getMyInventoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornInventoryItemType\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":250,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyInventory executes operation getMyInventory (GET /user/inventory; key access: minimal) using its exact documented path.
 func (c *Client) GetMyInventory(ctx context.Context, params GetMyInventoryParams, opts ...RequestOptions) (GetMyInventoryResponse, ExecutionReport, error) {
 	var out GetMyInventoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TornInventoryItemType\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":250,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyInventory parameters: %w", err)
+	if err = getMyInventoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyInventory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyInventory", Path: "/user/inventory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyInventory", "UserInventoryResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyInventoryPager pages through getMyInventory by following _metadata.links (P7.1).
+func (c *Client) GetMyInventoryPager(params GetMyInventoryParams, opts ...PageOptions) *Pager[GetMyInventoryResponse] {
+	return newOperationPager[GetMyInventoryResponse](c, Operation{ID: "getMyInventory", Path: "/user/inventory", Method: "GET"}, params, "UserInventoryResponse", opts)
 }
 
 // GetMyItemMarketListingsParams contains documented parameters for GET /user/itemmarket.
 type GetMyItemMarketListingsParams struct {
-	Offset    *int64                                        `json:"offset,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyItemMarketListingsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                       `json:"comment,omitempty"`
-	Key       *string                                       `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyItemMarketListingsResponse is the decoded 200 response of getMyItemMarketListings.
 type GetMyItemMarketListingsResponse = models.UserItemMarketResponse
 
-// GetMyItemMarketListings executes operation getMyItemMarketListings using its exact documented path.
+var getMyItemMarketListingsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyItemMarketListings executes operation getMyItemMarketListings (GET /user/itemmarket; key access: limited) using its exact documented path.
 func (c *Client) GetMyItemMarketListings(ctx context.Context, params GetMyItemMarketListingsParams, opts ...RequestOptions) (GetMyItemMarketListingsResponse, ExecutionReport, error) {
 	var out GetMyItemMarketListingsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyItemMarketListings parameters: %w", err)
+	if err = getMyItemMarketListingsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyItemMarketListings", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyItemMarketListings", Path: "/user/itemmarket", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyItemMarketListings", "UserItemMarketResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyItemMarketListingsPager pages through getMyItemMarketListings by following _metadata.links (P7.1).
+func (c *Client) GetMyItemMarketListingsPager(params GetMyItemMarketListingsParams, opts ...PageOptions) *Pager[GetMyItemMarketListingsResponse] {
+	return newOperationPager[GetMyItemMarketListingsResponse](c, Operation{ID: "getMyItemMarketListings", Path: "/user/itemmarket", Method: "GET"}, params, "UserItemMarketResponse", opts)
+}
+
+// GetMyItemMarketListingsItems iterates the "itemmarket" items of every getMyItemMarketListings page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyItemMarketListingsItems(ctx context.Context, params GetMyItemMarketListingsParams, opts ...PageOptions) iter.Seq2[models.UserItemMarketListing, error] {
+	return Items(ctx, c.GetMyItemMarketListingsPager(params, opts...), func(page GetMyItemMarketListingsResponse) []models.UserItemMarketListing { return page.Itemmarket })
 }
 
 // GetMyItemModsInformationParams contains documented parameters for GET /user/itemmods.
 type GetMyItemModsInformationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyItemModsInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                        `json:"comment,omitempty"`
-	Key       *string                                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyItemModsInformationResponse is the decoded 200 response of getMyItemModsInformation.
 type GetMyItemModsInformationResponse = models.UserItemModsResponse
 
-// GetMyItemModsInformation executes operation getMyItemModsInformation using its exact documented path.
+var getMyItemModsInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyItemModsInformation executes operation getMyItemModsInformation (GET /user/itemmods; key access: public) using its exact documented path.
 func (c *Client) GetMyItemModsInformation(ctx context.Context, params GetMyItemModsInformationParams, opts ...RequestOptions) (GetMyItemModsInformationResponse, ExecutionReport, error) {
 	var out GetMyItemModsInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyItemModsInformation parameters: %w", err)
+	if err = getMyItemModsInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyItemModsInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyItemModsInformation", Path: "/user/itemmods", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyItemModsInformation", "UserItemModsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyJobParams contains documented parameters for GET /user/job.
 type GetMyJobParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyJobParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                        `json:"comment,omitempty"`
-	Key       *string                        `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyJobResponse is the decoded 200 response of getMyJob.
 type GetMyJobResponse = models.UserJobResponse
 
-// GetMyJob executes operation getMyJob using its exact documented path.
+var getMyJobParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyJob executes operation getMyJob (GET /user/job; key access: public) using its exact documented path.
 func (c *Client) GetMyJob(ctx context.Context, params GetMyJobParams, opts ...RequestOptions) (GetMyJobResponse, ExecutionReport, error) {
 	var out GetMyJobResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyJob parameters: %w", err)
+	if err = getMyJobParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyJob", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyJob", Path: "/user/job", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyJob", "UserJobResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyJobPointsParams contains documented parameters for GET /user/jobpoints.
 type GetMyJobPointsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyJobPointsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyJobPointsResponse is the decoded 200 response of getMyJobPoints.
 type GetMyJobPointsResponse = models.UserJobPointsResponse
 
-// GetMyJobPoints executes operation getMyJobPoints using its exact documented path.
+var getMyJobPointsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyJobPoints executes operation getMyJobPoints (GET /user/jobpoints; key access: minimal) using its exact documented path.
 func (c *Client) GetMyJobPoints(ctx context.Context, params GetMyJobPointsParams, opts ...RequestOptions) (GetMyJobPointsResponse, ExecutionReport, error) {
 	var out GetMyJobPointsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyJobPoints parameters: %w", err)
+	if err = getMyJobPointsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyJobPoints", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyJobPoints", Path: "/user/jobpoints", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyJobPoints", "UserJobPointsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyJobRanksParams contains documented parameters for GET /user/jobranks.
 type GetMyJobRanksParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyJobRanksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyJobRanksResponse is the decoded 200 response of getMyJobRanks.
 type GetMyJobRanksResponse = models.UserJobRanksResponse
 
-// GetMyJobRanks executes operation getMyJobRanks using its exact documented path.
+var getMyJobRanksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyJobRanks executes operation getMyJobRanks (GET /user/jobranks; key access: minimal) using its exact documented path.
 func (c *Client) GetMyJobRanks(ctx context.Context, params GetMyJobRanksParams, opts ...RequestOptions) (GetMyJobRanksResponse, ExecutionReport, error) {
 	var out GetMyJobRanksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyJobRanks parameters: %w", err)
+	if err = getMyJobRanksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyJobRanks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyJobRanks", Path: "/user/jobranks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyJobRanks", "UserJobRanksResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyContactsListParams contains documented parameters for GET /user/list.
 type GetMyContactsListParams struct {
-	Cat       models.UserListEnum                     `json:"cat"`
+	// Cat is the query parameter "cat".
+	Cat models.UserListEnum `json:"cat"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyContactsListParamStriptags `json:"striptags,omitempty"`
 	Limit     *int64                                  `json:"limit,omitempty"`
 	Offset    *int64                                  `json:"offset,omitempty"`
-	Sort      *models.GetMyContactsListParamSort      `json:"sort,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyContactsListParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyContactsListParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyContactsListResponse is the decoded 200 response of getMyContactsList.
 type GetMyContactsListResponse = models.UserListResponse
 
-// GetMyContactsList executes operation getMyContactsList using its exact documented path.
+var getMyContactsListParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/UserListEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":50,\"format\":\"int32\",\"maximum\":50,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}")
+})
+
+// GetMyContactsList executes operation getMyContactsList (GET /user/list; key access: limited) using its exact documented path.
 func (c *Client) GetMyContactsList(ctx context.Context, params GetMyContactsListParams, opts ...RequestOptions) (GetMyContactsListResponse, ExecutionReport, error) {
 	var out GetMyContactsListResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/UserListEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":50,\"format\":\"int32\",\"maximum\":50,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"ASC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"cat\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyContactsList parameters: %w", err)
+	if err = getMyContactsListParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyContactsList", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyContactsList", Path: "/user/list", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyContactsList", "UserListResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyContactsListPager pages through getMyContactsList by following _metadata.links (P7.1).
+func (c *Client) GetMyContactsListPager(params GetMyContactsListParams, opts ...PageOptions) *Pager[GetMyContactsListResponse] {
+	return newOperationPager[GetMyContactsListResponse](c, Operation{ID: "getMyContactsList", Path: "/user/list", Method: "GET"}, params, "UserListResponse", opts)
+}
+
+// GetMyContactsListItems iterates the "list" items of every getMyContactsList page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyContactsListItems(ctx context.Context, params GetMyContactsListParams, opts ...PageOptions) iter.Seq2[models.UserList, error] {
+	return Items(ctx, c.GetMyContactsListPager(params, opts...), func(page GetMyContactsListResponse) []models.UserList { return page.List })
 }
 
 // GetMyLogsParams contains documented parameters for GET /user/log.
 type GetMyLogsParams struct {
-	Log       *[]models.LogId                 `json:"log,omitempty"`
-	Cat       *models.LogCategoryId           `json:"cat,omitempty"`
-	Target    *models.UserId                  `json:"target,omitempty"`
-	Limit     *int64                          `json:"limit,omitempty"`
-	To        *int64                          `json:"to,omitempty"`
-	From      *int64                          `json:"from,omitempty"`
+	// Log is the query parameter "log".
+	Log *[]models.LogId `json:"log,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.LogCategoryId `json:"cat,omitempty"`
+	// Target is the query parameter "target".
+	Target *models.UserId `json:"target,omitempty"`
+	Limit  *int64         `json:"limit,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyLogsParamTimestamp `json:"timestamp,omitempty"`
-	Nanostamp *string                         `json:"nanostamp,omitempty"`
-	Comment   *string                         `json:"comment,omitempty"`
-	Key       *string                         `json:"key,omitempty"`
+	// Nanostamp is the query parameter "nanostamp".
+	Nanostamp *string `json:"nanostamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyLogsResponse is the decoded 200 response of getMyLogs.
 type GetMyLogsResponse = models.UserLogsResponse
 
-// GetMyLogs executes operation getMyLogs using its exact documented path.
+var getMyLogsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/LogCategoryId\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"log\":{\"items\":{\"$ref\":\"#/components/schemas/LogId\"},\"type\":\"array\"},\"nanostamp\":{\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyLogs executes operation getMyLogs (GET /user/log; key access: full) using its exact documented path.
 func (c *Client) GetMyLogs(ctx context.Context, params GetMyLogsParams, opts ...RequestOptions) (GetMyLogsResponse, ExecutionReport, error) {
 	var out GetMyLogsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/LogCategoryId\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"log\":{\"items\":{\"$ref\":\"#/components/schemas/LogId\"},\"type\":\"array\"},\"nanostamp\":{\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyLogs parameters: %w", err)
+	if err = getMyLogsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyLogs", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyLogs", Path: "/user/log", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyLogs", "UserLogsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyLogsPager pages through getMyLogs by following _metadata.links (P7.1).
+func (c *Client) GetMyLogsPager(params GetMyLogsParams, opts ...PageOptions) *Pager[GetMyLogsResponse] {
+	return newOperationPager[GetMyLogsResponse](c, Operation{ID: "getMyLogs", Path: "/user/log", Method: "GET"}, params, "UserLogsResponse", opts)
+}
+
+// GetMyLogsItems iterates the "log" items of every getMyLogs page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyLogsItems(ctx context.Context, params GetMyLogsParams, opts ...PageOptions) iter.Seq2[models.UserLog, error] {
+	return Items(ctx, c.GetMyLogsPager(params, opts...), func(page GetMyLogsResponse) []models.UserLog { return page.Log })
 }
 
 // GetUserLookupParams contains documented parameters for GET /user/lookup.
 type GetUserLookupParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserLookupParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserLookupResponse is the decoded 200 response of getUserLookup.
 type GetUserLookupResponse = models.UserLookupResponse
 
-// GetUserLookup executes operation getUserLookup using its exact documented path.
+var getUserLookupParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetUserLookup executes operation getUserLookup (GET /user/lookup; key access: public) using its exact documented path.
 func (c *Client) GetUserLookup(ctx context.Context, params GetUserLookupParams, opts ...RequestOptions) (GetUserLookupResponse, ExecutionReport, error) {
 	var out GetUserLookupResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserLookup parameters: %w", err)
+	if err = getUserLookupParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserLookup", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserLookup", Path: "/user/lookup", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserLookup", "UserLookupResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyMedalsParams contains documented parameters for GET /user/medals.
 type GetMyMedalsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyMedalsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyMedalsResponse is the decoded 200 response of getMyMedals.
 type GetMyMedalsResponse = models.UserMedalsResponse
 
-// GetMyMedals executes operation getMyMedals using its exact documented path.
+var getMyMedalsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyMedals executes operation getMyMedals (GET /user/medals; key access: public) using its exact documented path.
 func (c *Client) GetMyMedals(ctx context.Context, params GetMyMedalsParams, opts ...RequestOptions) (GetMyMedalsResponse, ExecutionReport, error) {
 	var out GetMyMedalsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyMedals parameters: %w", err)
+	if err = getMyMedalsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyMedals", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyMedals", Path: "/user/medals", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyMedals", "UserMedalsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyMeritsParams contains documented parameters for GET /user/merits.
 type GetMyMeritsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyMeritsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyMeritsResponse is the decoded 200 response of getMyMerits.
 type GetMyMeritsResponse = models.UserMeritsResponse
 
-// GetMyMerits executes operation getMyMerits using its exact documented path.
+var getMyMeritsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyMerits executes operation getMyMerits (GET /user/merits; key access: minimal) using its exact documented path.
 func (c *Client) GetMyMerits(ctx context.Context, params GetMyMeritsParams, opts ...RequestOptions) (GetMyMeritsResponse, ExecutionReport, error) {
 	var out GetMyMeritsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyMerits parameters: %w", err)
+	if err = getMyMeritsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyMerits", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyMerits", Path: "/user/merits", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyMerits", "UserMeritsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyMessagesParams contains documented parameters for GET /user/messages.
 type GetMyMessagesParams struct {
-	Limit     *int64                              `json:"limit,omitempty"`
-	From      *int64                              `json:"from,omitempty"`
-	To        *int64                              `json:"to,omitempty"`
-	Sort      *models.GetMyMessagesParamSort      `json:"sort,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyMessagesParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyMessagesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyMessagesResponse is the decoded 200 response of getMyMessages.
 type GetMyMessagesResponse = models.UserMessagesResponse
 
-// GetMyMessages executes operation getMyMessages using its exact documented path.
+var getMyMessagesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyMessages executes operation getMyMessages (GET /user/messages; key access: limited) using its exact documented path.
 func (c *Client) GetMyMessages(ctx context.Context, params GetMyMessagesParams, opts ...RequestOptions) (GetMyMessagesResponse, ExecutionReport, error) {
 	var out GetMyMessagesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyMessages parameters: %w", err)
+	if err = getMyMessagesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyMessages", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyMessages", Path: "/user/messages", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyMessages", "UserMessagesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyMessagesPager pages through getMyMessages by following _metadata.links (P7.1).
+func (c *Client) GetMyMessagesPager(params GetMyMessagesParams, opts ...PageOptions) *Pager[GetMyMessagesResponse] {
+	return newOperationPager[GetMyMessagesResponse](c, Operation{ID: "getMyMessages", Path: "/user/messages", Method: "GET"}, params, "UserMessagesResponse", opts)
+}
+
+// GetMyMessagesItems iterates the "messages" items of every getMyMessages page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyMessagesItems(ctx context.Context, params GetMyMessagesParams, opts ...PageOptions) iter.Seq2[models.UserMessage, error] {
+	return Items(ctx, c.GetMyMessagesPager(params, opts...), func(page GetMyMessagesResponse) []models.UserMessage { return page.Messages })
 }
 
 // GetMyMissionsParams contains documented parameters for GET /user/missions.
 type GetMyMissionsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyMissionsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyMissionsResponse is the decoded 200 response of getMyMissions.
 type GetMyMissionsResponse = models.UserMissionsResponse
 
-// GetMyMissions executes operation getMyMissions using its exact documented path.
+var getMyMissionsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyMissions executes operation getMyMissions (GET /user/missions; key access: minimal) using its exact documented path.
 func (c *Client) GetMyMissions(ctx context.Context, params GetMyMissionsParams, opts ...RequestOptions) (GetMyMissionsResponse, ExecutionReport, error) {
 	var out GetMyMissionsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyMissions parameters: %w", err)
+	if err = getMyMissionsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyMissions", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyMissions", Path: "/user/missions", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyMissions", "UserMissionsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyMoneyParams contains documented parameters for GET /user/money.
 type GetMyMoneyParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyMoneyParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyMoneyResponse is the decoded 200 response of getMyMoney.
 type GetMyMoneyResponse = models.UserMoneyResponse
 
-// GetMyMoney executes operation getMyMoney using its exact documented path.
+var getMyMoneyParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyMoney executes operation getMyMoney (GET /user/money; key access: limited) using its exact documented path.
 func (c *Client) GetMyMoney(ctx context.Context, params GetMyMoneyParams, opts ...RequestOptions) (GetMyMoneyResponse, ExecutionReport, error) {
 	var out GetMyMoneyResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyMoney parameters: %w", err)
+	if err = getMyMoneyParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyMoney", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyMoney", Path: "/user/money", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyMoney", "UserMoneyResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyNetworthParams contains documented parameters for GET /user/networth.
 type GetMyNetworthParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyNetworthParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyNetworthResponse is the decoded 200 response of getMyNetworth.
 type GetMyNetworthResponse = models.UserNetworthResponse
 
-// GetMyNetworth executes operation getMyNetworth using its exact documented path.
+var getMyNetworthParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyNetworth executes operation getMyNetworth (GET /user/networth; key access: limited) using its exact documented path.
 func (c *Client) GetMyNetworth(ctx context.Context, params GetMyNetworthParams, opts ...RequestOptions) (GetMyNetworthResponse, ExecutionReport, error) {
 	var out GetMyNetworthResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyNetworth parameters: %w", err)
+	if err = getMyNetworthParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyNetworth", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyNetworth", Path: "/user/networth", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyNetworth", "UserNetworthResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyNewEventsParams contains documented parameters for GET /user/newevents.
 type GetMyNewEventsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyNewEventsParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyNewEventsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyNewEventsResponse is the decoded 200 response of getMyNewEvents.
 type GetMyNewEventsResponse = models.UserNewEventsResponse
 
-// GetMyNewEvents executes operation getMyNewEvents using its exact documented path.
+var getMyNewEventsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyNewEvents executes operation getMyNewEvents (GET /user/newevents; key access: limited) using its exact documented path.
 func (c *Client) GetMyNewEvents(ctx context.Context, params GetMyNewEventsParams, opts ...RequestOptions) (GetMyNewEventsResponse, ExecutionReport, error) {
 	var out GetMyNewEventsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"false\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyNewEvents parameters: %w", err)
+	if err = getMyNewEventsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyNewEvents", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyNewEvents", Path: "/user/newevents", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyNewEvents", "UserNewEventsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyNewMessagesParams contains documented parameters for GET /user/newmessages.
 type GetMyNewMessagesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyNewMessagesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyNewMessagesResponse is the decoded 200 response of getMyNewMessages.
 type GetMyNewMessagesResponse = models.UserNewMessagesResponse
 
-// GetMyNewMessages executes operation getMyNewMessages using its exact documented path.
+var getMyNewMessagesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyNewMessages executes operation getMyNewMessages (GET /user/newmessages; key access: limited) using its exact documented path.
 func (c *Client) GetMyNewMessages(ctx context.Context, params GetMyNewMessagesParams, opts ...RequestOptions) (GetMyNewMessagesResponse, ExecutionReport, error) {
 	var out GetMyNewMessagesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyNewMessages parameters: %w", err)
+	if err = getMyNewMessagesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyNewMessages", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyNewMessages", Path: "/user/newmessages", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyNewMessages", "UserNewMessagesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyNotificationsParams contains documented parameters for GET /user/notifications.
 type GetMyNotificationsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyNotificationsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyNotificationsResponse is the decoded 200 response of getMyNotifications.
 type GetMyNotificationsResponse = models.UserNotificationsResponse
 
-// GetMyNotifications executes operation getMyNotifications using its exact documented path.
+var getMyNotificationsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyNotifications executes operation getMyNotifications (GET /user/notifications; key access: minimal) using its exact documented path.
 func (c *Client) GetMyNotifications(ctx context.Context, params GetMyNotificationsParams, opts ...RequestOptions) (GetMyNotificationsResponse, ExecutionReport, error) {
 	var out GetMyNotificationsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyNotifications parameters: %w", err)
+	if err = getMyNotificationsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyNotifications", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyNotifications", Path: "/user/notifications", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyNotifications", "UserNotificationsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyOrganizedCrimeParams contains documented parameters for GET /user/organizedcrime.
 type GetMyOrganizedCrimeParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyOrganizedCrimeParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyOrganizedCrimeResponse is the decoded 200 response of getMyOrganizedCrime.
 type GetMyOrganizedCrimeResponse = models.UserOrganizedCrimeResponse
 
-// GetMyOrganizedCrime executes operation getMyOrganizedCrime using its exact documented path.
+var getMyOrganizedCrimeParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyOrganizedCrime executes operation getMyOrganizedCrime (GET /user/organizedcrime; key access: minimal) using its exact documented path.
 func (c *Client) GetMyOrganizedCrime(ctx context.Context, params GetMyOrganizedCrimeParams, opts ...RequestOptions) (GetMyOrganizedCrimeResponse, ExecutionReport, error) {
 	var out GetMyOrganizedCrimeResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyOrganizedCrime parameters: %w", err)
+	if err = getMyOrganizedCrimeParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyOrganizedCrime", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyOrganizedCrime", Path: "/user/organizedcrime", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyOrganizedCrime", "UserOrganizedCrimeResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyAvailableOrganizedCrimesParams contains documented parameters for GET /user/organizedcrimes.
 type GetMyAvailableOrganizedCrimesParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyAvailableOrganizedCrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                             `json:"comment,omitempty"`
-	Key       *string                                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyAvailableOrganizedCrimesResponse is the decoded 200 response of getMyAvailableOrganizedCrimes.
 type GetMyAvailableOrganizedCrimesResponse = models.UserOrganizedCrimesResponse
 
-// GetMyAvailableOrganizedCrimes executes operation getMyAvailableOrganizedCrimes using its exact documented path.
+var getMyAvailableOrganizedCrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyAvailableOrganizedCrimes executes operation getMyAvailableOrganizedCrimes (GET /user/organizedcrimes; key access: minimal) using its exact documented path.
 func (c *Client) GetMyAvailableOrganizedCrimes(ctx context.Context, params GetMyAvailableOrganizedCrimesParams, opts ...RequestOptions) (GetMyAvailableOrganizedCrimesResponse, ExecutionReport, error) {
 	var out GetMyAvailableOrganizedCrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyAvailableOrganizedCrimes parameters: %w", err)
+	if err = getMyAvailableOrganizedCrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyAvailableOrganizedCrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyAvailableOrganizedCrimes", Path: "/user/organizedcrimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyAvailableOrganizedCrimes", "UserOrganizedCrimesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyPerksParams contains documented parameters for GET /user/perks.
 type GetMyPerksParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyPerksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyPerksResponse is the decoded 200 response of getMyPerks.
 type GetMyPerksResponse = models.UserPerksResponse
 
-// GetMyPerks executes operation getMyPerks using its exact documented path.
+var getMyPerksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyPerks executes operation getMyPerks (GET /user/perks; key access: public) using its exact documented path.
 func (c *Client) GetMyPerks(ctx context.Context, params GetMyPerksParams, opts ...RequestOptions) (GetMyPerksResponse, ExecutionReport, error) {
 	var out GetMyPerksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyPerks parameters: %w", err)
+	if err = getMyPerksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyPerks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyPerks", Path: "/user/perks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyPerks", "UserPerksResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyPersonalStatsParams contains documented parameters for GET /user/personalstats.
 type GetMyPersonalStatsParams struct {
-	Cat       *models.PersonalStatsCategoryEnum `json:"cat,omitempty"`
-	Stat      *[]models.PersonalStatsStatName   `json:"stat,omitempty"`
-	Timestamp *int64                            `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.PersonalStatsCategoryEnum `json:"cat,omitempty"`
+	// Stat is the query parameter "stat".
+	Stat *[]models.PersonalStatsStatName `json:"stat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *int64 `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyPersonalStatsResponse is the decoded 200 response of getMyPersonalStats.
 type GetMyPersonalStatsResponse = models.UserPersonalStatsResponse
 
-// GetMyPersonalStats executes operation getMyPersonalStats using its exact documented path.
+var getMyPersonalStatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"timestamp\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyPersonalStats executes operation getMyPersonalStats (GET /user/personalstats; key access: public) using its exact documented path.
 func (c *Client) GetMyPersonalStats(ctx context.Context, params GetMyPersonalStatsParams, opts ...RequestOptions) (GetMyPersonalStatsResponse, ExecutionReport, error) {
 	var out GetMyPersonalStatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"timestamp\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyPersonalStats parameters: %w", err)
+	if err = getMyPersonalStatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyPersonalStats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyPersonalStats", Path: "/user/personalstats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyPersonalStats", "UserPersonalStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyProfileParams contains documented parameters for GET /user/profile.
 type GetMyProfileParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyProfileParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyProfileParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyProfileResponse is the decoded 200 response of getMyProfile.
 type GetMyProfileResponse = models.UserProfileResponse
 
-// GetMyProfile executes operation getMyProfile using its exact documented path.
+var getMyProfileParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyProfile executes operation getMyProfile (GET /user/profile; key access: public) using its exact documented path.
 func (c *Client) GetMyProfile(ctx context.Context, params GetMyProfileParams, opts ...RequestOptions) (GetMyProfileResponse, ExecutionReport, error) {
 	var out GetMyProfileResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyProfile parameters: %w", err)
+	if err = getMyProfileParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyProfile", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyProfile", Path: "/user/profile", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyProfile", "UserProfileResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyPropertiesParams contains documented parameters for GET /user/properties.
 type GetMyPropertiesParams struct {
-	Filters   *models.GetMyPropertiesParamFilters   `json:"filters,omitempty"`
-	Offset    *int64                                `json:"offset,omitempty"`
-	Limit     *int64                                `json:"limit,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *models.GetMyPropertiesParamFilters `json:"filters,omitempty"`
+	Offset  *int64                              `json:"offset,omitempty"`
+	Limit   *int64                              `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyPropertiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyPropertiesResponse is the decoded 200 response of getMyProperties.
 type GetMyPropertiesResponse = models.UserPropertiesResponse
 
-// GetMyProperties executes operation getMyProperties using its exact documented path.
+var getMyPropertiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyProperties executes operation getMyProperties (GET /user/properties; key access: public) using its exact documented path.
 func (c *Client) GetMyProperties(ctx context.Context, params GetMyPropertiesParams, opts ...RequestOptions) (GetMyPropertiesResponse, ExecutionReport, error) {
 	var out GetMyPropertiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyProperties parameters: %w", err)
+	if err = getMyPropertiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyProperties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyProperties", Path: "/user/properties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyProperties", "UserPropertiesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyPropertiesPager pages through getMyProperties by following _metadata.links (P7.1).
+func (c *Client) GetMyPropertiesPager(params GetMyPropertiesParams, opts ...PageOptions) *Pager[GetMyPropertiesResponse] {
+	return newOperationPager[GetMyPropertiesResponse](c, Operation{ID: "getMyProperties", Path: "/user/properties", Method: "GET"}, params, "UserPropertiesResponse", opts)
+}
+
+// GetMyPropertiesItems iterates the "properties" items of every getMyProperties page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyPropertiesItems(ctx context.Context, params GetMyPropertiesParams, opts ...PageOptions) iter.Seq2[models.UserPropertiesResponsePropertiesItem, error] {
+	return Items(ctx, c.GetMyPropertiesPager(params, opts...), func(page GetMyPropertiesResponse) []models.UserPropertiesResponsePropertiesItem {
+		return page.Properties
+	})
 }
 
 // GetMyPropertyParams contains documented parameters for GET /user/property.
 type GetMyPropertyParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyPropertyParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyPropertyResponse is the decoded 200 response of getMyProperty.
 type GetMyPropertyResponse = models.UserPropertyResponse
 
-// GetMyProperty executes operation getMyProperty using its exact documented path.
+var getMyPropertyParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyProperty executes operation getMyProperty (GET /user/property; key access: public) using its exact documented path.
 func (c *Client) GetMyProperty(ctx context.Context, params GetMyPropertyParams, opts ...RequestOptions) (GetMyPropertyResponse, ExecutionReport, error) {
 	var out GetMyPropertyResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyProperty parameters: %w", err)
+	if err = getMyPropertyParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyProperty", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyProperty", Path: "/user/property", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyProperty", "UserPropertyResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyRacesParams contains documented parameters for GET /user/races.
 type GetMyRacesParams struct {
-	Limit     *int64                           `json:"limit,omitempty"`
-	Sort      *models.GetMyRacesParamSort      `json:"sort,omitempty"`
-	From      *int64                           `json:"from,omitempty"`
-	To        *int64                           `json:"to,omitempty"`
-	Cat       *models.RacingRaceTypeEnum       `json:"cat,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyRacesParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.RacingRaceTypeEnum `json:"cat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyRacesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyRacesResponse is the decoded 200 response of getMyRaces.
 type GetMyRacesResponse = models.UserRacesResponse
 
-// GetMyRaces executes operation getMyRaces using its exact documented path.
+var getMyRacesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyRaces executes operation getMyRaces (GET /user/races; key access: minimal) using its exact documented path.
 func (c *Client) GetMyRaces(ctx context.Context, params GetMyRacesParams, opts ...RequestOptions) (GetMyRacesResponse, ExecutionReport, error) {
 	var out GetMyRacesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyRaces parameters: %w", err)
+	if err = getMyRacesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyRaces", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyRaces", Path: "/user/races", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyRaces", "UserRacesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyRacesPager pages through getMyRaces by following _metadata.links (P7.1).
+func (c *Client) GetMyRacesPager(params GetMyRacesParams, opts ...PageOptions) *Pager[GetMyRacesResponse] {
+	return newOperationPager[GetMyRacesResponse](c, Operation{ID: "getMyRaces", Path: "/user/races", Method: "GET"}, params, "UserRacesResponse", opts)
+}
+
+// GetMyRacesItems iterates the "races" items of every getMyRaces page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyRacesItems(ctx context.Context, params GetMyRacesParams, opts ...PageOptions) iter.Seq2[models.UserRaceDetails, error] {
+	return Items(ctx, c.GetMyRacesPager(params, opts...), func(page GetMyRacesResponse) []models.UserRaceDetails { return page.Races })
 }
 
 // GetMyRacingRecordsParams contains documented parameters for GET /user/racingrecords.
 type GetMyRacingRecordsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyRacingRecordsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyRacingRecordsResponse is the decoded 200 response of getMyRacingRecords.
 type GetMyRacingRecordsResponse = models.UserRacingRecordsResponse
 
-// GetMyRacingRecords executes operation getMyRacingRecords using its exact documented path.
+var getMyRacingRecordsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyRacingRecords executes operation getMyRacingRecords (GET /user/racingrecords; key access: minimal) using its exact documented path.
 func (c *Client) GetMyRacingRecords(ctx context.Context, params GetMyRacingRecordsParams, opts ...RequestOptions) (GetMyRacingRecordsResponse, ExecutionReport, error) {
 	var out GetMyRacingRecordsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyRacingRecords parameters: %w", err)
+	if err = getMyRacingRecordsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyRacingRecords", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyRacingRecords", Path: "/user/racingrecords", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyRacingRecords", "UserRacingRecordsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyRefillsParams contains documented parameters for GET /user/refills.
 type GetMyRefillsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyRefillsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyRefillsResponse is the decoded 200 response of getMyRefills.
 type GetMyRefillsResponse = models.UserRefillsResponse
 
-// GetMyRefills executes operation getMyRefills using its exact documented path.
+var getMyRefillsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyRefills executes operation getMyRefills (GET /user/refills; key access: minimal) using its exact documented path.
 func (c *Client) GetMyRefills(ctx context.Context, params GetMyRefillsParams, opts ...RequestOptions) (GetMyRefillsResponse, ExecutionReport, error) {
 	var out GetMyRefillsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyRefills parameters: %w", err)
+	if err = getMyRefillsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyRefills", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyRefills", Path: "/user/refills", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyRefills", "UserRefillsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyReportsParams contains documented parameters for GET /user/reports.
 type GetMyReportsParams struct {
-	Cat       *models.ReportTypeEnum             `json:"cat,omitempty"`
-	Target    *models.UserId                     `json:"target,omitempty"`
-	Limit     *int64                             `json:"limit,omitempty"`
-	Offset    *int64                             `json:"offset,omitempty"`
-	Sort      *models.GetMyReportsParamSort      `json:"sort,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat *models.ReportTypeEnum `json:"cat,omitempty"`
+	// Target is the query parameter "target".
+	Target *models.UserId `json:"target,omitempty"`
+	Limit  *int64         `json:"limit,omitempty"`
+	Offset *int64         `json:"offset,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyReportsParamSort `json:"sort,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyReportsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyReportsResponse is the decoded 200 response of getMyReports.
 type GetMyReportsResponse = models.ReportsResponse
 
-// GetMyReports executes operation getMyReports using its exact documented path.
+var getMyReportsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyReports executes operation getMyReports (GET /user/reports; key access: limited) using its exact documented path.
 func (c *Client) GetMyReports(ctx context.Context, params GetMyReportsParams, opts ...RequestOptions) (GetMyReportsResponse, ExecutionReport, error) {
 	var out GetMyReportsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/ReportTypeEnum\"},\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"target\":{\"$ref\":\"#/components/schemas/UserId\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyReports parameters: %w", err)
+	if err = getMyReportsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyReports", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyReports", Path: "/user/reports", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyReports", "ReportsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyReportsPager pages through getMyReports by following _metadata.links (P7.1).
+func (c *Client) GetMyReportsPager(params GetMyReportsParams, opts ...PageOptions) *Pager[GetMyReportsResponse] {
+	return newOperationPager[GetMyReportsResponse](c, Operation{ID: "getMyReports", Path: "/user/reports", Method: "GET"}, params, "ReportsResponse", opts)
+}
+
+// GetMyReportsItems iterates the "reports" items of every getMyReports page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyReportsItems(ctx context.Context, params GetMyReportsParams, opts ...PageOptions) iter.Seq2[models.Report, error] {
+	return Items(ctx, c.GetMyReportsPager(params, opts...), func(page GetMyReportsResponse) []models.Report { return page.Reports })
 }
 
 // GetMyRevivesParams contains documented parameters for GET /user/revives.
 type GetMyRevivesParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit     *int64                                 `json:"limit,omitempty"`
-	Sort      *models.GetMyRevivesParamSort          `json:"sort,omitempty"`
-	To        *int64                                 `json:"to,omitempty"`
-	From      *int64                                 `json:"from,omitempty"`
-	Striptags *models.GetMyRevivesParamStriptags     `json:"striptags,omitempty"`
-	Timestamp *models.GetMyRevivesParamTimestamp     `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyRevivesParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Striptags is the query parameter "striptags".
+	Striptags *models.GetMyRevivesParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetMyRevivesParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyRevivesResponse is the decoded 200 response of getMyRevives.
 type GetMyRevivesResponse = models.RevivesResponse
 
-// GetMyRevives executes operation getMyRevives using its exact documented path.
+var getMyRevivesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyRevives executes operation getMyRevives (GET /user/revives; key access: limited) using its exact documented path.
 func (c *Client) GetMyRevives(ctx context.Context, params GetMyRevivesParams, opts ...RequestOptions) (GetMyRevivesResponse, ExecutionReport, error) {
 	var out GetMyRevivesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyRevives parameters: %w", err)
+	if err = getMyRevivesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyRevives", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyRevives", Path: "/user/revives", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyRevives", "RevivesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyRevivesPager pages through getMyRevives by following _metadata.links (P7.1).
+func (c *Client) GetMyRevivesPager(params GetMyRevivesParams, opts ...PageOptions) *Pager[GetMyRevivesResponse] {
+	return newOperationPager[GetMyRevivesResponse](c, Operation{ID: "getMyRevives", Path: "/user/revives", Method: "GET"}, params, "RevivesResponse", opts)
+}
+
+// GetMyRevivesItems iterates the "revives" items of every getMyRevives page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyRevivesItems(ctx context.Context, params GetMyRevivesParams, opts ...PageOptions) iter.Seq2[models.Revive, error] {
+	return Items(ctx, c.GetMyRevivesPager(params, opts...), func(page GetMyRevivesResponse) []models.Revive { return page.Revives })
 }
 
 // GetMyRevivesSimplifiedParams contains documented parameters for GET /user/revivesFull.
 type GetMyRevivesSimplifiedParams struct {
-	Filters   *[]models.ApiFiltersAttacksRevivesEnum       `json:"filters,omitempty"`
-	Limit     *int64                                       `json:"limit,omitempty"`
-	Sort      *models.GetMyRevivesSimplifiedParamSort      `json:"sort,omitempty"`
-	To        *int64                                       `json:"to,omitempty"`
-	From      *int64                                       `json:"from,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
+	Limit   *int64                                 `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyRevivesSimplifiedParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyRevivesSimplifiedParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyRevivesSimplifiedParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyRevivesSimplifiedResponse is the decoded 200 response of getMyRevivesSimplified.
 type GetMyRevivesSimplifiedResponse = models.RevivesFullResponse
 
-// GetMyRevivesSimplified executes operation getMyRevivesSimplified using its exact documented path.
+var getMyRevivesSimplifiedParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyRevivesSimplified executes operation getMyRevivesSimplified (GET /user/revivesFull; key access: limited) using its exact documented path.
 func (c *Client) GetMyRevivesSimplified(ctx context.Context, params GetMyRevivesSimplifiedParams, opts ...RequestOptions) (GetMyRevivesSimplifiedResponse, ExecutionReport, error) {
 	var out GetMyRevivesSimplifiedResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"$ref\":\"#/components/schemas/ApiFiltersAttacksRevivesEnum\"},\"type\":\"array\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":1000,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyRevivesSimplified parameters: %w", err)
+	if err = getMyRevivesSimplifiedParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyRevivesSimplified", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyRevivesSimplified", Path: "/user/revivesFull", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyRevivesSimplified", "RevivesFullResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyRevivesSimplifiedPager pages through getMyRevivesSimplified by following _metadata.links (P7.1).
+func (c *Client) GetMyRevivesSimplifiedPager(params GetMyRevivesSimplifiedParams, opts ...PageOptions) *Pager[GetMyRevivesSimplifiedResponse] {
+	return newOperationPager[GetMyRevivesSimplifiedResponse](c, Operation{ID: "getMyRevivesSimplified", Path: "/user/revivesFull", Method: "GET"}, params, "RevivesFullResponse", opts)
+}
+
+// GetMyRevivesSimplifiedItems iterates the "revives" items of every getMyRevivesSimplified page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyRevivesSimplifiedItems(ctx context.Context, params GetMyRevivesSimplifiedParams, opts ...PageOptions) iter.Seq2[models.ReviveSimplified, error] {
+	return Items(ctx, c.GetMyRevivesSimplifiedPager(params, opts...), func(page GetMyRevivesSimplifiedResponse) []models.ReviveSimplified { return page.Revives })
 }
 
 // GetUsersSearchParams contains documented parameters for GET /user/search.
 type GetUsersSearchParams struct {
-	Name      *string                                  `json:"name,omitempty"`
-	Filters   *[]models.GetUsersSearchParamFiltersItem `json:"filters,omitempty"`
-	Offset    *int64                                   `json:"offset,omitempty"`
-	Sort      *models.GetUsersSearchParamSort          `json:"sort,omitempty"`
-	Cursor    *string                                  `json:"cursor,omitempty"`
-	Timestamp *models.GetUsersSearchParamTimestamp     `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Name is the query parameter "name".
+	Name *string `json:"name,omitempty"`
+	// Filters is the query parameter "filters".
+	Filters *[]models.GetUsersSearchParamFiltersItem `json:"filters,omitempty"`
+	Offset  *int64                                   `json:"offset,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetUsersSearchParamSort `json:"sort,omitempty"`
+	// Cursor is the query parameter "cursor".
+	Cursor *string `json:"cursor,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *models.GetUsersSearchParamTimestamp `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUsersSearchResponse is the decoded 200 response of getUsersSearch.
 type GetUsersSearchResponse = models.UserSearchResponse
 
-// GetUsersSearch executes operation getUsersSearch using its exact documented path.
+var getUsersSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"cursor\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"married\",\"notMarried\",\"traveling\",\"notTraveling\",\"inFaction\",\"notInFaction\",\"inCompany\",\"notInCompany\",\"inHospital\",\"notInHospital\",\"inJail\",\"notInJail\",\"inFederalJail\",\"notInFederalJail\",\"male\",\"female\",\"enby\",\"lastActionNow\",\"lastActionRecent\",\"lastActionHourAgo\",\"lastActionDayAgo\",\"lastActionWeekAgo\",\"lastActionMonthAgo\",\"lastActionYearAgo\"],\"type\":\"string\"},{\"pattern\":\"^(level|daysOld|offences):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"},{\"pattern\":\"^factions:\\\\d+(;\\\\d+)*$\",\"type\":\"string\"}],\"schema\":\"UserSearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetUsersSearch executes operation getUsersSearch (GET /user/search; key access: public) using its exact documented path.
 func (c *Client) GetUsersSearch(ctx context.Context, params GetUsersSearchParams, opts ...RequestOptions) (GetUsersSearchResponse, ExecutionReport, error) {
 	var out GetUsersSearchResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"cursor\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"married\",\"notMarried\",\"traveling\",\"notTraveling\",\"inFaction\",\"notInFaction\",\"inCompany\",\"notInCompany\",\"inHospital\",\"notInHospital\",\"inJail\",\"notInJail\",\"inFederalJail\",\"notInFederalJail\",\"male\",\"female\",\"enby\",\"lastActionNow\",\"lastActionRecent\",\"lastActionHourAgo\",\"lastActionDayAgo\",\"lastActionWeekAgo\",\"lastActionMonthAgo\",\"lastActionYearAgo\"],\"type\":\"string\"},{\"pattern\":\"^(level|daysOld|offences):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"},{\"pattern\":\"^factions:\\\\d+(;\\\\d+)*$\",\"type\":\"string\"}],\"schema\":\"UserSearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUsersSearch parameters: %w", err)
+	if err = getUsersSearchParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUsersSearch", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUsersSearch", Path: "/user/search", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUsersSearch", "UserSearchResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetUsersSearchPager pages through getUsersSearch by following _metadata.links (P7.1).
+func (c *Client) GetUsersSearchPager(params GetUsersSearchParams, opts ...PageOptions) *Pager[GetUsersSearchResponse] {
+	return newOperationPager[GetUsersSearchResponse](c, Operation{ID: "getUsersSearch", Path: "/user/search", Method: "GET"}, params, "UserSearchResponse", opts)
+}
+
+// GetUsersSearchItems iterates the "search" items of every getUsersSearch page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetUsersSearchItems(ctx context.Context, params GetUsersSearchParams, opts ...PageOptions) iter.Seq2[models.UserSearch, error] {
+	return Items(ctx, c.GetUsersSearchPager(params, opts...), func(page GetUsersSearchResponse) []models.UserSearch { return page.Search })
 }
 
 // GetMySkillsParams contains documented parameters for GET /user/skills.
 type GetMySkillsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMySkillsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMySkillsResponse is the decoded 200 response of getMySkills.
 type GetMySkillsResponse = models.UserSkillsResponse
 
-// GetMySkills executes operation getMySkills using its exact documented path.
+var getMySkillsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMySkills executes operation getMySkills (GET /user/skills; key access: minimal) using its exact documented path.
 func (c *Client) GetMySkills(ctx context.Context, params GetMySkillsParams, opts ...RequestOptions) (GetMySkillsResponse, ExecutionReport, error) {
 	var out GetMySkillsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMySkills parameters: %w", err)
+	if err = getMySkillsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMySkills", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMySkills", Path: "/user/skills", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMySkills", "UserSkillsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUsersSnapshotParams contains documented parameters for GET /user/snapshot.
 type GetUsersSnapshotParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUsersSnapshotParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUsersSnapshotResponse is the decoded 200 response of getUsersSnapshot.
 type GetUsersSnapshotResponse = string
 
-// GetUsersSnapshot executes operation getUsersSnapshot using its exact documented path.
+var getUsersSnapshotParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetUsersSnapshot executes operation getUsersSnapshot (GET /user/snapshot; key access: public) using its exact documented path.
 func (c *Client) GetUsersSnapshot(ctx context.Context, params GetUsersSnapshotParams, opts ...RequestOptions) (GetUsersSnapshotResponse, ExecutionReport, error) {
 	var out GetUsersSnapshotResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUsersSnapshot parameters: %w", err)
+	if err = getUsersSnapshotParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUsersSnapshot", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUsersSnapshot", Path: "/user/snapshot", Method: "GET", CSV: true}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUsersSnapshot", "", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyStocksParams contains documented parameters for GET /user/stocks.
 type GetMyStocksParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyStocksParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyStocksResponse is the decoded 200 response of getMyStocks.
 type GetMyStocksResponse = models.UserStocksResponse
 
-// GetMyStocks executes operation getMyStocks using its exact documented path.
+var getMyStocksParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyStocks executes operation getMyStocks (GET /user/stocks; key access: limited) using its exact documented path.
 func (c *Client) GetMyStocks(ctx context.Context, params GetMyStocksParams, opts ...RequestOptions) (GetMyStocksResponse, ExecutionReport, error) {
 	var out GetMyStocksResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyStocks parameters: %w", err)
+	if err = getMyStocksParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyStocks", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyStocks", Path: "/user/stocks", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyStocks", "UserStocksResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserTimestampParams contains documented parameters for GET /user/timestamp.
 type GetUserTimestampParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserTimestampParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                `json:"comment,omitempty"`
-	Key       *string                                `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserTimestampResponse is the decoded 200 response of getUserTimestamp.
 type GetUserTimestampResponse = models.TimestampResponse
 
-// GetUserTimestamp executes operation getUserTimestamp using its exact documented path.
+var getUserTimestampParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetUserTimestamp executes operation getUserTimestamp (GET /user/timestamp; key access: public) using its exact documented path.
 func (c *Client) GetUserTimestamp(ctx context.Context, params GetUserTimestampParams, opts ...RequestOptions) (GetUserTimestampResponse, ExecutionReport, error) {
 	var out GetUserTimestampResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserTimestamp parameters: %w", err)
+	if err = getUserTimestampParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserTimestamp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserTimestamp", Path: "/user/timestamp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserTimestamp", "TimestampResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyTradesParams contains documented parameters for GET /user/trades.
 type GetMyTradesParams struct {
-	Cat       *models.TradeCategoryEnum         `json:"cat,omitempty"`
-	Limit     *int64                            `json:"limit,omitempty"`
-	Sort      *models.GetMyTradesParamSort      `json:"sort,omitempty"`
-	To        *int64                            `json:"to,omitempty"`
-	From      *int64                            `json:"from,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat   *models.TradeCategoryEnum `json:"cat,omitempty"`
+	Limit *int64                    `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetMyTradesParamSort `json:"sort,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyTradesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyTradesResponse is the decoded 200 response of getMyTrades.
 type GetMyTradesResponse = models.UserTradesResponse
 
-// GetMyTrades executes operation getMyTrades using its exact documented path.
+var getMyTradesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TradeCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyTrades executes operation getMyTrades (GET /user/trades; key access: limited) using its exact documented path.
 func (c *Client) GetMyTrades(ctx context.Context, params GetMyTradesParams, opts ...RequestOptions) (GetMyTradesResponse, ExecutionReport, error) {
 	var out GetMyTradesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/TradeCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyTrades parameters: %w", err)
+	if err = getMyTradesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyTrades", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyTrades", Path: "/user/trades", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyTrades", "UserTradesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetMyTradesPager pages through getMyTrades by following _metadata.links (P7.1).
+func (c *Client) GetMyTradesPager(params GetMyTradesParams, opts ...PageOptions) *Pager[GetMyTradesResponse] {
+	return newOperationPager[GetMyTradesResponse](c, Operation{ID: "getMyTrades", Path: "/user/trades", Method: "GET"}, params, "UserTradesResponse", opts)
+}
+
+// GetMyTradesItems iterates the "trades" items of every getMyTrades page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetMyTradesItems(ctx context.Context, params GetMyTradesParams, opts ...PageOptions) iter.Seq2[models.UserTrade, error] {
+	return Items(ctx, c.GetMyTradesPager(params, opts...), func(page GetMyTradesResponse) []models.UserTrade { return page.Trades })
 }
 
 // GetMyTravelInformationParams contains documented parameters for GET /user/travel.
 type GetMyTravelInformationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyTravelInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyTravelInformationResponse is the decoded 200 response of getMyTravelInformation.
 type GetMyTravelInformationResponse = models.UserTravelResponse
 
-// GetMyTravelInformation executes operation getMyTravelInformation using its exact documented path.
+var getMyTravelInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyTravelInformation executes operation getMyTravelInformation (GET /user/travel; key access: minimal) using its exact documented path.
 func (c *Client) GetMyTravelInformation(ctx context.Context, params GetMyTravelInformationParams, opts ...RequestOptions) (GetMyTravelInformationResponse, ExecutionReport, error) {
 	var out GetMyTravelInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyTravelInformation parameters: %w", err)
+	if err = getMyTravelInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyTravelInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyTravelInformation", Path: "/user/travel", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyTravelInformation", "UserTravelResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyTravelInventoryParams contains documented parameters for GET /user/travelinventory.
 type GetMyTravelInventoryParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyTravelInventoryParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                    `json:"comment,omitempty"`
-	Key       *string                                    `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyTravelInventoryResponse is the decoded 200 response of getMyTravelInventory.
 type GetMyTravelInventoryResponse = models.UserTravelInventoryResponse
 
-// GetMyTravelInventory executes operation getMyTravelInventory using its exact documented path.
+var getMyTravelInventoryParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyTravelInventory executes operation getMyTravelInventory (GET /user/travelinventory; key access: limited) using its exact documented path.
 func (c *Client) GetMyTravelInventory(ctx context.Context, params GetMyTravelInventoryParams, opts ...RequestOptions) (GetMyTravelInventoryResponse, ExecutionReport, error) {
 	var out GetMyTravelInventoryResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyTravelInventory parameters: %w", err)
+	if err = getMyTravelInventoryParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyTravelInventory", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyTravelInventory", Path: "/user/travelinventory", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyTravelInventory", "UserTravelInventoryResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyVirusCodingInformationParams contains documented parameters for GET /user/virus.
 type GetMyVirusCodingInformationParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyVirusCodingInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                           `json:"comment,omitempty"`
-	Key       *string                                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyVirusCodingInformationResponse is the decoded 200 response of getMyVirusCodingInformation.
 type GetMyVirusCodingInformationResponse = models.UserVirusResponse
 
-// GetMyVirusCodingInformation executes operation getMyVirusCodingInformation using its exact documented path.
+var getMyVirusCodingInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyVirusCodingInformation executes operation getMyVirusCodingInformation (GET /user/virus; key access: minimal) using its exact documented path.
 func (c *Client) GetMyVirusCodingInformation(ctx context.Context, params GetMyVirusCodingInformationParams, opts ...RequestOptions) (GetMyVirusCodingInformationResponse, ExecutionReport, error) {
 	var out GetMyVirusCodingInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyVirusCodingInformation parameters: %w", err)
+	if err = getMyVirusCodingInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyVirusCodingInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyVirusCodingInformation", Path: "/user/virus", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyVirusCodingInformation", "UserVirusResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyWeaponExpParams contains documented parameters for GET /user/weaponexp.
 type GetMyWeaponExpParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyWeaponExpParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyWeaponExpResponse is the decoded 200 response of getMyWeaponExp.
 type GetMyWeaponExpResponse = models.UserWeaponExpResponse
 
-// GetMyWeaponExp executes operation getMyWeaponExp using its exact documented path.
+var getMyWeaponExpParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyWeaponExp executes operation getMyWeaponExp (GET /user/weaponexp; key access: minimal) using its exact documented path.
 func (c *Client) GetMyWeaponExp(ctx context.Context, params GetMyWeaponExpParams, opts ...RequestOptions) (GetMyWeaponExpResponse, ExecutionReport, error) {
 	var out GetMyWeaponExpResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyWeaponExp parameters: %w", err)
+	if err = getMyWeaponExpParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyWeaponExp", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyWeaponExp", Path: "/user/weaponexp", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyWeaponExp", "UserWeaponExpResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyWorkstatsParams contains documented parameters for GET /user/workstats.
 type GetMyWorkstatsParams struct {
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyWorkstatsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyWorkstatsResponse is the decoded 200 response of getMyWorkstats.
 type GetMyWorkstatsResponse = models.UserWorkStatsResponse
 
-// GetMyWorkstats executes operation getMyWorkstats using its exact documented path.
+var getMyWorkstatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+})
+
+// GetMyWorkstats executes operation getMyWorkstats (GET /user/workstats; key access: minimal) using its exact documented path.
 func (c *Client) GetMyWorkstats(ctx context.Context, params GetMyWorkstatsParams, opts ...RequestOptions) (GetMyWorkstatsResponse, ExecutionReport, error) {
 	var out GetMyWorkstatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyWorkstats parameters: %w", err)
+	if err = getMyWorkstatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyWorkstats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyWorkstats", Path: "/user/workstats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyWorkstats", "UserWorkStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyCrimesParams contains documented parameters for GET /user/{crimeId}/crimes.
 type GetMyCrimesParams struct {
-	CrimeId   models.TornCrimeId                `json:"crimeId" path:"crimeId"`
+	// CrimeId is the path parameter "crimeId".
+	CrimeId models.TornCrimeId `json:"crimeId" path:"crimeId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyCrimesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyCrimesResponse is the decoded 200 response of getMyCrimes.
 type GetMyCrimesResponse = models.UserCrimesResponse
 
-// GetMyCrimes executes operation getMyCrimes using its exact documented path.
+var getMyCrimesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/TornCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}")
+})
+
+// GetMyCrimes executes operation getMyCrimes (GET /user/{crimeId}/crimes; key access: minimal) using its exact documented path.
 func (c *Client) GetMyCrimes(ctx context.Context, params GetMyCrimesParams, opts ...RequestOptions) (GetMyCrimesResponse, ExecutionReport, error) {
 	var out GetMyCrimesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"crimeId\":{\"$ref\":\"#/components/schemas/TornCrimeId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"crimeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyCrimes parameters: %w", err)
+	if err = getMyCrimesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyCrimes", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyCrimes", Path: "/user/{crimeId}/crimes", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyCrimes", "UserCrimesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserBasicInformationParams contains documented parameters for GET /user/{id}/basic.
 type GetUserBasicInformationParams struct {
-	ID        models.UserDiscordPathId                      `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetUserBasicInformationParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserBasicInformationParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                       `json:"comment,omitempty"`
-	Key       *string                                       `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserBasicInformationResponse is the decoded 200 response of getUserBasicInformation.
 type GetUserBasicInformationResponse = models.UserBasicResponse
 
-// GetUserBasicInformation executes operation getUserBasicInformation using its exact documented path.
+var getUserBasicInformationParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserBasicInformation executes operation getUserBasicInformation (GET /user/{id}/basic; key access: public) using its exact documented path.
 func (c *Client) GetUserBasicInformation(ctx context.Context, params GetUserBasicInformationParams, opts ...RequestOptions) (GetUserBasicInformationResponse, ExecutionReport, error) {
 	var out GetUserBasicInformationResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserBasicInformation parameters: %w", err)
+	if err = getUserBasicInformationParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserBasicInformation", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserBasicInformation", Path: "/user/{id}/basic", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserBasicInformation", "UserBasicResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserBountiesParams contains documented parameters for GET /user/{id}/bounties.
 type GetUserBountiesParams struct {
-	ID        models.UserDiscordPathId              `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserBountiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserBountiesResponse is the decoded 200 response of getUserBounties.
 type GetUserBountiesResponse = models.UserBountiesResponse
 
-// GetUserBounties executes operation getUserBounties using its exact documented path.
+var getUserBountiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserBounties executes operation getUserBounties (GET /user/{id}/bounties; key access: public) using its exact documented path.
 func (c *Client) GetUserBounties(ctx context.Context, params GetUserBountiesParams, opts ...RequestOptions) (GetUserBountiesResponse, ExecutionReport, error) {
 	var out GetUserBountiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserBounties parameters: %w", err)
+	if err = getUserBountiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserBounties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserBounties", Path: "/user/{id}/bounties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserBounties", "UserBountiesResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserCompetitionInfoParams contains documented parameters for GET /user/{id}/competition.
 type GetUserCompetitionInfoParams struct {
-	ID        models.UserDiscordPathId                     `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserCompetitionInfoParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                      `json:"comment,omitempty"`
-	Key       *string                                      `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserCompetitionInfoResponse is the decoded 200 response of getUserCompetitionInfo.
 type GetUserCompetitionInfoResponse = models.UserCompetitionResponse
 
-// GetUserCompetitionInfo executes operation getUserCompetitionInfo using its exact documented path.
+var getUserCompetitionInfoParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserCompetitionInfo executes operation getUserCompetitionInfo (GET /user/{id}/competition; key access: public) using its exact documented path.
 func (c *Client) GetUserCompetitionInfo(ctx context.Context, params GetUserCompetitionInfoParams, opts ...RequestOptions) (GetUserCompetitionInfoResponse, ExecutionReport, error) {
 	var out GetUserCompetitionInfoResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserCompetitionInfo parameters: %w", err)
+	if err = getUserCompetitionInfoParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserCompetitionInfo", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserCompetitionInfo", Path: "/user/{id}/competition", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserCompetitionInfo", "UserCompetitionResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserDiscordParams contains documented parameters for GET /user/{id}/discord.
 type GetUserDiscordParams struct {
-	ID        models.UserDiscordPathId             `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserDiscordParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserDiscordResponse is the decoded 200 response of getUserDiscord.
 type GetUserDiscordResponse = models.UserDiscordResponse
 
-// GetUserDiscord executes operation getUserDiscord using its exact documented path.
+var getUserDiscordParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserDiscord executes operation getUserDiscord (GET /user/{id}/discord; key access: public) using its exact documented path.
 func (c *Client) GetUserDiscord(ctx context.Context, params GetUserDiscordParams, opts ...RequestOptions) (GetUserDiscordResponse, ExecutionReport, error) {
 	var out GetUserDiscordResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserDiscord parameters: %w", err)
+	if err = getUserDiscordParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserDiscord", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserDiscord", Path: "/user/{id}/discord", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserDiscord", "UserDiscordResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserFactionParams contains documented parameters for GET /user/{id}/faction.
 type GetUserFactionParams struct {
-	ID        models.UserDiscordPathId             `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserFactionParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserFactionResponse is the decoded 200 response of getUserFaction.
 type GetUserFactionResponse = models.UserFactionResponse
 
-// GetUserFaction executes operation getUserFaction using its exact documented path.
+var getUserFactionParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserFaction executes operation getUserFaction (GET /user/{id}/faction; key access: public) using its exact documented path.
 func (c *Client) GetUserFaction(ctx context.Context, params GetUserFactionParams, opts ...RequestOptions) (GetUserFactionResponse, ExecutionReport, error) {
 	var out GetUserFactionResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserFaction parameters: %w", err)
+	if err = getUserFactionParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserFaction", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserFaction", Path: "/user/{id}/faction", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserFaction", "UserFactionResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserForumPostsParams contains documented parameters for GET /user/{id}/forumposts.
 type GetUserForumPostsParams struct {
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetUserForumPostsParamStriptags `json:"striptags,omitempty"`
-	ID        models.UserDiscordPathId                `json:"id" path:"id"`
-	Limit     *int64                                  `json:"limit,omitempty"`
-	Sort      *models.GetUserForumPostsParamSort      `json:"sort,omitempty"`
-	From      *int64                                  `json:"from,omitempty"`
-	To        *int64                                  `json:"to,omitempty"`
+	// ID is the path parameter "id".
+	ID    models.UserDiscordPathId `json:"id" path:"id"`
+	Limit *int64                   `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetUserForumPostsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserForumPostsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserForumPostsResponse is the decoded 200 response of getUserForumPosts.
 type GetUserForumPostsResponse = models.UserForumPostsResponse
 
-// GetUserForumPosts executes operation getUserForumPosts using its exact documented path.
+var getUserForumPostsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserForumPosts executes operation getUserForumPosts (GET /user/{id}/forumposts; key access: public) using its exact documented path.
 func (c *Client) GetUserForumPosts(ctx context.Context, params GetUserForumPostsParams, opts ...RequestOptions) (GetUserForumPostsResponse, ExecutionReport, error) {
 	var out GetUserForumPostsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":20,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserForumPosts parameters: %w", err)
+	if err = getUserForumPostsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserForumPosts", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserForumPosts", Path: "/user/{id}/forumposts", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserForumPosts", "UserForumPostsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetUserForumPostsPager pages through getUserForumPosts by following _metadata.links (P7.1).
+func (c *Client) GetUserForumPostsPager(params GetUserForumPostsParams, opts ...PageOptions) *Pager[GetUserForumPostsResponse] {
+	return newOperationPager[GetUserForumPostsResponse](c, Operation{ID: "getUserForumPosts", Path: "/user/{id}/forumposts", Method: "GET"}, params, "UserForumPostsResponse", opts)
+}
+
+// GetUserForumPostsItems iterates the "forumPosts" items of every getUserForumPosts page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetUserForumPostsItems(ctx context.Context, params GetUserForumPostsParams, opts ...PageOptions) iter.Seq2[models.ForumPost, error] {
+	return Items(ctx, c.GetUserForumPostsPager(params, opts...), func(page GetUserForumPostsResponse) []models.ForumPost { return page.ForumPosts })
 }
 
 // GetUserForumThreadsParams contains documented parameters for GET /user/{id}/forumthreads.
 type GetUserForumThreadsParams struct {
-	ID        models.UserDiscordPathId                  `json:"id" path:"id"`
-	Limit     *int64                                    `json:"limit,omitempty"`
-	Sort      *models.GetUserForumThreadsParamSort      `json:"sort,omitempty"`
-	From      *int64                                    `json:"from,omitempty"`
-	To        *int64                                    `json:"to,omitempty"`
+	// ID is the path parameter "id".
+	ID    models.UserDiscordPathId `json:"id" path:"id"`
+	Limit *int64                   `json:"limit,omitempty"`
+	// Sort is the query parameter "sort".
+	Sort *models.GetUserForumThreadsParamSort `json:"sort,omitempty"`
+	// From is the query parameter "from".
+	From *int64 `json:"from,omitempty"`
+	// To is the query parameter "to".
+	To *int64 `json:"to,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserForumThreadsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                   `json:"comment,omitempty"`
-	Key       *string                                   `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserForumThreadsResponse is the decoded 200 response of getUserForumThreads.
 type GetUserForumThreadsResponse = models.UserForumThreadsResponse
 
-// GetUserForumThreads executes operation getUserForumThreads using its exact documented path.
+var getUserForumThreadsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserForumThreads executes operation getUserForumThreads (GET /user/{id}/forumthreads; key access: public) using its exact documented path.
 func (c *Client) GetUserForumThreads(ctx context.Context, params GetUserForumThreadsParams, opts ...RequestOptions) (GetUserForumThreadsResponse, ExecutionReport, error) {
 	var out GetUserForumThreadsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserForumThreads parameters: %w", err)
+	if err = getUserForumThreadsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserForumThreads", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserForumThreads", Path: "/user/{id}/forumthreads", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserForumThreads", "UserForumThreadsResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetUserForumThreadsPager pages through getUserForumThreads by following _metadata.links (P7.1).
+func (c *Client) GetUserForumThreadsPager(params GetUserForumThreadsParams, opts ...PageOptions) *Pager[GetUserForumThreadsResponse] {
+	return newOperationPager[GetUserForumThreadsResponse](c, Operation{ID: "getUserForumThreads", Path: "/user/{id}/forumthreads", Method: "GET"}, params, "UserForumThreadsResponse", opts)
+}
+
+// GetUserForumThreadsItems iterates the "forumThreads" items of every getUserForumThreads page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetUserForumThreadsItems(ctx context.Context, params GetUserForumThreadsParams, opts ...PageOptions) iter.Seq2[models.ForumThreadUserExtended, error] {
+	return Items(ctx, c.GetUserForumThreadsPager(params, opts...), func(page GetUserForumThreadsResponse) []models.ForumThreadUserExtended { return page.ForumThreads })
 }
 
 // GetUserHoFParams contains documented parameters for GET /user/{id}/hof.
 type GetUserHoFParams struct {
-	ID        models.UserDiscordPathId         `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserHoFParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserHoFResponse is the decoded 200 response of getUserHoF.
 type GetUserHoFResponse = models.UserHofResponse
 
-// GetUserHoF executes operation getUserHoF using its exact documented path.
+var getUserHoFParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserHoF executes operation getUserHoF (GET /user/{id}/hof; key access: public) using its exact documented path.
 func (c *Client) GetUserHoF(ctx context.Context, params GetUserHoFParams, opts ...RequestOptions) (GetUserHoFResponse, ExecutionReport, error) {
 	var out GetUserHoFResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserHoF parameters: %w", err)
+	if err = getUserHoFParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserHoF", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserHoF", Path: "/user/{id}/hof", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserHoF", "UserHofResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserIconsParams contains documented parameters for GET /user/{id}/icons.
 type GetUserIconsParams struct {
-	ID        models.UserDiscordPathId           `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserIconsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                            `json:"comment,omitempty"`
-	Key       *string                            `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserIconsResponse is the decoded 200 response of getUserIcons.
 type GetUserIconsResponse = models.UserIconsResponse
 
-// GetUserIcons executes operation getUserIcons using its exact documented path.
+var getUserIconsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserIcons executes operation getUserIcons (GET /user/{id}/icons; key access: public) using its exact documented path.
 func (c *Client) GetUserIcons(ctx context.Context, params GetUserIconsParams, opts ...RequestOptions) (GetUserIconsResponse, ExecutionReport, error) {
 	var out GetUserIconsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserIcons parameters: %w", err)
+	if err = getUserIconsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserIcons", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserIcons", Path: "/user/{id}/icons", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserIcons", "UserIconsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserJobParams contains documented parameters for GET /user/{id}/job.
 type GetUserJobParams struct {
-	ID        models.UserDiscordPathId         `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserJobParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                          `json:"comment,omitempty"`
-	Key       *string                          `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserJobResponse is the decoded 200 response of getUserJob.
 type GetUserJobResponse = models.UserJobResponse
 
-// GetUserJob executes operation getUserJob using its exact documented path.
+var getUserJobParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserJob executes operation getUserJob (GET /user/{id}/job; key access: public) using its exact documented path.
 func (c *Client) GetUserJob(ctx context.Context, params GetUserJobParams, opts ...RequestOptions) (GetUserJobResponse, ExecutionReport, error) {
 	var out GetUserJobResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserJob parameters: %w", err)
+	if err = getUserJobParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserJob", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserJob", Path: "/user/{id}/job", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserJob", "UserJobResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserMedalsParams contains documented parameters for GET /user/{id}/medals.
 type GetUserMedalsParams struct {
-	ID        models.UserDiscordPathId            `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserMedalsParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                             `json:"comment,omitempty"`
-	Key       *string                             `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserMedalsResponse is the decoded 200 response of getUserMedals.
 type GetUserMedalsResponse = models.UserMedalsResponse
 
-// GetUserMedals executes operation getUserMedals using its exact documented path.
+var getUserMedalsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserMedals executes operation getUserMedals (GET /user/{id}/medals; key access: public) using its exact documented path.
 func (c *Client) GetUserMedals(ctx context.Context, params GetUserMedalsParams, opts ...RequestOptions) (GetUserMedalsResponse, ExecutionReport, error) {
 	var out GetUserMedalsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserMedals parameters: %w", err)
+	if err = getUserMedalsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserMedals", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserMedals", Path: "/user/{id}/medals", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserMedals", "UserMedalsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserPersonalStatsParams contains documented parameters for GET /user/{id}/personalstats.
 type GetUserPersonalStatsParams struct {
-	ID        models.UserDiscordPathId          `json:"id" path:"id"`
-	Cat       *models.PersonalStatsCategoryEnum `json:"cat,omitempty"`
-	Stat      *[]models.PersonalStatsStatName   `json:"stat,omitempty"`
-	Timestamp *int64                            `json:"timestamp,omitempty"`
-	Comment   *string                           `json:"comment,omitempty"`
-	Key       *string                           `json:"key,omitempty"`
+	// ID is the path parameter "id".
+	ID  models.UserDiscordPathId          `json:"id" path:"id"`
+	Cat *models.PersonalStatsCategoryEnum `json:"cat,omitempty"`
+	// Stat is the query parameter "stat".
+	Stat *[]models.PersonalStatsStatName `json:"stat,omitempty"`
+	// Timestamp is the query parameter "timestamp".
+	Timestamp *int64 `json:"timestamp,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserPersonalStatsResponse is the decoded 200 response of getUserPersonalStats.
 type GetUserPersonalStatsResponse = models.UserPersonalStatsResponse
 
-// GetUserPersonalStats executes operation getUserPersonalStats using its exact documented path.
+var getUserPersonalStatsParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"timestamp\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserPersonalStats executes operation getUserPersonalStats (GET /user/{id}/personalstats; key access: public) using its exact documented path.
 func (c *Client) GetUserPersonalStats(ctx context.Context, params GetUserPersonalStatsParams, opts ...RequestOptions) (GetUserPersonalStatsResponse, ExecutionReport, error) {
 	var out GetUserPersonalStatsResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/PersonalStatsCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"stat\":{\"items\":{\"$ref\":\"#/components/schemas/PersonalStatsStatName\"},\"type\":\"array\"},\"timestamp\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserPersonalStats parameters: %w", err)
+	if err = getUserPersonalStatsParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserPersonalStats", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserPersonalStats", Path: "/user/{id}/personalstats", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserPersonalStats", "UserPersonalStatsResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserProfileParams contains documented parameters for GET /user/{id}/profile.
 type GetUserProfileParams struct {
-	ID        models.UserDiscordPathId             `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Striptags is the query parameter "striptags".
 	Striptags *models.GetUserProfileParamStriptags `json:"striptags,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserProfileParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                              `json:"comment,omitempty"`
-	Key       *string                              `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserProfileResponse is the decoded 200 response of getUserProfile.
 type GetUserProfileResponse = models.UserProfileResponse
 
-// GetUserProfile executes operation getUserProfile using its exact documented path.
+var getUserProfileParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserProfile executes operation getUserProfile (GET /user/{id}/profile; key access: public) using its exact documented path.
 func (c *Client) GetUserProfile(ctx context.Context, params GetUserProfileParams, opts ...RequestOptions) (GetUserProfileResponse, ExecutionReport, error) {
 	var out GetUserProfileResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"striptags\":{\"default\":\"true\",\"enum\":[\"true\",\"false\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserProfile parameters: %w", err)
+	if err = getUserProfileParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserProfile", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserProfile", Path: "/user/{id}/profile", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserProfile", "UserProfileResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetUserPropertiesParams contains documented parameters for GET /user/{id}/properties.
 type GetUserPropertiesParams struct {
-	ID        models.UserDiscordPathId                `json:"id" path:"id"`
-	Filters   *models.GetUserPropertiesParamFilters   `json:"filters,omitempty"`
-	Offset    *int64                                  `json:"offset,omitempty"`
-	Limit     *int64                                  `json:"limit,omitempty"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Filters is the query parameter "filters".
+	Filters *models.GetUserPropertiesParamFilters `json:"filters,omitempty"`
+	Offset  *int64                                `json:"offset,omitempty"`
+	Limit   *int64                                `json:"limit,omitempty"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserPropertiesParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                 `json:"comment,omitempty"`
-	Key       *string                                 `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserPropertiesResponse is the decoded 200 response of getUserProperties.
 type GetUserPropertiesResponse = models.UserPropertiesResponse
 
-// GetUserProperties executes operation getUserProperties using its exact documented path.
+var getUserPropertiesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserProperties executes operation getUserProperties (GET /user/{id}/properties; key access: public) using its exact documented path.
 func (c *Client) GetUserProperties(ctx context.Context, params GetUserPropertiesParams, opts ...RequestOptions) (GetUserPropertiesResponse, ExecutionReport, error) {
 	var out GetUserPropertiesResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"enum\":[\"ownedByUser\",\"ownedBySpouse\"],\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserProperties parameters: %w", err)
+	if err = getUserPropertiesParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserProperties", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserProperties", Path: "/user/{id}/properties", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserProperties", "UserPropertiesResponse", raw, &out, options)
+	return out, report, err
+}
+
+// GetUserPropertiesPager pages through getUserProperties by following _metadata.links (P7.1).
+func (c *Client) GetUserPropertiesPager(params GetUserPropertiesParams, opts ...PageOptions) *Pager[GetUserPropertiesResponse] {
+	return newOperationPager[GetUserPropertiesResponse](c, Operation{ID: "getUserProperties", Path: "/user/{id}/properties", Method: "GET"}, params, "UserPropertiesResponse", opts)
+}
+
+// GetUserPropertiesItems iterates the "properties" items of every getUserProperties page (P7.1). Stop early by breaking out of the loop.
+func (c *Client) GetUserPropertiesItems(ctx context.Context, params GetUserPropertiesParams, opts ...PageOptions) iter.Seq2[models.UserPropertiesResponsePropertiesItem, error] {
+	return Items(ctx, c.GetUserPropertiesPager(params, opts...), func(page GetUserPropertiesResponse) []models.UserPropertiesResponsePropertiesItem {
+		return page.Properties
+	})
 }
 
 // GetUserPropertyParams contains documented parameters for GET /user/{id}/property.
 type GetUserPropertyParams struct {
-	ID        models.UserDiscordPathId              `json:"id" path:"id"`
+	// ID is the path parameter "id".
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserPropertyParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                               `json:"comment,omitempty"`
-	Key       *string                               `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetUserPropertyResponse is the decoded 200 response of getUserProperty.
 type GetUserPropertyResponse = models.UserPropertyResponse
 
-// GetUserProperty executes operation getUserProperty using its exact documented path.
+var getUserPropertyParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}")
+})
+
+// GetUserProperty executes operation getUserProperty (GET /user/{id}/property; key access: public) using its exact documented path.
 func (c *Client) GetUserProperty(ctx context.Context, params GetUserPropertyParams, opts ...RequestOptions) (GetUserPropertyResponse, ExecutionReport, error) {
 	var out GetUserPropertyResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"id\":{\"$ref\":\"#/components/schemas/UserDiscordPathId\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[\"id\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getUserProperty parameters: %w", err)
+	if err = getUserPropertyParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getUserProperty", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getUserProperty", Path: "/user/{id}/property", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getUserProperty", "UserPropertyResponse", raw, &out, options)
+	return out, report, err
 }
 
 // GetMyDetailedTradeParams contains documented parameters for GET /user/{tradeId}/trade.
 type GetMyDetailedTradeParams struct {
-	TradeId   models.TradeId                           `json:"tradeId" path:"tradeId"`
+	// TradeId is the path parameter "tradeId".
+	TradeId models.TradeId `json:"tradeId" path:"tradeId"`
+	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyDetailedTradeParamTimestamp `json:"timestamp,omitempty"`
-	Comment   *string                                  `json:"comment,omitempty"`
-	Key       *string                                  `json:"key,omitempty"`
+	// Comment is the query parameter "comment".
+	Comment *string `json:"comment,omitempty"`
+	// Deprecated: configure keys on the Client. A key set here is sent for this
+	// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).
+	Key *string `json:"key,omitempty"`
 }
+
+// GetMyDetailedTradeResponse is the decoded 200 response of getMyDetailedTrade.
 type GetMyDetailedTradeResponse = models.UserTradeResponse
 
-// GetMyDetailedTrade executes operation getMyDetailedTrade using its exact documented path.
+var getMyDetailedTradeParamsSchema = sync.OnceValue(func() models.CompiledSchema {
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"tradeId\":{\"$ref\":\"#/components/schemas/TradeId\"}},\"required\":[\"tradeId\"],\"type\":\"object\"}")
+})
+
+// GetMyDetailedTrade executes operation getMyDetailedTrade (GET /user/{tradeId}/trade; key access: limited) using its exact documented path.
 func (c *Client) GetMyDetailedTrade(ctx context.Context, params GetMyDetailedTradeParams, opts ...RequestOptions) (GetMyDetailedTradeResponse, ExecutionReport, error) {
 	var out GetMyDetailedTradeResponse
-	var report ExecutionReport
-	if len(opts) > 1 {
-		return out, report, fmt.Errorf("at most one RequestOptions is allowed")
-	}
-	var options RequestOptions
-	if len(opts) == 1 {
-		options = opts[0]
+	options, err := singleOptions(opts)
+	if err != nil {
+		return out, ExecutionReport{}, err
 	}
 	encoded, err := json.Marshal(params)
 	if err != nil {
-		return out, report, err
+		return out, ExecutionReport{}, err
 	}
-	if err = models.ValidateSchema([]byte("{\"properties\":{\"comment\":{\"type\":\"string\"},\"key\":{\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"tradeId\":{\"$ref\":\"#/components/schemas/TradeId\"}},\"required\":[\"tradeId\"],\"type\":\"object\"}"), encoded); err != nil {
-		return out, report, fmt.Errorf("getMyDetailedTrade parameters: %w", err)
+	if err = getMyDetailedTradeParamsSchema().ValidateParams(encoded); err != nil {
+		return out, ExecutionReport{}, paramsError("getMyDetailedTrade", err)
 	}
 	raw, report, err := c.DoOperation(ctx, Operation{ID: "getMyDetailedTrade", Path: "/user/{tradeId}/trade", Method: "GET", CSV: false}, params, options)
 	if err != nil {
 		return out, report, err
 	}
-	if err = json.Unmarshal(raw, &out); err != nil {
-		return out, report, err
-	}
-	return out, report, nil
+	err = c.decodeResponse("getMyDetailedTrade", "UserTradeResponse", raw, &out, options)
+	return out, report, err
 }
 
 // Operations lists the complete pinned exact-operation inventory.
@@ -9196,241 +11014,1432 @@ var Operations = []Operation{
 	{ID: "getMyDetailedTrade", Path: "/user/{tradeId}/trade", Method: "GET", CSV: false},
 }
 var operationMetadata = map[string]OperationMetadata{
-	"getCompanyGeneric":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyCompanyApplications":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyCompanyEmployees":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompanyLookup":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyCompanyNews":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyCompanyProfile":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompaniesSearch":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompaniesSnapshot":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyCompanyStock":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getCompanyTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompanyEmployees":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompanyProfile":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getCompaniesList":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionGeneric":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionApplications":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyFactionAttacks":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionAttacksSimplified":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionBalance":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionBasicInformation":     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionChain":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionLatestChainReport":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionCompletedChains":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionContributors":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionCrimeExp":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyFactionOrganizedCrimes":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getWarfareDirtyBombs":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionHoF":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionInventory":            {Stability: "Stable", CacheTTLSeconds: 300, AccessLevel: "Limited"},
-	"getFactionLookup":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionMembers":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionNews":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyFactionPositions":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getFactionRackets":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionRaidsHistory":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionRankedWarsHistory":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionReports":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionRevives":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFactionRevivesSimplified":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getFactionSearch":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionsSnapshot":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionStats":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyFactionTerritory":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTerritoryOwnership":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionTerritoryWarsHistory": {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getWarfare":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getWarfareChains":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getWarfareRaids":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getWarfareRankedWars":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getWarfareTerritoryWars":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionWars":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getChainReport":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyFactionOrganizedCrime":       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getFactionBasicInformation":       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionChain":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionCompletedChains":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionHoF":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionMembers":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionRaidsHistory":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionRankedWarsHistory":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionTerritory":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionTerritoryWarsHistory":   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getFactionWars":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRaidReport":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRankedWarReport":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTerritoryWarReport":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumGeneric":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumCategories":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumLookup":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumAllThreads":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumTimestamp":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumThreads":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumThreadPosts":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getForumThread":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getKeyGeneric":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getKeyInfo":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getKeyLog":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketAuctionHouse":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketBazaar":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketLookup":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketPoints":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketAuctionHouseItem":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketAuctionHouseListing":     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketBazaarItem":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketItemMarketItem":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketProperties":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMarketPropertiesRental":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getPropertyGeneric":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getPropertyLookup":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getPropertyTimestamp":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getProperty":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingCars":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingCarUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingLookup":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingRaces":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingTracks":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingRaceDetails":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getRacingTrackRecords":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornAttackLog":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornBank":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornBounties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCalendar":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCards":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCityShops":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCompanies":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCrimes":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornEducation":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornElimination":               {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornFactionHoF":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornFactionTree":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornGyms":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornHalloween":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getTornHoF":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornHonors":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItemAmmo":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItemMods":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItems":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornLogCategories":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornLogTypes":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornLookup":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornMedals":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornMerits":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornMuseum":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornOrganizedCrimes":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornPokerTables":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornProperties":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornRps":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornSearchForCash":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornShoplifting":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCityStats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornStocks":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornTerritory":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornSubcrimes":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornHonorsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItemDetails":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItemsSpecific":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornItemStats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornMedalsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornEliminationTeam":           {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornLogTypesSpecific":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCityShopSpecific":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getSpecificTornStock":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getTornCompaniesSpecific":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyAmmo":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyAttacks":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyAttacksSimplified":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyBars":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyBasicInformation":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyBattlestats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyBounties":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyCalendarTime":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyCasinoStreak":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyCompetitionInfo":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyCooldowns":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyDiscord":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyEducation":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyEnlistedCars":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyEquipment":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyEvents":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyFaction":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyForumFeed":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyForumFriendsUpdates":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyForumPosts":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyForumSubscribedThreads":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyForumThreads":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyGym":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyHalloween":                   {Stability: "Untable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyHoF":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyHonors":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyIcons":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyInventory":                   {Stability: "Stable", CacheTTLSeconds: 900, AccessLevel: "Minimal"},
-	"getMyItemMarketListings":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyItemModsInformation":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyJob":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyJobPoints":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyJobRanks":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyContactsList":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyLogs":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Full"},
-	"getUserLookup":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyMedals":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyMerits":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyMessages":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyMissions":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyMoney":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyNetworth":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyNewEvents":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyNewMessages":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyNotifications":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyOrganizedCrime":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyAvailableOrganizedCrimes":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyPerks":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyPersonalStats":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyProfile":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyProperties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyProperty":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyRaces":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyRacingRecords":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyRefills":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyReports":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyRevives":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyRevivesSimplified":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getUsersSearch":                   {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMySkills":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getUsersSnapshot":                 {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyStocks":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getUserTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyTrades":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyTravelInformation":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyTravelInventory":             {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
-	"getMyVirusCodingInformation":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyWeaponExp":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyWorkstats":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getMyCrimes":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Minimal"},
-	"getUserBasicInformation":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserBounties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserCompetitionInfo":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserDiscord":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserFaction":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserForumPosts":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserForumThreads":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserHoF":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserIcons":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserJob":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserMedals":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserPersonalStats":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserProfile":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserProperties":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getUserProperty":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Public"},
-	"getMyDetailedTrade":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "Limited"},
+	"getCompanyGeneric":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetCompanyGenericResponseBody", Path: "/company"},
+	"getMyCompanyApplications":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "CompanyApplicationsResponse", Path: "/company/applications"},
+	"getMyCompanyEmployees":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "CompanyEmployeesResponse", Path: "/company/employees"},
+	"getCompanyLookup":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "CompanyLookupResponse", Path: "/company/lookup"},
+	"getMyCompanyNews":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "NewsResponse", Path: "/company/news"},
+	"getMyCompanyProfile":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "CompanyProfileResponseMixed", Path: "/company/profile"},
+	"getCompaniesSearch":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "CompaniesSearchResponse", Path: "/company/search"},
+	"getCompaniesSnapshot":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "", Path: "/company/snapshot"},
+	"getMyCompanyStock":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "CompanyStockResponse", Path: "/company/stock"},
+	"getCompanyTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/company/timestamp"},
+	"getCompanyEmployees":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "CompanyEmployeesResponseBasic", Path: "/company/{id}/employees"},
+	"getCompanyProfile":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "CompanyProfileResponse", Path: "/company/{id}/profile"},
+	"getCompaniesList":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "CompaniesResponse", Path: "/company/{typeId}/companies"},
+	"getFactionGeneric":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetFactionGenericResponseBody", Path: "/faction"},
+	"getMyFactionApplications":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionApplicationsResponse", Path: "/faction/applications"},
+	"getMyFactionAttacks":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "AttacksResponse", Path: "/faction/attacks"},
+	"getMyFactionAttacksSimplified":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "AttacksFullResponse", Path: "/faction/attacksfull"},
+	"getMyFactionBalance":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "FactionBalanceResponse", Path: "/faction/balance"},
+	"getMyFactionBasicInformation":     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionBasicResponse", Path: "/faction/basic"},
+	"getMyFactionChain":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionOngoingChainResponse", Path: "/faction/chain"},
+	"getMyFactionLatestChainReport":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionChainReportResponse", Path: "/faction/chainreport"},
+	"getMyFactionCompletedChains":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionChainsResponse", Path: "/faction/chains"},
+	"getMyFactionContributors":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "FactionContributorsResponse", Path: "/faction/contributors"},
+	"getMyFactionCrimeExp":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionCrimeExpResponse", Path: "/faction/crimeexp"},
+	"getMyFactionOrganizedCrimes":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: true, ResponseSchema: "FactionCrimesResponse", Path: "/faction/crimes"},
+	"getWarfareDirtyBombs":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionWarfareDirtyBombsResponse", Path: "/faction/dirtybombs"},
+	"getMyFactionHoF":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionHofResponse", Path: "/faction/hof"},
+	"getMyFactionInventory":            {Stability: "Stable", CacheTTLSeconds: 300, AccessLevel: "limited", Paginated: true, ResponseSchema: "FactionInventoryResponse", Path: "/faction/inventory"},
+	"getFactionLookup":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionLookupResponse", Path: "/faction/lookup"},
+	"getMyFactionMembers":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionMembersResponse", Path: "/faction/members"},
+	"getMyFactionNews":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: true, ResponseSchema: "NewsResponse", Path: "/faction/news"},
+	"getMyFactionPositions":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionPositionsResponse", Path: "/faction/positions"},
+	"getFactionRackets":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionRacketsResponse", Path: "/faction/rackets"},
+	"getMyFactionRaidsHistory":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionRaidsResponse", Path: "/faction/raids"},
+	"getMyFactionRankedWarsHistory":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionRankedWarResponse", Path: "/faction/rankedwars"},
+	"getMyFactionReports":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "ReportsResponse", Path: "/faction/reports"},
+	"getMyFactionRevives":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "RevivesResponse", Path: "/faction/revives"},
+	"getMyFactionRevivesSimplified":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "RevivesFullResponse", Path: "/faction/revivesFull"},
+	"getFactionSearch":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionSearchResponse", Path: "/faction/search"},
+	"getFactionsSnapshot":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "", Path: "/faction/snapshot"},
+	"getMyFactionStats":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionStatsResponse", Path: "/faction/stats"},
+	"getMyFactionTerritory":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoriesResponse", Path: "/faction/territory"},
+	"getTerritoryOwnership":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoriesOwnershipResponse", Path: "/faction/territoryownership"},
+	"getMyFactionTerritoryWarsHistory": {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoryWarsHistoryResponse", Path: "/faction/territorywars"},
+	"getFactionTimestamp":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/faction/timestamp"},
+	"getMyFactionUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionUpgradesResponse", Path: "/faction/upgrades"},
+	"getWarfare":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionWarfareResponse", Path: "/faction/warfare"},
+	"getWarfareChains":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionWarfareChainsResponse", Path: "/faction/warfarechains"},
+	"getWarfareRaids":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionWarfareRaidsResponse", Path: "/faction/warfareraids"},
+	"getWarfareRankedWars":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionWarfareRankedResponse", Path: "/faction/warfareranked"},
+	"getWarfareTerritoryWars":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionWarfareTerritoryWarsResponse", Path: "/faction/warfareterritory"},
+	"getMyFactionWars":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionWarsResponse", Path: "/faction/wars"},
+	"getChainReport":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionChainReportResponse", Path: "/faction/{chainId}/chainreport"},
+	"getMyFactionOrganizedCrime":       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "FactionCrimeResponse", Path: "/faction/{crimeId}/crime"},
+	"getFactionBasicInformation":       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionBasicResponse", Path: "/faction/{id}/basic"},
+	"getFactionChain":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionOngoingChainResponse", Path: "/faction/{id}/chain"},
+	"getFactionCompletedChains":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionChainsResponse", Path: "/faction/{id}/chains"},
+	"getFactionHoF":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionHofResponse", Path: "/faction/{id}/hof"},
+	"getFactionMembers":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionMembersResponse", Path: "/faction/{id}/members"},
+	"getFactionRaidsHistory":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionRaidsResponse", Path: "/faction/{id}/raids"},
+	"getFactionRankedWarsHistory":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "FactionRankedWarResponse", Path: "/faction/{id}/rankedwars"},
+	"getFactionTerritory":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoriesResponse", Path: "/faction/{id}/territory"},
+	"getFactionTerritoryWarsHistory":   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoryWarsHistoryResponse", Path: "/faction/{id}/territorywars"},
+	"getFactionWars":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionWarsResponse", Path: "/faction/{id}/wars"},
+	"getRaidReport":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionRaidWarReportResponse", Path: "/faction/{raidWarId}/raidreport"},
+	"getRankedWarReport":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionRankedWarReportResponse", Path: "/faction/{rankedWarId}/rankedwarreport"},
+	"getTerritoryWarReport":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "FactionTerritoryWarReportResponse", Path: "/faction/{territoryWarId}/territorywarreport"},
+	"getForumGeneric":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetForumGenericResponseBody", Path: "/forum"},
+	"getForumCategories":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "ForumCategoriesResponse", Path: "/forum/categories"},
+	"getForumLookup":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "ForumLookupResponse", Path: "/forum/lookup"},
+	"getForumAllThreads":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "ForumThreadsResponse", Path: "/forum/threads"},
+	"getForumTimestamp":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/forum/timestamp"},
+	"getForumThreads":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "ForumThreadsResponse", Path: "/forum/{categoryIds}/threads"},
+	"getForumThreadPosts":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "ForumPostsResponse", Path: "/forum/{threadId}/posts"},
+	"getForumThread":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "ForumThreadResponse", Path: "/forum/{threadId}/thread"},
+	"getKeyGeneric":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetKeyGenericResponseBody", Path: "/key"},
+	"getKeyInfo":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "KeyInfoResponse", Path: "/key/info"},
+	"getKeyLog":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "KeyLogResponse", Path: "/key/log"},
+	"getMarketGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetMarketGenericResponseBody", Path: "/market"},
+	"getMarketAuctionHouse":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "AuctionHouseResponse", Path: "/market/auctionhouse"},
+	"getMarketBazaar":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "BazaarResponse", Path: "/market/bazaar"},
+	"getMarketLookup":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "MarketLookupResponse", Path: "/market/lookup"},
+	"getMarketPoints":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "PointsMarketResponse", Path: "/market/pointsmarket"},
+	"getMarketTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/market/timestamp"},
+	"getMarketAuctionHouseItem":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "AuctionHouseResponse", Path: "/market/{id}/auctionhouse"},
+	"getMarketAuctionHouseListing":     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "AuctionHouseListingResponse", Path: "/market/{id}/auctionhouselisting"},
+	"getMarketBazaarItem":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "BazaarResponseSpecialized", Path: "/market/{id}/bazaar"},
+	"getMarketItemMarketItem":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "MarketItemMarketResponse", Path: "/market/{id}/itemmarket"},
+	"getMarketProperties":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "MarketPropertiesResponse", Path: "/market/{propertyTypeId}/properties"},
+	"getMarketPropertiesRental":        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "MarketRentalsResponse", Path: "/market/{propertyTypeId}/rentals"},
+	"getPropertyGeneric":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetPropertyGenericResponseBody", Path: "/property"},
+	"getPropertyLookup":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "PropertyLookupResponse", Path: "/property/lookup"},
+	"getPropertyTimestamp":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/property/timestamp"},
+	"getProperty":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "PropertyPropertyResponse", Path: "/property/{id}/property"},
+	"getRacingGeneric":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetRacingGenericResponseBody", Path: "/racing"},
+	"getRacingCars":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingCarsResponse", Path: "/racing/cars"},
+	"getRacingCarUpgrades":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingCarUpgradesResponse", Path: "/racing/carupgrades"},
+	"getRacingLookup":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingLookupResponse", Path: "/racing/lookup"},
+	"getRacingRaces":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "RacingRacesResponse", Path: "/racing/races"},
+	"getRacingTimestamp":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/racing/timestamp"},
+	"getRacingTracks":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingTracksResponse", Path: "/racing/tracks"},
+	"getRacingRaceDetails":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingRaceDetailsResponse", Path: "/racing/{raceId}/race"},
+	"getRacingTrackRecords":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "RacingTrackRecordsResponse", Path: "/racing/{trackId}/records"},
+	"getTornGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetTornGenericResponseBody", Path: "/torn"},
+	"getTornAttackLog":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "AttackLogResponse", Path: "/torn/attacklog"},
+	"getTornBank":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornBankResponse", Path: "/torn/bank"},
+	"getTornBounties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "TornBountiesResponse", Path: "/torn/bounties"},
+	"getTornCalendar":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCalendarResponse", Path: "/torn/calendar"},
+	"getTornCards":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCardsResponse", Path: "/torn/cards"},
+	"getTornCityShops":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCityShopsResponse", Path: "/torn/cityshops"},
+	"getTornCompanies":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCompaniesResponse", Path: "/torn/companies"},
+	"getTornCrimes":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCrimesResponse", Path: "/torn/crimes"},
+	"getTornEducation":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornEducationResponse", Path: "/torn/education"},
+	"getTornElimination":               {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornEliminationTeamsResponse", Path: "/torn/elimination"},
+	"getTornFactionHoF":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "TornFactionHofResponse", Path: "/torn/factionhof"},
+	"getTornFactionTree":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornFactionTreeResponse", Path: "/torn/factiontree"},
+	"getTornGyms":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornGymsResponse", Path: "/torn/gyms"},
+	"getTornHalloween":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "TornHalloweenResponse", Path: "/torn/halloween"},
+	"getTornHoF":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "TornHofResponse", Path: "/torn/hof"},
+	"getTornHonors":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornHonorsResponse", Path: "/torn/honors"},
+	"getTornItemAmmo":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemAmmoResponse", Path: "/torn/itemammo"},
+	"getTornItemMods":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemModsResponse", Path: "/torn/itemmods"},
+	"getTornItems":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemsResponse", Path: "/torn/items"},
+	"getTornLogCategories":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornLogCategoriesResponse", Path: "/torn/logcategories"},
+	"getTornLogTypes":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornLogTypesResponse", Path: "/torn/logtypes"},
+	"getTornLookup":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornLookupResponse", Path: "/torn/lookup"},
+	"getTornMedals":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornMedalsResponse", Path: "/torn/medals"},
+	"getTornMerits":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornMeritsResponse", Path: "/torn/merits"},
+	"getTornMuseum":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornMuseumResponse", Path: "/torn/museum"},
+	"getTornOrganizedCrimes":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornOrganizedCrimeResponse", Path: "/torn/organizedcrimes"},
+	"getTornPokerTables":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornPokerTablesResponse", Path: "/torn/pokertables"},
+	"getTornProperties":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornProperties", Path: "/torn/properties"},
+	"getTornRps":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornRockPaperScissorsResponse", Path: "/torn/rockpaperscissors"},
+	"getTornSearchForCash":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornSearchForCashResponse", Path: "/torn/searchforcash"},
+	"getTornShoplifting":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornShopliftingResponse", Path: "/torn/shoplifting"},
+	"getTornCityStats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCityStatsResponse", Path: "/torn/stats"},
+	"getTornStocks":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornStocksResponse", Path: "/torn/stocks"},
+	"getTornTerritory":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "TornTerritoriesResponse", Path: "/torn/territory"},
+	"getTornTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/torn/timestamp"},
+	"getTornSubcrimes":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornSubcrimesResponse", Path: "/torn/{crimeId}/subcrimes"},
+	"getTornHonorsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornHonorsResponse", Path: "/torn/{ids}/honors"},
+	"getTornItemDetails":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemDetailsResponse", Path: "/torn/{ids}/itemdetails"},
+	"getTornItemsSpecific":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemsResponse", Path: "/torn/{ids}/items"},
+	"getTornItemStats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornItemStatsResponse", Path: "/torn/{ids}/itemstats"},
+	"getTornMedalsSpecific":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornMedalsResponse", Path: "/torn/{ids}/medals"},
+	"getTornEliminationTeam":           {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "TornEliminationTeamPlayersResponse", Path: "/torn/{id}/eliminationteam"},
+	"getTornLogTypesSpecific":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornLogTypesResponse", Path: "/torn/{logCategoryId}/logtypes"},
+	"getTornCityShopSpecific":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCityShopsResponse", Path: "/torn/{shopId}/cityshops"},
+	"getSpecificTornStock":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornStockDetailedResponse", Path: "/torn/{stockId}/stocks"},
+	"getTornCompaniesSpecific":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TornCompaniesResponse", Path: "/torn/{typeId}/companies"},
+	"getUserGeneric":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "GetUserGenericResponseBody", Path: "/user"},
+	"getMyAmmo":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserAmmoResponse", Path: "/user/ammo"},
+	"getMyAttacks":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "AttacksResponse", Path: "/user/attacks"},
+	"getMyAttacksSimplified":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "AttacksFullResponse", Path: "/user/attacksfull"},
+	"getMyBars":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserBarsResponse", Path: "/user/bars"},
+	"getMyBasicInformation":            {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserBasicResponse", Path: "/user/basic"},
+	"getMyBattlestats":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserBattleStatsResponse", Path: "/user/battlestats"},
+	"getMyBounties":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserBountiesResponse", Path: "/user/bounties"},
+	"getMyCalendarTime":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserCalendarResponse", Path: "/user/calendar"},
+	"getMyCasinoStreak":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserCasinoResponse", Path: "/user/casino"},
+	"getMyCompetitionInfo":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserCompetitionResponse", Path: "/user/competition"},
+	"getMyCooldowns":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserCooldownsResponse", Path: "/user/cooldowns"},
+	"getMyDiscord":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserDiscordResponse", Path: "/user/discord"},
+	"getMyEducation":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserEducationResponse", Path: "/user/education"},
+	"getMyEnlistedCars":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserEnlistedCarsResponse", Path: "/user/enlistedcars"},
+	"getMyEquipment":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserEquipmentResponse", Path: "/user/equipment"},
+	"getMyEvents":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "UserEventsResponse", Path: "/user/events"},
+	"getMyFaction":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserFactionResponse", Path: "/user/faction"},
+	"getMyForumFeed":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserForumFeedResponse", Path: "/user/forumfeed"},
+	"getMyForumFriendsUpdates":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserForumFriendsResponse", Path: "/user/forumfriends"},
+	"getMyForumPosts":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserForumPostsResponse", Path: "/user/forumposts"},
+	"getMyForumSubscribedThreads":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserForumSubscribedThreadsResponse", Path: "/user/forumsubscribedthreads"},
+	"getMyForumThreads":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserForumThreadsResponse", Path: "/user/forumthreads"},
+	"getMyGym":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserGymResponse", Path: "/user/gym"},
+	"getMyHalloween":                   {Stability: "Untable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserHalloweenResponse", Path: "/user/halloween"},
+	"getMyHoF":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserHofResponse", Path: "/user/hof"},
+	"getMyHonors":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserHonorsResponse", Path: "/user/honors"},
+	"getMyIcons":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserIconsResponse", Path: "/user/icons"},
+	"getMyInventory":                   {Stability: "Stable", CacheTTLSeconds: 900, AccessLevel: "minimal", Paginated: true, ResponseSchema: "UserInventoryResponse", Path: "/user/inventory"},
+	"getMyItemMarketListings":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "UserItemMarketResponse", Path: "/user/itemmarket"},
+	"getMyItemModsInformation":         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserItemModsResponse", Path: "/user/itemmods"},
+	"getMyJob":                         {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserJobResponse", Path: "/user/job"},
+	"getMyJobPoints":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserJobPointsResponse", Path: "/user/jobpoints"},
+	"getMyJobRanks":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserJobRanksResponse", Path: "/user/jobranks"},
+	"getMyContactsList":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "UserListResponse", Path: "/user/list"},
+	"getMyLogs":                        {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "full", Paginated: true, ResponseSchema: "UserLogsResponse", Path: "/user/log"},
+	"getUserLookup":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserLookupResponse", Path: "/user/lookup"},
+	"getMyMedals":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserMedalsResponse", Path: "/user/medals"},
+	"getMyMerits":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserMeritsResponse", Path: "/user/merits"},
+	"getMyMessages":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "UserMessagesResponse", Path: "/user/messages"},
+	"getMyMissions":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserMissionsResponse", Path: "/user/missions"},
+	"getMyMoney":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserMoneyResponse", Path: "/user/money"},
+	"getMyNetworth":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserNetworthResponse", Path: "/user/networth"},
+	"getMyNewEvents":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserNewEventsResponse", Path: "/user/newevents"},
+	"getMyNewMessages":                 {Stability: "Stable", CacheTTLSeconds: 3600, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserNewMessagesResponse", Path: "/user/newmessages"},
+	"getMyNotifications":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserNotificationsResponse", Path: "/user/notifications"},
+	"getMyOrganizedCrime":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserOrganizedCrimeResponse", Path: "/user/organizedcrime"},
+	"getMyAvailableOrganizedCrimes":    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserOrganizedCrimesResponse", Path: "/user/organizedcrimes"},
+	"getMyPerks":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserPerksResponse", Path: "/user/perks"},
+	"getMyPersonalStats":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserPersonalStatsResponse", Path: "/user/personalstats"},
+	"getMyProfile":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserProfileResponse", Path: "/user/profile"},
+	"getMyProperties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserPropertiesResponse", Path: "/user/properties"},
+	"getMyProperty":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserPropertyResponse", Path: "/user/property"},
+	"getMyRaces":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: true, ResponseSchema: "UserRacesResponse", Path: "/user/races"},
+	"getMyRacingRecords":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserRacingRecordsResponse", Path: "/user/racingrecords"},
+	"getMyRefills":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserRefillsResponse", Path: "/user/refills"},
+	"getMyReports":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "ReportsResponse", Path: "/user/reports"},
+	"getMyRevives":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "RevivesResponse", Path: "/user/revives"},
+	"getMyRevivesSimplified":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "RevivesFullResponse", Path: "/user/revivesFull"},
+	"getUsersSearch":                   {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserSearchResponse", Path: "/user/search"},
+	"getMySkills":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserSkillsResponse", Path: "/user/skills"},
+	"getUsersSnapshot":                 {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "", Path: "/user/snapshot"},
+	"getMyStocks":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserStocksResponse", Path: "/user/stocks"},
+	"getUserTimestamp":                 {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "TimestampResponse", Path: "/user/timestamp"},
+	"getMyTrades":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: true, ResponseSchema: "UserTradesResponse", Path: "/user/trades"},
+	"getMyTravelInformation":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserTravelResponse", Path: "/user/travel"},
+	"getMyTravelInventory":             {Stability: "Unstable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserTravelInventoryResponse", Path: "/user/travelinventory"},
+	"getMyVirusCodingInformation":      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserVirusResponse", Path: "/user/virus"},
+	"getMyWeaponExp":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserWeaponExpResponse", Path: "/user/weaponexp"},
+	"getMyWorkstats":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserWorkStatsResponse", Path: "/user/workstats"},
+	"getMyCrimes":                      {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "minimal", Paginated: false, ResponseSchema: "UserCrimesResponse", Path: "/user/{crimeId}/crimes"},
+	"getUserBasicInformation":          {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserBasicResponse", Path: "/user/{id}/basic"},
+	"getUserBounties":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserBountiesResponse", Path: "/user/{id}/bounties"},
+	"getUserCompetitionInfo":           {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserCompetitionResponse", Path: "/user/{id}/competition"},
+	"getUserDiscord":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserDiscordResponse", Path: "/user/{id}/discord"},
+	"getUserFaction":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserFactionResponse", Path: "/user/{id}/faction"},
+	"getUserForumPosts":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserForumPostsResponse", Path: "/user/{id}/forumposts"},
+	"getUserForumThreads":              {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserForumThreadsResponse", Path: "/user/{id}/forumthreads"},
+	"getUserHoF":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserHofResponse", Path: "/user/{id}/hof"},
+	"getUserIcons":                     {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserIconsResponse", Path: "/user/{id}/icons"},
+	"getUserJob":                       {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserJobResponse", Path: "/user/{id}/job"},
+	"getUserMedals":                    {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserMedalsResponse", Path: "/user/{id}/medals"},
+	"getUserPersonalStats":             {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserPersonalStatsResponse", Path: "/user/{id}/personalstats"},
+	"getUserProfile":                   {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserProfileResponse", Path: "/user/{id}/profile"},
+	"getUserProperties":                {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: true, ResponseSchema: "UserPropertiesResponse", Path: "/user/{id}/properties"},
+	"getUserProperty":                  {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "public", Paginated: false, ResponseSchema: "UserPropertyResponse", Path: "/user/{id}/property"},
+	"getMyDetailedTrade":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserTradeResponse", Path: "/user/{tradeId}/trade"},
+}
+
+// SpecSHA256 is the SHA-256 of the pinned OpenAPI document spec/openapi-6.15.0.json (P8.7).
+const SpecSHA256 = "2b8205f8a3da430225e85df5d2d69d73a299296cfcae34809dfaff0c9d0ff872"
+
+var operationDecoders = map[string]func([]byte) (any, error){
+	"getCompanyGeneric": func(raw []byte) (any, error) {
+		var out GetCompanyGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompanyApplications": func(raw []byte) (any, error) {
+		var out GetMyCompanyApplicationsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompanyEmployees": func(raw []byte) (any, error) {
+		var out GetMyCompanyEmployeesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompanyLookup": func(raw []byte) (any, error) {
+		var out GetCompanyLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompanyNews": func(raw []byte) (any, error) {
+		var out GetMyCompanyNewsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompanyProfile": func(raw []byte) (any, error) {
+		var out GetMyCompanyProfileResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompaniesSearch": func(raw []byte) (any, error) {
+		var out GetCompaniesSearchResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompaniesSnapshot": func(raw []byte) (any, error) {
+		var out GetCompaniesSnapshotResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompanyStock": func(raw []byte) (any, error) {
+		var out GetMyCompanyStockResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompanyTimestamp": func(raw []byte) (any, error) {
+		var out GetCompanyTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompanyEmployees": func(raw []byte) (any, error) {
+		var out GetCompanyEmployeesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompanyProfile": func(raw []byte) (any, error) {
+		var out GetCompanyProfileResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getCompaniesList": func(raw []byte) (any, error) {
+		var out GetCompaniesListResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionGeneric": func(raw []byte) (any, error) {
+		var out GetFactionGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionApplications": func(raw []byte) (any, error) {
+		var out GetMyFactionApplicationsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionAttacks": func(raw []byte) (any, error) {
+		var out GetMyFactionAttacksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionAttacksSimplified": func(raw []byte) (any, error) {
+		var out GetMyFactionAttacksSimplifiedResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionBalance": func(raw []byte) (any, error) {
+		var out GetMyFactionBalanceResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionBasicInformation": func(raw []byte) (any, error) {
+		var out GetMyFactionBasicInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionChain": func(raw []byte) (any, error) {
+		var out GetMyFactionChainResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionLatestChainReport": func(raw []byte) (any, error) {
+		var out GetMyFactionLatestChainReportResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionCompletedChains": func(raw []byte) (any, error) {
+		var out GetMyFactionCompletedChainsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionContributors": func(raw []byte) (any, error) {
+		var out GetMyFactionContributorsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionCrimeExp": func(raw []byte) (any, error) {
+		var out GetMyFactionCrimeExpResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionOrganizedCrimes": func(raw []byte) (any, error) {
+		var out GetMyFactionOrganizedCrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfareDirtyBombs": func(raw []byte) (any, error) {
+		var out GetWarfareDirtyBombsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionHoF": func(raw []byte) (any, error) {
+		var out GetMyFactionHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionInventory": func(raw []byte) (any, error) {
+		var out GetMyFactionInventoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionLookup": func(raw []byte) (any, error) {
+		var out GetFactionLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionMembers": func(raw []byte) (any, error) {
+		var out GetMyFactionMembersResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionNews": func(raw []byte) (any, error) {
+		var out GetMyFactionNewsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionPositions": func(raw []byte) (any, error) {
+		var out GetMyFactionPositionsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionRackets": func(raw []byte) (any, error) {
+		var out GetFactionRacketsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionRaidsHistory": func(raw []byte) (any, error) {
+		var out GetMyFactionRaidsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionRankedWarsHistory": func(raw []byte) (any, error) {
+		var out GetMyFactionRankedWarsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionReports": func(raw []byte) (any, error) {
+		var out GetMyFactionReportsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionRevives": func(raw []byte) (any, error) {
+		var out GetMyFactionRevivesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionRevivesSimplified": func(raw []byte) (any, error) {
+		var out GetMyFactionRevivesSimplifiedResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionSearch": func(raw []byte) (any, error) {
+		var out GetFactionSearchResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionsSnapshot": func(raw []byte) (any, error) {
+		var out GetFactionsSnapshotResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionStats": func(raw []byte) (any, error) {
+		var out GetMyFactionStatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionTerritory": func(raw []byte) (any, error) {
+		var out GetMyFactionTerritoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTerritoryOwnership": func(raw []byte) (any, error) {
+		var out GetTerritoryOwnershipResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionTerritoryWarsHistory": func(raw []byte) (any, error) {
+		var out GetMyFactionTerritoryWarsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionTimestamp": func(raw []byte) (any, error) {
+		var out GetFactionTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionUpgrades": func(raw []byte) (any, error) {
+		var out GetMyFactionUpgradesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfare": func(raw []byte) (any, error) {
+		var out GetWarfareResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfareChains": func(raw []byte) (any, error) {
+		var out GetWarfareChainsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfareRaids": func(raw []byte) (any, error) {
+		var out GetWarfareRaidsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfareRankedWars": func(raw []byte) (any, error) {
+		var out GetWarfareRankedWarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getWarfareTerritoryWars": func(raw []byte) (any, error) {
+		var out GetWarfareTerritoryWarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionWars": func(raw []byte) (any, error) {
+		var out GetMyFactionWarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getChainReport": func(raw []byte) (any, error) {
+		var out GetChainReportResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFactionOrganizedCrime": func(raw []byte) (any, error) {
+		var out GetMyFactionOrganizedCrimeResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionBasicInformation": func(raw []byte) (any, error) {
+		var out GetFactionBasicInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionChain": func(raw []byte) (any, error) {
+		var out GetFactionChainResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionCompletedChains": func(raw []byte) (any, error) {
+		var out GetFactionCompletedChainsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionHoF": func(raw []byte) (any, error) {
+		var out GetFactionHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionMembers": func(raw []byte) (any, error) {
+		var out GetFactionMembersResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionRaidsHistory": func(raw []byte) (any, error) {
+		var out GetFactionRaidsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionRankedWarsHistory": func(raw []byte) (any, error) {
+		var out GetFactionRankedWarsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionTerritory": func(raw []byte) (any, error) {
+		var out GetFactionTerritoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionTerritoryWarsHistory": func(raw []byte) (any, error) {
+		var out GetFactionTerritoryWarsHistoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getFactionWars": func(raw []byte) (any, error) {
+		var out GetFactionWarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRaidReport": func(raw []byte) (any, error) {
+		var out GetRaidReportResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRankedWarReport": func(raw []byte) (any, error) {
+		var out GetRankedWarReportResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTerritoryWarReport": func(raw []byte) (any, error) {
+		var out GetTerritoryWarReportResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumGeneric": func(raw []byte) (any, error) {
+		var out GetForumGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumCategories": func(raw []byte) (any, error) {
+		var out GetForumCategoriesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumLookup": func(raw []byte) (any, error) {
+		var out GetForumLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumAllThreads": func(raw []byte) (any, error) {
+		var out GetForumAllThreadsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumTimestamp": func(raw []byte) (any, error) {
+		var out GetForumTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumThreads": func(raw []byte) (any, error) {
+		var out GetForumThreadsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumThreadPosts": func(raw []byte) (any, error) {
+		var out GetForumThreadPostsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getForumThread": func(raw []byte) (any, error) {
+		var out GetForumThreadResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getKeyGeneric": func(raw []byte) (any, error) {
+		var out GetKeyGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getKeyInfo": func(raw []byte) (any, error) {
+		var out GetKeyInfoResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getKeyLog": func(raw []byte) (any, error) {
+		var out GetKeyLogResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketGeneric": func(raw []byte) (any, error) {
+		var out GetMarketGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketAuctionHouse": func(raw []byte) (any, error) {
+		var out GetMarketAuctionHouseResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketBazaar": func(raw []byte) (any, error) {
+		var out GetMarketBazaarResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketLookup": func(raw []byte) (any, error) {
+		var out GetMarketLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketPoints": func(raw []byte) (any, error) {
+		var out GetMarketPointsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketTimestamp": func(raw []byte) (any, error) {
+		var out GetMarketTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketAuctionHouseItem": func(raw []byte) (any, error) {
+		var out GetMarketAuctionHouseItemResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketAuctionHouseListing": func(raw []byte) (any, error) {
+		var out GetMarketAuctionHouseListingResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketBazaarItem": func(raw []byte) (any, error) {
+		var out GetMarketBazaarItemResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketItemMarketItem": func(raw []byte) (any, error) {
+		var out GetMarketItemMarketItemResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketProperties": func(raw []byte) (any, error) {
+		var out GetMarketPropertiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMarketPropertiesRental": func(raw []byte) (any, error) {
+		var out GetMarketPropertiesRentalResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getPropertyGeneric": func(raw []byte) (any, error) {
+		var out GetPropertyGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getPropertyLookup": func(raw []byte) (any, error) {
+		var out GetPropertyLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getPropertyTimestamp": func(raw []byte) (any, error) {
+		var out GetPropertyTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getProperty": func(raw []byte) (any, error) {
+		var out GetPropertyResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingGeneric": func(raw []byte) (any, error) {
+		var out GetRacingGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingCars": func(raw []byte) (any, error) {
+		var out GetRacingCarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingCarUpgrades": func(raw []byte) (any, error) {
+		var out GetRacingCarUpgradesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingLookup": func(raw []byte) (any, error) {
+		var out GetRacingLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingRaces": func(raw []byte) (any, error) {
+		var out GetRacingRacesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingTimestamp": func(raw []byte) (any, error) {
+		var out GetRacingTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingTracks": func(raw []byte) (any, error) {
+		var out GetRacingTracksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingRaceDetails": func(raw []byte) (any, error) {
+		var out GetRacingRaceDetailsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getRacingTrackRecords": func(raw []byte) (any, error) {
+		var out GetRacingTrackRecordsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornGeneric": func(raw []byte) (any, error) {
+		var out GetTornGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornAttackLog": func(raw []byte) (any, error) {
+		var out GetTornAttackLogResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornBank": func(raw []byte) (any, error) {
+		var out GetTornBankResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornBounties": func(raw []byte) (any, error) {
+		var out GetTornBountiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCalendar": func(raw []byte) (any, error) {
+		var out GetTornCalendarResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCards": func(raw []byte) (any, error) {
+		var out GetTornCardsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCityShops": func(raw []byte) (any, error) {
+		var out GetTornCityShopsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCompanies": func(raw []byte) (any, error) {
+		var out GetTornCompaniesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCrimes": func(raw []byte) (any, error) {
+		var out GetTornCrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornEducation": func(raw []byte) (any, error) {
+		var out GetTornEducationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornElimination": func(raw []byte) (any, error) {
+		var out GetTornEliminationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornFactionHoF": func(raw []byte) (any, error) {
+		var out GetTornFactionHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornFactionTree": func(raw []byte) (any, error) {
+		var out GetTornFactionTreeResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornGyms": func(raw []byte) (any, error) {
+		var out GetTornGymsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornHalloween": func(raw []byte) (any, error) {
+		var out GetTornHalloweenResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornHoF": func(raw []byte) (any, error) {
+		var out GetTornHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornHonors": func(raw []byte) (any, error) {
+		var out GetTornHonorsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItemAmmo": func(raw []byte) (any, error) {
+		var out GetTornItemAmmoResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItemMods": func(raw []byte) (any, error) {
+		var out GetTornItemModsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItems": func(raw []byte) (any, error) {
+		var out GetTornItemsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornLogCategories": func(raw []byte) (any, error) {
+		var out GetTornLogCategoriesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornLogTypes": func(raw []byte) (any, error) {
+		var out GetTornLogTypesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornLookup": func(raw []byte) (any, error) {
+		var out GetTornLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornMedals": func(raw []byte) (any, error) {
+		var out GetTornMedalsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornMerits": func(raw []byte) (any, error) {
+		var out GetTornMeritsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornMuseum": func(raw []byte) (any, error) {
+		var out GetTornMuseumResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornOrganizedCrimes": func(raw []byte) (any, error) {
+		var out GetTornOrganizedCrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornPokerTables": func(raw []byte) (any, error) {
+		var out GetTornPokerTablesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornProperties": func(raw []byte) (any, error) {
+		var out GetTornPropertiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornRps": func(raw []byte) (any, error) {
+		var out GetTornRpsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornSearchForCash": func(raw []byte) (any, error) {
+		var out GetTornSearchForCashResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornShoplifting": func(raw []byte) (any, error) {
+		var out GetTornShopliftingResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCityStats": func(raw []byte) (any, error) {
+		var out GetTornCityStatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornStocks": func(raw []byte) (any, error) {
+		var out GetTornStocksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornTerritory": func(raw []byte) (any, error) {
+		var out GetTornTerritoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornTimestamp": func(raw []byte) (any, error) {
+		var out GetTornTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornSubcrimes": func(raw []byte) (any, error) {
+		var out GetTornSubcrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornHonorsSpecific": func(raw []byte) (any, error) {
+		var out GetTornHonorsSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItemDetails": func(raw []byte) (any, error) {
+		var out GetTornItemDetailsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItemsSpecific": func(raw []byte) (any, error) {
+		var out GetTornItemsSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornItemStats": func(raw []byte) (any, error) {
+		var out GetTornItemStatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornMedalsSpecific": func(raw []byte) (any, error) {
+		var out GetTornMedalsSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornEliminationTeam": func(raw []byte) (any, error) {
+		var out GetTornEliminationTeamResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornLogTypesSpecific": func(raw []byte) (any, error) {
+		var out GetTornLogTypesSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCityShopSpecific": func(raw []byte) (any, error) {
+		var out GetTornCityShopSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getSpecificTornStock": func(raw []byte) (any, error) {
+		var out GetSpecificTornStockResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getTornCompaniesSpecific": func(raw []byte) (any, error) {
+		var out GetTornCompaniesSpecificResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserGeneric": func(raw []byte) (any, error) {
+		var out GetUserGenericResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyAmmo": func(raw []byte) (any, error) {
+		var out GetMyAmmoResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyAttacks": func(raw []byte) (any, error) {
+		var out GetMyAttacksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyAttacksSimplified": func(raw []byte) (any, error) {
+		var out GetMyAttacksSimplifiedResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyBars": func(raw []byte) (any, error) {
+		var out GetMyBarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyBasicInformation": func(raw []byte) (any, error) {
+		var out GetMyBasicInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyBattlestats": func(raw []byte) (any, error) {
+		var out GetMyBattlestatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyBounties": func(raw []byte) (any, error) {
+		var out GetMyBountiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCalendarTime": func(raw []byte) (any, error) {
+		var out GetMyCalendarTimeResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCasinoStreak": func(raw []byte) (any, error) {
+		var out GetMyCasinoStreakResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCompetitionInfo": func(raw []byte) (any, error) {
+		var out GetMyCompetitionInfoResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCooldowns": func(raw []byte) (any, error) {
+		var out GetMyCooldownsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyDiscord": func(raw []byte) (any, error) {
+		var out GetMyDiscordResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyEducation": func(raw []byte) (any, error) {
+		var out GetMyEducationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyEnlistedCars": func(raw []byte) (any, error) {
+		var out GetMyEnlistedCarsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyEquipment": func(raw []byte) (any, error) {
+		var out GetMyEquipmentResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyEvents": func(raw []byte) (any, error) {
+		var out GetMyEventsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyFaction": func(raw []byte) (any, error) {
+		var out GetMyFactionResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyForumFeed": func(raw []byte) (any, error) {
+		var out GetMyForumFeedResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyForumFriendsUpdates": func(raw []byte) (any, error) {
+		var out GetMyForumFriendsUpdatesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyForumPosts": func(raw []byte) (any, error) {
+		var out GetMyForumPostsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyForumSubscribedThreads": func(raw []byte) (any, error) {
+		var out GetMyForumSubscribedThreadsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyForumThreads": func(raw []byte) (any, error) {
+		var out GetMyForumThreadsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyGym": func(raw []byte) (any, error) {
+		var out GetMyGymResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyHalloween": func(raw []byte) (any, error) {
+		var out GetMyHalloweenResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyHoF": func(raw []byte) (any, error) {
+		var out GetMyHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyHonors": func(raw []byte) (any, error) {
+		var out GetMyHonorsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyIcons": func(raw []byte) (any, error) {
+		var out GetMyIconsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyInventory": func(raw []byte) (any, error) {
+		var out GetMyInventoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyItemMarketListings": func(raw []byte) (any, error) {
+		var out GetMyItemMarketListingsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyItemModsInformation": func(raw []byte) (any, error) {
+		var out GetMyItemModsInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyJob": func(raw []byte) (any, error) {
+		var out GetMyJobResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyJobPoints": func(raw []byte) (any, error) {
+		var out GetMyJobPointsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyJobRanks": func(raw []byte) (any, error) {
+		var out GetMyJobRanksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyContactsList": func(raw []byte) (any, error) {
+		var out GetMyContactsListResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyLogs": func(raw []byte) (any, error) {
+		var out GetMyLogsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserLookup": func(raw []byte) (any, error) {
+		var out GetUserLookupResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyMedals": func(raw []byte) (any, error) {
+		var out GetMyMedalsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyMerits": func(raw []byte) (any, error) {
+		var out GetMyMeritsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyMessages": func(raw []byte) (any, error) {
+		var out GetMyMessagesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyMissions": func(raw []byte) (any, error) {
+		var out GetMyMissionsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyMoney": func(raw []byte) (any, error) {
+		var out GetMyMoneyResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyNetworth": func(raw []byte) (any, error) {
+		var out GetMyNetworthResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyNewEvents": func(raw []byte) (any, error) {
+		var out GetMyNewEventsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyNewMessages": func(raw []byte) (any, error) {
+		var out GetMyNewMessagesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyNotifications": func(raw []byte) (any, error) {
+		var out GetMyNotificationsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyOrganizedCrime": func(raw []byte) (any, error) {
+		var out GetMyOrganizedCrimeResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyAvailableOrganizedCrimes": func(raw []byte) (any, error) {
+		var out GetMyAvailableOrganizedCrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyPerks": func(raw []byte) (any, error) {
+		var out GetMyPerksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyPersonalStats": func(raw []byte) (any, error) {
+		var out GetMyPersonalStatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyProfile": func(raw []byte) (any, error) {
+		var out GetMyProfileResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyProperties": func(raw []byte) (any, error) {
+		var out GetMyPropertiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyProperty": func(raw []byte) (any, error) {
+		var out GetMyPropertyResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyRaces": func(raw []byte) (any, error) {
+		var out GetMyRacesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyRacingRecords": func(raw []byte) (any, error) {
+		var out GetMyRacingRecordsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyRefills": func(raw []byte) (any, error) {
+		var out GetMyRefillsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyReports": func(raw []byte) (any, error) {
+		var out GetMyReportsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyRevives": func(raw []byte) (any, error) {
+		var out GetMyRevivesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyRevivesSimplified": func(raw []byte) (any, error) {
+		var out GetMyRevivesSimplifiedResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUsersSearch": func(raw []byte) (any, error) {
+		var out GetUsersSearchResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMySkills": func(raw []byte) (any, error) {
+		var out GetMySkillsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUsersSnapshot": func(raw []byte) (any, error) {
+		var out GetUsersSnapshotResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyStocks": func(raw []byte) (any, error) {
+		var out GetMyStocksResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserTimestamp": func(raw []byte) (any, error) {
+		var out GetUserTimestampResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyTrades": func(raw []byte) (any, error) {
+		var out GetMyTradesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyTravelInformation": func(raw []byte) (any, error) {
+		var out GetMyTravelInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyTravelInventory": func(raw []byte) (any, error) {
+		var out GetMyTravelInventoryResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyVirusCodingInformation": func(raw []byte) (any, error) {
+		var out GetMyVirusCodingInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyWeaponExp": func(raw []byte) (any, error) {
+		var out GetMyWeaponExpResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyWorkstats": func(raw []byte) (any, error) {
+		var out GetMyWorkstatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyCrimes": func(raw []byte) (any, error) {
+		var out GetMyCrimesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserBasicInformation": func(raw []byte) (any, error) {
+		var out GetUserBasicInformationResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserBounties": func(raw []byte) (any, error) {
+		var out GetUserBountiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserCompetitionInfo": func(raw []byte) (any, error) {
+		var out GetUserCompetitionInfoResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserDiscord": func(raw []byte) (any, error) {
+		var out GetUserDiscordResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserFaction": func(raw []byte) (any, error) {
+		var out GetUserFactionResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserForumPosts": func(raw []byte) (any, error) {
+		var out GetUserForumPostsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserForumThreads": func(raw []byte) (any, error) {
+		var out GetUserForumThreadsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserHoF": func(raw []byte) (any, error) {
+		var out GetUserHoFResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserIcons": func(raw []byte) (any, error) {
+		var out GetUserIconsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserJob": func(raw []byte) (any, error) {
+		var out GetUserJobResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserMedals": func(raw []byte) (any, error) {
+		var out GetUserMedalsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserPersonalStats": func(raw []byte) (any, error) {
+		var out GetUserPersonalStatsResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserProfile": func(raw []byte) (any, error) {
+		var out GetUserProfileResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserProperties": func(raw []byte) (any, error) {
+		var out GetUserPropertiesResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getUserProperty": func(raw []byte) (any, error) {
+		var out GetUserPropertyResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
+	"getMyDetailedTrade": func(raw []byte) (any, error) {
+		var out GetMyDetailedTradeResponse
+		err := decodeModel(raw, &out)
+		return &out, err
+	},
 }

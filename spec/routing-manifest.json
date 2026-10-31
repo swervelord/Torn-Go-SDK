@@ -2379,7 +2379,8 @@
       "standalone": false,
       "legacy": true,
       "csv": false,
-      "endpoints": null
+      "endpoints": null,
+      "v2_fallback": true
     },
     {
       "resource": "torn",
@@ -2901,7 +2902,8 @@
       "standalone": false,
       "legacy": true,
       "csv": false,
-      "endpoints": null
+      "endpoints": null,
+      "v2_fallback": true
     },
     {
       "resource": "torn",
@@ -3319,7 +3321,8 @@
       "standalone": false,
       "legacy": true,
       "csv": false,
-      "endpoints": null
+      "endpoints": null,
+      "v2_fallback": true
     },
     {
       "resource": "user",
@@ -3482,7 +3485,8 @@
       "standalone": false,
       "legacy": true,
       "csv": false,
-      "endpoints": null
+      "endpoints": null,
+      "v2_fallback": true
     },
     {
       "resource": "user",
@@ -3525,7 +3529,8 @@
       "standalone": false,
       "legacy": true,
       "csv": false,
-      "endpoints": null
+      "endpoints": null,
+      "v2_fallback": true
     },
     {
       "resource": "user",

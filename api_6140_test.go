@@ -99,7 +99,12 @@ func TestHalloweenTreatsAndUpgradeFidelity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := json.Unmarshal(missing, &upgrade); err == nil {
-		t.Fatal("accepted missing required type")
+	// spec-overrides.json: Torn omits type live, so tolerant decoding accepts
+	// it and strict validation still reports it (P1.2, P1.3).
+	if err := json.Unmarshal(missing, &upgrade); err != nil || upgrade.Type != nil {
+		t.Fatalf("missing overridden type: %v %s", err, upgrade.Type)
+	}
+	if err := models.ValidateStrict("TornHalloweenUpgrade", missing); err == nil {
+		t.Fatal("strict validation accepted missing required type")
 	}
 }

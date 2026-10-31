@@ -36,7 +36,7 @@ func TestDuplicateKeysShareOneQuotaIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(c.keys) != 2 || len(c.cfg.APIKeys) != 2 || c.cfg.APIKeys[0] != "first" {
+	if len(c.pool.keys) != 2 || len(c.cfg.APIKeys) != 2 || c.cfg.APIKeys[0] != "first" {
 		t.Fatal("duplicate credentials created independent quota buckets")
 	}
 }

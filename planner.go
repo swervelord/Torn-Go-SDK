@@ -3,6 +3,7 @@ package torn
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
 	"sort"
@@ -18,7 +19,23 @@ type PlannedCall struct {
 	Version       string
 	Fallback      bool
 	FallbackCalls []PlannedCall
+	// Resource is the selection resource; codes 22/23 re-plan the call on the
+	// other API version for it (P4.3).
+	Resource string
+	// Access is the highest documented key access level the call needs (P6.1).
+	Access AccessLevel
+	source map[string]any
 }
+
+// sourceParams returns the caller's original parameters for re-planning.
+func (p PlannedCall) sourceParams() map[string]any {
+	if p.source != nil {
+		return p.source
+	}
+	return p.Params
+}
+
+// Plan is an ordered list of independently executable calls.
 type Plan struct{ Calls []PlannedCall }
 
 // SelectionCapability records the documented routing surface. CSV endpoints
@@ -31,7 +48,12 @@ type SelectionCapability struct {
 	Legacy     bool                `json:"legacy"`
 	CSV        bool                `json:"csv"`
 	Endpoints  []SelectionEndpoint `json:"endpoints"`
+	// V2Fallback marks v1-only selections the v2 selection enum lists as
+	// served by Torn's own v1 fallback; they are requested on v2 first.
+	V2Fallback bool `json:"v2_fallback,omitempty"`
 }
+
+// SelectionEndpoint is one exact v2 path serving a selection.
 type SelectionEndpoint struct {
 	ID         string   `json:"id"`
 	Path       string   `json:"path"`
@@ -49,6 +71,7 @@ type LegacySelectionCapability struct {
 	LegacyOnly bool   `json:"legacy_only"`
 }
 
+// LegacySelections returns the v1 selection catalog.
 func LegacySelections() []LegacySelectionCapability {
 	return append([]LegacySelectionCapability(nil), legacySelectionCatalog...)
 }
@@ -60,9 +83,13 @@ func supportsLegacy(resource, name string) bool {
 	}
 	return false
 }
+
+// SupportsV1Selection reports whether the v1 catalog lists resource/name.
 func SupportsV1Selection(resource, name string) bool {
 	return supportsLegacy(strings.ToLower(strings.TrimSpace(resource)), strings.ToLower(strings.TrimSpace(name)))
 }
+
+// V1Catalog returns v1 selection names grouped by resource.
 func V1Catalog() map[string][]string {
 	out := map[string][]string{}
 	for _, c := range legacySelectionCatalog {
@@ -70,10 +97,16 @@ func V1Catalog() map[string][]string {
 	}
 	return out
 }
+
+// AllowedV1Filters lists the query filters forwarded to v1 calls.
 func AllowedV1Filters() []string { return append([]string(nil), legacyAllowedFilters...) }
+
+// PlanV1Selections is an alias of PlanLegacySelections.
 func PlanV1Selections(resource string, selections []string, params map[string]any) (Plan, error) {
 	return PlanLegacySelections(resource, selections, params)
 }
+
+// PlanLegacySelections plans catalogued selections as one v1 call.
 func PlanLegacySelections(resource string, selections []string, params map[string]any) (Plan, error) {
 	resource = strings.ToLower(strings.TrimSpace(resource))
 	set := map[string]bool{}
@@ -110,7 +143,7 @@ func Capabilities() []SelectionCapability {
 // map. Parameter values are never merged across independently supplied requests.
 func PlanSelections(resource string, selections []string, params map[string]any) (Plan, error) {
 	resource = strings.ToLower(strings.TrimSpace(resource))
-	generic, ok := genericCatalog[resource]
+	_, ok := genericCatalog[resource]
 	if !ok {
 		return Plan{}, fmt.Errorf("unknown resource %q", resource)
 	}
@@ -150,10 +183,17 @@ func PlanSelections(resource string, selections []string, params map[string]any)
 				legacy = append(legacy, name)
 				continue
 			}
-			return Plan{}, fmt.Errorf("unknown %s selection %q", resource, name)
+			// P1.5: a selection this SDK does not know yet is sent as a v2
+			// generic selection and returned as raw JSON.
+			combined = append(combined, name)
+			continue
 		}
 		if cap.CSV {
 			return Plan{}, fmt.Errorf("%s/%s is CSV; use the exact text endpoint", resource, name)
+		}
+		if cap.Legacy && cap.V2Fallback {
+			combined = append(combined, name)
+			continue
 		}
 		if cap.Legacy {
 			legacy = append(legacy, name)
@@ -205,15 +245,19 @@ func PlanSelections(resource string, selections []string, params map[string]any)
 		if err != nil {
 			return Plan{}, err
 		}
+		forwardUnknown(call.Params, params, resource)
+		call.Resource, call.source = resource, params
+		if m, ok := operationMetadata[selected.ID]; ok {
+			call.Access = m.AccessLevel
+		}
 		if supportsLegacy(resource, name) {
 			call.FallbackCalls = []PlannedCall{legacyCall(resource, []string{name}, params)}
 		}
 		plan.Calls = append(plan.Calls, call)
 	}
 	if len(combined) > 0 {
-		p := allowedParams(genericParams, generic.Parameters)
-		p["selections"] = strings.Join(combined, ",")
-		call := PlannedCall{Operation: Operation{ID: generic.ID, Path: generic.Path, Method: "GET"}, Selections: combined, Params: p, Version: "v2"}
+		call := genericCall(resource, combined, genericParams)
+		call.source = params
 		for _, s := range combined {
 			if supportsLegacy(resource, s) {
 				call.FallbackCalls = append(call.FallbackCalls, legacyCall(resource, []string{s}, genericParams))
@@ -225,6 +269,60 @@ func PlanSelections(resource string, selections []string, params map[string]any)
 		plan.Calls = append(plan.Calls, legacyCall(resource, legacy, params))
 	}
 	return plan, nil
+}
+
+// genericCall plans selections on the v2 generic /{resource} path.
+func genericCall(resource string, selections []string, params map[string]any) PlannedCall {
+	generic := genericCatalog[resource]
+	p := allowedParams(params, generic.Parameters)
+	forwardUnknown(p, params, resource)
+	p["selections"] = strings.Join(selections, ",")
+	call := PlannedCall{Operation: Operation{ID: generic.ID, Path: generic.Path, Method: "GET"}, Selections: selections, Params: p, Version: "v2", Resource: resource, source: params}
+	for _, s := range selections {
+		if level, ok := SelectionAccessLevel(resource, s); ok && accessRank[level] > accessRank[call.Access] {
+			call.Access = level
+		}
+	}
+	return call
+}
+
+// documentedParams lists every parameter any endpoint of a resource documents.
+func documentedParams(resource string) map[string]bool {
+	out := map[string]bool{"id": true, "key": true, "selections": true, "legacy": true}
+	for _, n := range genericCatalog[resource].Parameters {
+		out[n] = true
+	}
+	for _, c := range selectionCatalog {
+		if c.Resource != resource {
+			continue
+		}
+		for _, ep := range c.Endpoints {
+			for _, n := range ep.Parameters {
+				out[n] = true
+			}
+			for _, n := range ep.Required {
+				out[n] = true
+			}
+		}
+	}
+	for _, n := range legacyAllowedFilters {
+		out[n] = true
+	}
+	return out
+}
+
+// forwardUnknown copies parameters no endpoint of the resource documents, so
+// new upstream filters are forwarded verbatim instead of dropped (P1.5).
+func forwardUnknown(dst, params map[string]any, resource string) {
+	if len(params) == 0 {
+		return
+	}
+	documented := documentedParams(resource)
+	for k, v := range params {
+		if !documented[k] {
+			dst[k] = v
+		}
+	}
 }
 
 func parameterValue(params map[string]any, name string) (any, bool) {
@@ -274,6 +372,7 @@ func endpointCall(ep SelectionEndpoint, selections []string, params map[string]a
 func legacyCall(resource string, names []string, params map[string]any) PlannedCall {
 	allow := append([]string{"id", "comment"}, legacyAllowedFilters...)
 	p := allowedParams(params, allow)
+	forwardUnknown(p, params, resource)
 	id := ""
 	if v, ok := parameterValue(params, "id"); ok {
 		wire, _ := queryScalar(v)
@@ -281,9 +380,12 @@ func legacyCall(resource string, names []string, params map[string]any) PlannedC
 	}
 	delete(p, "id")
 	p["selections"] = strings.Join(names, ",")
-	return PlannedCall{Operation: Operation{ID: "legacy" + resource, Path: "/" + resource + "/" + id, Method: "GET"}, Selections: names, Params: p, Version: "v1", Fallback: true}
+	return PlannedCall{Operation: Operation{ID: "legacy" + resource, Path: "/" + resource + "/" + id, Method: "GET"}, Selections: names, Params: p, Version: "v1", Fallback: true, Resource: resource, source: params}
 }
 
+// RawSelections plans and executes selections of one resource and returns
+// the merged raw JSON. Unknown selection names are sent as v2 generic
+// selections (P1.5).
 func (c *Client) RawSelections(ctx context.Context, resource string, selections []string, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	p, e := PlanSelections(resource, selections, params)
 	if e != nil {
@@ -294,9 +396,12 @@ func (c *Client) RawSelections(ctx context.Context, resource string, selections 
 
 // Selection binds a resource-specific token to its concrete response type.
 // The unexported marker prevents cross-resource combinations in FetchPair.
-type Selection[R, T any] struct{ name, resource string }
+type Selection[R, T any] struct{ name, resource, schema string }
 
-func (s Selection[R, T]) Name() string     { return s.name }
+// Name returns the selection name.
+func (s Selection[R, T]) Name() string { return s.name }
+
+// Resource returns the selection's resource.
 func (s Selection[R, T]) Resource() string { return s.resource }
 
 // DecodeSelections is the custom-decoder escape hatch for documented legacy
@@ -315,12 +420,19 @@ func DecodeSelections[T any](ctx context.Context, c *Client, resource string, se
 	return out, r.Report, e
 }
 
+// Pair holds two selections decoded from one request. FirstErr and
+// SecondErr report per-selection decode failures (P1.4).
 type Pair[A, B any] struct {
-	First  A
-	Second B
-	Report ExecutionReport
+	First     A
+	Second    B
+	Report    ExecutionReport
+	FirstErr  error
+	SecondErr error
 }
 
+// FetchPair requests two selections of one resource in one plan. Each
+// selection is decoded independently: a decode failure of one does not
+// discard the other (P1.4); the returned error joins both failures.
 func FetchPair[R, A, B any](ctx context.Context, c *Client, a Selection[R, A], b Selection[R, B], params map[string]any, opts RequestOptions) (Pair[A, B], error) {
 	var out Pair[A, B]
 	r, e := c.RawSelections(ctx, a.resource, []string{a.name, b.name}, params, opts)
@@ -328,17 +440,18 @@ func FetchPair[R, A, B any](ctx context.Context, c *Client, a Selection[R, A], b
 	if e != nil {
 		return out, e
 	}
-	if e = json.Unmarshal(r.Data, &out.First); e != nil {
-		return out, e
-	}
-	e = json.Unmarshal(r.Data, &out.Second)
-	return out, e
+	out.FirstErr = c.decodeResponse(a.resource+"/"+a.name, a.schema, r.Data, &out.First, opts)
+	out.SecondErr = c.decodeResponse(b.resource+"/"+b.name, b.schema, r.Data, &out.Second, opts)
+	return out, errors.Join(out.FirstErr, out.SecondErr)
 }
+
+// Fetch requests one typed selection and decodes it tolerantly (strictly
+// with Config.StrictDecoding or RequestOptions.Strict).
 func Fetch[R, T any](ctx context.Context, c *Client, s Selection[R, T], params map[string]any, opts RequestOptions) (T, ExecutionReport, error) {
 	var out T
 	r, e := c.RawSelections(ctx, s.resource, []string{s.name}, params, opts)
 	if e == nil {
-		e = json.Unmarshal(r.Data, &out)
+		e = c.decodeResponse(s.resource+"/"+s.name, s.schema, r.Data, &out, opts)
 	}
 	return out, r.Report, e
 }

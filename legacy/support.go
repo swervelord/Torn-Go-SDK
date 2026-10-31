@@ -20,8 +20,13 @@ type Optional[T any] struct {
 	Null    bool
 }
 
+// Some returns a present, non-null Optional.
 func Some[T any](value T) Optional[T] { return Optional[T]{Value: value, Present: true} }
-func Null[T any]() Optional[T]        { return Optional[T]{Present: true, Null: true} }
+
+// Null returns a present Optional holding JSON null.
+func Null[T any]() Optional[T] { return Optional[T]{Present: true, Null: true} }
+
+// UnmarshalJSON marks the value present and decodes it with exact integers.
 func (v *Optional[T]) UnmarshalJSON(data []byte) error {
 	v.Present = true
 	v.Null = bytes.Equal(bytes.TrimSpace(data), []byte("null"))
@@ -30,8 +35,10 @@ func (v *Optional[T]) UnmarshalJSON(data []byte) error {
 		v.Value = zero
 		return nil
 	}
-	return json.Unmarshal(data, &v.Value)
+	return contract.DecodeInto(data, &v.Value)
 }
+
+// MarshalJSON writes the value, or null when absent or null.
 func (v Optional[T]) MarshalJSON() ([]byte, error) {
 	if !v.Present || v.Null {
 		return []byte("null"), nil
@@ -39,8 +46,23 @@ func (v Optional[T]) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.Value)
 }
 
-// Validate checks a pinned schema including required properties and union alternatives.
+// DecodeError locates a value that does not fit a model: JSON path, expected
+// type or rule, and a truncated excerpt of the offending value (P1.4).
+type DecodeError = contract.DecodeError
+
+// Validate checks data against a pinned schema with the same tolerant rules as
+// decoding: JSON types, required properties and union alternatives. Unknown
+// enum values and undocumented properties are accepted (P1.3).
 func Validate(name string, data []byte) error { return registry.Validate(name, data) }
+
+// ValidateStrict additionally reports unknown enum values, undocumented
+// properties, schema constraints and absent properties that
+// spec/shared/spec-overrides.json relaxed (P1.3 strict mode).
+func ValidateStrict(name string, data []byte) error {
+	return registry.ValidateMode(name, data, contract.Strict)
+}
+
+// ValidateSchema checks data against an inline schema (tolerant rules).
 func ValidateSchema(schema, data []byte) error {
 	var s contract.Schema
 	if err := json.Unmarshal(schema, &s); err != nil {
@@ -48,6 +70,26 @@ func ValidateSchema(schema, data []byte) error {
 	}
 	return registry.ValidateSchema(s, data)
 }
+
+// CompiledSchema is an inline schema parsed once and resolved against this package's registry.
+type CompiledSchema struct{ s contract.Schema }
+
+// CompileSchema parses an inline schema once; it panics on malformed schema JSON.
+func CompileSchema(schema string) CompiledSchema {
+	var s contract.Schema
+	if err := json.Unmarshal([]byte(schema), &s); err != nil {
+		panic(err)
+	}
+	return CompiledSchema{s}
+}
+
+// ValidateParams checks request parameters: types, required names and
+// constraints; enum values are forwarded so new upstream values keep working.
+func (c CompiledSchema) ValidateParams(data []byte) error {
+	return registry.ValidateSchemaMode(c.s, data, contract.Params)
+}
+
+// SchemaNames lists every component and named inline schema.
 func SchemaNames() []string {
 	out := make([]string, 0, len(registry))
 	for n := range registry {
@@ -56,6 +98,8 @@ func SchemaNames() []string {
 	sort.Strings(out)
 	return out
 }
+
+// Schema returns the pinned JSON schema for name, or nil when unknown.
 func Schema(name string) json.RawMessage {
 	v, ok := registry[name]
 	if !ok {
@@ -63,11 +107,4 @@ func Schema(name string) json.RawMessage {
 	}
 	b, _ := json.Marshal(v)
 	return b
-}
-func decodeSchema(s string) map[string]any {
-	var out map[string]any
-	if err := json.Unmarshal([]byte(s), &out); err != nil {
-		panic(err)
-	}
-	return out
 }

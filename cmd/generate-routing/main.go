@@ -32,6 +32,7 @@ type capability struct {
 	Legacy     bool       `json:"legacy"`
 	CSV        bool       `json:"csv"`
 	Endpoints  []endpoint `json:"endpoints"`
+	V2Fallback bool       `json:"v2_fallback,omitempty"`
 }
 
 func m(v any) obj {
@@ -192,7 +193,9 @@ func main() {
 				}
 			}
 			legacy := len(eps) == 0
-			catalog = append(catalog, capability{r, name, can && !standalone[name], standalone[name], legacy, csv[name], eps})
+			// The v2 selection enum lists some v1-only names as served through
+			// Torn's own v1 fallback; those are requested on v2 first (P4.3).
+			catalog = append(catalog, capability{r, name, can && !standalone[name], standalone[name], legacy, csv[name], eps, legacy && inEnum[name]})
 		}
 	}
 	var out bytes.Buffer
@@ -225,10 +228,10 @@ func main() {
 	fmt.Fprintf(&out, "var selectionCatalog = func() []SelectionCapability {var v []SelectionCapability; if e:=json.Unmarshal([]byte(%q),&v);e!=nil{panic(e)};return v}()\n", catJSON)
 	fmt.Fprintf(&out, "var genericCatalog = func() map[string]SelectionEndpoint {var v map[string]SelectionEndpoint;if e:=json.Unmarshal([]byte(%q),&v);e!=nil{panic(e)};return v}()\n", genJSON)
 	for _, r := range resources {
-		fmt.Fprintf(&out, "type %sResource struct{}\n", exported(r))
+		fmt.Fprintf(&out, "// %sResource marks %s selections; a Batch cannot mix resources.\ntype %sResource struct{}\n", exported(r), r, exported(r))
 	}
 	for _, r := range resources {
-		fmt.Fprintf(&out, "var %sSelections = struct {\n", exported(r))
+		fmt.Fprintf(&out, "// %sSelections holds the typed %s selection tokens for NewBatch, AddSelection, Fetch and FetchPair.\nvar %sSelections = struct {\n", exported(r), r, exported(r))
 		for _, c := range catalog {
 			if c.Resource != r || c.CSV {
 				continue
@@ -245,7 +248,7 @@ func main() {
 			}
 			schema := typedSchema(c)
 			if schema != "" {
-				fmt.Fprintf(&out, "%s:Selection[%sResource,%s]{name:%q,resource:%q},\n", exported(c.Name), exported(r), schema, c.Name, r)
+				fmt.Fprintf(&out, "%s:Selection[%sResource,%s]{name:%q,resource:%q,schema:%q},\n", exported(c.Name), exported(r), schema, c.Name, r, strictSchema(schema))
 			}
 		}
 		fmt.Fprintln(&out, "}")
@@ -255,20 +258,25 @@ func main() {
 		if c.CSV {
 			ep := c.Endpoints[0]
 			n := exported(c.Resource) + exported(c.Name)
+			fmt.Fprintf(&out, "// %s returns the exact CSV text of %s/%s.\n", n, c.Resource, c.Name)
 			fmt.Fprintf(&out, "func(c *Client) %s(ctx context.Context,params map[string]any,opts RequestOptions)(string,ExecutionReport,error){b,r,e:=c.DoOperation(ctx,Operation{ID:%q,Path:%q,Method:\"GET\",CSV:true},allowedParams(params,[]string{\"timestamp\",\"comment\"}),opts);var out string;if e==nil{e=json.Unmarshal(b,&out)};return out,r,e}\n", n, ep.ID, ep.Path)
 			typed++
 			continue
 		}
 		n := exported(c.Resource) + exported(c.Name)
+		fmt.Fprintf(&out, "// Raw%s requests the %s/%s selection and returns its raw JSON.%s\n", n, c.Resource, c.Name, rawNote(c))
 		fmt.Fprintf(&out, "func(c *Client) Raw%s(ctx context.Context,params map[string]any,opts RequestOptions)(ExecutionResult,error){return c.RawSelections(ctx,%q,[]string{%q},params,opts)}\n", n, c.Resource, c.Name)
 		raw++
 		schema := typedSchema(c)
 		if schema != "" {
+			fmt.Fprintf(&out, "// %s requests the %s/%s selection and decodes it into %s.\n", n, c.Resource, c.Name, schema)
 			fmt.Fprintf(&out, "func(c *Client) %s(ctx context.Context,params map[string]any,opts RequestOptions)(%s,ExecutionReport,error){return Fetch(ctx,c,%sSelections.%s,params,opts)}\n", n, schema, exported(c.Resource), exported(c.Name))
 			typed++
 		}
 	}
-	fmt.Fprintln(&out, `func(c *Client) CompanyDetailed(ctx context.Context,params map[string]any,opts RequestOptions)(compat.CompanyDetailedBundle,ExecutionReport,error){return c.CompanyProfile(ctx,params,opts)}
+	fmt.Fprintln(&out, `// CompanyDetailed is an alias of CompanyProfile.
+func(c *Client) CompanyDetailed(ctx context.Context,params map[string]any,opts RequestOptions)(compat.CompanyDetailedBundle,ExecutionReport,error){return c.CompanyProfile(ctx,params,opts)}
+// TornStock requests torn/stocks for one stock id.
 func(c *Client) TornStock(ctx context.Context,params map[string]any,opts RequestOptions)(compat.TornStockBundle,ExecutionReport,error){var out compat.TornStockBundle;if _,ok:=parameterValue(params,"id");!ok{return out,ExecutionReport{},fmt.Errorf("stock requires id")};return DecodeSelections(ctx,c,"torn",[]string{"stocks"},params,opts,func(b json.RawMessage)(compat.TornStockBundle,error){var v compat.TornStockBundle;e:=json.Unmarshal(b,&v);return v,e})}`)
 	typed += 2
 	formatted, err := format.Source(out.Bytes())
@@ -278,6 +286,23 @@ func(c *Client) TornStock(ctx context.Context,params map[string]any,opts Request
 	b, _ := json.MarshalIndent(manifest, "", "  ")
 	writeOutput(filepath.Join(root, "spec", "routing-manifest.json"), append(b, '\n'), check)
 	fmt.Printf("Generated %d selections, %d typed helpers, %d raw helpers\n", len(catalog), typed, raw)
+}
+
+// strictSchema returns the models registry name strict validation uses for a
+// typed selection, or "" for compat bundles (validated by their own decoders).
+func strictSchema(schema string) string {
+	if strings.HasPrefix(schema, "models.") {
+		return strings.TrimPrefix(schema, "models.")
+	}
+	return ""
+}
+
+// rawNote documents why a v1-only selection has no typed helper.
+func rawNote(c capability) string {
+	if c.Legacy && typedSchema(c) == "" {
+		return " It is v1-only and stays raw: Torn publishes no schema for it (see COVERAGE.md)."
+	}
+	return ""
 }
 func writeOutput(path string, data []byte, check bool) {
 	if check {

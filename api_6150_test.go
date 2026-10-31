@@ -36,6 +36,21 @@ func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
 	if err := json.Unmarshal(data, &doc); err != nil {
 		t.Fatal(err)
 	}
+	// P6.1: access levels come from the vendored spec/shared/access-levels.json
+	// and must agree with the OpenAPI key parameters.
+	var shared struct {
+		Operations map[string]struct{ Access string }
+	}
+	sharedData, err := os.ReadFile("spec/shared/access-levels.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(sharedData, &shared); err != nil {
+		t.Fatal(err)
+	}
+	if len(shared.Operations) != 237 {
+		t.Fatalf("shared access levels: %d", len(shared.Operations))
+	}
 	count := 0
 	levels := map[string]int{}
 	for _, methods := range doc.Paths {
@@ -47,12 +62,12 @@ func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
 			access := ""
 			for _, p := range op.Parameters {
 				if name := strings.TrimPrefix(p.Ref, "#/components/parameters/ApiKey"); name != p.Ref {
-					access = name
+					access = strings.ToLower(name)
 				}
 			}
 			levels[access]++
 			got, ok := torn.MetadataForOperation(op.ID)
-			if !ok || got.Stability != op.Stability || got.AccessLevel != access {
+			if !ok || got.Stability != op.Stability || string(got.AccessLevel) != access || shared.Operations[op.ID].Access != access {
 				t.Errorf("%s metadata: %#v, %v; want %q / %q", op.ID, got, ok, op.Stability, access)
 			}
 		}
@@ -60,11 +75,11 @@ func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
 	if count != 237 || len(torn.Operations) != 237 {
 		t.Fatalf("metadata inventory: %d spec, %d SDK", count, len(torn.Operations))
 	}
-	if levels[""] != 0 || levels["Public"] == 0 || levels["Minimal"] == 0 || levels["Limited"] == 0 || levels["Full"] == 0 {
+	if levels[""] != 0 || levels["public"] == 0 || levels["minimal"] == 0 || levels["limited"] == 0 || levels["full"] == 0 {
 		t.Fatalf("access level inventory: %v", levels)
 	}
 	got, _ := torn.MetadataForOperation("getMyTravelInventory")
-	if got != (torn.OperationMetadata{Stability: "Unstable", AccessLevel: "Limited"}) {
+	if got != (torn.OperationMetadata{Stability: "Unstable", AccessLevel: torn.AccessLimited, ResponseSchema: "UserTravelInventoryResponse", Path: "/user/travelinventory"}) {
 		t.Fatalf("travel inventory metadata: %#v", got)
 	}
 	if torn.APIVersion != "6.15.0" {
@@ -168,11 +183,21 @@ func TestEnumAdditions6150(t *testing.T) {
 	if err := json.Unmarshal([]byte(`"end_with_dirty_bomb"`), &result); err != nil || result != models.FactionTerritoryWarResultEnumEndWithDirtyBomb {
 		t.Fatalf("end_with_dirty_bomb: %q %v", result, err)
 	}
-	if err := json.Unmarshal([]byte(`"dealer"`), &position); err == nil {
-		t.Fatal("enum matching must stay case-sensitive")
+	if !position.IsKnown() || !result.IsKnown() {
+		t.Fatal("documented values must be known")
 	}
-	if err := json.Unmarshal([]byte(`"end_with_bomb"`), &result); err == nil {
-		t.Fatal("accepted undocumented territory war result")
+	// P1.1: undocumented values decode as unknown, case-sensitively, and round-trip.
+	if err := json.Unmarshal([]byte(`"dealer"`), &position); err != nil || position.IsKnown() || position != "dealer" {
+		t.Fatalf("enum matching must stay case-sensitive: %q %v", position, err)
+	}
+	if err := json.Unmarshal([]byte(`"end_with_bomb"`), &result); err != nil || result.IsKnown() {
+		t.Fatalf("undocumented territory war result: %q %v", result, err)
+	}
+	if out, _ := json.Marshal(result); string(out) != `"end_with_bomb"` {
+		t.Fatalf("unknown value round trip: %s", out)
+	}
+	if err := models.ValidateStrict("FactionTerritoryWarResultEnum", []byte(`"end_with_bomb"`)); err == nil {
+		t.Fatal("strict validation accepted an undocumented territory war result")
 	}
 	for name, value := range map[string]string{"JobPositionCasinoEnum": `"Dealer"`, "FactionTerritoryWarResultEnum": `"end_with_dirty_bomb"`} {
 		if err := models.Validate(name, []byte(value)); err != nil {

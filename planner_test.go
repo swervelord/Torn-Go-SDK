@@ -90,8 +90,10 @@ func TestOfficialCurrentAndFrozenSelectionTransport(t *testing.T) {
 						t.Fatalf("want one selection call, got%d", len(r.calls))
 					}
 					req := r.calls[0]
-					if req.URL.Query().Get("unrecognized") != "" {
-						t.Fatal("unknown parameter escaped allowlist")
+					// P1.5: parameters no endpoint documents are forwarded verbatim;
+					// documented parameters of other endpoints are not.
+					if req.URL.Query().Get("unrecognized") != "drop" {
+						t.Fatal("unknown parameter was dropped")
 					}
 					if !strings.Contains(req.URL.Path, "/"+resource) {
 						t.Fatal(req.URL.Path)
@@ -189,11 +191,15 @@ func TestPlannerBoundaries(t *testing.T) {
 		s []string
 		p map[string]any
 	}{
-		{"unknown", []string{"profile"}, nil}, {"user", nil, nil}, {"user", []string{"made-up"}, nil}, {"user", []string{"snapshot"}, nil}, {"user", []string{"trade"}, nil}, {"user", []string{"crimes"}, nil}, {"user", []string{"profile", "trade"}, map[string]any{"id": 7}}, {"user", []string{"profile", "crimes"}, map[string]any{"id": 7}},
+		{"unknown", []string{"profile"}, nil}, {"user", nil, nil}, {"user", []string{"snapshot"}, nil}, {"user", []string{"trade"}, nil}, {"user", []string{"crimes"}, nil}, {"user", []string{"profile", "trade"}, map[string]any{"id": 7}}, {"user", []string{"profile", "crimes"}, map[string]any{"id": 7}},
 	} {
 		if _, e := PlanSelections(tt.r, tt.s, tt.p); e == nil {
 			t.Errorf("expected rejection %+v", tt)
 		}
+	}
+	// P1.5: unknown selection names are sent as v2 generic selections.
+	if p, e := PlanSelections("user", []string{"made-up", "profile"}, nil); e != nil || len(p.Calls) != 1 || p.Calls[0].Operation.Path != "/user" || p.Calls[0].Params["selections"] != "made-up,profile" {
+		t.Fatalf("unknown selection pass-through: %+v %v", p, e)
 	}
 	p, e := PlanSelections(" USER ", []string{" Profile ", "JOB", "profile", ""}, nil)
 	if e != nil {
@@ -252,7 +258,7 @@ func TestMinimumCallsAcrossRoutingBuckets(t *testing.T) {
 		resource, names string
 		calls           int
 	}{
-		{"user", "profile job itemmods log organizedcrimes search virus bazaar criminalrecord display", 7},
+		{"user", "profile job itemmods log organizedcrimes search virus bazaar criminalrecord display", 6},
 		{"faction", "basic members dirtybombs inventory reports search warfare armor boosters caches cesium drugs medical temporary utilities weapons", 7},
 		{"company", "applications employees lookup news profile stock timestamp companies search", 3},
 		{"forum", "categories lookup timestamp", 1},
@@ -290,13 +296,18 @@ func TestGeneratedScalarUnionTargets(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	for _, tt := range []struct{ resource, selection, path string }{{"property", "property", "/property/7/property"}, {"user", "bazaar", "/user/7"}} {
+	for _, tt := range []struct{ resource, selection, path string }{{"property", "property", "/property/7/property"}, {"user", "bazaar", "/user"}} {
 		p, e := PlanSelections(tt.resource, []string{tt.selection}, map[string]any{"id": id})
 		if e != nil {
 			t.Fatal(e)
 		}
 		if len(p.Calls) != 1 || p.Calls[0].Operation.Path != tt.path {
 			t.Fatalf("scalar union route %+v", p)
+		}
+		// bazaar is listed in the v2 enum as served by Torn's v1 fallback, so it
+		// goes to the generic path with the id; v1 remains the code-22 reroute.
+		if tt.selection == "bazaar" && (p.Calls[0].Params["id"] == nil || len(p.Calls[0].FallbackCalls) != 1 || p.Calls[0].FallbackCalls[0].Operation.Path != "/user/7") {
+			t.Fatalf("v2-first bazaar %+v", p)
 		}
 	}
 }
@@ -324,8 +335,8 @@ func TestExplicitV1CatalogAndFallbackPolicy(t *testing.T) {
 			if len(p.Calls) != 1 || p.Calls[0].Version != "v1" || p.Calls[0].Params["selections"] != name || p.Calls[0].Params["striptags"] != true {
 				t.Fatalf("v1 route %+v", p)
 			}
-			if _, ok := p.Calls[0].Params["unsupported"]; ok {
-				t.Fatal("unsupported filter passed")
+			if p.Calls[0].Params["unsupported"] != "drop" {
+				t.Fatal("unknown filter was not forwarded verbatim (P1.5)")
 			}
 		}
 	}

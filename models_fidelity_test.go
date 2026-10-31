@@ -85,8 +85,11 @@ func TestStrictEnumsDuplicatesAndExactNumbers(t *testing.T) {
 	if e := json.Unmarshal([]byte(`{"code":33,"error":"No competition available"}`), &code); e != nil {
 		t.Fatal(e)
 	}
-	if e := json.Unmarshal([]byte(`{"code":34,"error":"wrong enum"}`), &code); e == nil {
-		t.Fatal("closed code enum accepted wrong code")
+	if e := json.Unmarshal([]byte(`{"code":34,"error":"wrong enum"}`), &code); e != nil || code.Code.IsKnown() {
+		t.Fatalf("unknown code must decode tolerantly: %v", e)
+	}
+	if e := models.ValidateStrict("ErrorNoCompetitionAvailable", []byte(`{"code":34,"error":"wrong enum"}`)); e == nil {
+		t.Fatal("strict validation accepted wrong code")
 	}
 }
 func TestCurrentAndFrozenTeamContractCannotBeConfused(t *testing.T) {

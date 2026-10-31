@@ -228,7 +228,7 @@ func TestOfficialModelAcceptanceBoundaries(t *testing.T) {
 		version  string
 		validate func(string, []byte) error
 		count    int
-	}{{"6.13.6", legacy.Validate, 711}, {"6.15.0", models.Validate, 724}} {
+	}{{"6.13.6", legacy.Validate, 711}, {"6.15.0", models.Validate, 724}, {"6.15.0", models.ValidateStrict, 724}} {
 		t.Run(tc.version, func(t *testing.T) {
 			d := loadContract(t, tc.version)
 			if len(d.Components.Schemas) != tc.count {
@@ -270,7 +270,9 @@ func TestOfficialRequiredAndEnumRejection(t *testing.T) {
 			delete(sample, req[0].(string))
 			raw, _ := json.Marshal(sample)
 			t.Run("missing/"+name, func(t *testing.T) {
-				if e := models.Validate(name, raw); e == nil {
+				// Strict mode reports every missing required property, including
+				// those spec-overrides.json relaxes for tolerant decoding (P1.3).
+				if e := models.ValidateStrict(name, raw); e == nil {
 					t.Fatalf("missing required property %s accepted", req[0])
 				}
 			})
@@ -278,8 +280,14 @@ func TestOfficialRequiredAndEnumRejection(t *testing.T) {
 		}
 		if _, ok := s["enum"].([]any); ok {
 			t.Run("enum/"+name, func(t *testing.T) {
-				if e := models.Validate(name, []byte(`"__invalid_contract_enum__"`)); e == nil {
-					t.Fatal("unknown closed enum value accepted")
+				if e := models.ValidateStrict(name, []byte(`"__invalid_contract_enum__"`)); e == nil {
+					t.Fatal("strict mode accepted an unknown enum value")
+				}
+				// P1.1: tolerant validation accepts unknown values of string enums.
+				if s["type"] == "string" {
+					if e := models.Validate(name, []byte(`"__invalid_contract_enum__"`)); e != nil {
+						t.Fatalf("tolerant mode rejected an unknown enum value: %v", e)
+					}
 				}
 			})
 			checked++

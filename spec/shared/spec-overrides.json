@@ -1,0 +1,19 @@
+{
+  "$comment": "Spec defects proven against live data by scripts/live_sweep.py (PARITY_SPEC P1.2). Generators apply these on top of the OpenAPI document. Re-verify every entry on each spec bump: drop entries Torn has fixed.",
+  "overrides": [
+    {
+      "schema": "TornHalloweenUpgrade",
+      "property": "type",
+      "change": "optional",
+      "evidence": "GET /v2/torn/halloween omits 'type' on upgrades (live sweep, spec 6.15.0, 2026-10-30)",
+      "since": "6.14.0"
+    },
+    {
+      "schema": "UserTrade",
+      "property": "items",
+      "change": "optional",
+      "evidence": "GET /v2/user/trades omits 'items' on some trades (live sweep, spec 6.15.0, 2026-10-30)",
+      "since": "6.15.0"
+    }
+  ]
+}

@@ -118,7 +118,7 @@ func TestRuntimeQuotaRotationAndSpillover(t *testing.T) {
 			t.Fatal(e)
 		}
 	}
-	if strings.Join(keys, ",") != "a,b,a" || usage[0].Route != "one" || usage[1].Route != "two" || len(clock.waits) != 1 || clock.waits[0] != time.Second {
+	if strings.Join(keys, ",") != "a,b,a" || usage[0].Route != "one" || usage[1].Route != "two" || len(clock.waits) != 1 || clock.waits[0] != time.Minute {
 		t.Fatalf("%v %+v %v", keys, usage, clock.waits)
 	}
 }
@@ -363,7 +363,7 @@ func FuzzRuntimeMerge(f *testing.F) {
 		}
 	})
 }
-func TestRuntimeCode5SpendsKeyAndIPRoute(t *testing.T) {
+func TestRuntimeCode5MarksKeyRateLimited(t *testing.T) {
 	clock := &fakeScheduler{now: time.Unix(121, 0)}
 	var sent atomic.Int32
 	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
@@ -393,18 +393,22 @@ func TestRuntimeCode5SpendsKeyAndIPRoute(t *testing.T) {
 	for i, u := range usage {
 		got[i] = fmt.Sprintf("%d@%s", u.KeyIndex, u.Route)
 	}
-	// Spent keys a and b are skipped; the IP-limited route one spills over to two.
-	if strings.Join(got, ",") != "0@one,1@one,2@two" || len(clock.waits) != 0 {
+	// Rate-limited keys a and b are skipped; message text never spends a route (P4.1).
+	if strings.Join(got, ",") != "0@one,1@one,2@one" || len(clock.waits) != 0 {
 		t.Fatalf("usage %v waits %v", got, clock.waits)
 	}
+	states := c.KeyStates()
+	if states[0].Status != KeyRateLimited || states[1].Status != KeyRateLimited || states[2].Status != KeyHealthy {
+		t.Fatalf("%+v", states)
+	}
 }
-func TestRuntimeMessageClassifiedRecovery(t *testing.T) {
+func TestRuntimeClassificationIgnoresMessageText(t *testing.T) {
 	var calls []string
 	c, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
 		s := r.URL.Query().Get("selections")
 		calls = append(calls, s)
 		if strings.Contains(s, ",") {
-			fmt.Fprint(w, `{"error":{"code":17,"error":"Selection cannot be used together with another selection"}}`)
+			fmt.Fprint(w, `{"error":{"code":4,"error":"Selection cannot be used together with another selection"}}`)
 			return
 		}
 		fmt.Fprintf(w, `{%q:{}}`, s)
@@ -413,13 +417,14 @@ func TestRuntimeMessageClassifiedRecovery(t *testing.T) {
 	if r, e := c.Execute(context.Background(), p, RequestOptions{}); e != nil || len(r.Report.Calls) != 2 || strings.Join(calls, "|") != "profile,job|profile|job" {
 		t.Fatalf("%v %v", e, calls)
 	}
-	for _, m := range []string{"The following selections are not available in API v2: 'networth'", "Selection is only available in API v1"} {
-		if !requestsV1(m) {
-			t.Fatal(m)
-		}
-	}
-	if requestsV1("Key is invalid") || rejectsCombination("Incorrect ID") || mentionsIP("Multiple requests") || !mentionsIP("Too many requests (IP)") {
-		t.Fatal("message classification")
+	// The same English text under a non-splitting code is not split (P4.1).
+	calls = nil
+	c2, _ := testClient(t, func(w http.ResponseWriter, r *http.Request) {
+		calls = append(calls, r.URL.Query().Get("selections"))
+		fmt.Fprint(w, `{"error":{"code":6,"error":"Selection cannot be used together; not available in API v2"}}`)
+	}, nil)
+	if _, e := c2.Execute(context.Background(), p, RequestOptions{AllowLegacyFallback: true}); e == nil || len(calls) != 1 {
+		t.Fatalf("%v %v", e, calls)
 	}
 }
 func TestRuntimeCredentialTransport(t *testing.T) {

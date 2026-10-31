@@ -25,7 +25,7 @@ var legacyAllowedFilters = func() []string {
 }()
 var selectionCatalog = func() []SelectionCapability {
 	var v []SelectionCapability
-	if e := json.Unmarshal([]byte("[{\"resource\":\"company\",\"name\":\"applications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyApplications\",\"path\":\"/company/applications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyApplicationsResponse\"}]},{\"resource\":\"company\",\"name\":\"companies\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompaniesList\",\"path\":\"/company/{typeId}/companies\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"striptags\",\"timestamp\"],\"required\":[\"typeId\"],\"schema\":\"CompaniesResponse\"}]},{\"resource\":\"company\",\"name\":\"employees\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyEmployees\",\"path\":\"/company/employees\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyEmployeesResponse\"},{\"id\":\"getCompanyEmployees\",\"path\":\"/company/{id}/employees\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"CompanyEmployeesResponseBasic\"}]},{\"resource\":\"company\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompanyLookup\",\"path\":\"/company/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyLookupResponse\"}]},{\"resource\":\"company\",\"name\":\"news\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyNews\",\"path\":\"/company/news\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"NewsResponse\"}]},{\"resource\":\"company\",\"name\":\"profile\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyProfile\",\"path\":\"/company/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyProfileResponseMixed\"},{\"id\":\"getCompanyProfile\",\"path\":\"/company/{id}/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"CompanyProfileResponse\"}]},{\"resource\":\"company\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompaniesSearch\",\"path\":\"/company/search\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"name\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"CompaniesSearchResponse\"}]},{\"resource\":\"company\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getCompaniesSnapshot\",\"path\":\"/company/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"company\",\"name\":\"stock\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyStock\",\"path\":\"/company/stock\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyStockResponse\"}]},{\"resource\":\"company\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompanyTimestamp\",\"path\":\"/company/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"faction\",\"name\":\"applications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionApplications\",\"path\":\"/faction/applications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionApplicationsResponse\"}]},{\"resource\":\"faction\",\"name\":\"armor\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"attacks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionAttacks\",\"path\":\"/faction/attacks\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksResponse\"}]},{\"resource\":\"faction\",\"name\":\"attacksfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionAttacksSimplified\",\"path\":\"/faction/attacksfull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksFullResponse\"}]},{\"resource\":\"faction\",\"name\":\"balance\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionBalance\",\"path\":\"/faction/balance\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionBalanceResponse\"}]},{\"resource\":\"faction\",\"name\":\"basic\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionBasicInformation\",\"path\":\"/faction/basic\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionBasicResponse\"},{\"id\":\"getFactionBasicInformation\",\"path\":\"/faction/{id}/basic\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionBasicResponse\"}]},{\"resource\":\"faction\",\"name\":\"boosters\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"caches\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"cesium\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"chain\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionChain\",\"path\":\"/faction/chain\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionOngoingChainResponse\"},{\"id\":\"getFactionChain\",\"path\":\"/faction/{id}/chain\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionOngoingChainResponse\"}]},{\"resource\":\"faction\",\"name\":\"chainreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionLatestChainReport\",\"path\":\"/faction/chainreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionChainReportResponse\"},{\"id\":\"getChainReport\",\"path\":\"/faction/{chainId}/chainreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"chainId\"],\"schema\":\"FactionChainReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"chains\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionCompletedChains\",\"path\":\"/faction/chains\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionChainsResponse\"},{\"id\":\"getFactionCompletedChains\",\"path\":\"/faction/{id}/chains\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionChainsResponse\"}]},{\"resource\":\"faction\",\"name\":\"contributors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionContributors\",\"path\":\"/faction/contributors\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":null,\"schema\":\"FactionContributorsResponse\"}]},{\"resource\":\"faction\",\"name\":\"crime\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionOrganizedCrime\",\"path\":\"/faction/{crimeId}/crime\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"FactionCrimeResponse\"}]},{\"resource\":\"faction\",\"name\":\"crimeexp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionCrimeExp\",\"path\":\"/faction/crimeexp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionCrimeExpResponse\"}]},{\"resource\":\"faction\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionOrganizedCrimes\",\"path\":\"/faction/crimes\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionCrimesResponse\"}]},{\"resource\":\"faction\",\"name\":\"dirtbombs\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionGeneric\",\"path\":\"/faction\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareDirtyBombsResponse\"}]},{\"resource\":\"faction\",\"name\":\"dirtybombs\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareDirtyBombs\",\"path\":\"/faction/dirtybombs\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionWarfareDirtyBombsResponse\"}]},{\"resource\":\"faction\",\"name\":\"drugs\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionHoF\",\"path\":\"/faction/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionHofResponse\"},{\"id\":\"getFactionHoF\",\"path\":\"/faction/{id}/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionHofResponse\"}]},{\"resource\":\"faction\",\"name\":\"inventory\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionInventory\",\"path\":\"/faction/inventory\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionInventoryResponse\"}]},{\"resource\":\"faction\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionLookup\",\"path\":\"/faction/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionLookupResponse\"}]},{\"resource\":\"faction\",\"name\":\"medical\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"members\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionMembers\",\"path\":\"/faction/members\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"FactionMembersResponse\"},{\"id\":\"getFactionMembers\",\"path\":\"/faction/{id}/members\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionMembersResponse\"}]},{\"resource\":\"faction\",\"name\":\"news\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionNews\",\"path\":\"/faction/news\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"NewsResponse\"}]},{\"resource\":\"faction\",\"name\":\"positions\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionPositions\",\"path\":\"/faction/positions\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionPositionsResponse\"}]},{\"resource\":\"faction\",\"name\":\"rackets\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionRackets\",\"path\":\"/faction/rackets\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionRacketsResponse\"}]},{\"resource\":\"faction\",\"name\":\"raidreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRaidReport\",\"path\":\"/faction/{raidWarId}/raidreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"raidWarId\"],\"schema\":\"FactionRaidWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"raids\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRaidsHistory\",\"path\":\"/faction/raids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionRaidsResponse\"},{\"id\":\"getFactionRaidsHistory\",\"path\":\"/faction/{id}/raids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionRaidsResponse\"}]},{\"resource\":\"faction\",\"name\":\"rankedwarreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRankedWarReport\",\"path\":\"/faction/{rankedWarId}/rankedwarreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"rankedWarId\"],\"schema\":\"FactionRankedWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"rankedwars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRankedWarsHistory\",\"path\":\"/faction/rankedwars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionRankedWarResponse\"},{\"id\":\"getFactionRankedWarsHistory\",\"path\":\"/faction/{id}/rankedwars\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionRankedWarResponse\"}]},{\"resource\":\"faction\",\"name\":\"reports\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionReports\",\"path\":\"/faction/reports\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"target\",\"timestamp\"],\"required\":null,\"schema\":\"ReportsResponse\"}]},{\"resource\":\"faction\",\"name\":\"revives\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRevives\",\"path\":\"/faction/revives\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesResponse\"}]},{\"resource\":\"faction\",\"name\":\"revivesfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRevivesSimplified\",\"path\":\"/faction/revivesFull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesFullResponse\"}]},{\"resource\":\"faction\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionSearch\",\"path\":\"/faction/search\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"name\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionSearchResponse\"}]},{\"resource\":\"faction\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getFactionsSnapshot\",\"path\":\"/faction/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"faction\",\"name\":\"stats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionStats\",\"path\":\"/faction/stats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionStatsResponse\"}]},{\"resource\":\"faction\",\"name\":\"temporary\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"territory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionTerritory\",\"path\":\"/faction/territory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionTerritoriesResponse\"},{\"id\":\"getFactionTerritory\",\"path\":\"/faction/{id}/territory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionTerritoriesResponse\"}]},{\"resource\":\"faction\",\"name\":\"territoryownership\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTerritoryOwnership\",\"path\":\"/faction/territoryownership\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionTerritoriesOwnershipResponse\"}]},{\"resource\":\"faction\",\"name\":\"territorywarreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTerritoryWarReport\",\"path\":\"/faction/{territoryWarId}/territorywarreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"territoryWarId\"],\"schema\":\"FactionTerritoryWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"territorywars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionTerritoryWarsHistory\",\"path\":\"/faction/territorywars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionTerritoryWarsHistoryResponse\"},{\"id\":\"getFactionTerritoryWarsHistory\",\"path\":\"/faction/{id}/territorywars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionTerritoryWarsHistoryResponse\"}]},{\"resource\":\"faction\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionTimestamp\",\"path\":\"/faction/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"faction\",\"name\":\"upgrades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionUpgrades\",\"path\":\"/faction/upgrades\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionUpgradesResponse\"}]},{\"resource\":\"faction\",\"name\":\"utilities\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"warfare\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfare\",\"path\":\"/faction/warfare\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfarechains\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareChains\",\"path\":\"/faction/warfarechains\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareChainsResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareraids\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareRaids\",\"path\":\"/faction/warfareraids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareRaidsResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareranked\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareRankedWars\",\"path\":\"/faction/warfareranked\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareRankedResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareterritory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareTerritoryWars\",\"path\":\"/faction/warfareterritory\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareTerritoryWarsResponse\"}]},{\"resource\":\"faction\",\"name\":\"wars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionWars\",\"path\":\"/faction/wars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionWarsResponse\"},{\"id\":\"getFactionWars\",\"path\":\"/faction/{id}/wars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionWarsResponse\"}]},{\"resource\":\"faction\",\"name\":\"weapons\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"forum\",\"name\":\"categories\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumCategories\",\"path\":\"/forum/categories\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"ForumCategoriesResponse\"}]},{\"resource\":\"forum\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumLookup\",\"path\":\"/forum/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"ForumLookupResponse\"}]},{\"resource\":\"forum\",\"name\":\"posts\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumThreadPosts\",\"path\":\"/forum/{threadId}/posts\",\"parameters\":[\"comment\",\"from\",\"key\",\"offset\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":[\"threadId\"],\"schema\":\"ForumPostsResponse\"}]},{\"resource\":\"forum\",\"name\":\"thread\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumThread\",\"path\":\"/forum/{threadId}/thread\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"threadId\"],\"schema\":\"ForumThreadResponse\"}]},{\"resource\":\"forum\",\"name\":\"threads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumAllThreads\",\"path\":\"/forum/threads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"ForumThreadsResponse\"},{\"id\":\"getForumThreads\",\"path\":\"/forum/{categoryIds}/threads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"categoryIds\"],\"schema\":\"ForumThreadsResponse\"}]},{\"resource\":\"forum\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumTimestamp\",\"path\":\"/forum/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"key\",\"name\":\"info\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getKeyInfo\",\"path\":\"/key/info\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"KeyInfoResponse\"}]},{\"resource\":\"key\",\"name\":\"log\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getKeyLog\",\"path\":\"/key/log\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"KeyLogResponse\"}]},{\"resource\":\"market\",\"name\":\"auctionhouse\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketAuctionHouse\",\"path\":\"/market/auctionhouse\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AuctionHouseResponse\"},{\"id\":\"getMarketAuctionHouseItem\",\"path\":\"/market/{id}/auctionhouse\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"AuctionHouseResponse\"}]},{\"resource\":\"market\",\"name\":\"auctionhouselisting\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketAuctionHouseListing\",\"path\":\"/market/{id}/auctionhouselisting\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"AuctionHouseListingResponse\"}]},{\"resource\":\"market\",\"name\":\"bazaar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketBazaar\",\"path\":\"/market/bazaar\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"BazaarResponse\"},{\"id\":\"getMarketBazaarItem\",\"path\":\"/market/{id}/bazaar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"BazaarResponseSpecialized\"}]},{\"resource\":\"market\",\"name\":\"itemmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketItemMarketItem\",\"path\":\"/market/{id}/itemmarket\",\"parameters\":[\"bonus\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"MarketItemMarketResponse\"}]},{\"resource\":\"market\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketLookup\",\"path\":\"/market/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"MarketLookupResponse\"}]},{\"resource\":\"market\",\"name\":\"pointsmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketPoints\",\"path\":\"/market/pointsmarket\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"PointsMarketResponse\"}]},{\"resource\":\"market\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketProperties\",\"path\":\"/market/{propertyTypeId}/properties\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":[\"propertyTypeId\"],\"schema\":\"MarketPropertiesResponse\"}]},{\"resource\":\"market\",\"name\":\"rentals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketPropertiesRental\",\"path\":\"/market/{propertyTypeId}/rentals\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":[\"propertyTypeId\"],\"schema\":\"MarketRentalsResponse\"}]},{\"resource\":\"market\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketTimestamp\",\"path\":\"/market/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"property\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getPropertyLookup\",\"path\":\"/property/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"PropertyLookupResponse\"}]},{\"resource\":\"property\",\"name\":\"property\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getProperty\",\"path\":\"/property/{id}/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"PropertyPropertyResponse\"}]},{\"resource\":\"property\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getPropertyTimestamp\",\"path\":\"/property/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"racing\",\"name\":\"cars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingCars\",\"path\":\"/racing/cars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingCarsResponse\"}]},{\"resource\":\"racing\",\"name\":\"carupgrades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingCarUpgrades\",\"path\":\"/racing/carupgrades\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingCarUpgradesResponse\"}]},{\"resource\":\"racing\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingLookup\",\"path\":\"/racing/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingLookupResponse\"}]},{\"resource\":\"racing\",\"name\":\"race\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingRaceDetails\",\"path\":\"/racing/{raceId}/race\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"raceId\"],\"schema\":\"RacingRaceDetailsResponse\"}]},{\"resource\":\"racing\",\"name\":\"races\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingRaces\",\"path\":\"/racing/races\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RacingRacesResponse\"}]},{\"resource\":\"racing\",\"name\":\"records\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTrackRecords\",\"path\":\"/racing/{trackId}/records\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":[\"trackId\"],\"schema\":\"RacingTrackRecordsResponse\"}]},{\"resource\":\"racing\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTimestamp\",\"path\":\"/racing/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"racing\",\"name\":\"tracks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTracks\",\"path\":\"/racing/tracks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingTracksResponse\"}]},{\"resource\":\"torn\",\"name\":\"attacklog\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornAttackLog\",\"path\":\"/torn/attacklog\",\"parameters\":[\"comment\",\"key\",\"log\",\"offset\",\"sort\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"AttackLogResponse\"}]},{\"resource\":\"torn\",\"name\":\"bank\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornBank\",\"path\":\"/torn/bank\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornBankResponse\"}]},{\"resource\":\"torn\",\"name\":\"bounties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornBounties\",\"path\":\"/torn/bounties\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornBountiesResponse\"}]},{\"resource\":\"torn\",\"name\":\"calendar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCalendar\",\"path\":\"/torn/calendar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCalendarResponse\"}]},{\"resource\":\"torn\",\"name\":\"cards\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCards\",\"path\":\"/torn/cards\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCardsResponse\"}]},{\"resource\":\"torn\",\"name\":\"cityshops\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCityShops\",\"path\":\"/torn/cityshops\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCityShopsResponse\"},{\"id\":\"getTornCityShopSpecific\",\"path\":\"/torn/{shopId}/cityshops\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"shopId\"],\"schema\":\"TornCityShopsResponse\"}]},{\"resource\":\"torn\",\"name\":\"companies\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCompanies\",\"path\":\"/torn/companies\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCompaniesResponse\"},{\"id\":\"getTornCompaniesSpecific\",\"path\":\"/torn/{typeId}/companies\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"typeId\"],\"schema\":\"TornCompaniesResponse\"}]},{\"resource\":\"torn\",\"name\":\"competition\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"torn\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCrimes\",\"path\":\"/torn/crimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCrimesResponse\"}]},{\"resource\":\"torn\",\"name\":\"education\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornEducation\",\"path\":\"/torn/education\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornEducationResponse\"}]},{\"resource\":\"torn\",\"name\":\"elimination\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornElimination\",\"path\":\"/torn/elimination\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornEliminationTeamsResponse\"}]},{\"resource\":\"torn\",\"name\":\"eliminationteam\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornEliminationTeam\",\"path\":\"/torn/{id}/eliminationteam\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"TornEliminationTeamPlayersResponse\"}]},{\"resource\":\"torn\",\"name\":\"factionhof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornFactionHoF\",\"path\":\"/torn/factionhof\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornFactionHofResponse\"}]},{\"resource\":\"torn\",\"name\":\"factiontree\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornFactionTree\",\"path\":\"/torn/factiontree\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornFactionTreeResponse\"}]},{\"resource\":\"torn\",\"name\":\"gyms\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornGyms\",\"path\":\"/torn/gyms\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornGymsResponse\"}]},{\"resource\":\"torn\",\"name\":\"halloween\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHalloween\",\"path\":\"/torn/halloween\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornHalloweenResponse\"}]},{\"resource\":\"torn\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHoF\",\"path\":\"/torn/hof\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornHofResponse\"}]},{\"resource\":\"torn\",\"name\":\"honors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHonors\",\"path\":\"/torn/honors\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"TornHonorsResponse\"},{\"id\":\"getTornHonorsSpecific\",\"path\":\"/torn/{ids}/honors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornHonorsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemammo\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemAmmo\",\"path\":\"/torn/itemammo\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemAmmoResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemdetails\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemDetails\",\"path\":\"/torn/{ids}/itemdetails\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemDetailsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemmods\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemMods\",\"path\":\"/torn/itemmods\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemModsResponse\"}]},{\"resource\":\"torn\",\"name\":\"items\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItems\",\"path\":\"/torn/items\",\"parameters\":[\"cat\",\"comment\",\"key\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemsResponse\"},{\"id\":\"getTornItemsSpecific\",\"path\":\"/torn/{ids}/items\",\"parameters\":[\"comment\",\"key\",\"sort\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemStats\",\"path\":\"/torn/{ids}/itemstats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemStatsResponse\"}]},{\"resource\":\"torn\",\"name\":\"logcategories\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLogCategories\",\"path\":\"/torn/logcategories\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLogCategoriesResponse\"}]},{\"resource\":\"torn\",\"name\":\"logtypes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLogTypes\",\"path\":\"/torn/logtypes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLogTypesResponse\"},{\"id\":\"getTornLogTypesSpecific\",\"path\":\"/torn/{logCategoryId}/logtypes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"logCategoryId\"],\"schema\":\"TornLogTypesResponse\"}]},{\"resource\":\"torn\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLookup\",\"path\":\"/torn/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLookupResponse\"}]},{\"resource\":\"torn\",\"name\":\"medals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMedals\",\"path\":\"/torn/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMedalsResponse\"},{\"id\":\"getTornMedalsSpecific\",\"path\":\"/torn/{ids}/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornMedalsResponse\"}]},{\"resource\":\"torn\",\"name\":\"merits\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMerits\",\"path\":\"/torn/merits\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMeritsResponse\"}]},{\"resource\":\"torn\",\"name\":\"museum\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMuseum\",\"path\":\"/torn/museum\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMuseumResponse\"}]},{\"resource\":\"torn\",\"name\":\"organisedcrimes\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"torn\",\"name\":\"organizedcrimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornOrganizedCrimes\",\"path\":\"/torn/organizedcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornOrganizedCrimeResponse\"}]},{\"resource\":\"torn\",\"name\":\"pawnshop\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"torn\",\"name\":\"pokertables\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornPokerTables\",\"path\":\"/torn/pokertables\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornPokerTablesResponse\"}]},{\"resource\":\"torn\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornProperties\",\"path\":\"/torn/properties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornProperties\"}]},{\"resource\":\"torn\",\"name\":\"rockpaperscissors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornRps\",\"path\":\"/torn/rockpaperscissors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornRockPaperScissorsResponse\"}]},{\"resource\":\"torn\",\"name\":\"searchforcash\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornSearchForCash\",\"path\":\"/torn/searchforcash\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornSearchForCashResponse\"}]},{\"resource\":\"torn\",\"name\":\"shoplifting\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornShoplifting\",\"path\":\"/torn/shoplifting\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornShopliftingResponse\"}]},{\"resource\":\"torn\",\"name\":\"stats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCityStats\",\"path\":\"/torn/stats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCityStatsResponse\"}]},{\"resource\":\"torn\",\"name\":\"stocks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornStocks\",\"path\":\"/torn/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornStocksResponse\"},{\"id\":\"getSpecificTornStock\",\"path\":\"/torn/{stockId}/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"stockId\"],\"schema\":\"TornStockDetailedResponse\"}]},{\"resource\":\"torn\",\"name\":\"subcrimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornSubcrimes\",\"path\":\"/torn/{crimeId}/subcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"TornSubcrimesResponse\"}]},{\"resource\":\"torn\",\"name\":\"territory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornTerritory\",\"path\":\"/torn/territory\",\"parameters\":[\"comment\",\"ids\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornTerritoriesResponse\"}]},{\"resource\":\"torn\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornTimestamp\",\"path\":\"/torn/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"user\",\"name\":\"ammo\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAmmo\",\"path\":\"/user/ammo\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserAmmoResponse\"}]},{\"resource\":\"user\",\"name\":\"attacks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAttacks\",\"path\":\"/user/attacks\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksResponse\"}]},{\"resource\":\"user\",\"name\":\"attacksfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAttacksSimplified\",\"path\":\"/user/attacksfull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksFullResponse\"}]},{\"resource\":\"user\",\"name\":\"bars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBars\",\"path\":\"/user/bars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBarsResponse\"}]},{\"resource\":\"user\",\"name\":\"basic\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBasicInformation\",\"path\":\"/user/basic\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserBasicResponse\"},{\"id\":\"getUserBasicInformation\",\"path\":\"/user/{id}/basic\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserBasicResponse\"}]},{\"resource\":\"user\",\"name\":\"battlestats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBattlestats\",\"path\":\"/user/battlestats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBattleStatsResponse\"}]},{\"resource\":\"user\",\"name\":\"bazaar\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"user\",\"name\":\"bounties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBounties\",\"path\":\"/user/bounties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBountiesResponse\"},{\"id\":\"getUserBounties\",\"path\":\"/user/{id}/bounties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserBountiesResponse\"}]},{\"resource\":\"user\",\"name\":\"calendar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCalendarTime\",\"path\":\"/user/calendar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCalendarResponse\"}]},{\"resource\":\"user\",\"name\":\"casino\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCasinoStreak\",\"path\":\"/user/casino\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCasinoResponse\"}]},{\"resource\":\"user\",\"name\":\"competition\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompetitionInfo\",\"path\":\"/user/competition\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCompetitionResponse\"},{\"id\":\"getUserCompetitionInfo\",\"path\":\"/user/{id}/competition\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserCompetitionResponse\"}]},{\"resource\":\"user\",\"name\":\"cooldowns\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCooldowns\",\"path\":\"/user/cooldowns\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCooldownsResponse\"}]},{\"resource\":\"user\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCrimes\",\"path\":\"/user/{crimeId}/crimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"UserCrimesResponse\"}]},{\"resource\":\"user\",\"name\":\"criminalrecord\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"user\",\"name\":\"discord\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyDiscord\",\"path\":\"/user/discord\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserDiscordResponse\"},{\"id\":\"getUserDiscord\",\"path\":\"/user/{id}/discord\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserDiscordResponse\"}]},{\"resource\":\"user\",\"name\":\"display\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"user\",\"name\":\"education\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEducation\",\"path\":\"/user/education\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEducationResponse\"}]},{\"resource\":\"user\",\"name\":\"enlistedcars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEnlistedCars\",\"path\":\"/user/enlistedcars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEnlistedCarsResponse\"}]},{\"resource\":\"user\",\"name\":\"equipment\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEquipment\",\"path\":\"/user/equipment\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEquipmentResponse\"}]},{\"resource\":\"user\",\"name\":\"events\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEvents\",\"path\":\"/user/events\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserEventsResponse\"}]},{\"resource\":\"user\",\"name\":\"faction\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFaction\",\"path\":\"/user/faction\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserFactionResponse\"},{\"id\":\"getUserFaction\",\"path\":\"/user/{id}/faction\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserFactionResponse\"}]},{\"resource\":\"user\",\"name\":\"factionbalance\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserGeneric\",\"path\":\"/user\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserFactionBalanceResponse\"}]},{\"resource\":\"user\",\"name\":\"forumfeed\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumFeed\",\"path\":\"/user/forumfeed\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumFeedResponse\"}]},{\"resource\":\"user\",\"name\":\"forumfriends\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumFriendsUpdates\",\"path\":\"/user/forumfriends\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumFriendsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumposts\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumPosts\",\"path\":\"/user/forumposts\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserForumPostsResponse\"},{\"id\":\"getUserForumPosts\",\"path\":\"/user/{id}/forumposts\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"UserForumPostsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumsubscribedthreads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumSubscribedThreads\",\"path\":\"/user/forumsubscribedthreads\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumSubscribedThreadsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumthreads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumThreads\",\"path\":\"/user/forumthreads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserForumThreadsResponse\"},{\"id\":\"getUserForumThreads\",\"path\":\"/user/{id}/forumthreads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"UserForumThreadsResponse\"}]},{\"resource\":\"user\",\"name\":\"gym\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyGym\",\"path\":\"/user/gym\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserGymResponse\"}]},{\"resource\":\"user\",\"name\":\"halloween\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHalloween\",\"path\":\"/user/halloween\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHalloweenResponse\"}]},{\"resource\":\"user\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHoF\",\"path\":\"/user/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHofResponse\"},{\"id\":\"getUserHoF\",\"path\":\"/user/{id}/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserHofResponse\"}]},{\"resource\":\"user\",\"name\":\"honors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHonors\",\"path\":\"/user/honors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHonorsResponse\"}]},{\"resource\":\"user\",\"name\":\"icons\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyIcons\",\"path\":\"/user/icons\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserIconsResponse\"},{\"id\":\"getUserIcons\",\"path\":\"/user/{id}/icons\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserIconsResponse\"}]},{\"resource\":\"user\",\"name\":\"inventory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyInventory\",\"path\":\"/user/inventory\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserInventoryResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyItemMarketListings\",\"path\":\"/user/itemmarket\",\"parameters\":[\"comment\",\"key\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserItemMarketResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmod\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserGeneric\",\"path\":\"/user\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserItemModsResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmods\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyItemModsInformation\",\"path\":\"/user/itemmods\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserItemModsResponse\"}]},{\"resource\":\"user\",\"name\":\"job\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJob\",\"path\":\"/user/job\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobResponse\"},{\"id\":\"getUserJob\",\"path\":\"/user/{id}/job\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserJobResponse\"}]},{\"resource\":\"user\",\"name\":\"jobpoints\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJobPoints\",\"path\":\"/user/jobpoints\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobPointsResponse\"}]},{\"resource\":\"user\",\"name\":\"jobranks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJobRanks\",\"path\":\"/user/jobranks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobRanksResponse\"}]},{\"resource\":\"user\",\"name\":\"list\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyContactsList\",\"path\":\"/user/list\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserListResponse\"}]},{\"resource\":\"user\",\"name\":\"log\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyLogs\",\"path\":\"/user/log\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"log\",\"nanostamp\",\"target\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserLogsResponse\"}]},{\"resource\":\"user\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserLookup\",\"path\":\"/user/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserLookupResponse\"}]},{\"resource\":\"user\",\"name\":\"medals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMedals\",\"path\":\"/user/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMedalsResponse\"},{\"id\":\"getUserMedals\",\"path\":\"/user/{id}/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserMedalsResponse\"}]},{\"resource\":\"user\",\"name\":\"merits\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMerits\",\"path\":\"/user/merits\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMeritsResponse\"}]},{\"resource\":\"user\",\"name\":\"messages\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMessages\",\"path\":\"/user/messages\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserMessagesResponse\"}]},{\"resource\":\"user\",\"name\":\"missions\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMissions\",\"path\":\"/user/missions\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMissionsResponse\"}]},{\"resource\":\"user\",\"name\":\"money\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMoney\",\"path\":\"/user/money\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMoneyResponse\"}]},{\"resource\":\"user\",\"name\":\"networth\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNetworth\",\"path\":\"/user/networth\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNetworthResponse\"}]},{\"resource\":\"user\",\"name\":\"newevents\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNewEvents\",\"path\":\"/user/newevents\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserNewEventsResponse\"}]},{\"resource\":\"user\",\"name\":\"newmessages\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNewMessages\",\"path\":\"/user/newmessages\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNewMessagesResponse\"}]},{\"resource\":\"user\",\"name\":\"notifications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNotifications\",\"path\":\"/user/notifications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNotificationsResponse\"}]},{\"resource\":\"user\",\"name\":\"organizedcrime\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyOrganizedCrime\",\"path\":\"/user/organizedcrime\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserOrganizedCrimeResponse\"}]},{\"resource\":\"user\",\"name\":\"organizedcrimes\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAvailableOrganizedCrimes\",\"path\":\"/user/organizedcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserOrganizedCrimesResponse\"}]},{\"resource\":\"user\",\"name\":\"perks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyPerks\",\"path\":\"/user/perks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserPerksResponse\"}]},{\"resource\":\"user\",\"name\":\"personalstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyPersonalStats\",\"path\":\"/user/personalstats\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":null,\"schema\":\"UserPersonalStatsResponse\"},{\"id\":\"getUserPersonalStats\",\"path\":\"/user/{id}/personalstats\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPersonalStatsResponse\"}]},{\"resource\":\"user\",\"name\":\"profile\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProfile\",\"path\":\"/user/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserProfileResponse\"},{\"id\":\"getUserProfile\",\"path\":\"/user/{id}/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserProfileResponse\"}]},{\"resource\":\"user\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProperties\",\"path\":\"/user/properties\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserPropertiesResponse\"},{\"id\":\"getUserProperties\",\"path\":\"/user/{id}/properties\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPropertiesResponse\"}]},{\"resource\":\"user\",\"name\":\"property\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProperty\",\"path\":\"/user/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserPropertyResponse\"},{\"id\":\"getUserProperty\",\"path\":\"/user/{id}/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPropertyResponse\"}]},{\"resource\":\"user\",\"name\":\"races\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRaces\",\"path\":\"/user/races\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserRacesResponse\"}]},{\"resource\":\"user\",\"name\":\"racingrecords\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRacingRecords\",\"path\":\"/user/racingrecords\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserRacingRecordsResponse\"}]},{\"resource\":\"user\",\"name\":\"refills\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRefills\",\"path\":\"/user/refills\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserRefillsResponse\"}]},{\"resource\":\"user\",\"name\":\"reports\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyReports\",\"path\":\"/user/reports\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"target\",\"timestamp\"],\"required\":null,\"schema\":\"ReportsResponse\"}]},{\"resource\":\"user\",\"name\":\"revives\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRevives\",\"path\":\"/user/revives\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesResponse\"}]},{\"resource\":\"user\",\"name\":\"revivesfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRevivesSimplified\",\"path\":\"/user/revivesFull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesFullResponse\"}]},{\"resource\":\"user\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUsersSearch\",\"path\":\"/user/search\",\"parameters\":[\"comment\",\"cursor\",\"filters\",\"key\",\"name\",\"offset\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"UserSearchResponse\"}]},{\"resource\":\"user\",\"name\":\"skills\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMySkills\",\"path\":\"/user/skills\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserSkillsResponse\"}]},{\"resource\":\"user\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getUsersSnapshot\",\"path\":\"/user/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"user\",\"name\":\"stocks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyStocks\",\"path\":\"/user/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserStocksResponse\"}]},{\"resource\":\"user\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserTimestamp\",\"path\":\"/user/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"user\",\"name\":\"trade\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyDetailedTrade\",\"path\":\"/user/{tradeId}/trade\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"tradeId\"],\"schema\":\"UserTradeResponse\"}]},{\"resource\":\"user\",\"name\":\"trades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTrades\",\"path\":\"/user/trades\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserTradesResponse\"}]},{\"resource\":\"user\",\"name\":\"travel\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTravelInformation\",\"path\":\"/user/travel\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserTravelResponse\"}]},{\"resource\":\"user\",\"name\":\"travelinventory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTravelInventory\",\"path\":\"/user/travelinventory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserTravelInventoryResponse\"}]},{\"resource\":\"user\",\"name\":\"virus\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyVirusCodingInformation\",\"path\":\"/user/virus\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserVirusResponse\"}]},{\"resource\":\"user\",\"name\":\"weaponexp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyWeaponExp\",\"path\":\"/user/weaponexp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserWeaponExpResponse\"}]},{\"resource\":\"user\",\"name\":\"workstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyWorkstats\",\"path\":\"/user/workstats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserWorkStatsResponse\"}]}]"), &v); e != nil {
+	if e := json.Unmarshal([]byte("[{\"resource\":\"company\",\"name\":\"applications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyApplications\",\"path\":\"/company/applications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyApplicationsResponse\"}]},{\"resource\":\"company\",\"name\":\"companies\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompaniesList\",\"path\":\"/company/{typeId}/companies\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"striptags\",\"timestamp\"],\"required\":[\"typeId\"],\"schema\":\"CompaniesResponse\"}]},{\"resource\":\"company\",\"name\":\"employees\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyEmployees\",\"path\":\"/company/employees\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyEmployeesResponse\"},{\"id\":\"getCompanyEmployees\",\"path\":\"/company/{id}/employees\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"CompanyEmployeesResponseBasic\"}]},{\"resource\":\"company\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompanyLookup\",\"path\":\"/company/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyLookupResponse\"}]},{\"resource\":\"company\",\"name\":\"news\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyNews\",\"path\":\"/company/news\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"NewsResponse\"}]},{\"resource\":\"company\",\"name\":\"profile\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyProfile\",\"path\":\"/company/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyProfileResponseMixed\"},{\"id\":\"getCompanyProfile\",\"path\":\"/company/{id}/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"CompanyProfileResponse\"}]},{\"resource\":\"company\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompaniesSearch\",\"path\":\"/company/search\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"name\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"CompaniesSearchResponse\"}]},{\"resource\":\"company\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getCompaniesSnapshot\",\"path\":\"/company/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"company\",\"name\":\"stock\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompanyStock\",\"path\":\"/company/stock\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"CompanyStockResponse\"}]},{\"resource\":\"company\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getCompanyTimestamp\",\"path\":\"/company/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"faction\",\"name\":\"applications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionApplications\",\"path\":\"/faction/applications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionApplicationsResponse\"}]},{\"resource\":\"faction\",\"name\":\"armor\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"attacks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionAttacks\",\"path\":\"/faction/attacks\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksResponse\"}]},{\"resource\":\"faction\",\"name\":\"attacksfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionAttacksSimplified\",\"path\":\"/faction/attacksfull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksFullResponse\"}]},{\"resource\":\"faction\",\"name\":\"balance\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionBalance\",\"path\":\"/faction/balance\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionBalanceResponse\"}]},{\"resource\":\"faction\",\"name\":\"basic\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionBasicInformation\",\"path\":\"/faction/basic\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionBasicResponse\"},{\"id\":\"getFactionBasicInformation\",\"path\":\"/faction/{id}/basic\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionBasicResponse\"}]},{\"resource\":\"faction\",\"name\":\"boosters\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"caches\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"cesium\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"chain\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionChain\",\"path\":\"/faction/chain\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionOngoingChainResponse\"},{\"id\":\"getFactionChain\",\"path\":\"/faction/{id}/chain\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionOngoingChainResponse\"}]},{\"resource\":\"faction\",\"name\":\"chainreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionLatestChainReport\",\"path\":\"/faction/chainreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionChainReportResponse\"},{\"id\":\"getChainReport\",\"path\":\"/faction/{chainId}/chainreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"chainId\"],\"schema\":\"FactionChainReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"chains\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionCompletedChains\",\"path\":\"/faction/chains\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionChainsResponse\"},{\"id\":\"getFactionCompletedChains\",\"path\":\"/faction/{id}/chains\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionChainsResponse\"}]},{\"resource\":\"faction\",\"name\":\"contributors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionContributors\",\"path\":\"/faction/contributors\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":null,\"schema\":\"FactionContributorsResponse\"}]},{\"resource\":\"faction\",\"name\":\"crime\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionOrganizedCrime\",\"path\":\"/faction/{crimeId}/crime\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"FactionCrimeResponse\"}]},{\"resource\":\"faction\",\"name\":\"crimeexp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionCrimeExp\",\"path\":\"/faction/crimeexp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionCrimeExpResponse\"}]},{\"resource\":\"faction\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionOrganizedCrimes\",\"path\":\"/faction/crimes\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionCrimesResponse\"}]},{\"resource\":\"faction\",\"name\":\"dirtbombs\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionGeneric\",\"path\":\"/faction\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareDirtyBombsResponse\"}]},{\"resource\":\"faction\",\"name\":\"dirtybombs\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareDirtyBombs\",\"path\":\"/faction/dirtybombs\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionWarfareDirtyBombsResponse\"}]},{\"resource\":\"faction\",\"name\":\"drugs\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionHoF\",\"path\":\"/faction/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionHofResponse\"},{\"id\":\"getFactionHoF\",\"path\":\"/faction/{id}/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionHofResponse\"}]},{\"resource\":\"faction\",\"name\":\"inventory\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionInventory\",\"path\":\"/faction/inventory\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionInventoryResponse\"}]},{\"resource\":\"faction\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionLookup\",\"path\":\"/faction/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionLookupResponse\"}]},{\"resource\":\"faction\",\"name\":\"medical\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"members\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionMembers\",\"path\":\"/faction/members\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"FactionMembersResponse\"},{\"id\":\"getFactionMembers\",\"path\":\"/faction/{id}/members\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionMembersResponse\"}]},{\"resource\":\"faction\",\"name\":\"news\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionNews\",\"path\":\"/faction/news\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"NewsResponse\"}]},{\"resource\":\"faction\",\"name\":\"positions\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionPositions\",\"path\":\"/faction/positions\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionPositionsResponse\"}]},{\"resource\":\"faction\",\"name\":\"rackets\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionRackets\",\"path\":\"/faction/rackets\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionRacketsResponse\"}]},{\"resource\":\"faction\",\"name\":\"raidreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRaidReport\",\"path\":\"/faction/{raidWarId}/raidreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"raidWarId\"],\"schema\":\"FactionRaidWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"raids\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRaidsHistory\",\"path\":\"/faction/raids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionRaidsResponse\"},{\"id\":\"getFactionRaidsHistory\",\"path\":\"/faction/{id}/raids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionRaidsResponse\"}]},{\"resource\":\"faction\",\"name\":\"rankedwarreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRankedWarReport\",\"path\":\"/faction/{rankedWarId}/rankedwarreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"rankedWarId\"],\"schema\":\"FactionRankedWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"rankedwars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRankedWarsHistory\",\"path\":\"/faction/rankedwars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionRankedWarResponse\"},{\"id\":\"getFactionRankedWarsHistory\",\"path\":\"/faction/{id}/rankedwars\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionRankedWarResponse\"}]},{\"resource\":\"faction\",\"name\":\"reports\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionReports\",\"path\":\"/faction/reports\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"target\",\"timestamp\"],\"required\":null,\"schema\":\"ReportsResponse\"}]},{\"resource\":\"faction\",\"name\":\"revives\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRevives\",\"path\":\"/faction/revives\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesResponse\"}]},{\"resource\":\"faction\",\"name\":\"revivesfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionRevivesSimplified\",\"path\":\"/faction/revivesFull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesFullResponse\"}]},{\"resource\":\"faction\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionSearch\",\"path\":\"/faction/search\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"name\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionSearchResponse\"}]},{\"resource\":\"faction\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getFactionsSnapshot\",\"path\":\"/faction/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"faction\",\"name\":\"stats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionStats\",\"path\":\"/faction/stats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionStatsResponse\"}]},{\"resource\":\"faction\",\"name\":\"temporary\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"territory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionTerritory\",\"path\":\"/faction/territory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionTerritoriesResponse\"},{\"id\":\"getFactionTerritory\",\"path\":\"/faction/{id}/territory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionTerritoriesResponse\"}]},{\"resource\":\"faction\",\"name\":\"territoryownership\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTerritoryOwnership\",\"path\":\"/faction/territoryownership\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"FactionTerritoriesOwnershipResponse\"}]},{\"resource\":\"faction\",\"name\":\"territorywarreport\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTerritoryWarReport\",\"path\":\"/faction/{territoryWarId}/territorywarreport\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"territoryWarId\"],\"schema\":\"FactionTerritoryWarReportResponse\"}]},{\"resource\":\"faction\",\"name\":\"territorywars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionTerritoryWarsHistory\",\"path\":\"/faction/territorywars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionTerritoryWarsHistoryResponse\"},{\"id\":\"getFactionTerritoryWarsHistory\",\"path\":\"/faction/{id}/territorywars\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"FactionTerritoryWarsHistoryResponse\"}]},{\"resource\":\"faction\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getFactionTimestamp\",\"path\":\"/faction/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"faction\",\"name\":\"upgrades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionUpgrades\",\"path\":\"/faction/upgrades\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionUpgradesResponse\"}]},{\"resource\":\"faction\",\"name\":\"utilities\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"faction\",\"name\":\"warfare\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfare\",\"path\":\"/faction/warfare\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfarechains\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareChains\",\"path\":\"/faction/warfarechains\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareChainsResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareraids\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareRaids\",\"path\":\"/faction/warfareraids\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareRaidsResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareranked\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareRankedWars\",\"path\":\"/faction/warfareranked\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareRankedResponse\"}]},{\"resource\":\"faction\",\"name\":\"warfareterritory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getWarfareTerritoryWars\",\"path\":\"/faction/warfareterritory\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"FactionWarfareTerritoryWarsResponse\"}]},{\"resource\":\"faction\",\"name\":\"wars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFactionWars\",\"path\":\"/faction/wars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"FactionWarsResponse\"},{\"id\":\"getFactionWars\",\"path\":\"/faction/{id}/wars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"FactionWarsResponse\"}]},{\"resource\":\"faction\",\"name\":\"weapons\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"forum\",\"name\":\"categories\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumCategories\",\"path\":\"/forum/categories\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"ForumCategoriesResponse\"}]},{\"resource\":\"forum\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumLookup\",\"path\":\"/forum/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"ForumLookupResponse\"}]},{\"resource\":\"forum\",\"name\":\"posts\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumThreadPosts\",\"path\":\"/forum/{threadId}/posts\",\"parameters\":[\"comment\",\"from\",\"key\",\"offset\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":[\"threadId\"],\"schema\":\"ForumPostsResponse\"}]},{\"resource\":\"forum\",\"name\":\"thread\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumThread\",\"path\":\"/forum/{threadId}/thread\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"threadId\"],\"schema\":\"ForumThreadResponse\"}]},{\"resource\":\"forum\",\"name\":\"threads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumAllThreads\",\"path\":\"/forum/threads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"ForumThreadsResponse\"},{\"id\":\"getForumThreads\",\"path\":\"/forum/{categoryIds}/threads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"categoryIds\"],\"schema\":\"ForumThreadsResponse\"}]},{\"resource\":\"forum\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getForumTimestamp\",\"path\":\"/forum/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"key\",\"name\":\"info\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getKeyInfo\",\"path\":\"/key/info\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"KeyInfoResponse\"}]},{\"resource\":\"key\",\"name\":\"log\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getKeyLog\",\"path\":\"/key/log\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"KeyLogResponse\"}]},{\"resource\":\"market\",\"name\":\"auctionhouse\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketAuctionHouse\",\"path\":\"/market/auctionhouse\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AuctionHouseResponse\"},{\"id\":\"getMarketAuctionHouseItem\",\"path\":\"/market/{id}/auctionhouse\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"AuctionHouseResponse\"}]},{\"resource\":\"market\",\"name\":\"auctionhouselisting\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketAuctionHouseListing\",\"path\":\"/market/{id}/auctionhouselisting\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"AuctionHouseListingResponse\"}]},{\"resource\":\"market\",\"name\":\"bazaar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketBazaar\",\"path\":\"/market/bazaar\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"BazaarResponse\"},{\"id\":\"getMarketBazaarItem\",\"path\":\"/market/{id}/bazaar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"BazaarResponseSpecialized\"}]},{\"resource\":\"market\",\"name\":\"itemmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketItemMarketItem\",\"path\":\"/market/{id}/itemmarket\",\"parameters\":[\"bonus\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"MarketItemMarketResponse\"}]},{\"resource\":\"market\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketLookup\",\"path\":\"/market/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"MarketLookupResponse\"}]},{\"resource\":\"market\",\"name\":\"pointsmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketPoints\",\"path\":\"/market/pointsmarket\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"PointsMarketResponse\"}]},{\"resource\":\"market\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketProperties\",\"path\":\"/market/{propertyTypeId}/properties\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":[\"propertyTypeId\"],\"schema\":\"MarketPropertiesResponse\"}]},{\"resource\":\"market\",\"name\":\"rentals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketPropertiesRental\",\"path\":\"/market/{propertyTypeId}/rentals\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":[\"propertyTypeId\"],\"schema\":\"MarketRentalsResponse\"}]},{\"resource\":\"market\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMarketTimestamp\",\"path\":\"/market/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"property\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getPropertyLookup\",\"path\":\"/property/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"PropertyLookupResponse\"}]},{\"resource\":\"property\",\"name\":\"property\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getProperty\",\"path\":\"/property/{id}/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"PropertyPropertyResponse\"}]},{\"resource\":\"property\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getPropertyTimestamp\",\"path\":\"/property/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"racing\",\"name\":\"cars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingCars\",\"path\":\"/racing/cars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingCarsResponse\"}]},{\"resource\":\"racing\",\"name\":\"carupgrades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingCarUpgrades\",\"path\":\"/racing/carupgrades\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingCarUpgradesResponse\"}]},{\"resource\":\"racing\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingLookup\",\"path\":\"/racing/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingLookupResponse\"}]},{\"resource\":\"racing\",\"name\":\"race\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingRaceDetails\",\"path\":\"/racing/{raceId}/race\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"raceId\"],\"schema\":\"RacingRaceDetailsResponse\"}]},{\"resource\":\"racing\",\"name\":\"races\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingRaces\",\"path\":\"/racing/races\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RacingRacesResponse\"}]},{\"resource\":\"racing\",\"name\":\"records\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTrackRecords\",\"path\":\"/racing/{trackId}/records\",\"parameters\":[\"cat\",\"comment\",\"key\",\"timestamp\"],\"required\":[\"trackId\"],\"schema\":\"RacingTrackRecordsResponse\"}]},{\"resource\":\"racing\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTimestamp\",\"path\":\"/racing/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"racing\",\"name\":\"tracks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getRacingTracks\",\"path\":\"/racing/tracks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"RacingTracksResponse\"}]},{\"resource\":\"torn\",\"name\":\"attacklog\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornAttackLog\",\"path\":\"/torn/attacklog\",\"parameters\":[\"comment\",\"key\",\"log\",\"offset\",\"sort\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"AttackLogResponse\"}]},{\"resource\":\"torn\",\"name\":\"bank\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornBank\",\"path\":\"/torn/bank\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornBankResponse\"}]},{\"resource\":\"torn\",\"name\":\"bounties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornBounties\",\"path\":\"/torn/bounties\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornBountiesResponse\"}]},{\"resource\":\"torn\",\"name\":\"calendar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCalendar\",\"path\":\"/torn/calendar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCalendarResponse\"}]},{\"resource\":\"torn\",\"name\":\"cards\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCards\",\"path\":\"/torn/cards\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCardsResponse\"}]},{\"resource\":\"torn\",\"name\":\"cityshops\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCityShops\",\"path\":\"/torn/cityshops\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCityShopsResponse\"},{\"id\":\"getTornCityShopSpecific\",\"path\":\"/torn/{shopId}/cityshops\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"shopId\"],\"schema\":\"TornCityShopsResponse\"}]},{\"resource\":\"torn\",\"name\":\"companies\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCompanies\",\"path\":\"/torn/companies\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCompaniesResponse\"},{\"id\":\"getTornCompaniesSpecific\",\"path\":\"/torn/{typeId}/companies\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"typeId\"],\"schema\":\"TornCompaniesResponse\"}]},{\"resource\":\"torn\",\"name\":\"competition\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null,\"v2_fallback\":true},{\"resource\":\"torn\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCrimes\",\"path\":\"/torn/crimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCrimesResponse\"}]},{\"resource\":\"torn\",\"name\":\"education\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornEducation\",\"path\":\"/torn/education\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornEducationResponse\"}]},{\"resource\":\"torn\",\"name\":\"elimination\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornElimination\",\"path\":\"/torn/elimination\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornEliminationTeamsResponse\"}]},{\"resource\":\"torn\",\"name\":\"eliminationteam\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornEliminationTeam\",\"path\":\"/torn/{id}/eliminationteam\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"TornEliminationTeamPlayersResponse\"}]},{\"resource\":\"torn\",\"name\":\"factionhof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornFactionHoF\",\"path\":\"/torn/factionhof\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornFactionHofResponse\"}]},{\"resource\":\"torn\",\"name\":\"factiontree\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornFactionTree\",\"path\":\"/torn/factiontree\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornFactionTreeResponse\"}]},{\"resource\":\"torn\",\"name\":\"gyms\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornGyms\",\"path\":\"/torn/gyms\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornGymsResponse\"}]},{\"resource\":\"torn\",\"name\":\"halloween\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHalloween\",\"path\":\"/torn/halloween\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornHalloweenResponse\"}]},{\"resource\":\"torn\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHoF\",\"path\":\"/torn/hof\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornHofResponse\"}]},{\"resource\":\"torn\",\"name\":\"honors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornHonors\",\"path\":\"/torn/honors\",\"parameters\":[\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"TornHonorsResponse\"},{\"id\":\"getTornHonorsSpecific\",\"path\":\"/torn/{ids}/honors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornHonorsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemammo\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemAmmo\",\"path\":\"/torn/itemammo\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemAmmoResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemdetails\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemDetails\",\"path\":\"/torn/{ids}/itemdetails\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemDetailsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemmods\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemMods\",\"path\":\"/torn/itemmods\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemModsResponse\"}]},{\"resource\":\"torn\",\"name\":\"items\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItems\",\"path\":\"/torn/items\",\"parameters\":[\"cat\",\"comment\",\"key\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"TornItemsResponse\"},{\"id\":\"getTornItemsSpecific\",\"path\":\"/torn/{ids}/items\",\"parameters\":[\"comment\",\"key\",\"sort\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemsResponse\"}]},{\"resource\":\"torn\",\"name\":\"itemstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornItemStats\",\"path\":\"/torn/{ids}/itemstats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornItemStatsResponse\"}]},{\"resource\":\"torn\",\"name\":\"logcategories\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLogCategories\",\"path\":\"/torn/logcategories\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLogCategoriesResponse\"}]},{\"resource\":\"torn\",\"name\":\"logtypes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLogTypes\",\"path\":\"/torn/logtypes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLogTypesResponse\"},{\"id\":\"getTornLogTypesSpecific\",\"path\":\"/torn/{logCategoryId}/logtypes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"logCategoryId\"],\"schema\":\"TornLogTypesResponse\"}]},{\"resource\":\"torn\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornLookup\",\"path\":\"/torn/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornLookupResponse\"}]},{\"resource\":\"torn\",\"name\":\"medals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMedals\",\"path\":\"/torn/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMedalsResponse\"},{\"id\":\"getTornMedalsSpecific\",\"path\":\"/torn/{ids}/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"ids\"],\"schema\":\"TornMedalsResponse\"}]},{\"resource\":\"torn\",\"name\":\"merits\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMerits\",\"path\":\"/torn/merits\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMeritsResponse\"}]},{\"resource\":\"torn\",\"name\":\"museum\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornMuseum\",\"path\":\"/torn/museum\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornMuseumResponse\"}]},{\"resource\":\"torn\",\"name\":\"organisedcrimes\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null,\"v2_fallback\":true},{\"resource\":\"torn\",\"name\":\"organizedcrimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornOrganizedCrimes\",\"path\":\"/torn/organizedcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornOrganizedCrimeResponse\"}]},{\"resource\":\"torn\",\"name\":\"pawnshop\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null},{\"resource\":\"torn\",\"name\":\"pokertables\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornPokerTables\",\"path\":\"/torn/pokertables\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornPokerTablesResponse\"}]},{\"resource\":\"torn\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornProperties\",\"path\":\"/torn/properties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornProperties\"}]},{\"resource\":\"torn\",\"name\":\"rockpaperscissors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornRps\",\"path\":\"/torn/rockpaperscissors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornRockPaperScissorsResponse\"}]},{\"resource\":\"torn\",\"name\":\"searchforcash\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornSearchForCash\",\"path\":\"/torn/searchforcash\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornSearchForCashResponse\"}]},{\"resource\":\"torn\",\"name\":\"shoplifting\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornShoplifting\",\"path\":\"/torn/shoplifting\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornShopliftingResponse\"}]},{\"resource\":\"torn\",\"name\":\"stats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornCityStats\",\"path\":\"/torn/stats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornCityStatsResponse\"}]},{\"resource\":\"torn\",\"name\":\"stocks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornStocks\",\"path\":\"/torn/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TornStocksResponse\"},{\"id\":\"getSpecificTornStock\",\"path\":\"/torn/{stockId}/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"stockId\"],\"schema\":\"TornStockDetailedResponse\"}]},{\"resource\":\"torn\",\"name\":\"subcrimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornSubcrimes\",\"path\":\"/torn/{crimeId}/subcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"TornSubcrimesResponse\"}]},{\"resource\":\"torn\",\"name\":\"territory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornTerritory\",\"path\":\"/torn/territory\",\"parameters\":[\"comment\",\"ids\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"TornTerritoriesResponse\"}]},{\"resource\":\"torn\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getTornTimestamp\",\"path\":\"/torn/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"user\",\"name\":\"ammo\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAmmo\",\"path\":\"/user/ammo\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserAmmoResponse\"}]},{\"resource\":\"user\",\"name\":\"attacks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAttacks\",\"path\":\"/user/attacks\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksResponse\"}]},{\"resource\":\"user\",\"name\":\"attacksfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAttacksSimplified\",\"path\":\"/user/attacksfull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"AttacksFullResponse\"}]},{\"resource\":\"user\",\"name\":\"bars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBars\",\"path\":\"/user/bars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBarsResponse\"}]},{\"resource\":\"user\",\"name\":\"basic\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBasicInformation\",\"path\":\"/user/basic\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserBasicResponse\"},{\"id\":\"getUserBasicInformation\",\"path\":\"/user/{id}/basic\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserBasicResponse\"}]},{\"resource\":\"user\",\"name\":\"battlestats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBattlestats\",\"path\":\"/user/battlestats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBattleStatsResponse\"}]},{\"resource\":\"user\",\"name\":\"bazaar\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null,\"v2_fallback\":true},{\"resource\":\"user\",\"name\":\"bounties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyBounties\",\"path\":\"/user/bounties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserBountiesResponse\"},{\"id\":\"getUserBounties\",\"path\":\"/user/{id}/bounties\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserBountiesResponse\"}]},{\"resource\":\"user\",\"name\":\"calendar\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCalendarTime\",\"path\":\"/user/calendar\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCalendarResponse\"}]},{\"resource\":\"user\",\"name\":\"casino\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCasinoStreak\",\"path\":\"/user/casino\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCasinoResponse\"}]},{\"resource\":\"user\",\"name\":\"competition\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCompetitionInfo\",\"path\":\"/user/competition\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCompetitionResponse\"},{\"id\":\"getUserCompetitionInfo\",\"path\":\"/user/{id}/competition\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserCompetitionResponse\"}]},{\"resource\":\"user\",\"name\":\"cooldowns\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCooldowns\",\"path\":\"/user/cooldowns\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserCooldownsResponse\"}]},{\"resource\":\"user\",\"name\":\"crimes\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyCrimes\",\"path\":\"/user/{crimeId}/crimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"crimeId\"],\"schema\":\"UserCrimesResponse\"}]},{\"resource\":\"user\",\"name\":\"criminalrecord\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null,\"v2_fallback\":true},{\"resource\":\"user\",\"name\":\"discord\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyDiscord\",\"path\":\"/user/discord\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserDiscordResponse\"},{\"id\":\"getUserDiscord\",\"path\":\"/user/{id}/discord\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserDiscordResponse\"}]},{\"resource\":\"user\",\"name\":\"display\",\"generic\":false,\"standalone\":false,\"legacy\":true,\"csv\":false,\"endpoints\":null,\"v2_fallback\":true},{\"resource\":\"user\",\"name\":\"education\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEducation\",\"path\":\"/user/education\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEducationResponse\"}]},{\"resource\":\"user\",\"name\":\"enlistedcars\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEnlistedCars\",\"path\":\"/user/enlistedcars\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEnlistedCarsResponse\"}]},{\"resource\":\"user\",\"name\":\"equipment\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEquipment\",\"path\":\"/user/equipment\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserEquipmentResponse\"}]},{\"resource\":\"user\",\"name\":\"events\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyEvents\",\"path\":\"/user/events\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserEventsResponse\"}]},{\"resource\":\"user\",\"name\":\"faction\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyFaction\",\"path\":\"/user/faction\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserFactionResponse\"},{\"id\":\"getUserFaction\",\"path\":\"/user/{id}/faction\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserFactionResponse\"}]},{\"resource\":\"user\",\"name\":\"factionbalance\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserGeneric\",\"path\":\"/user\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserFactionBalanceResponse\"}]},{\"resource\":\"user\",\"name\":\"forumfeed\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumFeed\",\"path\":\"/user/forumfeed\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumFeedResponse\"}]},{\"resource\":\"user\",\"name\":\"forumfriends\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumFriendsUpdates\",\"path\":\"/user/forumfriends\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumFriendsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumposts\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumPosts\",\"path\":\"/user/forumposts\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserForumPostsResponse\"},{\"id\":\"getUserForumPosts\",\"path\":\"/user/{id}/forumposts\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"UserForumPostsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumsubscribedthreads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumSubscribedThreads\",\"path\":\"/user/forumsubscribedthreads\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserForumSubscribedThreadsResponse\"}]},{\"resource\":\"user\",\"name\":\"forumthreads\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyForumThreads\",\"path\":\"/user/forumthreads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserForumThreadsResponse\"},{\"id\":\"getUserForumThreads\",\"path\":\"/user/{id}/forumthreads\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":[\"id\"],\"schema\":\"UserForumThreadsResponse\"}]},{\"resource\":\"user\",\"name\":\"gym\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyGym\",\"path\":\"/user/gym\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserGymResponse\"}]},{\"resource\":\"user\",\"name\":\"halloween\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHalloween\",\"path\":\"/user/halloween\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHalloweenResponse\"}]},{\"resource\":\"user\",\"name\":\"hof\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHoF\",\"path\":\"/user/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHofResponse\"},{\"id\":\"getUserHoF\",\"path\":\"/user/{id}/hof\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserHofResponse\"}]},{\"resource\":\"user\",\"name\":\"honors\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyHonors\",\"path\":\"/user/honors\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserHonorsResponse\"}]},{\"resource\":\"user\",\"name\":\"icons\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyIcons\",\"path\":\"/user/icons\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserIconsResponse\"},{\"id\":\"getUserIcons\",\"path\":\"/user/{id}/icons\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserIconsResponse\"}]},{\"resource\":\"user\",\"name\":\"inventory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyInventory\",\"path\":\"/user/inventory\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserInventoryResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmarket\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyItemMarketListings\",\"path\":\"/user/itemmarket\",\"parameters\":[\"comment\",\"key\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserItemMarketResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmod\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserGeneric\",\"path\":\"/user\",\"parameters\":[\"cat\",\"comment\",\"filters\",\"from\",\"id\",\"key\",\"legacy\",\"limit\",\"offset\",\"selections\",\"sort\",\"stat\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserItemModsResponse\"}]},{\"resource\":\"user\",\"name\":\"itemmods\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyItemModsInformation\",\"path\":\"/user/itemmods\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserItemModsResponse\"}]},{\"resource\":\"user\",\"name\":\"job\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJob\",\"path\":\"/user/job\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobResponse\"},{\"id\":\"getUserJob\",\"path\":\"/user/{id}/job\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserJobResponse\"}]},{\"resource\":\"user\",\"name\":\"jobpoints\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJobPoints\",\"path\":\"/user/jobpoints\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobPointsResponse\"}]},{\"resource\":\"user\",\"name\":\"jobranks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyJobRanks\",\"path\":\"/user/jobranks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserJobRanksResponse\"}]},{\"resource\":\"user\",\"name\":\"list\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyContactsList\",\"path\":\"/user/list\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserListResponse\"}]},{\"resource\":\"user\",\"name\":\"log\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyLogs\",\"path\":\"/user/log\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"log\",\"nanostamp\",\"target\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserLogsResponse\"}]},{\"resource\":\"user\",\"name\":\"lookup\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserLookup\",\"path\":\"/user/lookup\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserLookupResponse\"}]},{\"resource\":\"user\",\"name\":\"medals\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMedals\",\"path\":\"/user/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMedalsResponse\"},{\"id\":\"getUserMedals\",\"path\":\"/user/{id}/medals\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserMedalsResponse\"}]},{\"resource\":\"user\",\"name\":\"merits\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMerits\",\"path\":\"/user/merits\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMeritsResponse\"}]},{\"resource\":\"user\",\"name\":\"messages\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMessages\",\"path\":\"/user/messages\",\"parameters\":[\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserMessagesResponse\"}]},{\"resource\":\"user\",\"name\":\"missions\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMissions\",\"path\":\"/user/missions\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMissionsResponse\"}]},{\"resource\":\"user\",\"name\":\"money\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyMoney\",\"path\":\"/user/money\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserMoneyResponse\"}]},{\"resource\":\"user\",\"name\":\"networth\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNetworth\",\"path\":\"/user/networth\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNetworthResponse\"}]},{\"resource\":\"user\",\"name\":\"newevents\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNewEvents\",\"path\":\"/user/newevents\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserNewEventsResponse\"}]},{\"resource\":\"user\",\"name\":\"newmessages\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNewMessages\",\"path\":\"/user/newmessages\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNewMessagesResponse\"}]},{\"resource\":\"user\",\"name\":\"notifications\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyNotifications\",\"path\":\"/user/notifications\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserNotificationsResponse\"}]},{\"resource\":\"user\",\"name\":\"organizedcrime\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyOrganizedCrime\",\"path\":\"/user/organizedcrime\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserOrganizedCrimeResponse\"}]},{\"resource\":\"user\",\"name\":\"organizedcrimes\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyAvailableOrganizedCrimes\",\"path\":\"/user/organizedcrimes\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserOrganizedCrimesResponse\"}]},{\"resource\":\"user\",\"name\":\"perks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyPerks\",\"path\":\"/user/perks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserPerksResponse\"}]},{\"resource\":\"user\",\"name\":\"personalstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyPersonalStats\",\"path\":\"/user/personalstats\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":null,\"schema\":\"UserPersonalStatsResponse\"},{\"id\":\"getUserPersonalStats\",\"path\":\"/user/{id}/personalstats\",\"parameters\":[\"cat\",\"comment\",\"key\",\"stat\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPersonalStatsResponse\"}]},{\"resource\":\"user\",\"name\":\"profile\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProfile\",\"path\":\"/user/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":null,\"schema\":\"UserProfileResponse\"},{\"id\":\"getUserProfile\",\"path\":\"/user/{id}/profile\",\"parameters\":[\"comment\",\"key\",\"striptags\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserProfileResponse\"}]},{\"resource\":\"user\",\"name\":\"properties\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProperties\",\"path\":\"/user/properties\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":null,\"schema\":\"UserPropertiesResponse\"},{\"id\":\"getUserProperties\",\"path\":\"/user/{id}/properties\",\"parameters\":[\"comment\",\"filters\",\"key\",\"limit\",\"offset\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPropertiesResponse\"}]},{\"resource\":\"user\",\"name\":\"property\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyProperty\",\"path\":\"/user/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserPropertyResponse\"},{\"id\":\"getUserProperty\",\"path\":\"/user/{id}/property\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"id\"],\"schema\":\"UserPropertyResponse\"}]},{\"resource\":\"user\",\"name\":\"races\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRaces\",\"path\":\"/user/races\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserRacesResponse\"}]},{\"resource\":\"user\",\"name\":\"racingrecords\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRacingRecords\",\"path\":\"/user/racingrecords\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserRacingRecordsResponse\"}]},{\"resource\":\"user\",\"name\":\"refills\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRefills\",\"path\":\"/user/refills\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserRefillsResponse\"}]},{\"resource\":\"user\",\"name\":\"reports\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyReports\",\"path\":\"/user/reports\",\"parameters\":[\"cat\",\"comment\",\"key\",\"limit\",\"offset\",\"sort\",\"target\",\"timestamp\"],\"required\":null,\"schema\":\"ReportsResponse\"}]},{\"resource\":\"user\",\"name\":\"revives\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRevives\",\"path\":\"/user/revives\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesResponse\"}]},{\"resource\":\"user\",\"name\":\"revivesfull\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyRevivesSimplified\",\"path\":\"/user/revivesFull\",\"parameters\":[\"comment\",\"filters\",\"from\",\"key\",\"limit\",\"sort\",\"striptags\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"RevivesFullResponse\"}]},{\"resource\":\"user\",\"name\":\"search\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUsersSearch\",\"path\":\"/user/search\",\"parameters\":[\"comment\",\"cursor\",\"filters\",\"key\",\"name\",\"offset\",\"sort\",\"timestamp\"],\"required\":null,\"schema\":\"UserSearchResponse\"}]},{\"resource\":\"user\",\"name\":\"skills\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMySkills\",\"path\":\"/user/skills\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserSkillsResponse\"}]},{\"resource\":\"user\",\"name\":\"snapshot\",\"generic\":false,\"standalone\":true,\"legacy\":false,\"csv\":true,\"endpoints\":[{\"id\":\"getUsersSnapshot\",\"path\":\"/user/snapshot\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"\"}]},{\"resource\":\"user\",\"name\":\"stocks\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyStocks\",\"path\":\"/user/stocks\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserStocksResponse\"}]},{\"resource\":\"user\",\"name\":\"timestamp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getUserTimestamp\",\"path\":\"/user/timestamp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"TimestampResponse\"}]},{\"resource\":\"user\",\"name\":\"trade\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyDetailedTrade\",\"path\":\"/user/{tradeId}/trade\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":[\"tradeId\"],\"schema\":\"UserTradeResponse\"}]},{\"resource\":\"user\",\"name\":\"trades\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTrades\",\"path\":\"/user/trades\",\"parameters\":[\"cat\",\"comment\",\"from\",\"key\",\"limit\",\"sort\",\"timestamp\",\"to\"],\"required\":null,\"schema\":\"UserTradesResponse\"}]},{\"resource\":\"user\",\"name\":\"travel\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTravelInformation\",\"path\":\"/user/travel\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserTravelResponse\"}]},{\"resource\":\"user\",\"name\":\"travelinventory\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyTravelInventory\",\"path\":\"/user/travelinventory\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserTravelInventoryResponse\"}]},{\"resource\":\"user\",\"name\":\"virus\",\"generic\":false,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyVirusCodingInformation\",\"path\":\"/user/virus\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserVirusResponse\"}]},{\"resource\":\"user\",\"name\":\"weaponexp\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyWeaponExp\",\"path\":\"/user/weaponexp\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserWeaponExpResponse\"}]},{\"resource\":\"user\",\"name\":\"workstats\",\"generic\":true,\"standalone\":false,\"legacy\":false,\"csv\":false,\"endpoints\":[{\"id\":\"getMyWorkstats\",\"path\":\"/user/workstats\",\"parameters\":[\"comment\",\"key\",\"timestamp\"],\"required\":null,\"schema\":\"UserWorkStatsResponse\"}]}]"), &v); e != nil {
 		panic(e)
 	}
 	return v
@@ -38,16 +38,34 @@ var genericCatalog = func() map[string]SelectionEndpoint {
 	return v
 }()
 
+// CompanyResource marks company selections; a Batch cannot mix resources.
 type CompanyResource struct{}
+
+// FactionResource marks faction selections; a Batch cannot mix resources.
 type FactionResource struct{}
+
+// ForumResource marks forum selections; a Batch cannot mix resources.
 type ForumResource struct{}
+
+// KeyResource marks key selections; a Batch cannot mix resources.
 type KeyResource struct{}
+
+// MarketResource marks market selections; a Batch cannot mix resources.
 type MarketResource struct{}
+
+// PropertyResource marks property selections; a Batch cannot mix resources.
 type PropertyResource struct{}
+
+// RacingResource marks racing selections; a Batch cannot mix resources.
 type RacingResource struct{}
+
+// TornResource marks torn selections; a Batch cannot mix resources.
 type TornResource struct{}
+
+// UserResource marks user selections; a Batch cannot mix resources.
 type UserResource struct{}
 
+// CompanySelections holds the typed company selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var CompanySelections = struct {
 	Applications Selection[CompanyResource, models.CompanyApplicationsResponse]
 	Companies    Selection[CompanyResource, models.CompaniesResponse]
@@ -59,16 +77,18 @@ var CompanySelections = struct {
 	Stock        Selection[CompanyResource, models.CompanyStockResponse]
 	Timestamp    Selection[CompanyResource, models.TimestampResponse]
 }{
-	Applications: Selection[CompanyResource, models.CompanyApplicationsResponse]{name: "applications", resource: "company"},
-	Companies:    Selection[CompanyResource, models.CompaniesResponse]{name: "companies", resource: "company"},
-	Employees:    Selection[CompanyResource, compat.CompanyEmployeesBundle]{name: "employees", resource: "company"},
-	Lookup:       Selection[CompanyResource, models.CompanyLookupResponse]{name: "lookup", resource: "company"},
-	News:         Selection[CompanyResource, models.NewsResponse]{name: "news", resource: "company"},
-	Profile:      Selection[CompanyResource, compat.CompanyProfileBundle]{name: "profile", resource: "company"},
-	Search:       Selection[CompanyResource, models.CompaniesSearchResponse]{name: "search", resource: "company"},
-	Stock:        Selection[CompanyResource, models.CompanyStockResponse]{name: "stock", resource: "company"},
-	Timestamp:    Selection[CompanyResource, models.TimestampResponse]{name: "timestamp", resource: "company"},
+	Applications: Selection[CompanyResource, models.CompanyApplicationsResponse]{name: "applications", resource: "company", schema: "CompanyApplicationsResponse"},
+	Companies:    Selection[CompanyResource, models.CompaniesResponse]{name: "companies", resource: "company", schema: "CompaniesResponse"},
+	Employees:    Selection[CompanyResource, compat.CompanyEmployeesBundle]{name: "employees", resource: "company", schema: ""},
+	Lookup:       Selection[CompanyResource, models.CompanyLookupResponse]{name: "lookup", resource: "company", schema: "CompanyLookupResponse"},
+	News:         Selection[CompanyResource, models.NewsResponse]{name: "news", resource: "company", schema: "NewsResponse"},
+	Profile:      Selection[CompanyResource, compat.CompanyProfileBundle]{name: "profile", resource: "company", schema: ""},
+	Search:       Selection[CompanyResource, models.CompaniesSearchResponse]{name: "search", resource: "company", schema: "CompaniesSearchResponse"},
+	Stock:        Selection[CompanyResource, models.CompanyStockResponse]{name: "stock", resource: "company", schema: "CompanyStockResponse"},
+	Timestamp:    Selection[CompanyResource, models.TimestampResponse]{name: "timestamp", resource: "company", schema: "TimestampResponse"},
 }
+
+// FactionSelections holds the typed faction selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var FactionSelections = struct {
 	Applications       Selection[FactionResource, models.FactionApplicationsResponse]
 	Armor              Selection[FactionResource, compat.FactionArmorBundle]
@@ -122,58 +142,60 @@ var FactionSelections = struct {
 	Wars               Selection[FactionResource, models.FactionWarsResponse]
 	Weapons            Selection[FactionResource, compat.FactionWeaponsBundle]
 }{
-	Applications:       Selection[FactionResource, models.FactionApplicationsResponse]{name: "applications", resource: "faction"},
-	Armor:              Selection[FactionResource, compat.FactionArmorBundle]{name: "armor", resource: "faction"},
-	Attacks:            Selection[FactionResource, models.AttacksResponse]{name: "attacks", resource: "faction"},
-	Attacksfull:        Selection[FactionResource, models.AttacksFullResponse]{name: "attacksfull", resource: "faction"},
-	Balance:            Selection[FactionResource, models.FactionBalanceResponse]{name: "balance", resource: "faction"},
-	Basic:              Selection[FactionResource, models.FactionBasicResponse]{name: "basic", resource: "faction"},
-	Boosters:           Selection[FactionResource, compat.FactionBoostersBundle]{name: "boosters", resource: "faction"},
-	Caches:             Selection[FactionResource, compat.FactionCachesBundle]{name: "caches", resource: "faction"},
-	Cesium:             Selection[FactionResource, compat.FactionCesiumBundle]{name: "cesium", resource: "faction"},
-	Chain:              Selection[FactionResource, models.FactionOngoingChainResponse]{name: "chain", resource: "faction"},
-	Chainreport:        Selection[FactionResource, models.FactionChainReportResponse]{name: "chainreport", resource: "faction"},
-	Chains:             Selection[FactionResource, models.FactionChainsResponse]{name: "chains", resource: "faction"},
-	Contributors:       Selection[FactionResource, models.FactionContributorsResponse]{name: "contributors", resource: "faction"},
-	Crime:              Selection[FactionResource, models.FactionCrimeResponse]{name: "crime", resource: "faction"},
-	Crimeexp:           Selection[FactionResource, models.FactionCrimeExpResponse]{name: "crimeexp", resource: "faction"},
-	Crimes:             Selection[FactionResource, models.FactionCrimesResponse]{name: "crimes", resource: "faction"},
-	Dirtbombs:          Selection[FactionResource, models.FactionWarfareDirtyBombsResponse]{name: "dirtbombs", resource: "faction"},
-	Dirtybombs:         Selection[FactionResource, models.FactionWarfareDirtyBombsResponse]{name: "dirtybombs", resource: "faction"},
-	Drugs:              Selection[FactionResource, compat.FactionDrugsBundle]{name: "drugs", resource: "faction"},
-	Hof:                Selection[FactionResource, models.FactionHofResponse]{name: "hof", resource: "faction"},
-	Inventory:          Selection[FactionResource, models.FactionInventoryResponse]{name: "inventory", resource: "faction"},
-	Lookup:             Selection[FactionResource, models.FactionLookupResponse]{name: "lookup", resource: "faction"},
-	Medical:            Selection[FactionResource, compat.FactionMedicalBundle]{name: "medical", resource: "faction"},
-	Members:            Selection[FactionResource, models.FactionMembersResponse]{name: "members", resource: "faction"},
-	News:               Selection[FactionResource, models.NewsResponse]{name: "news", resource: "faction"},
-	Positions:          Selection[FactionResource, models.FactionPositionsResponse]{name: "positions", resource: "faction"},
-	Rackets:            Selection[FactionResource, models.FactionRacketsResponse]{name: "rackets", resource: "faction"},
-	Raidreport:         Selection[FactionResource, models.FactionRaidWarReportResponse]{name: "raidreport", resource: "faction"},
-	Raids:              Selection[FactionResource, models.FactionRaidsResponse]{name: "raids", resource: "faction"},
-	Rankedwarreport:    Selection[FactionResource, models.FactionRankedWarReportResponse]{name: "rankedwarreport", resource: "faction"},
-	Rankedwars:         Selection[FactionResource, models.FactionRankedWarResponse]{name: "rankedwars", resource: "faction"},
-	Reports:            Selection[FactionResource, models.ReportsResponse]{name: "reports", resource: "faction"},
-	Revives:            Selection[FactionResource, models.RevivesResponse]{name: "revives", resource: "faction"},
-	Revivesfull:        Selection[FactionResource, models.RevivesFullResponse]{name: "revivesfull", resource: "faction"},
-	Search:             Selection[FactionResource, models.FactionSearchResponse]{name: "search", resource: "faction"},
-	Stats:              Selection[FactionResource, models.FactionStatsResponse]{name: "stats", resource: "faction"},
-	Temporary:          Selection[FactionResource, compat.FactionTemporaryBundle]{name: "temporary", resource: "faction"},
-	Territory:          Selection[FactionResource, models.FactionTerritoriesResponse]{name: "territory", resource: "faction"},
-	Territoryownership: Selection[FactionResource, models.FactionTerritoriesOwnershipResponse]{name: "territoryownership", resource: "faction"},
-	Territorywarreport: Selection[FactionResource, models.FactionTerritoryWarReportResponse]{name: "territorywarreport", resource: "faction"},
-	Territorywars:      Selection[FactionResource, models.FactionTerritoryWarsHistoryResponse]{name: "territorywars", resource: "faction"},
-	Timestamp:          Selection[FactionResource, models.TimestampResponse]{name: "timestamp", resource: "faction"},
-	Upgrades:           Selection[FactionResource, models.FactionUpgradesResponse]{name: "upgrades", resource: "faction"},
-	Utilities:          Selection[FactionResource, compat.FactionUtilitiesBundle]{name: "utilities", resource: "faction"},
-	Warfare:            Selection[FactionResource, models.FactionWarfareResponse]{name: "warfare", resource: "faction"},
-	Warfarechains:      Selection[FactionResource, models.FactionWarfareChainsResponse]{name: "warfarechains", resource: "faction"},
-	Warfareraids:       Selection[FactionResource, models.FactionWarfareRaidsResponse]{name: "warfareraids", resource: "faction"},
-	Warfareranked:      Selection[FactionResource, models.FactionWarfareRankedResponse]{name: "warfareranked", resource: "faction"},
-	Warfareterritory:   Selection[FactionResource, models.FactionWarfareTerritoryWarsResponse]{name: "warfareterritory", resource: "faction"},
-	Wars:               Selection[FactionResource, models.FactionWarsResponse]{name: "wars", resource: "faction"},
-	Weapons:            Selection[FactionResource, compat.FactionWeaponsBundle]{name: "weapons", resource: "faction"},
+	Applications:       Selection[FactionResource, models.FactionApplicationsResponse]{name: "applications", resource: "faction", schema: "FactionApplicationsResponse"},
+	Armor:              Selection[FactionResource, compat.FactionArmorBundle]{name: "armor", resource: "faction", schema: ""},
+	Attacks:            Selection[FactionResource, models.AttacksResponse]{name: "attacks", resource: "faction", schema: "AttacksResponse"},
+	Attacksfull:        Selection[FactionResource, models.AttacksFullResponse]{name: "attacksfull", resource: "faction", schema: "AttacksFullResponse"},
+	Balance:            Selection[FactionResource, models.FactionBalanceResponse]{name: "balance", resource: "faction", schema: "FactionBalanceResponse"},
+	Basic:              Selection[FactionResource, models.FactionBasicResponse]{name: "basic", resource: "faction", schema: "FactionBasicResponse"},
+	Boosters:           Selection[FactionResource, compat.FactionBoostersBundle]{name: "boosters", resource: "faction", schema: ""},
+	Caches:             Selection[FactionResource, compat.FactionCachesBundle]{name: "caches", resource: "faction", schema: ""},
+	Cesium:             Selection[FactionResource, compat.FactionCesiumBundle]{name: "cesium", resource: "faction", schema: ""},
+	Chain:              Selection[FactionResource, models.FactionOngoingChainResponse]{name: "chain", resource: "faction", schema: "FactionOngoingChainResponse"},
+	Chainreport:        Selection[FactionResource, models.FactionChainReportResponse]{name: "chainreport", resource: "faction", schema: "FactionChainReportResponse"},
+	Chains:             Selection[FactionResource, models.FactionChainsResponse]{name: "chains", resource: "faction", schema: "FactionChainsResponse"},
+	Contributors:       Selection[FactionResource, models.FactionContributorsResponse]{name: "contributors", resource: "faction", schema: "FactionContributorsResponse"},
+	Crime:              Selection[FactionResource, models.FactionCrimeResponse]{name: "crime", resource: "faction", schema: "FactionCrimeResponse"},
+	Crimeexp:           Selection[FactionResource, models.FactionCrimeExpResponse]{name: "crimeexp", resource: "faction", schema: "FactionCrimeExpResponse"},
+	Crimes:             Selection[FactionResource, models.FactionCrimesResponse]{name: "crimes", resource: "faction", schema: "FactionCrimesResponse"},
+	Dirtbombs:          Selection[FactionResource, models.FactionWarfareDirtyBombsResponse]{name: "dirtbombs", resource: "faction", schema: "FactionWarfareDirtyBombsResponse"},
+	Dirtybombs:         Selection[FactionResource, models.FactionWarfareDirtyBombsResponse]{name: "dirtybombs", resource: "faction", schema: "FactionWarfareDirtyBombsResponse"},
+	Drugs:              Selection[FactionResource, compat.FactionDrugsBundle]{name: "drugs", resource: "faction", schema: ""},
+	Hof:                Selection[FactionResource, models.FactionHofResponse]{name: "hof", resource: "faction", schema: "FactionHofResponse"},
+	Inventory:          Selection[FactionResource, models.FactionInventoryResponse]{name: "inventory", resource: "faction", schema: "FactionInventoryResponse"},
+	Lookup:             Selection[FactionResource, models.FactionLookupResponse]{name: "lookup", resource: "faction", schema: "FactionLookupResponse"},
+	Medical:            Selection[FactionResource, compat.FactionMedicalBundle]{name: "medical", resource: "faction", schema: ""},
+	Members:            Selection[FactionResource, models.FactionMembersResponse]{name: "members", resource: "faction", schema: "FactionMembersResponse"},
+	News:               Selection[FactionResource, models.NewsResponse]{name: "news", resource: "faction", schema: "NewsResponse"},
+	Positions:          Selection[FactionResource, models.FactionPositionsResponse]{name: "positions", resource: "faction", schema: "FactionPositionsResponse"},
+	Rackets:            Selection[FactionResource, models.FactionRacketsResponse]{name: "rackets", resource: "faction", schema: "FactionRacketsResponse"},
+	Raidreport:         Selection[FactionResource, models.FactionRaidWarReportResponse]{name: "raidreport", resource: "faction", schema: "FactionRaidWarReportResponse"},
+	Raids:              Selection[FactionResource, models.FactionRaidsResponse]{name: "raids", resource: "faction", schema: "FactionRaidsResponse"},
+	Rankedwarreport:    Selection[FactionResource, models.FactionRankedWarReportResponse]{name: "rankedwarreport", resource: "faction", schema: "FactionRankedWarReportResponse"},
+	Rankedwars:         Selection[FactionResource, models.FactionRankedWarResponse]{name: "rankedwars", resource: "faction", schema: "FactionRankedWarResponse"},
+	Reports:            Selection[FactionResource, models.ReportsResponse]{name: "reports", resource: "faction", schema: "ReportsResponse"},
+	Revives:            Selection[FactionResource, models.RevivesResponse]{name: "revives", resource: "faction", schema: "RevivesResponse"},
+	Revivesfull:        Selection[FactionResource, models.RevivesFullResponse]{name: "revivesfull", resource: "faction", schema: "RevivesFullResponse"},
+	Search:             Selection[FactionResource, models.FactionSearchResponse]{name: "search", resource: "faction", schema: "FactionSearchResponse"},
+	Stats:              Selection[FactionResource, models.FactionStatsResponse]{name: "stats", resource: "faction", schema: "FactionStatsResponse"},
+	Temporary:          Selection[FactionResource, compat.FactionTemporaryBundle]{name: "temporary", resource: "faction", schema: ""},
+	Territory:          Selection[FactionResource, models.FactionTerritoriesResponse]{name: "territory", resource: "faction", schema: "FactionTerritoriesResponse"},
+	Territoryownership: Selection[FactionResource, models.FactionTerritoriesOwnershipResponse]{name: "territoryownership", resource: "faction", schema: "FactionTerritoriesOwnershipResponse"},
+	Territorywarreport: Selection[FactionResource, models.FactionTerritoryWarReportResponse]{name: "territorywarreport", resource: "faction", schema: "FactionTerritoryWarReportResponse"},
+	Territorywars:      Selection[FactionResource, models.FactionTerritoryWarsHistoryResponse]{name: "territorywars", resource: "faction", schema: "FactionTerritoryWarsHistoryResponse"},
+	Timestamp:          Selection[FactionResource, models.TimestampResponse]{name: "timestamp", resource: "faction", schema: "TimestampResponse"},
+	Upgrades:           Selection[FactionResource, models.FactionUpgradesResponse]{name: "upgrades", resource: "faction", schema: "FactionUpgradesResponse"},
+	Utilities:          Selection[FactionResource, compat.FactionUtilitiesBundle]{name: "utilities", resource: "faction", schema: ""},
+	Warfare:            Selection[FactionResource, models.FactionWarfareResponse]{name: "warfare", resource: "faction", schema: "FactionWarfareResponse"},
+	Warfarechains:      Selection[FactionResource, models.FactionWarfareChainsResponse]{name: "warfarechains", resource: "faction", schema: "FactionWarfareChainsResponse"},
+	Warfareraids:       Selection[FactionResource, models.FactionWarfareRaidsResponse]{name: "warfareraids", resource: "faction", schema: "FactionWarfareRaidsResponse"},
+	Warfareranked:      Selection[FactionResource, models.FactionWarfareRankedResponse]{name: "warfareranked", resource: "faction", schema: "FactionWarfareRankedResponse"},
+	Warfareterritory:   Selection[FactionResource, models.FactionWarfareTerritoryWarsResponse]{name: "warfareterritory", resource: "faction", schema: "FactionWarfareTerritoryWarsResponse"},
+	Wars:               Selection[FactionResource, models.FactionWarsResponse]{name: "wars", resource: "faction", schema: "FactionWarsResponse"},
+	Weapons:            Selection[FactionResource, compat.FactionWeaponsBundle]{name: "weapons", resource: "faction", schema: ""},
 }
+
+// ForumSelections holds the typed forum selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var ForumSelections = struct {
 	Categories Selection[ForumResource, models.ForumCategoriesResponse]
 	Lookup     Selection[ForumResource, models.ForumLookupResponse]
@@ -182,20 +204,24 @@ var ForumSelections = struct {
 	Threads    Selection[ForumResource, models.ForumThreadsResponse]
 	Timestamp  Selection[ForumResource, models.TimestampResponse]
 }{
-	Categories: Selection[ForumResource, models.ForumCategoriesResponse]{name: "categories", resource: "forum"},
-	Lookup:     Selection[ForumResource, models.ForumLookupResponse]{name: "lookup", resource: "forum"},
-	Posts:      Selection[ForumResource, models.ForumPostsResponse]{name: "posts", resource: "forum"},
-	Thread:     Selection[ForumResource, models.ForumThreadResponse]{name: "thread", resource: "forum"},
-	Threads:    Selection[ForumResource, models.ForumThreadsResponse]{name: "threads", resource: "forum"},
-	Timestamp:  Selection[ForumResource, models.TimestampResponse]{name: "timestamp", resource: "forum"},
+	Categories: Selection[ForumResource, models.ForumCategoriesResponse]{name: "categories", resource: "forum", schema: "ForumCategoriesResponse"},
+	Lookup:     Selection[ForumResource, models.ForumLookupResponse]{name: "lookup", resource: "forum", schema: "ForumLookupResponse"},
+	Posts:      Selection[ForumResource, models.ForumPostsResponse]{name: "posts", resource: "forum", schema: "ForumPostsResponse"},
+	Thread:     Selection[ForumResource, models.ForumThreadResponse]{name: "thread", resource: "forum", schema: "ForumThreadResponse"},
+	Threads:    Selection[ForumResource, models.ForumThreadsResponse]{name: "threads", resource: "forum", schema: "ForumThreadsResponse"},
+	Timestamp:  Selection[ForumResource, models.TimestampResponse]{name: "timestamp", resource: "forum", schema: "TimestampResponse"},
 }
+
+// KeySelections holds the typed key selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var KeySelections = struct {
 	Info Selection[KeyResource, models.KeyInfoResponse]
 	Log  Selection[KeyResource, models.KeyLogResponse]
 }{
-	Info: Selection[KeyResource, models.KeyInfoResponse]{name: "info", resource: "key"},
-	Log:  Selection[KeyResource, models.KeyLogResponse]{name: "log", resource: "key"},
+	Info: Selection[KeyResource, models.KeyInfoResponse]{name: "info", resource: "key", schema: "KeyInfoResponse"},
+	Log:  Selection[KeyResource, models.KeyLogResponse]{name: "log", resource: "key", schema: "KeyLogResponse"},
 }
+
+// MarketSelections holds the typed market selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var MarketSelections = struct {
 	Auctionhouse        Selection[MarketResource, models.AuctionHouseResponse]
 	Auctionhouselisting Selection[MarketResource, models.AuctionHouseListingResponse]
@@ -207,25 +233,29 @@ var MarketSelections = struct {
 	Rentals             Selection[MarketResource, models.MarketRentalsResponse]
 	Timestamp           Selection[MarketResource, models.TimestampResponse]
 }{
-	Auctionhouse:        Selection[MarketResource, models.AuctionHouseResponse]{name: "auctionhouse", resource: "market"},
-	Auctionhouselisting: Selection[MarketResource, models.AuctionHouseListingResponse]{name: "auctionhouselisting", resource: "market"},
-	Bazaar:              Selection[MarketResource, compat.MarketBazaarBundle]{name: "bazaar", resource: "market"},
-	Itemmarket:          Selection[MarketResource, models.MarketItemMarketResponse]{name: "itemmarket", resource: "market"},
-	Lookup:              Selection[MarketResource, models.MarketLookupResponse]{name: "lookup", resource: "market"},
-	Pointsmarket:        Selection[MarketResource, models.PointsMarketResponse]{name: "pointsmarket", resource: "market"},
-	Properties:          Selection[MarketResource, models.MarketPropertiesResponse]{name: "properties", resource: "market"},
-	Rentals:             Selection[MarketResource, models.MarketRentalsResponse]{name: "rentals", resource: "market"},
-	Timestamp:           Selection[MarketResource, models.TimestampResponse]{name: "timestamp", resource: "market"},
+	Auctionhouse:        Selection[MarketResource, models.AuctionHouseResponse]{name: "auctionhouse", resource: "market", schema: "AuctionHouseResponse"},
+	Auctionhouselisting: Selection[MarketResource, models.AuctionHouseListingResponse]{name: "auctionhouselisting", resource: "market", schema: "AuctionHouseListingResponse"},
+	Bazaar:              Selection[MarketResource, compat.MarketBazaarBundle]{name: "bazaar", resource: "market", schema: ""},
+	Itemmarket:          Selection[MarketResource, models.MarketItemMarketResponse]{name: "itemmarket", resource: "market", schema: "MarketItemMarketResponse"},
+	Lookup:              Selection[MarketResource, models.MarketLookupResponse]{name: "lookup", resource: "market", schema: "MarketLookupResponse"},
+	Pointsmarket:        Selection[MarketResource, models.PointsMarketResponse]{name: "pointsmarket", resource: "market", schema: "PointsMarketResponse"},
+	Properties:          Selection[MarketResource, models.MarketPropertiesResponse]{name: "properties", resource: "market", schema: "MarketPropertiesResponse"},
+	Rentals:             Selection[MarketResource, models.MarketRentalsResponse]{name: "rentals", resource: "market", schema: "MarketRentalsResponse"},
+	Timestamp:           Selection[MarketResource, models.TimestampResponse]{name: "timestamp", resource: "market", schema: "TimestampResponse"},
 }
+
+// PropertySelections holds the typed property selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var PropertySelections = struct {
 	Lookup    Selection[PropertyResource, models.PropertyLookupResponse]
 	Property  Selection[PropertyResource, models.PropertyPropertyResponse]
 	Timestamp Selection[PropertyResource, models.TimestampResponse]
 }{
-	Lookup:    Selection[PropertyResource, models.PropertyLookupResponse]{name: "lookup", resource: "property"},
-	Property:  Selection[PropertyResource, models.PropertyPropertyResponse]{name: "property", resource: "property"},
-	Timestamp: Selection[PropertyResource, models.TimestampResponse]{name: "timestamp", resource: "property"},
+	Lookup:    Selection[PropertyResource, models.PropertyLookupResponse]{name: "lookup", resource: "property", schema: "PropertyLookupResponse"},
+	Property:  Selection[PropertyResource, models.PropertyPropertyResponse]{name: "property", resource: "property", schema: "PropertyPropertyResponse"},
+	Timestamp: Selection[PropertyResource, models.TimestampResponse]{name: "timestamp", resource: "property", schema: "TimestampResponse"},
 }
+
+// RacingSelections holds the typed racing selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var RacingSelections = struct {
 	Cars        Selection[RacingResource, models.RacingCarsResponse]
 	Carupgrades Selection[RacingResource, models.RacingCarUpgradesResponse]
@@ -236,15 +266,17 @@ var RacingSelections = struct {
 	Timestamp   Selection[RacingResource, models.TimestampResponse]
 	Tracks      Selection[RacingResource, models.RacingTracksResponse]
 }{
-	Cars:        Selection[RacingResource, models.RacingCarsResponse]{name: "cars", resource: "racing"},
-	Carupgrades: Selection[RacingResource, models.RacingCarUpgradesResponse]{name: "carupgrades", resource: "racing"},
-	Lookup:      Selection[RacingResource, models.RacingLookupResponse]{name: "lookup", resource: "racing"},
-	Race:        Selection[RacingResource, models.RacingRaceDetailsResponse]{name: "race", resource: "racing"},
-	Races:       Selection[RacingResource, models.RacingRacesResponse]{name: "races", resource: "racing"},
-	Records:     Selection[RacingResource, models.RacingTrackRecordsResponse]{name: "records", resource: "racing"},
-	Timestamp:   Selection[RacingResource, models.TimestampResponse]{name: "timestamp", resource: "racing"},
-	Tracks:      Selection[RacingResource, models.RacingTracksResponse]{name: "tracks", resource: "racing"},
+	Cars:        Selection[RacingResource, models.RacingCarsResponse]{name: "cars", resource: "racing", schema: "RacingCarsResponse"},
+	Carupgrades: Selection[RacingResource, models.RacingCarUpgradesResponse]{name: "carupgrades", resource: "racing", schema: "RacingCarUpgradesResponse"},
+	Lookup:      Selection[RacingResource, models.RacingLookupResponse]{name: "lookup", resource: "racing", schema: "RacingLookupResponse"},
+	Race:        Selection[RacingResource, models.RacingRaceDetailsResponse]{name: "race", resource: "racing", schema: "RacingRaceDetailsResponse"},
+	Races:       Selection[RacingResource, models.RacingRacesResponse]{name: "races", resource: "racing", schema: "RacingRacesResponse"},
+	Records:     Selection[RacingResource, models.RacingTrackRecordsResponse]{name: "records", resource: "racing", schema: "RacingTrackRecordsResponse"},
+	Timestamp:   Selection[RacingResource, models.TimestampResponse]{name: "timestamp", resource: "racing", schema: "TimestampResponse"},
+	Tracks:      Selection[RacingResource, models.RacingTracksResponse]{name: "tracks", resource: "racing", schema: "RacingTracksResponse"},
 }
+
+// TornSelections holds the typed torn selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var TornSelections = struct {
 	Attacklog         Selection[TornResource, models.AttackLogResponse]
 	Bank              Selection[TornResource, models.TornBankResponse]
@@ -289,49 +321,51 @@ var TornSelections = struct {
 	Territory         Selection[TornResource, models.TornTerritoriesResponse]
 	Timestamp         Selection[TornResource, models.TimestampResponse]
 }{
-	Attacklog:         Selection[TornResource, models.AttackLogResponse]{name: "attacklog", resource: "torn"},
-	Bank:              Selection[TornResource, models.TornBankResponse]{name: "bank", resource: "torn"},
-	Bounties:          Selection[TornResource, models.TornBountiesResponse]{name: "bounties", resource: "torn"},
-	Calendar:          Selection[TornResource, models.TornCalendarResponse]{name: "calendar", resource: "torn"},
-	Cards:             Selection[TornResource, models.TornCardsResponse]{name: "cards", resource: "torn"},
-	Cityshops:         Selection[TornResource, models.TornCityShopsResponse]{name: "cityshops", resource: "torn"},
-	Companies:         Selection[TornResource, models.TornCompaniesResponse]{name: "companies", resource: "torn"},
-	Competition:       Selection[TornResource, compat.TornCompetitionBundle]{name: "competition", resource: "torn"},
-	Crimes:            Selection[TornResource, models.TornCrimesResponse]{name: "crimes", resource: "torn"},
-	Education:         Selection[TornResource, models.TornEducationResponse]{name: "education", resource: "torn"},
-	Elimination:       Selection[TornResource, models.TornEliminationTeamsResponse]{name: "elimination", resource: "torn"},
-	Eliminationteam:   Selection[TornResource, models.TornEliminationTeamPlayersResponse]{name: "eliminationteam", resource: "torn"},
-	Factionhof:        Selection[TornResource, models.TornFactionHofResponse]{name: "factionhof", resource: "torn"},
-	Factiontree:       Selection[TornResource, models.TornFactionTreeResponse]{name: "factiontree", resource: "torn"},
-	Gyms:              Selection[TornResource, models.TornGymsResponse]{name: "gyms", resource: "torn"},
-	Halloween:         Selection[TornResource, models.TornHalloweenResponse]{name: "halloween", resource: "torn"},
-	Hof:               Selection[TornResource, models.TornHofResponse]{name: "hof", resource: "torn"},
-	Honors:            Selection[TornResource, models.TornHonorsResponse]{name: "honors", resource: "torn"},
-	Itemammo:          Selection[TornResource, models.TornItemAmmoResponse]{name: "itemammo", resource: "torn"},
-	Itemdetails:       Selection[TornResource, models.TornItemDetailsResponse]{name: "itemdetails", resource: "torn"},
-	Itemmods:          Selection[TornResource, models.TornItemModsResponse]{name: "itemmods", resource: "torn"},
-	Items:             Selection[TornResource, models.TornItemsResponse]{name: "items", resource: "torn"},
-	Itemstats:         Selection[TornResource, models.TornItemStatsResponse]{name: "itemstats", resource: "torn"},
-	Logcategories:     Selection[TornResource, models.TornLogCategoriesResponse]{name: "logcategories", resource: "torn"},
-	Logtypes:          Selection[TornResource, models.TornLogTypesResponse]{name: "logtypes", resource: "torn"},
-	Lookup:            Selection[TornResource, models.TornLookupResponse]{name: "lookup", resource: "torn"},
-	Medals:            Selection[TornResource, models.TornMedalsResponse]{name: "medals", resource: "torn"},
-	Merits:            Selection[TornResource, models.TornMeritsResponse]{name: "merits", resource: "torn"},
-	Museum:            Selection[TornResource, models.TornMuseumResponse]{name: "museum", resource: "torn"},
-	Organisedcrimes:   Selection[TornResource, compat.TornOrganisedCrimesBundle]{name: "organisedcrimes", resource: "torn"},
-	Organizedcrimes:   Selection[TornResource, models.TornOrganizedCrimeResponse]{name: "organizedcrimes", resource: "torn"},
-	Pawnshop:          Selection[TornResource, compat.TornPawnshopBundle]{name: "pawnshop", resource: "torn"},
-	Pokertables:       Selection[TornResource, models.TornPokerTablesResponse]{name: "pokertables", resource: "torn"},
-	Properties:        Selection[TornResource, models.TornProperties]{name: "properties", resource: "torn"},
-	Rockpaperscissors: Selection[TornResource, models.TornRockPaperScissorsResponse]{name: "rockpaperscissors", resource: "torn"},
-	Searchforcash:     Selection[TornResource, models.TornSearchForCashResponse]{name: "searchforcash", resource: "torn"},
-	Shoplifting:       Selection[TornResource, models.TornShopliftingResponse]{name: "shoplifting", resource: "torn"},
-	Stats:             Selection[TornResource, models.TornCityStatsResponse]{name: "stats", resource: "torn"},
-	Stocks:            Selection[TornResource, compat.TornStocksBundle]{name: "stocks", resource: "torn"},
-	Subcrimes:         Selection[TornResource, models.TornSubcrimesResponse]{name: "subcrimes", resource: "torn"},
-	Territory:         Selection[TornResource, models.TornTerritoriesResponse]{name: "territory", resource: "torn"},
-	Timestamp:         Selection[TornResource, models.TimestampResponse]{name: "timestamp", resource: "torn"},
+	Attacklog:         Selection[TornResource, models.AttackLogResponse]{name: "attacklog", resource: "torn", schema: "AttackLogResponse"},
+	Bank:              Selection[TornResource, models.TornBankResponse]{name: "bank", resource: "torn", schema: "TornBankResponse"},
+	Bounties:          Selection[TornResource, models.TornBountiesResponse]{name: "bounties", resource: "torn", schema: "TornBountiesResponse"},
+	Calendar:          Selection[TornResource, models.TornCalendarResponse]{name: "calendar", resource: "torn", schema: "TornCalendarResponse"},
+	Cards:             Selection[TornResource, models.TornCardsResponse]{name: "cards", resource: "torn", schema: "TornCardsResponse"},
+	Cityshops:         Selection[TornResource, models.TornCityShopsResponse]{name: "cityshops", resource: "torn", schema: "TornCityShopsResponse"},
+	Companies:         Selection[TornResource, models.TornCompaniesResponse]{name: "companies", resource: "torn", schema: "TornCompaniesResponse"},
+	Competition:       Selection[TornResource, compat.TornCompetitionBundle]{name: "competition", resource: "torn", schema: ""},
+	Crimes:            Selection[TornResource, models.TornCrimesResponse]{name: "crimes", resource: "torn", schema: "TornCrimesResponse"},
+	Education:         Selection[TornResource, models.TornEducationResponse]{name: "education", resource: "torn", schema: "TornEducationResponse"},
+	Elimination:       Selection[TornResource, models.TornEliminationTeamsResponse]{name: "elimination", resource: "torn", schema: "TornEliminationTeamsResponse"},
+	Eliminationteam:   Selection[TornResource, models.TornEliminationTeamPlayersResponse]{name: "eliminationteam", resource: "torn", schema: "TornEliminationTeamPlayersResponse"},
+	Factionhof:        Selection[TornResource, models.TornFactionHofResponse]{name: "factionhof", resource: "torn", schema: "TornFactionHofResponse"},
+	Factiontree:       Selection[TornResource, models.TornFactionTreeResponse]{name: "factiontree", resource: "torn", schema: "TornFactionTreeResponse"},
+	Gyms:              Selection[TornResource, models.TornGymsResponse]{name: "gyms", resource: "torn", schema: "TornGymsResponse"},
+	Halloween:         Selection[TornResource, models.TornHalloweenResponse]{name: "halloween", resource: "torn", schema: "TornHalloweenResponse"},
+	Hof:               Selection[TornResource, models.TornHofResponse]{name: "hof", resource: "torn", schema: "TornHofResponse"},
+	Honors:            Selection[TornResource, models.TornHonorsResponse]{name: "honors", resource: "torn", schema: "TornHonorsResponse"},
+	Itemammo:          Selection[TornResource, models.TornItemAmmoResponse]{name: "itemammo", resource: "torn", schema: "TornItemAmmoResponse"},
+	Itemdetails:       Selection[TornResource, models.TornItemDetailsResponse]{name: "itemdetails", resource: "torn", schema: "TornItemDetailsResponse"},
+	Itemmods:          Selection[TornResource, models.TornItemModsResponse]{name: "itemmods", resource: "torn", schema: "TornItemModsResponse"},
+	Items:             Selection[TornResource, models.TornItemsResponse]{name: "items", resource: "torn", schema: "TornItemsResponse"},
+	Itemstats:         Selection[TornResource, models.TornItemStatsResponse]{name: "itemstats", resource: "torn", schema: "TornItemStatsResponse"},
+	Logcategories:     Selection[TornResource, models.TornLogCategoriesResponse]{name: "logcategories", resource: "torn", schema: "TornLogCategoriesResponse"},
+	Logtypes:          Selection[TornResource, models.TornLogTypesResponse]{name: "logtypes", resource: "torn", schema: "TornLogTypesResponse"},
+	Lookup:            Selection[TornResource, models.TornLookupResponse]{name: "lookup", resource: "torn", schema: "TornLookupResponse"},
+	Medals:            Selection[TornResource, models.TornMedalsResponse]{name: "medals", resource: "torn", schema: "TornMedalsResponse"},
+	Merits:            Selection[TornResource, models.TornMeritsResponse]{name: "merits", resource: "torn", schema: "TornMeritsResponse"},
+	Museum:            Selection[TornResource, models.TornMuseumResponse]{name: "museum", resource: "torn", schema: "TornMuseumResponse"},
+	Organisedcrimes:   Selection[TornResource, compat.TornOrganisedCrimesBundle]{name: "organisedcrimes", resource: "torn", schema: ""},
+	Organizedcrimes:   Selection[TornResource, models.TornOrganizedCrimeResponse]{name: "organizedcrimes", resource: "torn", schema: "TornOrganizedCrimeResponse"},
+	Pawnshop:          Selection[TornResource, compat.TornPawnshopBundle]{name: "pawnshop", resource: "torn", schema: ""},
+	Pokertables:       Selection[TornResource, models.TornPokerTablesResponse]{name: "pokertables", resource: "torn", schema: "TornPokerTablesResponse"},
+	Properties:        Selection[TornResource, models.TornProperties]{name: "properties", resource: "torn", schema: "TornProperties"},
+	Rockpaperscissors: Selection[TornResource, models.TornRockPaperScissorsResponse]{name: "rockpaperscissors", resource: "torn", schema: "TornRockPaperScissorsResponse"},
+	Searchforcash:     Selection[TornResource, models.TornSearchForCashResponse]{name: "searchforcash", resource: "torn", schema: "TornSearchForCashResponse"},
+	Shoplifting:       Selection[TornResource, models.TornShopliftingResponse]{name: "shoplifting", resource: "torn", schema: "TornShopliftingResponse"},
+	Stats:             Selection[TornResource, models.TornCityStatsResponse]{name: "stats", resource: "torn", schema: "TornCityStatsResponse"},
+	Stocks:            Selection[TornResource, compat.TornStocksBundle]{name: "stocks", resource: "torn", schema: ""},
+	Subcrimes:         Selection[TornResource, models.TornSubcrimesResponse]{name: "subcrimes", resource: "torn", schema: "TornSubcrimesResponse"},
+	Territory:         Selection[TornResource, models.TornTerritoriesResponse]{name: "territory", resource: "torn", schema: "TornTerritoriesResponse"},
+	Timestamp:         Selection[TornResource, models.TimestampResponse]{name: "timestamp", resource: "torn", schema: "TimestampResponse"},
 }
+
+// UserSelections holds the typed user selection tokens for NewBatch, AddSelection, Fetch and FetchPair.
 var UserSelections = struct {
 	Ammo                   Selection[UserResource, models.UserAmmoResponse]
 	Attacks                Selection[UserResource, models.AttacksResponse]
@@ -409,125 +443,154 @@ var UserSelections = struct {
 	Weaponexp              Selection[UserResource, models.UserWeaponExpResponse]
 	Workstats              Selection[UserResource, models.UserWorkStatsResponse]
 }{
-	Ammo:                   Selection[UserResource, models.UserAmmoResponse]{name: "ammo", resource: "user"},
-	Attacks:                Selection[UserResource, models.AttacksResponse]{name: "attacks", resource: "user"},
-	Attacksfull:            Selection[UserResource, models.AttacksFullResponse]{name: "attacksfull", resource: "user"},
-	Bars:                   Selection[UserResource, models.UserBarsResponse]{name: "bars", resource: "user"},
-	Basic:                  Selection[UserResource, models.UserBasicResponse]{name: "basic", resource: "user"},
-	Battlestats:            Selection[UserResource, models.UserBattleStatsResponse]{name: "battlestats", resource: "user"},
-	Bazaar:                 Selection[UserResource, compat.UserBazaarBundle]{name: "bazaar", resource: "user"},
-	Bounties:               Selection[UserResource, models.UserBountiesResponse]{name: "bounties", resource: "user"},
-	Calendar:               Selection[UserResource, models.UserCalendarResponse]{name: "calendar", resource: "user"},
-	Casino:                 Selection[UserResource, models.UserCasinoResponse]{name: "casino", resource: "user"},
-	Competition:            Selection[UserResource, models.UserCompetitionResponse]{name: "competition", resource: "user"},
-	Cooldowns:              Selection[UserResource, models.UserCooldownsResponse]{name: "cooldowns", resource: "user"},
-	Crimes:                 Selection[UserResource, models.UserCrimesResponse]{name: "crimes", resource: "user"},
-	Criminalrecord:         Selection[UserResource, compat.UserCriminalRecordBundle]{name: "criminalrecord", resource: "user"},
-	Discord:                Selection[UserResource, models.UserDiscordResponse]{name: "discord", resource: "user"},
-	Display:                Selection[UserResource, compat.UserDisplayBundle]{name: "display", resource: "user"},
-	Education:              Selection[UserResource, models.UserEducationResponse]{name: "education", resource: "user"},
-	Enlistedcars:           Selection[UserResource, models.UserEnlistedCarsResponse]{name: "enlistedcars", resource: "user"},
-	Equipment:              Selection[UserResource, models.UserEquipmentResponse]{name: "equipment", resource: "user"},
-	Events:                 Selection[UserResource, models.UserEventsResponse]{name: "events", resource: "user"},
-	Faction:                Selection[UserResource, models.UserFactionResponse]{name: "faction", resource: "user"},
-	Factionbalance:         Selection[UserResource, models.UserFactionBalanceResponse]{name: "factionbalance", resource: "user"},
-	Forumfeed:              Selection[UserResource, models.UserForumFeedResponse]{name: "forumfeed", resource: "user"},
-	Forumfriends:           Selection[UserResource, models.UserForumFriendsResponse]{name: "forumfriends", resource: "user"},
-	Forumposts:             Selection[UserResource, models.UserForumPostsResponse]{name: "forumposts", resource: "user"},
-	Forumsubscribedthreads: Selection[UserResource, models.UserForumSubscribedThreadsResponse]{name: "forumsubscribedthreads", resource: "user"},
-	Forumthreads:           Selection[UserResource, models.UserForumThreadsResponse]{name: "forumthreads", resource: "user"},
-	Gym:                    Selection[UserResource, models.UserGymResponse]{name: "gym", resource: "user"},
-	Halloween:              Selection[UserResource, models.UserHalloweenResponse]{name: "halloween", resource: "user"},
-	Hof:                    Selection[UserResource, models.UserHofResponse]{name: "hof", resource: "user"},
-	Honors:                 Selection[UserResource, models.UserHonorsResponse]{name: "honors", resource: "user"},
-	Icons:                  Selection[UserResource, models.UserIconsResponse]{name: "icons", resource: "user"},
-	Inventory:              Selection[UserResource, models.UserInventoryResponse]{name: "inventory", resource: "user"},
-	Itemmarket:             Selection[UserResource, models.UserItemMarketResponse]{name: "itemmarket", resource: "user"},
-	Itemmod:                Selection[UserResource, models.UserItemModsResponse]{name: "itemmod", resource: "user"},
-	Itemmods:               Selection[UserResource, models.UserItemModsResponse]{name: "itemmods", resource: "user"},
-	Job:                    Selection[UserResource, models.UserJobResponse]{name: "job", resource: "user"},
-	Jobpoints:              Selection[UserResource, models.UserJobPointsResponse]{name: "jobpoints", resource: "user"},
-	Jobranks:               Selection[UserResource, models.UserJobRanksResponse]{name: "jobranks", resource: "user"},
-	List:                   Selection[UserResource, models.UserListResponse]{name: "list", resource: "user"},
-	Log:                    Selection[UserResource, models.UserLogsResponse]{name: "log", resource: "user"},
-	Lookup:                 Selection[UserResource, models.UserLookupResponse]{name: "lookup", resource: "user"},
-	Medals:                 Selection[UserResource, models.UserMedalsResponse]{name: "medals", resource: "user"},
-	Merits:                 Selection[UserResource, models.UserMeritsResponse]{name: "merits", resource: "user"},
-	Messages:               Selection[UserResource, models.UserMessagesResponse]{name: "messages", resource: "user"},
-	Missions:               Selection[UserResource, models.UserMissionsResponse]{name: "missions", resource: "user"},
-	Money:                  Selection[UserResource, models.UserMoneyResponse]{name: "money", resource: "user"},
-	Networth:               Selection[UserResource, models.UserNetworthResponse]{name: "networth", resource: "user"},
-	Newevents:              Selection[UserResource, models.UserNewEventsResponse]{name: "newevents", resource: "user"},
-	Newmessages:            Selection[UserResource, models.UserNewMessagesResponse]{name: "newmessages", resource: "user"},
-	Notifications:          Selection[UserResource, models.UserNotificationsResponse]{name: "notifications", resource: "user"},
-	Organizedcrime:         Selection[UserResource, models.UserOrganizedCrimeResponse]{name: "organizedcrime", resource: "user"},
-	Organizedcrimes:        Selection[UserResource, models.UserOrganizedCrimesResponse]{name: "organizedcrimes", resource: "user"},
-	Perks:                  Selection[UserResource, models.UserPerksResponse]{name: "perks", resource: "user"},
-	Personalstats:          Selection[UserResource, models.UserPersonalStatsResponse]{name: "personalstats", resource: "user"},
-	Profile:                Selection[UserResource, models.UserProfileResponse]{name: "profile", resource: "user"},
-	Properties:             Selection[UserResource, models.UserPropertiesResponse]{name: "properties", resource: "user"},
-	Property:               Selection[UserResource, models.UserPropertyResponse]{name: "property", resource: "user"},
-	Races:                  Selection[UserResource, models.UserRacesResponse]{name: "races", resource: "user"},
-	Racingrecords:          Selection[UserResource, models.UserRacingRecordsResponse]{name: "racingrecords", resource: "user"},
-	Refills:                Selection[UserResource, models.UserRefillsResponse]{name: "refills", resource: "user"},
-	Reports:                Selection[UserResource, models.ReportsResponse]{name: "reports", resource: "user"},
-	Revives:                Selection[UserResource, models.RevivesResponse]{name: "revives", resource: "user"},
-	Revivesfull:            Selection[UserResource, models.RevivesFullResponse]{name: "revivesfull", resource: "user"},
-	Search:                 Selection[UserResource, models.UserSearchResponse]{name: "search", resource: "user"},
-	Skills:                 Selection[UserResource, models.UserSkillsResponse]{name: "skills", resource: "user"},
-	Stocks:                 Selection[UserResource, models.UserStocksResponse]{name: "stocks", resource: "user"},
-	Timestamp:              Selection[UserResource, models.TimestampResponse]{name: "timestamp", resource: "user"},
-	Trade:                  Selection[UserResource, models.UserTradeResponse]{name: "trade", resource: "user"},
-	Trades:                 Selection[UserResource, models.UserTradesResponse]{name: "trades", resource: "user"},
-	Travel:                 Selection[UserResource, models.UserTravelResponse]{name: "travel", resource: "user"},
-	Travelinventory:        Selection[UserResource, models.UserTravelInventoryResponse]{name: "travelinventory", resource: "user"},
-	Virus:                  Selection[UserResource, models.UserVirusResponse]{name: "virus", resource: "user"},
-	Weaponexp:              Selection[UserResource, models.UserWeaponExpResponse]{name: "weaponexp", resource: "user"},
-	Workstats:              Selection[UserResource, models.UserWorkStatsResponse]{name: "workstats", resource: "user"},
+	Ammo:                   Selection[UserResource, models.UserAmmoResponse]{name: "ammo", resource: "user", schema: "UserAmmoResponse"},
+	Attacks:                Selection[UserResource, models.AttacksResponse]{name: "attacks", resource: "user", schema: "AttacksResponse"},
+	Attacksfull:            Selection[UserResource, models.AttacksFullResponse]{name: "attacksfull", resource: "user", schema: "AttacksFullResponse"},
+	Bars:                   Selection[UserResource, models.UserBarsResponse]{name: "bars", resource: "user", schema: "UserBarsResponse"},
+	Basic:                  Selection[UserResource, models.UserBasicResponse]{name: "basic", resource: "user", schema: "UserBasicResponse"},
+	Battlestats:            Selection[UserResource, models.UserBattleStatsResponse]{name: "battlestats", resource: "user", schema: "UserBattleStatsResponse"},
+	Bazaar:                 Selection[UserResource, compat.UserBazaarBundle]{name: "bazaar", resource: "user", schema: ""},
+	Bounties:               Selection[UserResource, models.UserBountiesResponse]{name: "bounties", resource: "user", schema: "UserBountiesResponse"},
+	Calendar:               Selection[UserResource, models.UserCalendarResponse]{name: "calendar", resource: "user", schema: "UserCalendarResponse"},
+	Casino:                 Selection[UserResource, models.UserCasinoResponse]{name: "casino", resource: "user", schema: "UserCasinoResponse"},
+	Competition:            Selection[UserResource, models.UserCompetitionResponse]{name: "competition", resource: "user", schema: "UserCompetitionResponse"},
+	Cooldowns:              Selection[UserResource, models.UserCooldownsResponse]{name: "cooldowns", resource: "user", schema: "UserCooldownsResponse"},
+	Crimes:                 Selection[UserResource, models.UserCrimesResponse]{name: "crimes", resource: "user", schema: "UserCrimesResponse"},
+	Criminalrecord:         Selection[UserResource, compat.UserCriminalRecordBundle]{name: "criminalrecord", resource: "user", schema: ""},
+	Discord:                Selection[UserResource, models.UserDiscordResponse]{name: "discord", resource: "user", schema: "UserDiscordResponse"},
+	Display:                Selection[UserResource, compat.UserDisplayBundle]{name: "display", resource: "user", schema: ""},
+	Education:              Selection[UserResource, models.UserEducationResponse]{name: "education", resource: "user", schema: "UserEducationResponse"},
+	Enlistedcars:           Selection[UserResource, models.UserEnlistedCarsResponse]{name: "enlistedcars", resource: "user", schema: "UserEnlistedCarsResponse"},
+	Equipment:              Selection[UserResource, models.UserEquipmentResponse]{name: "equipment", resource: "user", schema: "UserEquipmentResponse"},
+	Events:                 Selection[UserResource, models.UserEventsResponse]{name: "events", resource: "user", schema: "UserEventsResponse"},
+	Faction:                Selection[UserResource, models.UserFactionResponse]{name: "faction", resource: "user", schema: "UserFactionResponse"},
+	Factionbalance:         Selection[UserResource, models.UserFactionBalanceResponse]{name: "factionbalance", resource: "user", schema: "UserFactionBalanceResponse"},
+	Forumfeed:              Selection[UserResource, models.UserForumFeedResponse]{name: "forumfeed", resource: "user", schema: "UserForumFeedResponse"},
+	Forumfriends:           Selection[UserResource, models.UserForumFriendsResponse]{name: "forumfriends", resource: "user", schema: "UserForumFriendsResponse"},
+	Forumposts:             Selection[UserResource, models.UserForumPostsResponse]{name: "forumposts", resource: "user", schema: "UserForumPostsResponse"},
+	Forumsubscribedthreads: Selection[UserResource, models.UserForumSubscribedThreadsResponse]{name: "forumsubscribedthreads", resource: "user", schema: "UserForumSubscribedThreadsResponse"},
+	Forumthreads:           Selection[UserResource, models.UserForumThreadsResponse]{name: "forumthreads", resource: "user", schema: "UserForumThreadsResponse"},
+	Gym:                    Selection[UserResource, models.UserGymResponse]{name: "gym", resource: "user", schema: "UserGymResponse"},
+	Halloween:              Selection[UserResource, models.UserHalloweenResponse]{name: "halloween", resource: "user", schema: "UserHalloweenResponse"},
+	Hof:                    Selection[UserResource, models.UserHofResponse]{name: "hof", resource: "user", schema: "UserHofResponse"},
+	Honors:                 Selection[UserResource, models.UserHonorsResponse]{name: "honors", resource: "user", schema: "UserHonorsResponse"},
+	Icons:                  Selection[UserResource, models.UserIconsResponse]{name: "icons", resource: "user", schema: "UserIconsResponse"},
+	Inventory:              Selection[UserResource, models.UserInventoryResponse]{name: "inventory", resource: "user", schema: "UserInventoryResponse"},
+	Itemmarket:             Selection[UserResource, models.UserItemMarketResponse]{name: "itemmarket", resource: "user", schema: "UserItemMarketResponse"},
+	Itemmod:                Selection[UserResource, models.UserItemModsResponse]{name: "itemmod", resource: "user", schema: "UserItemModsResponse"},
+	Itemmods:               Selection[UserResource, models.UserItemModsResponse]{name: "itemmods", resource: "user", schema: "UserItemModsResponse"},
+	Job:                    Selection[UserResource, models.UserJobResponse]{name: "job", resource: "user", schema: "UserJobResponse"},
+	Jobpoints:              Selection[UserResource, models.UserJobPointsResponse]{name: "jobpoints", resource: "user", schema: "UserJobPointsResponse"},
+	Jobranks:               Selection[UserResource, models.UserJobRanksResponse]{name: "jobranks", resource: "user", schema: "UserJobRanksResponse"},
+	List:                   Selection[UserResource, models.UserListResponse]{name: "list", resource: "user", schema: "UserListResponse"},
+	Log:                    Selection[UserResource, models.UserLogsResponse]{name: "log", resource: "user", schema: "UserLogsResponse"},
+	Lookup:                 Selection[UserResource, models.UserLookupResponse]{name: "lookup", resource: "user", schema: "UserLookupResponse"},
+	Medals:                 Selection[UserResource, models.UserMedalsResponse]{name: "medals", resource: "user", schema: "UserMedalsResponse"},
+	Merits:                 Selection[UserResource, models.UserMeritsResponse]{name: "merits", resource: "user", schema: "UserMeritsResponse"},
+	Messages:               Selection[UserResource, models.UserMessagesResponse]{name: "messages", resource: "user", schema: "UserMessagesResponse"},
+	Missions:               Selection[UserResource, models.UserMissionsResponse]{name: "missions", resource: "user", schema: "UserMissionsResponse"},
+	Money:                  Selection[UserResource, models.UserMoneyResponse]{name: "money", resource: "user", schema: "UserMoneyResponse"},
+	Networth:               Selection[UserResource, models.UserNetworthResponse]{name: "networth", resource: "user", schema: "UserNetworthResponse"},
+	Newevents:              Selection[UserResource, models.UserNewEventsResponse]{name: "newevents", resource: "user", schema: "UserNewEventsResponse"},
+	Newmessages:            Selection[UserResource, models.UserNewMessagesResponse]{name: "newmessages", resource: "user", schema: "UserNewMessagesResponse"},
+	Notifications:          Selection[UserResource, models.UserNotificationsResponse]{name: "notifications", resource: "user", schema: "UserNotificationsResponse"},
+	Organizedcrime:         Selection[UserResource, models.UserOrganizedCrimeResponse]{name: "organizedcrime", resource: "user", schema: "UserOrganizedCrimeResponse"},
+	Organizedcrimes:        Selection[UserResource, models.UserOrganizedCrimesResponse]{name: "organizedcrimes", resource: "user", schema: "UserOrganizedCrimesResponse"},
+	Perks:                  Selection[UserResource, models.UserPerksResponse]{name: "perks", resource: "user", schema: "UserPerksResponse"},
+	Personalstats:          Selection[UserResource, models.UserPersonalStatsResponse]{name: "personalstats", resource: "user", schema: "UserPersonalStatsResponse"},
+	Profile:                Selection[UserResource, models.UserProfileResponse]{name: "profile", resource: "user", schema: "UserProfileResponse"},
+	Properties:             Selection[UserResource, models.UserPropertiesResponse]{name: "properties", resource: "user", schema: "UserPropertiesResponse"},
+	Property:               Selection[UserResource, models.UserPropertyResponse]{name: "property", resource: "user", schema: "UserPropertyResponse"},
+	Races:                  Selection[UserResource, models.UserRacesResponse]{name: "races", resource: "user", schema: "UserRacesResponse"},
+	Racingrecords:          Selection[UserResource, models.UserRacingRecordsResponse]{name: "racingrecords", resource: "user", schema: "UserRacingRecordsResponse"},
+	Refills:                Selection[UserResource, models.UserRefillsResponse]{name: "refills", resource: "user", schema: "UserRefillsResponse"},
+	Reports:                Selection[UserResource, models.ReportsResponse]{name: "reports", resource: "user", schema: "ReportsResponse"},
+	Revives:                Selection[UserResource, models.RevivesResponse]{name: "revives", resource: "user", schema: "RevivesResponse"},
+	Revivesfull:            Selection[UserResource, models.RevivesFullResponse]{name: "revivesfull", resource: "user", schema: "RevivesFullResponse"},
+	Search:                 Selection[UserResource, models.UserSearchResponse]{name: "search", resource: "user", schema: "UserSearchResponse"},
+	Skills:                 Selection[UserResource, models.UserSkillsResponse]{name: "skills", resource: "user", schema: "UserSkillsResponse"},
+	Stocks:                 Selection[UserResource, models.UserStocksResponse]{name: "stocks", resource: "user", schema: "UserStocksResponse"},
+	Timestamp:              Selection[UserResource, models.TimestampResponse]{name: "timestamp", resource: "user", schema: "TimestampResponse"},
+	Trade:                  Selection[UserResource, models.UserTradeResponse]{name: "trade", resource: "user", schema: "UserTradeResponse"},
+	Trades:                 Selection[UserResource, models.UserTradesResponse]{name: "trades", resource: "user", schema: "UserTradesResponse"},
+	Travel:                 Selection[UserResource, models.UserTravelResponse]{name: "travel", resource: "user", schema: "UserTravelResponse"},
+	Travelinventory:        Selection[UserResource, models.UserTravelInventoryResponse]{name: "travelinventory", resource: "user", schema: "UserTravelInventoryResponse"},
+	Virus:                  Selection[UserResource, models.UserVirusResponse]{name: "virus", resource: "user", schema: "UserVirusResponse"},
+	Weaponexp:              Selection[UserResource, models.UserWeaponExpResponse]{name: "weaponexp", resource: "user", schema: "UserWeaponExpResponse"},
+	Workstats:              Selection[UserResource, models.UserWorkStatsResponse]{name: "workstats", resource: "user", schema: "UserWorkStatsResponse"},
 }
 
+// RawCompanyApplications requests the company/applications selection and returns its raw JSON.
 func (c *Client) RawCompanyApplications(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"applications"}, params, opts)
 }
+
+// CompanyApplications requests the company/applications selection and decodes it into models.CompanyApplicationsResponse.
 func (c *Client) CompanyApplications(ctx context.Context, params map[string]any, opts RequestOptions) (models.CompanyApplicationsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Applications, params, opts)
 }
+
+// RawCompanyCompanies requests the company/companies selection and returns its raw JSON.
 func (c *Client) RawCompanyCompanies(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"companies"}, params, opts)
 }
+
+// CompanyCompanies requests the company/companies selection and decodes it into models.CompaniesResponse.
 func (c *Client) CompanyCompanies(ctx context.Context, params map[string]any, opts RequestOptions) (models.CompaniesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Companies, params, opts)
 }
+
+// RawCompanyEmployees requests the company/employees selection and returns its raw JSON.
 func (c *Client) RawCompanyEmployees(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"employees"}, params, opts)
 }
+
+// CompanyEmployees requests the company/employees selection and decodes it into compat.CompanyEmployeesBundle.
 func (c *Client) CompanyEmployees(ctx context.Context, params map[string]any, opts RequestOptions) (compat.CompanyEmployeesBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Employees, params, opts)
 }
+
+// RawCompanyLookup requests the company/lookup selection and returns its raw JSON.
 func (c *Client) RawCompanyLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"lookup"}, params, opts)
 }
+
+// CompanyLookup requests the company/lookup selection and decodes it into models.CompanyLookupResponse.
 func (c *Client) CompanyLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.CompanyLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Lookup, params, opts)
 }
+
+// RawCompanyNews requests the company/news selection and returns its raw JSON.
 func (c *Client) RawCompanyNews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"news"}, params, opts)
 }
+
+// CompanyNews requests the company/news selection and decodes it into models.NewsResponse.
 func (c *Client) CompanyNews(ctx context.Context, params map[string]any, opts RequestOptions) (models.NewsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.News, params, opts)
 }
+
+// RawCompanyProfile requests the company/profile selection and returns its raw JSON.
 func (c *Client) RawCompanyProfile(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"profile"}, params, opts)
 }
+
+// CompanyProfile requests the company/profile selection and decodes it into compat.CompanyProfileBundle.
 func (c *Client) CompanyProfile(ctx context.Context, params map[string]any, opts RequestOptions) (compat.CompanyProfileBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Profile, params, opts)
 }
+
+// RawCompanySearch requests the company/search selection and returns its raw JSON.
 func (c *Client) RawCompanySearch(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"search"}, params, opts)
 }
+
+// CompanySearch requests the company/search selection and decodes it into models.CompaniesSearchResponse.
 func (c *Client) CompanySearch(ctx context.Context, params map[string]any, opts RequestOptions) (models.CompaniesSearchResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Search, params, opts)
 }
+
+// CompanySnapshot returns the exact CSV text of company/snapshot.
 func (c *Client) CompanySnapshot(ctx context.Context, params map[string]any, opts RequestOptions) (string, ExecutionReport, error) {
 	b, r, e := c.DoOperation(ctx, Operation{ID: "getCompaniesSnapshot", Path: "/company/snapshot", Method: "GET", CSV: true}, allowedParams(params, []string{"timestamp", "comment"}), opts)
 	var out string
@@ -536,228 +599,378 @@ func (c *Client) CompanySnapshot(ctx context.Context, params map[string]any, opt
 	}
 	return out, r, e
 }
+
+// RawCompanyStock requests the company/stock selection and returns its raw JSON.
 func (c *Client) RawCompanyStock(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"stock"}, params, opts)
 }
+
+// CompanyStock requests the company/stock selection and decodes it into models.CompanyStockResponse.
 func (c *Client) CompanyStock(ctx context.Context, params map[string]any, opts RequestOptions) (models.CompanyStockResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Stock, params, opts)
 }
+
+// RawCompanyTimestamp requests the company/timestamp selection and returns its raw JSON.
 func (c *Client) RawCompanyTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "company", []string{"timestamp"}, params, opts)
 }
+
+// CompanyTimestamp requests the company/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) CompanyTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, CompanySelections.Timestamp, params, opts)
 }
+
+// RawFactionApplications requests the faction/applications selection and returns its raw JSON.
 func (c *Client) RawFactionApplications(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"applications"}, params, opts)
 }
+
+// FactionApplications requests the faction/applications selection and decodes it into models.FactionApplicationsResponse.
 func (c *Client) FactionApplications(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionApplicationsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Applications, params, opts)
 }
+
+// RawFactionArmor requests the faction/armor selection and returns its raw JSON.
 func (c *Client) RawFactionArmor(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"armor"}, params, opts)
 }
+
+// FactionArmor requests the faction/armor selection and decodes it into compat.FactionArmorBundle.
 func (c *Client) FactionArmor(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionArmorBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Armor, params, opts)
 }
+
+// RawFactionAttacks requests the faction/attacks selection and returns its raw JSON.
 func (c *Client) RawFactionAttacks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"attacks"}, params, opts)
 }
+
+// FactionAttacks requests the faction/attacks selection and decodes it into models.AttacksResponse.
 func (c *Client) FactionAttacks(ctx context.Context, params map[string]any, opts RequestOptions) (models.AttacksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Attacks, params, opts)
 }
+
+// RawFactionAttacksfull requests the faction/attacksfull selection and returns its raw JSON.
 func (c *Client) RawFactionAttacksfull(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"attacksfull"}, params, opts)
 }
+
+// FactionAttacksfull requests the faction/attacksfull selection and decodes it into models.AttacksFullResponse.
 func (c *Client) FactionAttacksfull(ctx context.Context, params map[string]any, opts RequestOptions) (models.AttacksFullResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Attacksfull, params, opts)
 }
+
+// RawFactionBalance requests the faction/balance selection and returns its raw JSON.
 func (c *Client) RawFactionBalance(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"balance"}, params, opts)
 }
+
+// FactionBalance requests the faction/balance selection and decodes it into models.FactionBalanceResponse.
 func (c *Client) FactionBalance(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionBalanceResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Balance, params, opts)
 }
+
+// RawFactionBasic requests the faction/basic selection and returns its raw JSON.
 func (c *Client) RawFactionBasic(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"basic"}, params, opts)
 }
+
+// FactionBasic requests the faction/basic selection and decodes it into models.FactionBasicResponse.
 func (c *Client) FactionBasic(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionBasicResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Basic, params, opts)
 }
+
+// RawFactionBoosters requests the faction/boosters selection and returns its raw JSON.
 func (c *Client) RawFactionBoosters(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"boosters"}, params, opts)
 }
+
+// FactionBoosters requests the faction/boosters selection and decodes it into compat.FactionBoostersBundle.
 func (c *Client) FactionBoosters(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionBoostersBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Boosters, params, opts)
 }
+
+// RawFactionCaches requests the faction/caches selection and returns its raw JSON.
 func (c *Client) RawFactionCaches(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"caches"}, params, opts)
 }
+
+// FactionCaches requests the faction/caches selection and decodes it into compat.FactionCachesBundle.
 func (c *Client) FactionCaches(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionCachesBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Caches, params, opts)
 }
+
+// RawFactionCesium requests the faction/cesium selection and returns its raw JSON.
 func (c *Client) RawFactionCesium(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"cesium"}, params, opts)
 }
+
+// FactionCesium requests the faction/cesium selection and decodes it into compat.FactionCesiumBundle.
 func (c *Client) FactionCesium(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionCesiumBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Cesium, params, opts)
 }
+
+// RawFactionChain requests the faction/chain selection and returns its raw JSON.
 func (c *Client) RawFactionChain(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"chain"}, params, opts)
 }
+
+// FactionChain requests the faction/chain selection and decodes it into models.FactionOngoingChainResponse.
 func (c *Client) FactionChain(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionOngoingChainResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Chain, params, opts)
 }
+
+// RawFactionChainreport requests the faction/chainreport selection and returns its raw JSON.
 func (c *Client) RawFactionChainreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"chainreport"}, params, opts)
 }
+
+// FactionChainreport requests the faction/chainreport selection and decodes it into models.FactionChainReportResponse.
 func (c *Client) FactionChainreport(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionChainReportResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Chainreport, params, opts)
 }
+
+// RawFactionChains requests the faction/chains selection and returns its raw JSON.
 func (c *Client) RawFactionChains(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"chains"}, params, opts)
 }
+
+// FactionChains requests the faction/chains selection and decodes it into models.FactionChainsResponse.
 func (c *Client) FactionChains(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionChainsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Chains, params, opts)
 }
+
+// RawFactionContributors requests the faction/contributors selection and returns its raw JSON.
 func (c *Client) RawFactionContributors(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"contributors"}, params, opts)
 }
+
+// FactionContributors requests the faction/contributors selection and decodes it into models.FactionContributorsResponse.
 func (c *Client) FactionContributors(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionContributorsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Contributors, params, opts)
 }
+
+// RawFactionCrime requests the faction/crime selection and returns its raw JSON.
 func (c *Client) RawFactionCrime(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"crime"}, params, opts)
 }
+
+// FactionCrime requests the faction/crime selection and decodes it into models.FactionCrimeResponse.
 func (c *Client) FactionCrime(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionCrimeResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Crime, params, opts)
 }
+
+// RawFactionCrimeexp requests the faction/crimeexp selection and returns its raw JSON.
 func (c *Client) RawFactionCrimeexp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"crimeexp"}, params, opts)
 }
+
+// FactionCrimeexp requests the faction/crimeexp selection and decodes it into models.FactionCrimeExpResponse.
 func (c *Client) FactionCrimeexp(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionCrimeExpResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Crimeexp, params, opts)
 }
+
+// RawFactionCrimes requests the faction/crimes selection and returns its raw JSON.
 func (c *Client) RawFactionCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"crimes"}, params, opts)
 }
+
+// FactionCrimes requests the faction/crimes selection and decodes it into models.FactionCrimesResponse.
 func (c *Client) FactionCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionCrimesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Crimes, params, opts)
 }
+
+// RawFactionDirtbombs requests the faction/dirtbombs selection and returns its raw JSON.
 func (c *Client) RawFactionDirtbombs(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"dirtbombs"}, params, opts)
 }
+
+// FactionDirtbombs requests the faction/dirtbombs selection and decodes it into models.FactionWarfareDirtyBombsResponse.
 func (c *Client) FactionDirtbombs(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareDirtyBombsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Dirtbombs, params, opts)
 }
+
+// RawFactionDirtybombs requests the faction/dirtybombs selection and returns its raw JSON.
 func (c *Client) RawFactionDirtybombs(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"dirtybombs"}, params, opts)
 }
+
+// FactionDirtybombs requests the faction/dirtybombs selection and decodes it into models.FactionWarfareDirtyBombsResponse.
 func (c *Client) FactionDirtybombs(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareDirtyBombsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Dirtybombs, params, opts)
 }
+
+// RawFactionDrugs requests the faction/drugs selection and returns its raw JSON.
 func (c *Client) RawFactionDrugs(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"drugs"}, params, opts)
 }
+
+// FactionDrugs requests the faction/drugs selection and decodes it into compat.FactionDrugsBundle.
 func (c *Client) FactionDrugs(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionDrugsBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Drugs, params, opts)
 }
+
+// RawFactionHof requests the faction/hof selection and returns its raw JSON.
 func (c *Client) RawFactionHof(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"hof"}, params, opts)
 }
+
+// FactionHof requests the faction/hof selection and decodes it into models.FactionHofResponse.
 func (c *Client) FactionHof(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionHofResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Hof, params, opts)
 }
+
+// RawFactionInventory requests the faction/inventory selection and returns its raw JSON.
 func (c *Client) RawFactionInventory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"inventory"}, params, opts)
 }
+
+// FactionInventory requests the faction/inventory selection and decodes it into models.FactionInventoryResponse.
 func (c *Client) FactionInventory(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionInventoryResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Inventory, params, opts)
 }
+
+// RawFactionLookup requests the faction/lookup selection and returns its raw JSON.
 func (c *Client) RawFactionLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"lookup"}, params, opts)
 }
+
+// FactionLookup requests the faction/lookup selection and decodes it into models.FactionLookupResponse.
 func (c *Client) FactionLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Lookup, params, opts)
 }
+
+// RawFactionMedical requests the faction/medical selection and returns its raw JSON.
 func (c *Client) RawFactionMedical(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"medical"}, params, opts)
 }
+
+// FactionMedical requests the faction/medical selection and decodes it into compat.FactionMedicalBundle.
 func (c *Client) FactionMedical(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionMedicalBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Medical, params, opts)
 }
+
+// RawFactionMembers requests the faction/members selection and returns its raw JSON.
 func (c *Client) RawFactionMembers(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"members"}, params, opts)
 }
+
+// FactionMembers requests the faction/members selection and decodes it into models.FactionMembersResponse.
 func (c *Client) FactionMembers(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionMembersResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Members, params, opts)
 }
+
+// RawFactionNews requests the faction/news selection and returns its raw JSON.
 func (c *Client) RawFactionNews(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"news"}, params, opts)
 }
+
+// FactionNews requests the faction/news selection and decodes it into models.NewsResponse.
 func (c *Client) FactionNews(ctx context.Context, params map[string]any, opts RequestOptions) (models.NewsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.News, params, opts)
 }
+
+// RawFactionPositions requests the faction/positions selection and returns its raw JSON.
 func (c *Client) RawFactionPositions(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"positions"}, params, opts)
 }
+
+// FactionPositions requests the faction/positions selection and decodes it into models.FactionPositionsResponse.
 func (c *Client) FactionPositions(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionPositionsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Positions, params, opts)
 }
+
+// RawFactionRackets requests the faction/rackets selection and returns its raw JSON.
 func (c *Client) RawFactionRackets(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"rackets"}, params, opts)
 }
+
+// FactionRackets requests the faction/rackets selection and decodes it into models.FactionRacketsResponse.
 func (c *Client) FactionRackets(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionRacketsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Rackets, params, opts)
 }
+
+// RawFactionRaidreport requests the faction/raidreport selection and returns its raw JSON.
 func (c *Client) RawFactionRaidreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"raidreport"}, params, opts)
 }
+
+// FactionRaidreport requests the faction/raidreport selection and decodes it into models.FactionRaidWarReportResponse.
 func (c *Client) FactionRaidreport(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionRaidWarReportResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Raidreport, params, opts)
 }
+
+// RawFactionRaids requests the faction/raids selection and returns its raw JSON.
 func (c *Client) RawFactionRaids(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"raids"}, params, opts)
 }
+
+// FactionRaids requests the faction/raids selection and decodes it into models.FactionRaidsResponse.
 func (c *Client) FactionRaids(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionRaidsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Raids, params, opts)
 }
+
+// RawFactionRankedwarreport requests the faction/rankedwarreport selection and returns its raw JSON.
 func (c *Client) RawFactionRankedwarreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"rankedwarreport"}, params, opts)
 }
+
+// FactionRankedwarreport requests the faction/rankedwarreport selection and decodes it into models.FactionRankedWarReportResponse.
 func (c *Client) FactionRankedwarreport(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionRankedWarReportResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Rankedwarreport, params, opts)
 }
+
+// RawFactionRankedwars requests the faction/rankedwars selection and returns its raw JSON.
 func (c *Client) RawFactionRankedwars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"rankedwars"}, params, opts)
 }
+
+// FactionRankedwars requests the faction/rankedwars selection and decodes it into models.FactionRankedWarResponse.
 func (c *Client) FactionRankedwars(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionRankedWarResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Rankedwars, params, opts)
 }
+
+// RawFactionReports requests the faction/reports selection and returns its raw JSON.
 func (c *Client) RawFactionReports(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"reports"}, params, opts)
 }
+
+// FactionReports requests the faction/reports selection and decodes it into models.ReportsResponse.
 func (c *Client) FactionReports(ctx context.Context, params map[string]any, opts RequestOptions) (models.ReportsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Reports, params, opts)
 }
+
+// RawFactionRevives requests the faction/revives selection and returns its raw JSON.
 func (c *Client) RawFactionRevives(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"revives"}, params, opts)
 }
+
+// FactionRevives requests the faction/revives selection and decodes it into models.RevivesResponse.
 func (c *Client) FactionRevives(ctx context.Context, params map[string]any, opts RequestOptions) (models.RevivesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Revives, params, opts)
 }
+
+// RawFactionRevivesfull requests the faction/revivesfull selection and returns its raw JSON.
 func (c *Client) RawFactionRevivesfull(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"revivesfull"}, params, opts)
 }
+
+// FactionRevivesfull requests the faction/revivesfull selection and decodes it into models.RevivesFullResponse.
 func (c *Client) FactionRevivesfull(ctx context.Context, params map[string]any, opts RequestOptions) (models.RevivesFullResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Revivesfull, params, opts)
 }
+
+// RawFactionSearch requests the faction/search selection and returns its raw JSON.
 func (c *Client) RawFactionSearch(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"search"}, params, opts)
 }
+
+// FactionSearch requests the faction/search selection and decodes it into models.FactionSearchResponse.
 func (c *Client) FactionSearch(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionSearchResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Search, params, opts)
 }
+
+// FactionSnapshot returns the exact CSV text of faction/snapshot.
 func (c *Client) FactionSnapshot(ctx context.Context, params map[string]any, opts RequestOptions) (string, ExecutionReport, error) {
 	b, r, e := c.DoOperation(ctx, Operation{ID: "getFactionsSnapshot", Path: "/faction/snapshot", Method: "GET", CSV: true}, allowedParams(params, []string{"timestamp", "comment"}), opts)
 	var out string
@@ -766,918 +979,1528 @@ func (c *Client) FactionSnapshot(ctx context.Context, params map[string]any, opt
 	}
 	return out, r, e
 }
+
+// RawFactionStats requests the faction/stats selection and returns its raw JSON.
 func (c *Client) RawFactionStats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"stats"}, params, opts)
 }
+
+// FactionStats requests the faction/stats selection and decodes it into models.FactionStatsResponse.
 func (c *Client) FactionStats(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Stats, params, opts)
 }
+
+// RawFactionTemporary requests the faction/temporary selection and returns its raw JSON.
 func (c *Client) RawFactionTemporary(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"temporary"}, params, opts)
 }
+
+// FactionTemporary requests the faction/temporary selection and decodes it into compat.FactionTemporaryBundle.
 func (c *Client) FactionTemporary(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionTemporaryBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Temporary, params, opts)
 }
+
+// RawFactionTerritory requests the faction/territory selection and returns its raw JSON.
 func (c *Client) RawFactionTerritory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"territory"}, params, opts)
 }
+
+// FactionTerritory requests the faction/territory selection and decodes it into models.FactionTerritoriesResponse.
 func (c *Client) FactionTerritory(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionTerritoriesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Territory, params, opts)
 }
+
+// RawFactionTerritoryownership requests the faction/territoryownership selection and returns its raw JSON.
 func (c *Client) RawFactionTerritoryownership(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"territoryownership"}, params, opts)
 }
+
+// FactionTerritoryownership requests the faction/territoryownership selection and decodes it into models.FactionTerritoriesOwnershipResponse.
 func (c *Client) FactionTerritoryownership(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionTerritoriesOwnershipResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Territoryownership, params, opts)
 }
+
+// RawFactionTerritorywarreport requests the faction/territorywarreport selection and returns its raw JSON.
 func (c *Client) RawFactionTerritorywarreport(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"territorywarreport"}, params, opts)
 }
+
+// FactionTerritorywarreport requests the faction/territorywarreport selection and decodes it into models.FactionTerritoryWarReportResponse.
 func (c *Client) FactionTerritorywarreport(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionTerritoryWarReportResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Territorywarreport, params, opts)
 }
+
+// RawFactionTerritorywars requests the faction/territorywars selection and returns its raw JSON.
 func (c *Client) RawFactionTerritorywars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"territorywars"}, params, opts)
 }
+
+// FactionTerritorywars requests the faction/territorywars selection and decodes it into models.FactionTerritoryWarsHistoryResponse.
 func (c *Client) FactionTerritorywars(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionTerritoryWarsHistoryResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Territorywars, params, opts)
 }
+
+// RawFactionTimestamp requests the faction/timestamp selection and returns its raw JSON.
 func (c *Client) RawFactionTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"timestamp"}, params, opts)
 }
+
+// FactionTimestamp requests the faction/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) FactionTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Timestamp, params, opts)
 }
+
+// RawFactionUpgrades requests the faction/upgrades selection and returns its raw JSON.
 func (c *Client) RawFactionUpgrades(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"upgrades"}, params, opts)
 }
+
+// FactionUpgrades requests the faction/upgrades selection and decodes it into models.FactionUpgradesResponse.
 func (c *Client) FactionUpgrades(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionUpgradesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Upgrades, params, opts)
 }
+
+// RawFactionUtilities requests the faction/utilities selection and returns its raw JSON.
 func (c *Client) RawFactionUtilities(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"utilities"}, params, opts)
 }
+
+// FactionUtilities requests the faction/utilities selection and decodes it into compat.FactionUtilitiesBundle.
 func (c *Client) FactionUtilities(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionUtilitiesBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Utilities, params, opts)
 }
+
+// RawFactionWarfare requests the faction/warfare selection and returns its raw JSON.
 func (c *Client) RawFactionWarfare(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"warfare"}, params, opts)
 }
+
+// FactionWarfare requests the faction/warfare selection and decodes it into models.FactionWarfareResponse.
 func (c *Client) FactionWarfare(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Warfare, params, opts)
 }
+
+// RawFactionWarfarechains requests the faction/warfarechains selection and returns its raw JSON.
 func (c *Client) RawFactionWarfarechains(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"warfarechains"}, params, opts)
 }
+
+// FactionWarfarechains requests the faction/warfarechains selection and decodes it into models.FactionWarfareChainsResponse.
 func (c *Client) FactionWarfarechains(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareChainsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Warfarechains, params, opts)
 }
+
+// RawFactionWarfareraids requests the faction/warfareraids selection and returns its raw JSON.
 func (c *Client) RawFactionWarfareraids(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"warfareraids"}, params, opts)
 }
+
+// FactionWarfareraids requests the faction/warfareraids selection and decodes it into models.FactionWarfareRaidsResponse.
 func (c *Client) FactionWarfareraids(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareRaidsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Warfareraids, params, opts)
 }
+
+// RawFactionWarfareranked requests the faction/warfareranked selection and returns its raw JSON.
 func (c *Client) RawFactionWarfareranked(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"warfareranked"}, params, opts)
 }
+
+// FactionWarfareranked requests the faction/warfareranked selection and decodes it into models.FactionWarfareRankedResponse.
 func (c *Client) FactionWarfareranked(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareRankedResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Warfareranked, params, opts)
 }
+
+// RawFactionWarfareterritory requests the faction/warfareterritory selection and returns its raw JSON.
 func (c *Client) RawFactionWarfareterritory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"warfareterritory"}, params, opts)
 }
+
+// FactionWarfareterritory requests the faction/warfareterritory selection and decodes it into models.FactionWarfareTerritoryWarsResponse.
 func (c *Client) FactionWarfareterritory(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarfareTerritoryWarsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Warfareterritory, params, opts)
 }
+
+// RawFactionWars requests the faction/wars selection and returns its raw JSON.
 func (c *Client) RawFactionWars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"wars"}, params, opts)
 }
+
+// FactionWars requests the faction/wars selection and decodes it into models.FactionWarsResponse.
 func (c *Client) FactionWars(ctx context.Context, params map[string]any, opts RequestOptions) (models.FactionWarsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Wars, params, opts)
 }
+
+// RawFactionWeapons requests the faction/weapons selection and returns its raw JSON.
 func (c *Client) RawFactionWeapons(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "faction", []string{"weapons"}, params, opts)
 }
+
+// FactionWeapons requests the faction/weapons selection and decodes it into compat.FactionWeaponsBundle.
 func (c *Client) FactionWeapons(ctx context.Context, params map[string]any, opts RequestOptions) (compat.FactionWeaponsBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, FactionSelections.Weapons, params, opts)
 }
+
+// RawForumCategories requests the forum/categories selection and returns its raw JSON.
 func (c *Client) RawForumCategories(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"categories"}, params, opts)
 }
+
+// ForumCategories requests the forum/categories selection and decodes it into models.ForumCategoriesResponse.
 func (c *Client) ForumCategories(ctx context.Context, params map[string]any, opts RequestOptions) (models.ForumCategoriesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Categories, params, opts)
 }
+
+// RawForumLookup requests the forum/lookup selection and returns its raw JSON.
 func (c *Client) RawForumLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"lookup"}, params, opts)
 }
+
+// ForumLookup requests the forum/lookup selection and decodes it into models.ForumLookupResponse.
 func (c *Client) ForumLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.ForumLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Lookup, params, opts)
 }
+
+// RawForumPosts requests the forum/posts selection and returns its raw JSON.
 func (c *Client) RawForumPosts(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"posts"}, params, opts)
 }
+
+// ForumPosts requests the forum/posts selection and decodes it into models.ForumPostsResponse.
 func (c *Client) ForumPosts(ctx context.Context, params map[string]any, opts RequestOptions) (models.ForumPostsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Posts, params, opts)
 }
+
+// RawForumThread requests the forum/thread selection and returns its raw JSON.
 func (c *Client) RawForumThread(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"thread"}, params, opts)
 }
+
+// ForumThread requests the forum/thread selection and decodes it into models.ForumThreadResponse.
 func (c *Client) ForumThread(ctx context.Context, params map[string]any, opts RequestOptions) (models.ForumThreadResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Thread, params, opts)
 }
+
+// RawForumThreads requests the forum/threads selection and returns its raw JSON.
 func (c *Client) RawForumThreads(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"threads"}, params, opts)
 }
+
+// ForumThreads requests the forum/threads selection and decodes it into models.ForumThreadsResponse.
 func (c *Client) ForumThreads(ctx context.Context, params map[string]any, opts RequestOptions) (models.ForumThreadsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Threads, params, opts)
 }
+
+// RawForumTimestamp requests the forum/timestamp selection and returns its raw JSON.
 func (c *Client) RawForumTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "forum", []string{"timestamp"}, params, opts)
 }
+
+// ForumTimestamp requests the forum/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) ForumTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, ForumSelections.Timestamp, params, opts)
 }
+
+// RawKeyInfo requests the key/info selection and returns its raw JSON.
 func (c *Client) RawKeyInfo(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "key", []string{"info"}, params, opts)
 }
+
+// KeyInfo requests the key/info selection and decodes it into models.KeyInfoResponse.
 func (c *Client) KeyInfo(ctx context.Context, params map[string]any, opts RequestOptions) (models.KeyInfoResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, KeySelections.Info, params, opts)
 }
+
+// RawKeyLog requests the key/log selection and returns its raw JSON.
 func (c *Client) RawKeyLog(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "key", []string{"log"}, params, opts)
 }
+
+// KeyLog requests the key/log selection and decodes it into models.KeyLogResponse.
 func (c *Client) KeyLog(ctx context.Context, params map[string]any, opts RequestOptions) (models.KeyLogResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, KeySelections.Log, params, opts)
 }
+
+// RawMarketAuctionhouse requests the market/auctionhouse selection and returns its raw JSON.
 func (c *Client) RawMarketAuctionhouse(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"auctionhouse"}, params, opts)
 }
+
+// MarketAuctionhouse requests the market/auctionhouse selection and decodes it into models.AuctionHouseResponse.
 func (c *Client) MarketAuctionhouse(ctx context.Context, params map[string]any, opts RequestOptions) (models.AuctionHouseResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Auctionhouse, params, opts)
 }
+
+// RawMarketAuctionhouselisting requests the market/auctionhouselisting selection and returns its raw JSON.
 func (c *Client) RawMarketAuctionhouselisting(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"auctionhouselisting"}, params, opts)
 }
+
+// MarketAuctionhouselisting requests the market/auctionhouselisting selection and decodes it into models.AuctionHouseListingResponse.
 func (c *Client) MarketAuctionhouselisting(ctx context.Context, params map[string]any, opts RequestOptions) (models.AuctionHouseListingResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Auctionhouselisting, params, opts)
 }
+
+// RawMarketBazaar requests the market/bazaar selection and returns its raw JSON.
 func (c *Client) RawMarketBazaar(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"bazaar"}, params, opts)
 }
+
+// MarketBazaar requests the market/bazaar selection and decodes it into compat.MarketBazaarBundle.
 func (c *Client) MarketBazaar(ctx context.Context, params map[string]any, opts RequestOptions) (compat.MarketBazaarBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Bazaar, params, opts)
 }
+
+// RawMarketItemmarket requests the market/itemmarket selection and returns its raw JSON.
 func (c *Client) RawMarketItemmarket(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"itemmarket"}, params, opts)
 }
+
+// MarketItemmarket requests the market/itemmarket selection and decodes it into models.MarketItemMarketResponse.
 func (c *Client) MarketItemmarket(ctx context.Context, params map[string]any, opts RequestOptions) (models.MarketItemMarketResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Itemmarket, params, opts)
 }
+
+// RawMarketLookup requests the market/lookup selection and returns its raw JSON.
 func (c *Client) RawMarketLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"lookup"}, params, opts)
 }
+
+// MarketLookup requests the market/lookup selection and decodes it into models.MarketLookupResponse.
 func (c *Client) MarketLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.MarketLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Lookup, params, opts)
 }
+
+// RawMarketPointsmarket requests the market/pointsmarket selection and returns its raw JSON.
 func (c *Client) RawMarketPointsmarket(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"pointsmarket"}, params, opts)
 }
+
+// MarketPointsmarket requests the market/pointsmarket selection and decodes it into models.PointsMarketResponse.
 func (c *Client) MarketPointsmarket(ctx context.Context, params map[string]any, opts RequestOptions) (models.PointsMarketResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Pointsmarket, params, opts)
 }
+
+// RawMarketProperties requests the market/properties selection and returns its raw JSON.
 func (c *Client) RawMarketProperties(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"properties"}, params, opts)
 }
+
+// MarketProperties requests the market/properties selection and decodes it into models.MarketPropertiesResponse.
 func (c *Client) MarketProperties(ctx context.Context, params map[string]any, opts RequestOptions) (models.MarketPropertiesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Properties, params, opts)
 }
+
+// RawMarketRentals requests the market/rentals selection and returns its raw JSON.
 func (c *Client) RawMarketRentals(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"rentals"}, params, opts)
 }
+
+// MarketRentals requests the market/rentals selection and decodes it into models.MarketRentalsResponse.
 func (c *Client) MarketRentals(ctx context.Context, params map[string]any, opts RequestOptions) (models.MarketRentalsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Rentals, params, opts)
 }
+
+// RawMarketTimestamp requests the market/timestamp selection and returns its raw JSON.
 func (c *Client) RawMarketTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "market", []string{"timestamp"}, params, opts)
 }
+
+// MarketTimestamp requests the market/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) MarketTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, MarketSelections.Timestamp, params, opts)
 }
+
+// RawPropertyLookup requests the property/lookup selection and returns its raw JSON.
 func (c *Client) RawPropertyLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "property", []string{"lookup"}, params, opts)
 }
+
+// PropertyLookup requests the property/lookup selection and decodes it into models.PropertyLookupResponse.
 func (c *Client) PropertyLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.PropertyLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, PropertySelections.Lookup, params, opts)
 }
+
+// RawPropertyProperty requests the property/property selection and returns its raw JSON.
 func (c *Client) RawPropertyProperty(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "property", []string{"property"}, params, opts)
 }
+
+// PropertyProperty requests the property/property selection and decodes it into models.PropertyPropertyResponse.
 func (c *Client) PropertyProperty(ctx context.Context, params map[string]any, opts RequestOptions) (models.PropertyPropertyResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, PropertySelections.Property, params, opts)
 }
+
+// RawPropertyTimestamp requests the property/timestamp selection and returns its raw JSON.
 func (c *Client) RawPropertyTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "property", []string{"timestamp"}, params, opts)
 }
+
+// PropertyTimestamp requests the property/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) PropertyTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, PropertySelections.Timestamp, params, opts)
 }
+
+// RawRacingCars requests the racing/cars selection and returns its raw JSON.
 func (c *Client) RawRacingCars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"cars"}, params, opts)
 }
+
+// RacingCars requests the racing/cars selection and decodes it into models.RacingCarsResponse.
 func (c *Client) RacingCars(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingCarsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Cars, params, opts)
 }
+
+// RawRacingCarupgrades requests the racing/carupgrades selection and returns its raw JSON.
 func (c *Client) RawRacingCarupgrades(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"carupgrades"}, params, opts)
 }
+
+// RacingCarupgrades requests the racing/carupgrades selection and decodes it into models.RacingCarUpgradesResponse.
 func (c *Client) RacingCarupgrades(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingCarUpgradesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Carupgrades, params, opts)
 }
+
+// RawRacingLookup requests the racing/lookup selection and returns its raw JSON.
 func (c *Client) RawRacingLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"lookup"}, params, opts)
 }
+
+// RacingLookup requests the racing/lookup selection and decodes it into models.RacingLookupResponse.
 func (c *Client) RacingLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Lookup, params, opts)
 }
+
+// RawRacingRace requests the racing/race selection and returns its raw JSON.
 func (c *Client) RawRacingRace(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"race"}, params, opts)
 }
+
+// RacingRace requests the racing/race selection and decodes it into models.RacingRaceDetailsResponse.
 func (c *Client) RacingRace(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingRaceDetailsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Race, params, opts)
 }
+
+// RawRacingRaces requests the racing/races selection and returns its raw JSON.
 func (c *Client) RawRacingRaces(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"races"}, params, opts)
 }
+
+// RacingRaces requests the racing/races selection and decodes it into models.RacingRacesResponse.
 func (c *Client) RacingRaces(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingRacesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Races, params, opts)
 }
+
+// RawRacingRecords requests the racing/records selection and returns its raw JSON.
 func (c *Client) RawRacingRecords(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"records"}, params, opts)
 }
+
+// RacingRecords requests the racing/records selection and decodes it into models.RacingTrackRecordsResponse.
 func (c *Client) RacingRecords(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingTrackRecordsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Records, params, opts)
 }
+
+// RawRacingTimestamp requests the racing/timestamp selection and returns its raw JSON.
 func (c *Client) RawRacingTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"timestamp"}, params, opts)
 }
+
+// RacingTimestamp requests the racing/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) RacingTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Timestamp, params, opts)
 }
+
+// RawRacingTracks requests the racing/tracks selection and returns its raw JSON.
 func (c *Client) RawRacingTracks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "racing", []string{"tracks"}, params, opts)
 }
+
+// RacingTracks requests the racing/tracks selection and decodes it into models.RacingTracksResponse.
 func (c *Client) RacingTracks(ctx context.Context, params map[string]any, opts RequestOptions) (models.RacingTracksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, RacingSelections.Tracks, params, opts)
 }
+
+// RawTornAttacklog requests the torn/attacklog selection and returns its raw JSON.
 func (c *Client) RawTornAttacklog(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"attacklog"}, params, opts)
 }
+
+// TornAttacklog requests the torn/attacklog selection and decodes it into models.AttackLogResponse.
 func (c *Client) TornAttacklog(ctx context.Context, params map[string]any, opts RequestOptions) (models.AttackLogResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Attacklog, params, opts)
 }
+
+// RawTornBank requests the torn/bank selection and returns its raw JSON.
 func (c *Client) RawTornBank(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"bank"}, params, opts)
 }
+
+// TornBank requests the torn/bank selection and decodes it into models.TornBankResponse.
 func (c *Client) TornBank(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornBankResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Bank, params, opts)
 }
+
+// RawTornBounties requests the torn/bounties selection and returns its raw JSON.
 func (c *Client) RawTornBounties(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"bounties"}, params, opts)
 }
+
+// TornBounties requests the torn/bounties selection and decodes it into models.TornBountiesResponse.
 func (c *Client) TornBounties(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornBountiesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Bounties, params, opts)
 }
+
+// RawTornCalendar requests the torn/calendar selection and returns its raw JSON.
 func (c *Client) RawTornCalendar(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"calendar"}, params, opts)
 }
+
+// TornCalendar requests the torn/calendar selection and decodes it into models.TornCalendarResponse.
 func (c *Client) TornCalendar(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCalendarResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Calendar, params, opts)
 }
+
+// RawTornCards requests the torn/cards selection and returns its raw JSON.
 func (c *Client) RawTornCards(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"cards"}, params, opts)
 }
+
+// TornCards requests the torn/cards selection and decodes it into models.TornCardsResponse.
 func (c *Client) TornCards(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCardsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Cards, params, opts)
 }
+
+// RawTornCityshops requests the torn/cityshops selection and returns its raw JSON.
 func (c *Client) RawTornCityshops(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"cityshops"}, params, opts)
 }
+
+// TornCityshops requests the torn/cityshops selection and decodes it into models.TornCityShopsResponse.
 func (c *Client) TornCityshops(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCityShopsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Cityshops, params, opts)
 }
+
+// RawTornCompanies requests the torn/companies selection and returns its raw JSON.
 func (c *Client) RawTornCompanies(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"companies"}, params, opts)
 }
+
+// TornCompanies requests the torn/companies selection and decodes it into models.TornCompaniesResponse.
 func (c *Client) TornCompanies(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCompaniesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Companies, params, opts)
 }
+
+// RawTornCompetition requests the torn/competition selection and returns its raw JSON.
 func (c *Client) RawTornCompetition(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"competition"}, params, opts)
 }
+
+// TornCompetition requests the torn/competition selection and decodes it into compat.TornCompetitionBundle.
 func (c *Client) TornCompetition(ctx context.Context, params map[string]any, opts RequestOptions) (compat.TornCompetitionBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Competition, params, opts)
 }
+
+// RawTornCrimes requests the torn/crimes selection and returns its raw JSON.
 func (c *Client) RawTornCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"crimes"}, params, opts)
 }
+
+// TornCrimes requests the torn/crimes selection and decodes it into models.TornCrimesResponse.
 func (c *Client) TornCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCrimesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Crimes, params, opts)
 }
+
+// RawTornEducation requests the torn/education selection and returns its raw JSON.
 func (c *Client) RawTornEducation(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"education"}, params, opts)
 }
+
+// TornEducation requests the torn/education selection and decodes it into models.TornEducationResponse.
 func (c *Client) TornEducation(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornEducationResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Education, params, opts)
 }
+
+// RawTornElimination requests the torn/elimination selection and returns its raw JSON.
 func (c *Client) RawTornElimination(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"elimination"}, params, opts)
 }
+
+// TornElimination requests the torn/elimination selection and decodes it into models.TornEliminationTeamsResponse.
 func (c *Client) TornElimination(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornEliminationTeamsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Elimination, params, opts)
 }
+
+// RawTornEliminationteam requests the torn/eliminationteam selection and returns its raw JSON.
 func (c *Client) RawTornEliminationteam(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"eliminationteam"}, params, opts)
 }
+
+// TornEliminationteam requests the torn/eliminationteam selection and decodes it into models.TornEliminationTeamPlayersResponse.
 func (c *Client) TornEliminationteam(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornEliminationTeamPlayersResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Eliminationteam, params, opts)
 }
+
+// RawTornFactionhof requests the torn/factionhof selection and returns its raw JSON.
 func (c *Client) RawTornFactionhof(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"factionhof"}, params, opts)
 }
+
+// TornFactionhof requests the torn/factionhof selection and decodes it into models.TornFactionHofResponse.
 func (c *Client) TornFactionhof(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornFactionHofResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Factionhof, params, opts)
 }
+
+// RawTornFactiontree requests the torn/factiontree selection and returns its raw JSON.
 func (c *Client) RawTornFactiontree(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"factiontree"}, params, opts)
 }
+
+// TornFactiontree requests the torn/factiontree selection and decodes it into models.TornFactionTreeResponse.
 func (c *Client) TornFactiontree(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornFactionTreeResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Factiontree, params, opts)
 }
+
+// RawTornGyms requests the torn/gyms selection and returns its raw JSON.
 func (c *Client) RawTornGyms(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"gyms"}, params, opts)
 }
+
+// TornGyms requests the torn/gyms selection and decodes it into models.TornGymsResponse.
 func (c *Client) TornGyms(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornGymsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Gyms, params, opts)
 }
+
+// RawTornHalloween requests the torn/halloween selection and returns its raw JSON.
 func (c *Client) RawTornHalloween(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"halloween"}, params, opts)
 }
+
+// TornHalloween requests the torn/halloween selection and decodes it into models.TornHalloweenResponse.
 func (c *Client) TornHalloween(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornHalloweenResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Halloween, params, opts)
 }
+
+// RawTornHof requests the torn/hof selection and returns its raw JSON.
 func (c *Client) RawTornHof(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"hof"}, params, opts)
 }
+
+// TornHof requests the torn/hof selection and decodes it into models.TornHofResponse.
 func (c *Client) TornHof(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornHofResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Hof, params, opts)
 }
+
+// RawTornHonors requests the torn/honors selection and returns its raw JSON.
 func (c *Client) RawTornHonors(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"honors"}, params, opts)
 }
+
+// TornHonors requests the torn/honors selection and decodes it into models.TornHonorsResponse.
 func (c *Client) TornHonors(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornHonorsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Honors, params, opts)
 }
+
+// RawTornItemammo requests the torn/itemammo selection and returns its raw JSON.
 func (c *Client) RawTornItemammo(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"itemammo"}, params, opts)
 }
+
+// TornItemammo requests the torn/itemammo selection and decodes it into models.TornItemAmmoResponse.
 func (c *Client) TornItemammo(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornItemAmmoResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Itemammo, params, opts)
 }
+
+// RawTornItemdetails requests the torn/itemdetails selection and returns its raw JSON.
 func (c *Client) RawTornItemdetails(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"itemdetails"}, params, opts)
 }
+
+// TornItemdetails requests the torn/itemdetails selection and decodes it into models.TornItemDetailsResponse.
 func (c *Client) TornItemdetails(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornItemDetailsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Itemdetails, params, opts)
 }
+
+// RawTornItemmods requests the torn/itemmods selection and returns its raw JSON.
 func (c *Client) RawTornItemmods(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"itemmods"}, params, opts)
 }
+
+// TornItemmods requests the torn/itemmods selection and decodes it into models.TornItemModsResponse.
 func (c *Client) TornItemmods(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornItemModsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Itemmods, params, opts)
 }
+
+// RawTornItems requests the torn/items selection and returns its raw JSON.
 func (c *Client) RawTornItems(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"items"}, params, opts)
 }
+
+// TornItems requests the torn/items selection and decodes it into models.TornItemsResponse.
 func (c *Client) TornItems(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornItemsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Items, params, opts)
 }
+
+// RawTornItemstats requests the torn/itemstats selection and returns its raw JSON.
 func (c *Client) RawTornItemstats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"itemstats"}, params, opts)
 }
+
+// TornItemstats requests the torn/itemstats selection and decodes it into models.TornItemStatsResponse.
 func (c *Client) TornItemstats(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornItemStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Itemstats, params, opts)
 }
+
+// RawTornLogcategories requests the torn/logcategories selection and returns its raw JSON.
 func (c *Client) RawTornLogcategories(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"logcategories"}, params, opts)
 }
+
+// TornLogcategories requests the torn/logcategories selection and decodes it into models.TornLogCategoriesResponse.
 func (c *Client) TornLogcategories(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornLogCategoriesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Logcategories, params, opts)
 }
+
+// RawTornLogtypes requests the torn/logtypes selection and returns its raw JSON.
 func (c *Client) RawTornLogtypes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"logtypes"}, params, opts)
 }
+
+// TornLogtypes requests the torn/logtypes selection and decodes it into models.TornLogTypesResponse.
 func (c *Client) TornLogtypes(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornLogTypesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Logtypes, params, opts)
 }
+
+// RawTornLookup requests the torn/lookup selection and returns its raw JSON.
 func (c *Client) RawTornLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"lookup"}, params, opts)
 }
+
+// TornLookup requests the torn/lookup selection and decodes it into models.TornLookupResponse.
 func (c *Client) TornLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Lookup, params, opts)
 }
+
+// RawTornMedals requests the torn/medals selection and returns its raw JSON.
 func (c *Client) RawTornMedals(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"medals"}, params, opts)
 }
+
+// TornMedals requests the torn/medals selection and decodes it into models.TornMedalsResponse.
 func (c *Client) TornMedals(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornMedalsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Medals, params, opts)
 }
+
+// RawTornMerits requests the torn/merits selection and returns its raw JSON.
 func (c *Client) RawTornMerits(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"merits"}, params, opts)
 }
+
+// TornMerits requests the torn/merits selection and decodes it into models.TornMeritsResponse.
 func (c *Client) TornMerits(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornMeritsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Merits, params, opts)
 }
+
+// RawTornMuseum requests the torn/museum selection and returns its raw JSON.
 func (c *Client) RawTornMuseum(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"museum"}, params, opts)
 }
+
+// TornMuseum requests the torn/museum selection and decodes it into models.TornMuseumResponse.
 func (c *Client) TornMuseum(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornMuseumResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Museum, params, opts)
 }
+
+// RawTornOrganisedcrimes requests the torn/organisedcrimes selection and returns its raw JSON.
 func (c *Client) RawTornOrganisedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"organisedcrimes"}, params, opts)
 }
+
+// TornOrganisedcrimes requests the torn/organisedcrimes selection and decodes it into compat.TornOrganisedCrimesBundle.
 func (c *Client) TornOrganisedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (compat.TornOrganisedCrimesBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Organisedcrimes, params, opts)
 }
+
+// RawTornOrganizedcrimes requests the torn/organizedcrimes selection and returns its raw JSON.
 func (c *Client) RawTornOrganizedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"organizedcrimes"}, params, opts)
 }
+
+// TornOrganizedcrimes requests the torn/organizedcrimes selection and decodes it into models.TornOrganizedCrimeResponse.
 func (c *Client) TornOrganizedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornOrganizedCrimeResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Organizedcrimes, params, opts)
 }
+
+// RawTornPawnshop requests the torn/pawnshop selection and returns its raw JSON.
 func (c *Client) RawTornPawnshop(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"pawnshop"}, params, opts)
 }
+
+// TornPawnshop requests the torn/pawnshop selection and decodes it into compat.TornPawnshopBundle.
 func (c *Client) TornPawnshop(ctx context.Context, params map[string]any, opts RequestOptions) (compat.TornPawnshopBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Pawnshop, params, opts)
 }
+
+// RawTornPokertables requests the torn/pokertables selection and returns its raw JSON.
 func (c *Client) RawTornPokertables(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"pokertables"}, params, opts)
 }
+
+// TornPokertables requests the torn/pokertables selection and decodes it into models.TornPokerTablesResponse.
 func (c *Client) TornPokertables(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornPokerTablesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Pokertables, params, opts)
 }
+
+// RawTornProperties requests the torn/properties selection and returns its raw JSON.
 func (c *Client) RawTornProperties(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"properties"}, params, opts)
 }
+
+// TornProperties requests the torn/properties selection and decodes it into models.TornProperties.
 func (c *Client) TornProperties(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornProperties, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Properties, params, opts)
 }
+
+// RawTornRockpaperscissors requests the torn/rockpaperscissors selection and returns its raw JSON.
 func (c *Client) RawTornRockpaperscissors(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"rockpaperscissors"}, params, opts)
 }
+
+// TornRockpaperscissors requests the torn/rockpaperscissors selection and decodes it into models.TornRockPaperScissorsResponse.
 func (c *Client) TornRockpaperscissors(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornRockPaperScissorsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Rockpaperscissors, params, opts)
 }
+
+// RawTornSearchforcash requests the torn/searchforcash selection and returns its raw JSON.
 func (c *Client) RawTornSearchforcash(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"searchforcash"}, params, opts)
 }
+
+// TornSearchforcash requests the torn/searchforcash selection and decodes it into models.TornSearchForCashResponse.
 func (c *Client) TornSearchforcash(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornSearchForCashResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Searchforcash, params, opts)
 }
+
+// RawTornShoplifting requests the torn/shoplifting selection and returns its raw JSON.
 func (c *Client) RawTornShoplifting(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"shoplifting"}, params, opts)
 }
+
+// TornShoplifting requests the torn/shoplifting selection and decodes it into models.TornShopliftingResponse.
 func (c *Client) TornShoplifting(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornShopliftingResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Shoplifting, params, opts)
 }
+
+// RawTornStats requests the torn/stats selection and returns its raw JSON.
 func (c *Client) RawTornStats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"stats"}, params, opts)
 }
+
+// TornStats requests the torn/stats selection and decodes it into models.TornCityStatsResponse.
 func (c *Client) TornStats(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornCityStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Stats, params, opts)
 }
+
+// RawTornStocks requests the torn/stocks selection and returns its raw JSON.
 func (c *Client) RawTornStocks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"stocks"}, params, opts)
 }
+
+// TornStocks requests the torn/stocks selection and decodes it into compat.TornStocksBundle.
 func (c *Client) TornStocks(ctx context.Context, params map[string]any, opts RequestOptions) (compat.TornStocksBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Stocks, params, opts)
 }
+
+// RawTornSubcrimes requests the torn/subcrimes selection and returns its raw JSON.
 func (c *Client) RawTornSubcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"subcrimes"}, params, opts)
 }
+
+// TornSubcrimes requests the torn/subcrimes selection and decodes it into models.TornSubcrimesResponse.
 func (c *Client) TornSubcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornSubcrimesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Subcrimes, params, opts)
 }
+
+// RawTornTerritory requests the torn/territory selection and returns its raw JSON.
 func (c *Client) RawTornTerritory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"territory"}, params, opts)
 }
+
+// TornTerritory requests the torn/territory selection and decodes it into models.TornTerritoriesResponse.
 func (c *Client) TornTerritory(ctx context.Context, params map[string]any, opts RequestOptions) (models.TornTerritoriesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Territory, params, opts)
 }
+
+// RawTornTimestamp requests the torn/timestamp selection and returns its raw JSON.
 func (c *Client) RawTornTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "torn", []string{"timestamp"}, params, opts)
 }
+
+// TornTimestamp requests the torn/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) TornTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, TornSelections.Timestamp, params, opts)
 }
+
+// RawUserAmmo requests the user/ammo selection and returns its raw JSON.
 func (c *Client) RawUserAmmo(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"ammo"}, params, opts)
 }
+
+// UserAmmo requests the user/ammo selection and decodes it into models.UserAmmoResponse.
 func (c *Client) UserAmmo(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserAmmoResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Ammo, params, opts)
 }
+
+// RawUserAttacks requests the user/attacks selection and returns its raw JSON.
 func (c *Client) RawUserAttacks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"attacks"}, params, opts)
 }
+
+// UserAttacks requests the user/attacks selection and decodes it into models.AttacksResponse.
 func (c *Client) UserAttacks(ctx context.Context, params map[string]any, opts RequestOptions) (models.AttacksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Attacks, params, opts)
 }
+
+// RawUserAttacksfull requests the user/attacksfull selection and returns its raw JSON.
 func (c *Client) RawUserAttacksfull(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"attacksfull"}, params, opts)
 }
+
+// UserAttacksfull requests the user/attacksfull selection and decodes it into models.AttacksFullResponse.
 func (c *Client) UserAttacksfull(ctx context.Context, params map[string]any, opts RequestOptions) (models.AttacksFullResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Attacksfull, params, opts)
 }
+
+// RawUserBars requests the user/bars selection and returns its raw JSON.
 func (c *Client) RawUserBars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"bars"}, params, opts)
 }
+
+// UserBars requests the user/bars selection and decodes it into models.UserBarsResponse.
 func (c *Client) UserBars(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserBarsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Bars, params, opts)
 }
+
+// RawUserBasic requests the user/basic selection and returns its raw JSON.
 func (c *Client) RawUserBasic(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"basic"}, params, opts)
 }
+
+// UserBasic requests the user/basic selection and decodes it into models.UserBasicResponse.
 func (c *Client) UserBasic(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserBasicResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Basic, params, opts)
 }
+
+// RawUserBattlestats requests the user/battlestats selection and returns its raw JSON.
 func (c *Client) RawUserBattlestats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"battlestats"}, params, opts)
 }
+
+// UserBattlestats requests the user/battlestats selection and decodes it into models.UserBattleStatsResponse.
 func (c *Client) UserBattlestats(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserBattleStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Battlestats, params, opts)
 }
+
+// RawUserBazaar requests the user/bazaar selection and returns its raw JSON.
 func (c *Client) RawUserBazaar(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"bazaar"}, params, opts)
 }
+
+// UserBazaar requests the user/bazaar selection and decodes it into compat.UserBazaarBundle.
 func (c *Client) UserBazaar(ctx context.Context, params map[string]any, opts RequestOptions) (compat.UserBazaarBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Bazaar, params, opts)
 }
+
+// RawUserBounties requests the user/bounties selection and returns its raw JSON.
 func (c *Client) RawUserBounties(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"bounties"}, params, opts)
 }
+
+// UserBounties requests the user/bounties selection and decodes it into models.UserBountiesResponse.
 func (c *Client) UserBounties(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserBountiesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Bounties, params, opts)
 }
+
+// RawUserCalendar requests the user/calendar selection and returns its raw JSON.
 func (c *Client) RawUserCalendar(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"calendar"}, params, opts)
 }
+
+// UserCalendar requests the user/calendar selection and decodes it into models.UserCalendarResponse.
 func (c *Client) UserCalendar(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserCalendarResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Calendar, params, opts)
 }
+
+// RawUserCasino requests the user/casino selection and returns its raw JSON.
 func (c *Client) RawUserCasino(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"casino"}, params, opts)
 }
+
+// UserCasino requests the user/casino selection and decodes it into models.UserCasinoResponse.
 func (c *Client) UserCasino(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserCasinoResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Casino, params, opts)
 }
+
+// RawUserCompetition requests the user/competition selection and returns its raw JSON.
 func (c *Client) RawUserCompetition(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"competition"}, params, opts)
 }
+
+// UserCompetition requests the user/competition selection and decodes it into models.UserCompetitionResponse.
 func (c *Client) UserCompetition(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserCompetitionResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Competition, params, opts)
 }
+
+// RawUserCooldowns requests the user/cooldowns selection and returns its raw JSON.
 func (c *Client) RawUserCooldowns(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"cooldowns"}, params, opts)
 }
+
+// UserCooldowns requests the user/cooldowns selection and decodes it into models.UserCooldownsResponse.
 func (c *Client) UserCooldowns(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserCooldownsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Cooldowns, params, opts)
 }
+
+// RawUserCrimes requests the user/crimes selection and returns its raw JSON.
 func (c *Client) RawUserCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"crimes"}, params, opts)
 }
+
+// UserCrimes requests the user/crimes selection and decodes it into models.UserCrimesResponse.
 func (c *Client) UserCrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserCrimesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Crimes, params, opts)
 }
+
+// RawUserCriminalrecord requests the user/criminalrecord selection and returns its raw JSON.
 func (c *Client) RawUserCriminalrecord(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"criminalrecord"}, params, opts)
 }
+
+// UserCriminalrecord requests the user/criminalrecord selection and decodes it into compat.UserCriminalRecordBundle.
 func (c *Client) UserCriminalrecord(ctx context.Context, params map[string]any, opts RequestOptions) (compat.UserCriminalRecordBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Criminalrecord, params, opts)
 }
+
+// RawUserDiscord requests the user/discord selection and returns its raw JSON.
 func (c *Client) RawUserDiscord(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"discord"}, params, opts)
 }
+
+// UserDiscord requests the user/discord selection and decodes it into models.UserDiscordResponse.
 func (c *Client) UserDiscord(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserDiscordResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Discord, params, opts)
 }
+
+// RawUserDisplay requests the user/display selection and returns its raw JSON.
 func (c *Client) RawUserDisplay(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"display"}, params, opts)
 }
+
+// UserDisplay requests the user/display selection and decodes it into compat.UserDisplayBundle.
 func (c *Client) UserDisplay(ctx context.Context, params map[string]any, opts RequestOptions) (compat.UserDisplayBundle, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Display, params, opts)
 }
+
+// RawUserEducation requests the user/education selection and returns its raw JSON.
 func (c *Client) RawUserEducation(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"education"}, params, opts)
 }
+
+// UserEducation requests the user/education selection and decodes it into models.UserEducationResponse.
 func (c *Client) UserEducation(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserEducationResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Education, params, opts)
 }
+
+// RawUserEnlistedcars requests the user/enlistedcars selection and returns its raw JSON.
 func (c *Client) RawUserEnlistedcars(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"enlistedcars"}, params, opts)
 }
+
+// UserEnlistedcars requests the user/enlistedcars selection and decodes it into models.UserEnlistedCarsResponse.
 func (c *Client) UserEnlistedcars(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserEnlistedCarsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Enlistedcars, params, opts)
 }
+
+// RawUserEquipment requests the user/equipment selection and returns its raw JSON.
 func (c *Client) RawUserEquipment(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"equipment"}, params, opts)
 }
+
+// UserEquipment requests the user/equipment selection and decodes it into models.UserEquipmentResponse.
 func (c *Client) UserEquipment(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserEquipmentResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Equipment, params, opts)
 }
+
+// RawUserEvents requests the user/events selection and returns its raw JSON.
 func (c *Client) RawUserEvents(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"events"}, params, opts)
 }
+
+// UserEvents requests the user/events selection and decodes it into models.UserEventsResponse.
 func (c *Client) UserEvents(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserEventsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Events, params, opts)
 }
+
+// RawUserFaction requests the user/faction selection and returns its raw JSON.
 func (c *Client) RawUserFaction(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"faction"}, params, opts)
 }
+
+// UserFaction requests the user/faction selection and decodes it into models.UserFactionResponse.
 func (c *Client) UserFaction(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserFactionResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Faction, params, opts)
 }
+
+// RawUserFactionbalance requests the user/factionbalance selection and returns its raw JSON.
 func (c *Client) RawUserFactionbalance(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"factionbalance"}, params, opts)
 }
+
+// UserFactionbalance requests the user/factionbalance selection and decodes it into models.UserFactionBalanceResponse.
 func (c *Client) UserFactionbalance(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserFactionBalanceResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Factionbalance, params, opts)
 }
+
+// RawUserForumfeed requests the user/forumfeed selection and returns its raw JSON.
 func (c *Client) RawUserForumfeed(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"forumfeed"}, params, opts)
 }
+
+// UserForumfeed requests the user/forumfeed selection and decodes it into models.UserForumFeedResponse.
 func (c *Client) UserForumfeed(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserForumFeedResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Forumfeed, params, opts)
 }
+
+// RawUserForumfriends requests the user/forumfriends selection and returns its raw JSON.
 func (c *Client) RawUserForumfriends(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"forumfriends"}, params, opts)
 }
+
+// UserForumfriends requests the user/forumfriends selection and decodes it into models.UserForumFriendsResponse.
 func (c *Client) UserForumfriends(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserForumFriendsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Forumfriends, params, opts)
 }
+
+// RawUserForumposts requests the user/forumposts selection and returns its raw JSON.
 func (c *Client) RawUserForumposts(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"forumposts"}, params, opts)
 }
+
+// UserForumposts requests the user/forumposts selection and decodes it into models.UserForumPostsResponse.
 func (c *Client) UserForumposts(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserForumPostsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Forumposts, params, opts)
 }
+
+// RawUserForumsubscribedthreads requests the user/forumsubscribedthreads selection and returns its raw JSON.
 func (c *Client) RawUserForumsubscribedthreads(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"forumsubscribedthreads"}, params, opts)
 }
+
+// UserForumsubscribedthreads requests the user/forumsubscribedthreads selection and decodes it into models.UserForumSubscribedThreadsResponse.
 func (c *Client) UserForumsubscribedthreads(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserForumSubscribedThreadsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Forumsubscribedthreads, params, opts)
 }
+
+// RawUserForumthreads requests the user/forumthreads selection and returns its raw JSON.
 func (c *Client) RawUserForumthreads(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"forumthreads"}, params, opts)
 }
+
+// UserForumthreads requests the user/forumthreads selection and decodes it into models.UserForumThreadsResponse.
 func (c *Client) UserForumthreads(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserForumThreadsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Forumthreads, params, opts)
 }
+
+// RawUserGym requests the user/gym selection and returns its raw JSON.
 func (c *Client) RawUserGym(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"gym"}, params, opts)
 }
+
+// UserGym requests the user/gym selection and decodes it into models.UserGymResponse.
 func (c *Client) UserGym(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserGymResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Gym, params, opts)
 }
+
+// RawUserHalloween requests the user/halloween selection and returns its raw JSON.
 func (c *Client) RawUserHalloween(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"halloween"}, params, opts)
 }
+
+// UserHalloween requests the user/halloween selection and decodes it into models.UserHalloweenResponse.
 func (c *Client) UserHalloween(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserHalloweenResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Halloween, params, opts)
 }
+
+// RawUserHof requests the user/hof selection and returns its raw JSON.
 func (c *Client) RawUserHof(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"hof"}, params, opts)
 }
+
+// UserHof requests the user/hof selection and decodes it into models.UserHofResponse.
 func (c *Client) UserHof(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserHofResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Hof, params, opts)
 }
+
+// RawUserHonors requests the user/honors selection and returns its raw JSON.
 func (c *Client) RawUserHonors(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"honors"}, params, opts)
 }
+
+// UserHonors requests the user/honors selection and decodes it into models.UserHonorsResponse.
 func (c *Client) UserHonors(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserHonorsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Honors, params, opts)
 }
+
+// RawUserIcons requests the user/icons selection and returns its raw JSON.
 func (c *Client) RawUserIcons(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"icons"}, params, opts)
 }
+
+// UserIcons requests the user/icons selection and decodes it into models.UserIconsResponse.
 func (c *Client) UserIcons(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserIconsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Icons, params, opts)
 }
+
+// RawUserInventory requests the user/inventory selection and returns its raw JSON.
 func (c *Client) RawUserInventory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"inventory"}, params, opts)
 }
+
+// UserInventory requests the user/inventory selection and decodes it into models.UserInventoryResponse.
 func (c *Client) UserInventory(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserInventoryResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Inventory, params, opts)
 }
+
+// RawUserItemmarket requests the user/itemmarket selection and returns its raw JSON.
 func (c *Client) RawUserItemmarket(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"itemmarket"}, params, opts)
 }
+
+// UserItemmarket requests the user/itemmarket selection and decodes it into models.UserItemMarketResponse.
 func (c *Client) UserItemmarket(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserItemMarketResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Itemmarket, params, opts)
 }
+
+// RawUserItemmod requests the user/itemmod selection and returns its raw JSON.
 func (c *Client) RawUserItemmod(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"itemmod"}, params, opts)
 }
+
+// UserItemmod requests the user/itemmod selection and decodes it into models.UserItemModsResponse.
 func (c *Client) UserItemmod(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserItemModsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Itemmod, params, opts)
 }
+
+// RawUserItemmods requests the user/itemmods selection and returns its raw JSON.
 func (c *Client) RawUserItemmods(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"itemmods"}, params, opts)
 }
+
+// UserItemmods requests the user/itemmods selection and decodes it into models.UserItemModsResponse.
 func (c *Client) UserItemmods(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserItemModsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Itemmods, params, opts)
 }
+
+// RawUserJob requests the user/job selection and returns its raw JSON.
 func (c *Client) RawUserJob(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"job"}, params, opts)
 }
+
+// UserJob requests the user/job selection and decodes it into models.UserJobResponse.
 func (c *Client) UserJob(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserJobResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Job, params, opts)
 }
+
+// RawUserJobpoints requests the user/jobpoints selection and returns its raw JSON.
 func (c *Client) RawUserJobpoints(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"jobpoints"}, params, opts)
 }
+
+// UserJobpoints requests the user/jobpoints selection and decodes it into models.UserJobPointsResponse.
 func (c *Client) UserJobpoints(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserJobPointsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Jobpoints, params, opts)
 }
+
+// RawUserJobranks requests the user/jobranks selection and returns its raw JSON.
 func (c *Client) RawUserJobranks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"jobranks"}, params, opts)
 }
+
+// UserJobranks requests the user/jobranks selection and decodes it into models.UserJobRanksResponse.
 func (c *Client) UserJobranks(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserJobRanksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Jobranks, params, opts)
 }
+
+// RawUserList requests the user/list selection and returns its raw JSON.
 func (c *Client) RawUserList(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"list"}, params, opts)
 }
+
+// UserList requests the user/list selection and decodes it into models.UserListResponse.
 func (c *Client) UserList(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserListResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.List, params, opts)
 }
+
+// RawUserLog requests the user/log selection and returns its raw JSON.
 func (c *Client) RawUserLog(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"log"}, params, opts)
 }
+
+// UserLog requests the user/log selection and decodes it into models.UserLogsResponse.
 func (c *Client) UserLog(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserLogsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Log, params, opts)
 }
+
+// RawUserLookup requests the user/lookup selection and returns its raw JSON.
 func (c *Client) RawUserLookup(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"lookup"}, params, opts)
 }
+
+// UserLookup requests the user/lookup selection and decodes it into models.UserLookupResponse.
 func (c *Client) UserLookup(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserLookupResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Lookup, params, opts)
 }
+
+// RawUserMedals requests the user/medals selection and returns its raw JSON.
 func (c *Client) RawUserMedals(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"medals"}, params, opts)
 }
+
+// UserMedals requests the user/medals selection and decodes it into models.UserMedalsResponse.
 func (c *Client) UserMedals(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserMedalsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Medals, params, opts)
 }
+
+// RawUserMerits requests the user/merits selection and returns its raw JSON.
 func (c *Client) RawUserMerits(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"merits"}, params, opts)
 }
+
+// UserMerits requests the user/merits selection and decodes it into models.UserMeritsResponse.
 func (c *Client) UserMerits(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserMeritsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Merits, params, opts)
 }
+
+// RawUserMessages requests the user/messages selection and returns its raw JSON.
 func (c *Client) RawUserMessages(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"messages"}, params, opts)
 }
+
+// UserMessages requests the user/messages selection and decodes it into models.UserMessagesResponse.
 func (c *Client) UserMessages(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserMessagesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Messages, params, opts)
 }
+
+// RawUserMissions requests the user/missions selection and returns its raw JSON.
 func (c *Client) RawUserMissions(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"missions"}, params, opts)
 }
+
+// UserMissions requests the user/missions selection and decodes it into models.UserMissionsResponse.
 func (c *Client) UserMissions(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserMissionsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Missions, params, opts)
 }
+
+// RawUserMoney requests the user/money selection and returns its raw JSON.
 func (c *Client) RawUserMoney(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"money"}, params, opts)
 }
+
+// UserMoney requests the user/money selection and decodes it into models.UserMoneyResponse.
 func (c *Client) UserMoney(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserMoneyResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Money, params, opts)
 }
+
+// RawUserNetworth requests the user/networth selection and returns its raw JSON.
 func (c *Client) RawUserNetworth(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"networth"}, params, opts)
 }
+
+// UserNetworth requests the user/networth selection and decodes it into models.UserNetworthResponse.
 func (c *Client) UserNetworth(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserNetworthResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Networth, params, opts)
 }
+
+// RawUserNewevents requests the user/newevents selection and returns its raw JSON.
 func (c *Client) RawUserNewevents(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"newevents"}, params, opts)
 }
+
+// UserNewevents requests the user/newevents selection and decodes it into models.UserNewEventsResponse.
 func (c *Client) UserNewevents(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserNewEventsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Newevents, params, opts)
 }
+
+// RawUserNewmessages requests the user/newmessages selection and returns its raw JSON.
 func (c *Client) RawUserNewmessages(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"newmessages"}, params, opts)
 }
+
+// UserNewmessages requests the user/newmessages selection and decodes it into models.UserNewMessagesResponse.
 func (c *Client) UserNewmessages(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserNewMessagesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Newmessages, params, opts)
 }
+
+// RawUserNotifications requests the user/notifications selection and returns its raw JSON.
 func (c *Client) RawUserNotifications(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"notifications"}, params, opts)
 }
+
+// UserNotifications requests the user/notifications selection and decodes it into models.UserNotificationsResponse.
 func (c *Client) UserNotifications(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserNotificationsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Notifications, params, opts)
 }
+
+// RawUserOrganizedcrime requests the user/organizedcrime selection and returns its raw JSON.
 func (c *Client) RawUserOrganizedcrime(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"organizedcrime"}, params, opts)
 }
+
+// UserOrganizedcrime requests the user/organizedcrime selection and decodes it into models.UserOrganizedCrimeResponse.
 func (c *Client) UserOrganizedcrime(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserOrganizedCrimeResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Organizedcrime, params, opts)
 }
+
+// RawUserOrganizedcrimes requests the user/organizedcrimes selection and returns its raw JSON.
 func (c *Client) RawUserOrganizedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"organizedcrimes"}, params, opts)
 }
+
+// UserOrganizedcrimes requests the user/organizedcrimes selection and decodes it into models.UserOrganizedCrimesResponse.
 func (c *Client) UserOrganizedcrimes(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserOrganizedCrimesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Organizedcrimes, params, opts)
 }
+
+// RawUserPerks requests the user/perks selection and returns its raw JSON.
 func (c *Client) RawUserPerks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"perks"}, params, opts)
 }
+
+// UserPerks requests the user/perks selection and decodes it into models.UserPerksResponse.
 func (c *Client) UserPerks(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserPerksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Perks, params, opts)
 }
+
+// RawUserPersonalstats requests the user/personalstats selection and returns its raw JSON.
 func (c *Client) RawUserPersonalstats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"personalstats"}, params, opts)
 }
+
+// UserPersonalstats requests the user/personalstats selection and decodes it into models.UserPersonalStatsResponse.
 func (c *Client) UserPersonalstats(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserPersonalStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Personalstats, params, opts)
 }
+
+// RawUserProfile requests the user/profile selection and returns its raw JSON.
 func (c *Client) RawUserProfile(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"profile"}, params, opts)
 }
+
+// UserProfile requests the user/profile selection and decodes it into models.UserProfileResponse.
 func (c *Client) UserProfile(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserProfileResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Profile, params, opts)
 }
+
+// RawUserProperties requests the user/properties selection and returns its raw JSON.
 func (c *Client) RawUserProperties(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"properties"}, params, opts)
 }
+
+// UserProperties requests the user/properties selection and decodes it into models.UserPropertiesResponse.
 func (c *Client) UserProperties(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserPropertiesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Properties, params, opts)
 }
+
+// RawUserProperty requests the user/property selection and returns its raw JSON.
 func (c *Client) RawUserProperty(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"property"}, params, opts)
 }
+
+// UserProperty requests the user/property selection and decodes it into models.UserPropertyResponse.
 func (c *Client) UserProperty(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserPropertyResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Property, params, opts)
 }
+
+// RawUserRaces requests the user/races selection and returns its raw JSON.
 func (c *Client) RawUserRaces(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"races"}, params, opts)
 }
+
+// UserRaces requests the user/races selection and decodes it into models.UserRacesResponse.
 func (c *Client) UserRaces(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserRacesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Races, params, opts)
 }
+
+// RawUserRacingrecords requests the user/racingrecords selection and returns its raw JSON.
 func (c *Client) RawUserRacingrecords(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"racingrecords"}, params, opts)
 }
+
+// UserRacingrecords requests the user/racingrecords selection and decodes it into models.UserRacingRecordsResponse.
 func (c *Client) UserRacingrecords(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserRacingRecordsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Racingrecords, params, opts)
 }
+
+// RawUserRefills requests the user/refills selection and returns its raw JSON.
 func (c *Client) RawUserRefills(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"refills"}, params, opts)
 }
+
+// UserRefills requests the user/refills selection and decodes it into models.UserRefillsResponse.
 func (c *Client) UserRefills(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserRefillsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Refills, params, opts)
 }
+
+// RawUserReports requests the user/reports selection and returns its raw JSON.
 func (c *Client) RawUserReports(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"reports"}, params, opts)
 }
+
+// UserReports requests the user/reports selection and decodes it into models.ReportsResponse.
 func (c *Client) UserReports(ctx context.Context, params map[string]any, opts RequestOptions) (models.ReportsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Reports, params, opts)
 }
+
+// RawUserRevives requests the user/revives selection and returns its raw JSON.
 func (c *Client) RawUserRevives(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"revives"}, params, opts)
 }
+
+// UserRevives requests the user/revives selection and decodes it into models.RevivesResponse.
 func (c *Client) UserRevives(ctx context.Context, params map[string]any, opts RequestOptions) (models.RevivesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Revives, params, opts)
 }
+
+// RawUserRevivesfull requests the user/revivesfull selection and returns its raw JSON.
 func (c *Client) RawUserRevivesfull(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"revivesfull"}, params, opts)
 }
+
+// UserRevivesfull requests the user/revivesfull selection and decodes it into models.RevivesFullResponse.
 func (c *Client) UserRevivesfull(ctx context.Context, params map[string]any, opts RequestOptions) (models.RevivesFullResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Revivesfull, params, opts)
 }
+
+// RawUserSearch requests the user/search selection and returns its raw JSON.
 func (c *Client) RawUserSearch(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"search"}, params, opts)
 }
+
+// UserSearch requests the user/search selection and decodes it into models.UserSearchResponse.
 func (c *Client) UserSearch(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserSearchResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Search, params, opts)
 }
+
+// RawUserSkills requests the user/skills selection and returns its raw JSON.
 func (c *Client) RawUserSkills(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"skills"}, params, opts)
 }
+
+// UserSkills requests the user/skills selection and decodes it into models.UserSkillsResponse.
 func (c *Client) UserSkills(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserSkillsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Skills, params, opts)
 }
+
+// UserSnapshot returns the exact CSV text of user/snapshot.
 func (c *Client) UserSnapshot(ctx context.Context, params map[string]any, opts RequestOptions) (string, ExecutionReport, error) {
 	b, r, e := c.DoOperation(ctx, Operation{ID: "getUsersSnapshot", Path: "/user/snapshot", Method: "GET", CSV: true}, allowedParams(params, []string{"timestamp", "comment"}), opts)
 	var out string
@@ -1686,63 +2509,103 @@ func (c *Client) UserSnapshot(ctx context.Context, params map[string]any, opts R
 	}
 	return out, r, e
 }
+
+// RawUserStocks requests the user/stocks selection and returns its raw JSON.
 func (c *Client) RawUserStocks(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"stocks"}, params, opts)
 }
+
+// UserStocks requests the user/stocks selection and decodes it into models.UserStocksResponse.
 func (c *Client) UserStocks(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserStocksResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Stocks, params, opts)
 }
+
+// RawUserTimestamp requests the user/timestamp selection and returns its raw JSON.
 func (c *Client) RawUserTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"timestamp"}, params, opts)
 }
+
+// UserTimestamp requests the user/timestamp selection and decodes it into models.TimestampResponse.
 func (c *Client) UserTimestamp(ctx context.Context, params map[string]any, opts RequestOptions) (models.TimestampResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Timestamp, params, opts)
 }
+
+// RawUserTrade requests the user/trade selection and returns its raw JSON.
 func (c *Client) RawUserTrade(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"trade"}, params, opts)
 }
+
+// UserTrade requests the user/trade selection and decodes it into models.UserTradeResponse.
 func (c *Client) UserTrade(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserTradeResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Trade, params, opts)
 }
+
+// RawUserTrades requests the user/trades selection and returns its raw JSON.
 func (c *Client) RawUserTrades(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"trades"}, params, opts)
 }
+
+// UserTrades requests the user/trades selection and decodes it into models.UserTradesResponse.
 func (c *Client) UserTrades(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserTradesResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Trades, params, opts)
 }
+
+// RawUserTravel requests the user/travel selection and returns its raw JSON.
 func (c *Client) RawUserTravel(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"travel"}, params, opts)
 }
+
+// UserTravel requests the user/travel selection and decodes it into models.UserTravelResponse.
 func (c *Client) UserTravel(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserTravelResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Travel, params, opts)
 }
+
+// RawUserTravelinventory requests the user/travelinventory selection and returns its raw JSON.
 func (c *Client) RawUserTravelinventory(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"travelinventory"}, params, opts)
 }
+
+// UserTravelinventory requests the user/travelinventory selection and decodes it into models.UserTravelInventoryResponse.
 func (c *Client) UserTravelinventory(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserTravelInventoryResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Travelinventory, params, opts)
 }
+
+// RawUserVirus requests the user/virus selection and returns its raw JSON.
 func (c *Client) RawUserVirus(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"virus"}, params, opts)
 }
+
+// UserVirus requests the user/virus selection and decodes it into models.UserVirusResponse.
 func (c *Client) UserVirus(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserVirusResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Virus, params, opts)
 }
+
+// RawUserWeaponexp requests the user/weaponexp selection and returns its raw JSON.
 func (c *Client) RawUserWeaponexp(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"weaponexp"}, params, opts)
 }
+
+// UserWeaponexp requests the user/weaponexp selection and decodes it into models.UserWeaponExpResponse.
 func (c *Client) UserWeaponexp(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserWeaponExpResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Weaponexp, params, opts)
 }
+
+// RawUserWorkstats requests the user/workstats selection and returns its raw JSON.
 func (c *Client) RawUserWorkstats(ctx context.Context, params map[string]any, opts RequestOptions) (ExecutionResult, error) {
 	return c.RawSelections(ctx, "user", []string{"workstats"}, params, opts)
 }
+
+// UserWorkstats requests the user/workstats selection and decodes it into models.UserWorkStatsResponse.
 func (c *Client) UserWorkstats(ctx context.Context, params map[string]any, opts RequestOptions) (models.UserWorkStatsResponse, ExecutionReport, error) {
 	return Fetch(ctx, c, UserSelections.Workstats, params, opts)
 }
+
+// CompanyDetailed is an alias of CompanyProfile.
 func (c *Client) CompanyDetailed(ctx context.Context, params map[string]any, opts RequestOptions) (compat.CompanyDetailedBundle, ExecutionReport, error) {
 	return c.CompanyProfile(ctx, params, opts)
 }
+
+// TornStock requests torn/stocks for one stock id.
 func (c *Client) TornStock(ctx context.Context, params map[string]any, opts RequestOptions) (compat.TornStockBundle, ExecutionReport, error) {
 	var out compat.TornStockBundle
 	if _, ok := parameterValue(params, "id"); !ok {
