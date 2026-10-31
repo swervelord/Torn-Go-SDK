@@ -101,7 +101,7 @@ p, err := profile.Value() // models.UserProfileResponse
 j, err := job.Value()     // models.UserJobResponse
 ```
 
-Compatible selections become one `/user?selections=job,profile&id=123` request;
+Compatible selections become one `/user?selections=profile,job&id=123` request;
 adding a faction token to a user batch is a compile error. `FetchPair` decodes
 each selection independently (`FirstErr`, `SecondErr`), so one decode failure
 never discards the other (P1.4). The planner splits standalone, direct-only and
