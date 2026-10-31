@@ -1,43 +1,30 @@
 # Torn-Go-SDK
 
-A typed Go SDK for the official Torn API, with exact endpoints, resource helpers,
-explicit selection batching, current and historical models, and a configurable
-request executor. Implementation, generation, auditing, and tests use Go and its
-standard library. The module requires Go **1.27.0** or later and pins **1.27.3**
-for development and CI.
+A typed Go SDK for the official Torn API: exact endpoints, resource helpers,
+explicit selection batching, current and historical models, and a resilient
+request executor (key failover, sliding-window rate limits, retries with
+jitter, pagination, hooks and an optional cache). Zero third-party
+dependencies.
+
+The pinned contract is Torn **6.15.0**: **237 exact operations**, **724
+component schemas**, **208 selection capabilities**, **210 typed convenience
+helpers**, **224 raw selection helpers** and **3 CSV operations**. An explicit
+**184-selection v1 catalog** supports legacy routing; the `legacy` package keeps
+**711** frozen 6.13.6 components and `compat` holds **549** lenient
+compatibility declarations. The SDK implements the cross-SDK parity contract
+(`spec/shared/PARITY_SPEC.md`, requirements P1-P9) shared with the Rust,
+TypeScript and Zig SDKs.
+
+## Install
 
 ```sh
 go get github.com/swervelord/Torn-Go-SDK
 ```
 
-The pinned current contract is Torn **6.15.0**: **237 exact operations**, **724
-component schemas**, **208 selection capabilities**, **210 typed convenience
-helpers**, **205 raw selection helpers**, and **3 dedicated CSV operations**.
-`GetMyTravelInventory` / `UserTravelinventory` expose travel capacity and the
-items carried abroad (or that would be taken on departure). They require a
-Limited access key, and the selection combines with other user selections on
-the generic endpoint. Slot `item` and item `uid` are nullable unions: `AsVariant1`
-returns the typed value and `AsVariant2` succeeds only for JSON null.
-`GetMyHalloween` / `UserHalloween` and `GetTornHalloween` / `TornHalloween`
-expose the current treats and basket upgrade models. The official spelling is
-`halloween`. Both require a Minimal access key; both support the generic selection
-endpoints, so compatible same-resource batches combine them.
-`UserInventoryCacheTTLSeconds` is 900 (per category) and
-`FactionInventoryCacheTTLSeconds` is 300 (all armory items). These describe
-Torn's server caches; the SDK does not cache responses. `MetadataForOperation`
-returns the upstream stability string, documented inventory cache lifetime, and
-minimum documented key access level (`Public`, `Minimal`, `Limited`, or `Full`).
-The pinned spec spells user Halloween stability `Untable`; it is retained verbatim.
+Requires Go **1.23** or later (pagination uses `iter.Seq2`). Development and CI
+pin Go 1.27.3 through the `toolchain` line; CI also builds and tests on Go 1.23.
 
-An explicit **184-selection v1 catalog** supports controlled legacy routing.
-The `legacy` package independently preserves **711** historical **6.13.6**
-components. The `compat` package contains **549** compatibility declarations,
-including defaults, aliases, custom decoding, and unknown-field preservation.
-
-## Typed batching
-
-Set `TORN_API_KEY` or the comma-separated `TORN_API_KEYS` in your environment.
-Then:
+## Quickstart
 
 ```go
 package main
@@ -46,141 +33,240 @@ import (
     "context"
     "fmt"
     "log"
-    "time"
 
     torn "github.com/swervelord/Torn-Go-SDK"
 )
 
 func main() {
-    cfg, err := torn.ConfigFromEnv()
+    cfg, err := torn.ConfigFromEnv() // TORN_API_KEYS or TORN_API_KEY
     if err != nil { log.Fatal(err) }
     client, err := torn.NewClient(cfg)
     if err != nil { log.Fatal(err) }
-    ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-    defer cancel()
 
-    result, err := torn.FetchPair(ctx, client,
-        torn.UserSelections.Profile, torn.UserSelections.Job,
-        map[string]any{"id": 123}, torn.RequestOptions{})
+    basic, _, err := client.GetMyBasicInformation(context.Background(), torn.GetMyBasicInformationParams{})
     if err != nil { log.Fatal(err) }
-    fmt.Println(result.First.Profile.Name)
-    fmt.Println(len(result.Report.Calls)) // one successful generic user call
-    // result.Second.Job is a typed union of UserJob, UserCompany, or null.
+    fmt.Println(basic.Profile.Name, basic.Profile.Level)
 }
 ```
 
-Compatible profile and job selections produce one
-`/user?selections=job,profile&id=123` request. Separate helper calls make separate
-requests. Standalone, direct-only, legacy, and incompatible target domains are
-handled explicitly; see [routing rules](ROUTING.md).
+Runnable examples for every main flow are in [`example_test.go`](example_test.go)
+and on pkg.go.dev.
 
-For any number of selections, retain a typed result slot for each one:
+## Authentication & keys
+
+- v2 requests authenticate only with `Authorization: ApiKey <key>`; v1 legacy
+  calls use the `key` query parameter. No public API places a key in a v2 URL:
+  the generated `Params.Key` field is deprecated and, when set, is sent in the
+  header for that request (P2.1).
+- `Config.APIKeys` is a pool used round-robin over **healthy** keys (P2.3).
+  Codes 2, 10, 13 and 18 disable a key for the client lifetime, code 14 until
+  the next UTC midnight; code 16 rotates without disabling. Failover to the
+  next key is immediate and does not consume an attempt. When no key is left,
+  calls fail with `*torn.NoUsableKeysError` wrapping the last API error (P2.4).
+- `client.KeyStates()` returns a redacted snapshot per key: `***` plus at most
+  the last four characters, status (`healthy`, `rate_limited`, `disabled`),
+  recovery time, reason and remaining budget (P2.5).
+- Keys never appear in `String`/`GoString`/`Format`/JSON output of `Config`,
+  `Client`, errors, hook events or reports (P2.2).
+- `ConfigFromEnv` reads `TORN_API_KEYS` (comma-separated) or `TORN_API_KEY`
+  (P2.6) plus the optional settings documented on the function.
+
+## Typed calls
+
+Exact operations keep upstream operation IDs in PascalCase and take typed
+parameter structs; optional parameters are pointers. Responses are concrete
+`models` types. Calls without an id are scoped to the key owner (P8.1).
+
+```go
+profile, report, err := client.GetMyProfile(ctx, torn.GetMyProfileParams{})
+id, _ := models.NewUserDiscordPathIdVariant1(models.UserId(123))
+other, _, err := client.GetUserProfile(ctx, torn.GetUserProfileParams{ID: id})
+csv, _, err := client.GetUsersSnapshot(ctx, torn.GetUsersSnapshotParams{})
+job, _, err := client.UserJob(ctx, nil, torn.RequestOptions{}) // selection helper
+```
+
+Union types expose `Which()` (1-based matching variant, 0 when empty),
+`WhichName()` (`"UserJob"`, `"UserCompany"`, `"null"`), `Matches(i)` and
+`AsVariantN()`; constructors are `models.New<Type>VariantN`. Optional fields
+use `models.Optional[T]` to distinguish missing, null and value. See
+[model fidelity](MODELS.md) and [compatibility contracts](COMPATIBILITY.md).
+
+## Batching
 
 ```go
 batch, profile := torn.NewBatch(torn.UserSelections.Profile)
 job := torn.AddSelection(batch, torn.UserSelections.Job)
-discord := torn.AddSelection(batch, torn.UserSelections.Discord)
 report, err := batch.Execute(ctx, client, map[string]any{"id": 123}, torn.RequestOptions{})
-if err != nil { return err }
 p, err := profile.Value() // models.UserProfileResponse
 j, err := job.Value()     // models.UserJobResponse
-d, err := discord.Value() // models.UserDiscordResponse
 ```
 
-Adding a faction token to that user batch fails at compile time. Dynamically
-chosen selection lists use `RawSelections`; consumers can decode a known result
-projection with `DecodeSelections[T]` or a custom decoder. Every selection in one
-batch shares a target and filter set. Adding selections invalidates prior slots
-until the batch executes again.
+Compatible selections become one `/user?selections=job,profile&id=123` request;
+adding a faction token to a user batch is a compile error. `FetchPair` decodes
+each selection independently (`FirstErr`, `SecondErr`), so one decode failure
+never discards the other (P1.4). The planner splits standalone, direct-only and
+incompatible selections and routes v1-only selections; see
+[routing rules](ROUTING.md).
 
-## Exact endpoints, helpers, and CSV
+## Pagination
+
+Every operation whose response carries `_metadata.links` has a generated
+`<Op>Pager` and, when it has one list, an `<Op>Items` iterator (P7.1):
 
 ```go
-profile, report, err := client.GetMyProfile(ctx, torn.GetMyProfileParams{})
-job, report, err := client.UserJob(ctx, nil, torn.RequestOptions{})
-csv, report, err := client.GetUsersSnapshot(ctx, torn.GetUsersSnapshotParams{})
+for attack, err := range client.GetMyAttacksItems(ctx, torn.GetMyAttacksParams{}, torn.PageOptions{MaxItems: 500}) {
+    if err != nil { return err }
+    fmt.Println(attack.ID)
+}
+
+pager := client.GetMyAttacksPager(torn.GetMyAttacksParams{}, torn.PageOptions{MaxPages: 3})
+page, ok, err := pager.Next(ctx) // also pager.Prev(ctx) and pager.All(ctx)
 ```
 
-Exact operation methods retain upstream operation IDs in Go PascalCase and use
-typed parameter structs. Optional parameters are pointers. Union parameters
-have validated `models.New<Type>VariantN` constructors. For example:
+`client.Pages(path, params, opts)` pages raw JSON, `Paginate[T]` works for any
+operation and `RawItems` iterates a raw page's list. Links are validated
+against the configured API host, keys in link URLs are dropped and every page
+goes through the executor (rate limits, retries, cancellation).
 
-```go
-id, err := models.NewUserDiscordPathIdVariant1(models.UserId(123))
-if err != nil { return err }
-profile, report, err := client.GetUserProfile(ctx, torn.GetUserProfileParams{ID: id})
-```
+## Errors
 
-Import `github.com/swervelord/Torn-Go-SDK/models` for current schemas,
-`github.com/swervelord/Torn-Go-SDK/legacy` for frozen schemas, and
-`github.com/swervelord/Torn-Go-SDK/compat` for compatibility facade models.
-Known fields are concrete Go values. Optional fields preserve missing versus
-null; union accessors return concrete alternatives. See [model fidelity and
-migration](MODELS.md) and [compatibility contracts](COMPATIBILITY.md).
+| Type | When |
+| --- | --- |
+| `*torn.APIError` | Torn error envelope: `Code`, redacted `Message`, `KeyHint`, `Operation` |
+| `*torn.HTTPError` | non-2xx status (`StatusCode`, `RetryAfter`) |
+| `*torn.TransportError` | network/TLS/timeout; `Unwrap` gives the cause, so `errors.Is(err, context.DeadlineExceeded)` works |
+| `*torn.DecodeError` | response does not fit its model: `Operation`, `Path`, `Expected`, `Value`, `Raw()` |
+| `*torn.ValidationError`, `*torn.AccessError` | rejected before sending; both match `errors.Is(err, torn.ErrValidation)` |
+| `*torn.NoUsableKeysError` | every key disabled or rejected; wraps the last error |
+| `context.Canceled` / `DeadlineExceeded` | caller cancellation |
 
-## Configuration and errors
+`torn.ErrorCode` constants (`torn.CodeBackendError`, ...) are generated from
+`spec/shared/error-codes.json` with `Name`, `Message`, `Category`, `Action` and
+`IsKnown`. Helpers: `torn.Code(err)`, `IsRetryable`, `IsKeyError`,
+`IsRateLimit`, `IsAccessError`, `IsTransient`, `IsDecodeError` (P5).
 
-Programmatic configuration supports key rotation, quota limits, routes/proxies,
-transport injection, timeout, retry delay, concurrency, and deterministic timing.
-Defaults are 30 seconds per HTTP attempt, three attempts, 250 ms linear retry
-delay, eight in-flight sends, 100 calls/key/minute, and 1,000 calls/route/minute.
-These are configurable local policies. Outer context deadlines cover waiting,
-backoff, and network execution. Quotas are shared by callers of one client.
+## Rate limits & retries
 
-Use `errors.As` with `*torn.APIError`, `*torn.HTTPError`, or
-`*torn.TransportError` and `errors.Is` for caller cancellation. Reports record
-successful contributing calls, paths, versions, routes, selections, and fallback
-status. Failed attempts are omitted; multi-call errors retain partial successful
-data and reports. `DoOperation`, `DoCSV`, explicit `Plan` execution, `Decode[T]`,
-and `DecodeWith` provide escape hatches. See [runtime configuration](RUNTIME.md).
+- Sliding 60-second window per key (default 100 requests), not calendar
+  minutes (P3.1). Keys of the same Torn user can share one budget through
+  `Config.KeyGroups`, or automatically with `DetectKeyOwners` after
+  `client.RefreshKeyInfo(ctx)` (P3.2).
+- Code 5 marks the key (group) rate limited until its window frees and rotates
+  immediately to a key with budget; the client sleeps only when none has
+  budget (P3.3). Routes (`Config.Routes`, one per egress IP) have their own
+  budgets; code 8 blocks the route and rotates to another, never retrying on the
+  same route (P3.4). State is shared by every goroutine using a client (P3.5).
+- Retries are classified by error code and HTTP status, never by message text
+  (P4.1). Transient codes (12, 17, 24, 31), HTTP 429/500/502/503/504 and
+  network errors back off `RetryDelay * 2^(n-1)` (default 500 ms, capped by
+  `MaxRetryDelay`, 30 s) with full jitter (`Jitter: torn.JitterNone` for
+  deterministic tests); `Retry-After` is honored up to `RetryAfterCap` (120 s).
+  `Attempts` (default 4) counts total sends (P4.2).
+- Codes 22/23 re-plan a selection call once on the other API version (P4.3).
+- Context cancellation aborts waits, backoff and in-flight requests (P4.4).
 
-## Generation and verification
+## Access levels
 
-All normal checks are offline and need no credential:
+`MetadataForOperation(id).AccessLevel`, `OperationAccessLevel` and
+`SelectionAccessLevel` report the minimum key level (`public`, `minimal`,
+`limited`, `full`) from `spec/shared/access-levels.json` (P6.1). With
+`Config.CheckAccess`, keys whose level is known (`Config.KeyAccess` or
+`client.RefreshKeyInfo`) and insufficient are skipped, and a request no key can
+serve fails before sending with `*torn.AccessError` naming the required level
+(P6.2).
+
+## Forward compatibility
+
+Decoding is tolerant by default so additive upstream changes never break
+callers (P1):
+
+- Enums are open: unknown values decode, round-trip byte for byte and report
+  `IsKnown() == false`; `<Enum>Values()` lists known values.
+- Undocumented properties are kept in `AdditionalProperties`.
+- `spec/shared/spec-overrides.json` relaxes required properties that Torn
+  omits live (`TornHalloweenUpgrade.type`, `UserTrade.items`).
+- Unknown selections are sent as v2 generic selections and unknown query
+  parameters (and `comment`) are forwarded verbatim, on v1 and v2.
+- Strict validation is opt-in: `Config.StrictDecoding`,
+  `RequestOptions{Strict: true}` or `models.ValidateStrict` report unknown enum
+  values, undocumented properties, constraint violations and override-relaxed
+  fields. Integers stay exact (`int64`, `1e3` and `1.0` accepted, overflow rejected).
+
+## Caching
+
+Off by default. Set `Config.Cache` to `torn.NewMemoryCache(maxEntries, nil)`
+or any `torn.Cache` implementation. Only successful responses are cached; the
+TTL comes from the operation's documented upstream cache (`CacheTTLSeconds`,
+e.g. 900 s for user inventory) or `Config.CacheTTL` (default 30 s). Entries of
+owner-dependent resources are scoped to the key set. `RequestOptions.NoCache`
+bypasses the cache (P8.4).
+
+## Hooks
+
+`Config.Hooks` has `OnRequest`, `OnResponse`, `OnRetry` and `OnError`, each
+receiving a redacted `torn.RequestEvent` (operation, URL without key, attempt,
+route, key hint, status, Torn code, duration, retry delay, error) (P8.3).
+`Config.Observer` still reports every reserved send.
+
+## Testing
+
+Package `torntest` is a consumer test kit (P8.5): a virtual `Clock`
+(`torn.Scheduler`), a scripted `Transport` that records requests
+(`JSON`, `TornError`, `NetworkError`, `AssertSent`) and `LoadFixture`.
+
+The repository gate is offline and needs no credential:
 
 ```sh
-go run ./cmd/generate
-go run ./cmd/generate-compat
-go run ./cmd/generate-routing
-go run ./cmd/audit
-go run ./cmd/check
+go run ./cmd/check   # gofmt, snapshot provenance, generator drift (-check)
 go vet ./...
-go test ./...
-go test -race ./... # supported native runners with a C compiler
+go test ./...        # includes the 30 shared conformance scenarios (P9.1)
+go test -race ./...  # runners with a C compiler
 go build ./...
-go run ./examples/mockbatch
 ```
 
-`cmd/check` verifies formatting, snapshot hashes/inventories, and generated
-artifact freshness. `cmd/refresh` downloads an official candidate snapshot to a
-new file for review; it does not silently replace pinned contracts. Update the
-versioned snapshot, provenance, generator versions, and migration tests together.
-
-Tests cover every exact operation and every convenience helper at the HTTP
-transport boundary, thousands of independently specified routing/model cases,
-concrete model round-trips, current/legacy migration, custom decoder fixtures,
-and deterministic retry, quota, route, cancellation, and concurrency behavior.
-Opt-in read-only tests verify that live typed profile/job and travel
-inventory/job batches each use exactly one actual HTTP request, and that the
-exact travel inventory endpoint decodes. The travel inventory test needs a
-Limited key:
+`go test` runs every scenario in `spec/shared/conformance/*.json` through the
+mock transport and virtual clock. Live tests need `TORN_API_KEY` (or the legacy
+`TORN_LIVE_TEST_API_KEY`); `TestLiveSweep` calls every operation reachable with
+the key owner's ids and decodes it in tolerant mode, printing JSON paths of any
+failure (P9.2):
 
 ```sh
-# Set TORN_LIVE_TEST_API_KEY in the environment first.
-go test -run '^TestLive' -count=1 -v
+go test -run '^TestLive' -count=1 -v -timeout 20m
 ```
 
-CI runs formatting, generation/provenance checks, vet, tests, and builds on
-Linux, Windows, and macOS, with race checks on Linux and macOS.
+Regenerate after changing generator inputs: `go run ./cmd/generate`,
+`./cmd/generate-compat`, `./cmd/generate-routing`, `./cmd/audit`.
 
-## Coverage boundary
+## Raw access
 
-Coverage means the audited official v2 contract and explicitly maintained
-historical/compatibility surfaces. It does not mean every live game state or
-100% code branch coverage. Torn leaves some fields unspecified, and the
-documentation does not contain a complete v1 response specification. Such
-values remain exact raw JSON, with the limitation recorded in the
-[coverage audit](COVERAGE.md) and [machine-readable typing report](spec/typing-report.json).
-Yata, TornStats, and Weav3r are separate services outside this SDK.
+`client.DoOperation(ctx, torn.Operation{Path: "/user/attacks"}, params, opts)`
+returns raw JSON for any path; `client.Get(ctx, "/torn/items?cat=Melee", nil,
+opts)` accepts a query string; `client.RawSelections` and the `Raw<Resource><Selection>`
+helpers return merged raw JSON. Decode into any model with `torn.Decode[T]`,
+`torn.Call[T]`, `torn.DecodeOperation(id, raw)` or `models.DecodeSchema`
+(P8.2). The 19 v1-only selections without a published schema
+(e.g. `RawTornRackets`, `RawFactionMainnews`) stay raw; see
+[COVERAGE.md](COVERAGE.md).
+
+## Helpers
+
+Package `tornutil` builds links (`ProfileURL`, `AttackURL`, `FactionURL`,
+`CompanyURL`, `BazaarURL`, `ItemMarketURL`, `TradeURL`, `ForumThreadURL`,
+`PropertyURL`, `SearchURL`) and converts Torn timestamps
+(`FromTimestamp`, `ToTimestamp`, `TCT`, `NowTCT`, `FormatTCT`, `Until`) (P8.6).
+
+## Versioning
+
+`torn.SDKVersion`, `torn.SpecVersion` (`APIVersion`) and `torn.SpecSHA256`
+identify the build; capabilities and schemas are embedded, so no files are read
+at runtime (P8.7). The module follows semantic versioning; while it is `v0`,
+minor releases may change the API and every break is listed in the
+[changelog](CHANGELOG.md) with a migration note. Spec bumps that only add
+operations, schemas or enum values are minor releases.
+
+Coverage means the audited official v2 contract plus the maintained historical
+and compatibility surfaces; Torn leaves some fields unspecified and publishes
+no complete v1 schema, so those stay exact raw JSON (see
+[COVERAGE.md](COVERAGE.md) and [spec/typing-report.json](spec/typing-report.json)).
 
 MIT licensed. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

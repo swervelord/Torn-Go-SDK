@@ -18,12 +18,21 @@ func (c *liveCounter) RoundTrip(r *http.Request) (*http.Response, error) {
 	return http.DefaultTransport.RoundTrip(r)
 }
 
+// liveTestKey reads TORN_API_KEY or the legacy TORN_LIVE_TEST_API_KEY (P9.2).
+func liveTestKey(t *testing.T) string {
+	t.Helper()
+	for _, name := range []string{"TORN_API_KEY", "TORN_LIVE_TEST_API_KEY"} {
+		if k := os.Getenv(name); k != "" {
+			return k
+		}
+	}
+	t.Skip("TORN_API_KEY (or TORN_LIVE_TEST_API_KEY) is not set")
+	return ""
+}
+
 // This bounded opt-in test never records account data or the credential.
 func TestLiveProfileJobOneRequest(t *testing.T) {
-	key := os.Getenv("TORN_LIVE_TEST_API_KEY")
-	if key == "" {
-		t.Skip("TORN_LIVE_TEST_API_KEY is not set")
-	}
+	key := liveTestKey(t)
 	transport := &liveCounter{}
 	c, e := torn.NewClient(torn.Config{APIKeys: []string{key}, HTTPClient: &http.Client{Transport: transport}, Attempts: 1})
 	if e != nil {
@@ -46,10 +55,7 @@ func TestLiveProfileJobOneRequest(t *testing.T) {
 
 // This bounded opt-in test needs at least a Limited key and logs no inventory data.
 func TestLiveTravelInventoryAndJob(t *testing.T) {
-	key := os.Getenv("TORN_LIVE_TEST_API_KEY")
-	if key == "" {
-		t.Skip("TORN_LIVE_TEST_API_KEY is not set")
-	}
+	key := liveTestKey(t)
 	transport := &liveCounter{}
 	c, e := torn.NewClient(torn.Config{APIKeys: []string{key}, HTTPClient: &http.Client{Transport: transport}, Attempts: 1})
 	if e != nil {

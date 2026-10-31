@@ -132,6 +132,12 @@ func (r Request) String() string {
 	return r.Method + " " + r.URL.Path + "?" + q.Encode()
 }
 
+// GoString describes the request without its key.
+func (r Request) GoString() string { return r.String() }
+
+// Format describes the request without its key for every fmt verb.
+func (r Request) Format(f fmt.State, _ rune) { _, _ = f.Write([]byte(r.String())) }
+
 // Transport is a scripted http.RoundTripper. Responses are returned in order;
 // Handler, when set, answers instead. It records every request.
 type Transport struct {

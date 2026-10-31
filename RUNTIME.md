@@ -15,72 +15,113 @@ aliases above when both are present. Integer duration settings use the unit in
 their name. Malformed, nonpositive, or overflowing limits are rejected. Key
 whitespace is trimmed and duplicate key values share one quota identity.
 
-The SDK defaults are a 30-second timeout **per HTTP attempt**, three attempts,
-250 ms linear retry delay (250 ms before the second attempt, 500 ms before the
-third), eight simultaneous sends, 100 calls per key per minute and 1,000 per
-route per minute. These are configurable local policies, not guaranteed Torn
-service limits. An outer context deadline limits the whole operation, including
-waiting and retries. Request options can override attempts, timeout and route.
-Negative limits are rejected; zero configuration values select defaults.
+## Defaults
 
-Each send reserves one key and route slot. Keys rotate across sends. Quotas reset
-on absolute minute boundaries. Route selection follows `RouteOrder`, then any
-remaining configured routes, spilling over when a route's local quota is full.
-With no routes configured, the `default` route uses the default HTTP transport
-(including its standard environment proxy behavior). Named routes support a
-dedicated transport or proxy URL. Explicitly choosing a route waits for that
-route's quota rather than spilling to another. Quotas and concurrency are shared
-across callers of one client and are process-local. Other processes and clients
-are not accounted for. The observer runs synchronously after quota reservation;
-it must be concurrency safe and should return promptly.
+| Setting | Default | Source |
+| --- | --- | --- |
+| `Timeout` (per HTTP attempt) | 30 s | SDK |
+| `Attempts` (total sends) | 4 | `spec/shared/error-codes.json` |
+| `RetryDelay` (backoff base) | 500 ms | `spec/shared/error-codes.json` |
+| `MaxRetryDelay` | 30 s | `spec/shared/error-codes.json` |
+| `RetryAfterCap` | 120 s | `spec/shared/error-codes.json` |
+| `Jitter` | `JitterFull` | `spec/shared/error-codes.json` |
+| `MaxConcurrency` | 8 | SDK |
+| `KeyPerMinute` (sliding 60 s, per key group) | 100 | Torn |
+| `RoutePerMinute` (sliding 60 s, per route) | 1,000 | SDK |
+| `MaxResponseBytes` | 64 MiB | SDK |
+| `CacheTTL` (only with `Cache`) | 30 s | SDK |
 
-Network errors, body read failures, HTTP 408/429/500/502/503/504, and Torn API codes
-5/8/9 are retried within the attempt budget. HTTP `Retry-After` seconds or dates
-increase the delay when longer than linear backoff. Torn code 5 waits until at
-least the next minute boundary and spends the rest of that minute's local budget
-for the key that received it, so concurrent and later calls rotate to other keys.
-When the message names the IP as a whole word, the route's budget is spent too
-and calls spill over to other routes. HTTP 429 uses Retry-After and backoff
-without spending budgets. Context cancellation interrupts semaphore,
-quota, backoff and network waits. Redirects are returned as HTTP errors to avoid
-sending credentials to a redirect target. Response bodies default to a 64 MiB
-limit (`MaxResponseBytes`); larger responses fail explicitly rather than truncate.
-Quota waits release their concurrency permit so an exhausted pinned route cannot
-prevent callers on other routes from sending.
+An outer context deadline limits the whole operation, including waiting and
+retries. Request options can override attempts, timeout and route. Negative
+limits are rejected; zero configuration values select defaults.
+
+## Keys and rate limits (PARITY_SPEC P2, P3)
+
+Each send reserves a concurrency slot, a key and a route. Keys rotate
+round-robin over healthy keys. Budgets are sliding 60-second logs, so at most
+`KeyPerMinute` sends fall in any rolling minute. `KeyGroups` (or
+`DetectKeyOwners` with `RefreshKeyInfo`) makes keys of one Torn user share a
+budget, because Torn limits per user. When no key or route has budget the
+client sleeps until the earliest one frees; waits release their concurrency
+permit, so a busy route never blocks callers on other routes.
+
+Torn error codes are handled by the policy table generated from
+`spec/shared/error-codes.json` (`ErrorCode.Action()`):
+
+| Action | Codes | Behavior |
+| --- | --- | --- |
+| `rotate_key` | 2, 10, 13, 18 (disable for client lifetime), 14 (disable until next UTC midnight), 16 (no disable) | resend immediately with the next healthy key; does not consume an attempt; `NoUsableKeysError` when none is left |
+| `wait_rate_window` | 5 | mark the key group rate limited until its oldest send leaves the window; rotate to a key with budget, else sleep |
+| `rotate_route` | 8 | block the route for 60 s; resend on another ready route, else fail (never retry on the same IP) |
+| `retry_backoff` | 12, 17, 24, 31 | exponential backoff `RetryDelay*2^(n-1)`, capped, full jitter |
+| `reroute_version` | 22, 23 | selection calls are re-planned once on the other API version |
+| `fail` | all others and unknown codes | return `*APIError` |
+
+HTTP 429/500/502/503/504 and network or body-read failures also back off;
+`Retry-After` (seconds or date) replaces the backoff, capped at
+`RetryAfterCap`. Classification never inspects message text. Context
+cancellation interrupts semaphore, quota, backoff and network waits.
+`KeyStates()` reports each key's redacted id, status, recovery time, reason,
+group, remaining budget and known access level.
+
+`Config.CheckAccess` skips keys whose known access level (from `KeyAccess` or
+`RefreshKeyInfo`) is below the operation's level from
+`spec/shared/access-levels.json`, and fails before sending with `*AccessError`
+when no key qualifies.
+
+State is process-local and shared by all goroutines using one client. The
+observer and hooks run synchronously; they must be concurrency safe and return
+promptly (a panicking hook is recovered).
+
+## Security
+
+API v2 requests send the key only in the `Authorization: ApiKey <key>` header.
+A key passed as a parameter (the deprecated generated `Params.Key`, a `key`
+entry in a params map or `RequestOptions.Query`) is moved to the header for
+that request. Legacy v1 calls use the `key` query parameter because v1 has no
+header authentication. API messages, decode error excerpts and hook events
+redact configured keys (`***` plus at most four characters); transport errors
+keep their cause but drop request URLs. `Config`, `Client`, `Route` and
+`KeyState` formatting and JSON never include keys. Redirects are returned as
+HTTP errors so credentials never reach a redirect target. Bodies above
+`MaxResponseBytes` fail rather than truncate.
+
+## Reports, splitting and fallback
 
 Execution reports include successful contributing calls only, with operation,
-path, route, selections, version and fallback status. Failed attempts do not
-appear. A failed multi-call execution returns its partial successful data and
-report alongside the error. API errors, HTTP status errors and transport errors
-are structured. API v2 requests send the key only in the documented
-`Authorization: ApiKey <key>` header, keeping it out of URLs that proxies and
-servers commonly log. Legacy v1 fallback calls still use the `key` query
-parameter because no header authentication is documented for v1. API messages
-redact configured keys; network errors deliberately
-exclude potentially credential-bearing URL text. Client and configuration
-formatting and JSON serialization omit credentials. Configured API keys remain
-explicitly accessible through the configuration supplied by the caller.
+path, route, selections, version, fallback and cache status. A failed
+multi-call execution returns its partial successful data and report alongside
+the error.
 
-Combined generic selection requests split into individual selections after Torn
-code 4, HTTP 400/404/501, or a Torn message rejecting the combination ("cannot be
-used together", "standalone"). Runtime v2-to-v1 recovery triggers on the same
-codes or on messages directing the selection to API v1, and additionally requires
-`RequestOptions{AllowLegacyFallback:true}` and explicit fallback calls in the
-plan. `DisableFallback` disables both split and legacy recovery. Independent
-helper invocations are independent sends; explicit batching requests coalescing.
-CSV operations use their text channel (`DoCSV`) and cannot be merged as selection
-batches. `DoOperation` represents CSV data as a JSON string for generic decoding.
+Combined generic selection requests split into individual selections after
+Torn code 4 or 22 or HTTP 400/404/501. A single selection rejected with code 22
+is re-planned on v1, and a v1 call rejected with code 23 on v2, once. v1-only
+names that the v2 selection enum lists as served by Torn's own fallback are
+requested on v2 first. `RequestOptions{AllowLegacyFallback:true}` additionally
+retries catalogued selections on v1 after code 4 or HTTP 400/404/501.
+`DisableFallback` disables splitting and rerouting.
+
+## Decoding, caching and hooks
+
+Typed responses decode tolerantly (see [MODELS.md](MODELS.md)); with
+`Config.StrictDecoding` or `RequestOptions.Strict` the body is first validated
+strictly. Failures are `*DecodeError` values with the operation, JSON path,
+expected rule, value excerpt and the raw body.
+
+`Config.Cache` (for example `NewMemoryCache`) stores successful raw responses
+for the operation's documented upstream cache lifetime or `CacheTTL`. Errors are
+never cached; owner-dependent resources (user, faction, company, key) are
+scoped to a fingerprint of the key set.
+
+`Config.Hooks` receives redacted `RequestEvent` values on request, response,
+retry and final error.
 
 `Execute` recursively merges objects, retaining earlier object keys and replacing
-later scalars, arrays and nulls. It uses raw JSON values, preserving large integer
-digits without passing through float64. `Decode[T]` uses standard `encoding/json`
-and honors generated model decoding. `DecodeWith` accepts a custom typed decoder.
-`DoOperation` is the raw endpoint escape hatch; its parameters may be a struct
-with `path`, `query` or `json` tags, or a string-keyed map. Slice query values use
-comma-separated API encoding. A missing path value fails before sending.
+later scalars, arrays and nulls, without passing integers through float64.
+`DoOperation` and `Get` are raw escape hatches; parameters may be a struct with
+`path`, `query` or `json` tags, or a string-keyed map. Slice query values use
+comma-separated API encoding. Unknown parameters are forwarded verbatim.
 
-Inject `HTTPClient`, route transports, `Scheduler` and `Observer` for deterministic
-testing. Schedulers must support concurrent callers and context cancellation.
-The default scheduler uses the system clock and interruptible timers. The test
-suite uses local HTTP servers and fake schedulers; ordinary tests need no key or
+Inject `HTTPClient`, route transports, `Scheduler` and `Observer` for
+deterministic testing, or use package `torntest`. The test suite needs no key or
 network access.

@@ -20,7 +20,9 @@ version; the SDK retains independent generated historical artifacts.
 | Selection capabilities | 208 | Official enums, exact endpoints, documented standalone/direct/legacy rules, current and historical selection tests |
 | Maintained v1 selection catalog | 184 | Explicit resource inventories, legacy-only routing, supported/unsupported fallback tests, and evidence limitations |
 | Typed convenience helpers | 210 | All JSON selection helpers, three CSV helpers, and two public aliases invoked through transport |
-| Raw convenience helpers | 205 | Every non-CSV capability has a raw helper and dispatch test |
+| Raw convenience helpers | 224 | Every non-CSV capability (205) and every schema-less v1-only selection (19) has a raw helper and dispatch test |
+| Shared conformance scenarios | 30 | `spec/shared/conformance/*.json` run by `TestSharedConformance` through the mock transport and virtual clock |
+| Paginated operations | 58 | Generated `<Op>Pager` (and `<Op>Items` for single-list responses) |
 | Dedicated CSV operations | 3 | User, faction, and company exact text responses and facade dispatch |
 
 [coverage.json](spec/coverage.json) maps the complete inventories to their public
@@ -66,10 +68,29 @@ types remain distinct, with explicit migration tests. See [MODELS.md](MODELS.md)
 The official contract has four required properties without value schemas:
 `ReportStockAnalysis.items[].item.stock`,
 `UserCrimeDetailsBootlegging.dvd_copies`, `UserTrade.items`, and
-`TornHalloweenUpgrade.type`. Their presence is
-validated, and their values remain exact raw JSON. Unknown extension fields and
+`TornHalloweenUpgrade.type`. Their values remain exact raw JSON. Presence is
+validated except where the live sweep proved Torn omits the property
+(`TornHalloweenUpgrade.type`, `UserTrade.items`; see
+`spec/shared/spec-overrides.json`), which strict validation still reports. Unknown extension fields and
 unconstrained log maps also preserve raw JSON. The exhaustive descriptor paths
 are recorded in [typing-report.json](spec/typing-report.json).
+
+### Raw-only v1 selections
+
+Nineteen v1-only selections stay raw JSON (`Raw<Resource><Name>` helpers and
+`RawSelections`): faction `armorynews`, `attacknews`, `crimenews`, `currency`,
+`donations`, `fundsnews`, `mainnews`, `membershipnews`, `territorynews`; torn
+`chainreport`, `dirtybombs`, `rackets`, `raidreport`, `raids`,
+`rankedwarreport`, `rankedwars`, `territorynames`, `territorywarreport`,
+`territorywars`. `spec/v1-catalog.json` lists only their names; Torn
+publishes no v1 response schema, the v2 counterparts (for example faction
+`rankedwarreport`) have different shapes, and the faction news selections
+need faction API access the sweep key lacks (code 7), so no evidence-backed
+type exists. Typing
+them would invent a contract. Decode them with `DecodeSelections[T]` into an
+application type when needed. The other v1-only selections (faction armory
+categories, torn `pawnshop`, `competition`, `organisedcrimes`, user `bazaar`,
+`criminalrecord`, `display`) are typed by `compat` bundles.
 
 The historical documentation does not supply a complete v1 response
 specification. Compatibility types are explicit SDK contracts with documented
