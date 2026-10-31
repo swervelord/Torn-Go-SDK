@@ -294,10 +294,12 @@ func (c *Client) newDecodeError(operation string, raw []byte, err error, strict 
 	d := &DecodeError{Operation: operation, Path: "$", Expected: "decodable response", Strict: strict, Err: err, raw: append([]byte(nil), raw...)}
 	var de *contract.DecodeError
 	if errors.As(err, &de) {
+		de.Value = c.redact(de.Value)
 		d.Path, d.Expected, d.Value = de.Path, de.Expected, de.Value
 	}
-	if c != nil {
-		d.Value = c.redact(d.Value)
+	if msg := err.Error(); c.redact(msg) != msg {
+		// Never let a key echoed in response data reach error output (P2.2).
+		d.Err = errors.New(c.redact(msg))
 	}
 	return d
 }

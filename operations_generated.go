@@ -21,11 +21,13 @@ type GetCompanyGenericParams struct {
 	// Legacy is the query parameter "legacy".
 	Legacy *[]models.CompanySelectionName `json:"legacy,omitempty"`
 	// Cat is the query parameter "cat".
-	Cat   *models.GetCompanyGenericParamCat `json:"cat,omitempty"`
-	Limit *int64                            `json:"limit,omitempty"`
+	Cat *models.GetCompanyGenericParamCat `json:"cat,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetCompanyGenericParamStriptags `json:"striptags,omitempty"`
-	Offset    *int64                                  `json:"offset,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompanyGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -190,7 +192,8 @@ func (c *Client) GetCompanyLookup(ctx context.Context, params GetCompanyLookupPa
 type GetMyCompanyNewsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyCompanyNewsParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyCompanyNewsParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -295,8 +298,10 @@ type GetCompaniesSearchParams struct {
 	Name *string `json:"name,omitempty"`
 	// Filters is the query parameter "filters".
 	Filters *[]models.GetCompaniesSearchParamFiltersItem `json:"filters,omitempty"`
-	Limit   *int64                                       `json:"limit,omitempty"`
-	Offset  *int64                                       `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetCompaniesSearchParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -557,8 +562,10 @@ func (c *Client) GetCompanyProfile(ctx context.Context, params GetCompanyProfile
 type GetCompaniesListParams struct {
 	// TypeId is the path parameter "typeId".
 	TypeId models.CompanyTypeId `json:"typeId" path:"typeId"`
-	Limit  *int64               `json:"limit,omitempty"`
-	Offset *int64               `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetCompaniesListParamStriptags `json:"striptags,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -617,7 +624,8 @@ type GetFactionGenericParams struct {
 	ID *models.GetFactionGenericParamID `json:"id,omitempty"`
 	// Legacy is the query parameter "legacy".
 	Legacy *[]models.FactionSelectionName `json:"legacy,omitempty"`
-	Limit  *int64                         `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
@@ -625,13 +633,15 @@ type GetFactionGenericParams struct {
 	// Cat is the query parameter "cat".
 	Cat *models.GetFactionGenericParamCat `json:"cat,omitempty"`
 	// Stat is the query parameter "stat".
-	Stat    *models.FactionStatEnum               `json:"stat,omitempty"`
+	Stat *models.FactionStatEnum `json:"stat,omitempty"`
+	// Filters is the query parameter "filters".
 	Filters *models.GetFactionGenericParamFilters `json:"filters,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetFactionGenericParamStriptags `json:"striptags,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort   *models.GetFactionGenericParamSort `json:"sort,omitempty"`
-	Offset *int64                             `json:"offset,omitempty"`
+	Sort *models.GetFactionGenericParamSort `json:"sort,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -714,7 +724,8 @@ func (c *Client) GetMyFactionApplications(ctx context.Context, params GetMyFacti
 type GetMyFactionAttacksParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionAttacksParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -773,7 +784,8 @@ func (c *Client) GetMyFactionAttacksItems(ctx context.Context, params GetMyFacti
 type GetMyFactionAttacksSimplifiedParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionAttacksSimplifiedParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -992,6 +1004,7 @@ func (c *Client) GetMyFactionLatestChainReport(ctx context.Context, params GetMy
 
 // GetMyFactionCompletedChainsParams contains documented parameters for GET /faction/chains.
 type GetMyFactionCompletedChainsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionCompletedChainsParamSort `json:"sort,omitempty"`
@@ -1137,8 +1150,10 @@ type GetMyFactionOrganizedCrimesParams struct {
 	Cat *models.GetMyFactionOrganizedCrimesParamCat `json:"cat,omitempty"`
 	// Filters is the query parameter "filters".
 	Filters *models.GetMyFactionOrganizedCrimesParamFilters `json:"filters,omitempty"`
-	Limit   *int64                                          `json:"limit,omitempty"`
-	Offset  *int64                                          `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
@@ -1276,9 +1291,11 @@ func (c *Client) GetMyFactionHoF(ctx context.Context, params GetMyFactionHoFPara
 // GetMyFactionInventoryParams contains documented parameters for GET /faction/inventory.
 type GetMyFactionInventoryParams struct {
 	// Cat is the query parameter "cat".
-	Cat    models.FactionArmoryCategoryEnum `json:"cat"`
-	Limit  *int64                           `json:"limit,omitempty"`
-	Offset *int64                           `json:"offset,omitempty"`
+	Cat models.FactionArmoryCategoryEnum `json:"cat"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionInventoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -1413,7 +1430,8 @@ func (c *Client) GetMyFactionMembers(ctx context.Context, params GetMyFactionMem
 type GetMyFactionNewsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyFactionNewsParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionNewsParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -1557,8 +1575,9 @@ type GetMyFactionRaidsHistoryParams struct {
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort  *models.GetMyFactionRaidsHistoryParamSort `json:"sort,omitempty"`
-	Limit *int64                                    `json:"limit,omitempty"`
+	Sort *models.GetMyFactionRaidsHistoryParamSort `json:"sort,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionRaidsHistoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -1609,8 +1628,10 @@ func (c *Client) GetMyFactionRaidsHistoryItems(ctx context.Context, params GetMy
 
 // GetMyFactionRankedWarsHistoryParams contains documented parameters for GET /faction/rankedwars.
 type GetMyFactionRankedWarsHistoryParams struct {
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
@@ -1673,8 +1694,10 @@ type GetMyFactionReportsParams struct {
 	Cat *models.ReportTypeEnum `json:"cat,omitempty"`
 	// Target is the query parameter "target".
 	Target *models.UserId `json:"target,omitempty"`
-	Limit  *int64         `json:"limit,omitempty"`
-	Offset *int64         `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionReportsParamSort `json:"sort,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -1729,7 +1752,8 @@ func (c *Client) GetMyFactionReportsItems(ctx context.Context, params GetMyFacti
 type GetMyFactionRevivesParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionRevivesParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -1790,7 +1814,8 @@ func (c *Client) GetMyFactionRevivesItems(ctx context.Context, params GetMyFacti
 type GetMyFactionRevivesSimplifiedParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyFactionRevivesSimplifiedParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -1853,8 +1878,10 @@ type GetFactionSearchParams struct {
 	Name *string `json:"name,omitempty"`
 	// Filters is the query parameter "filters".
 	Filters *[]models.GetFactionSearchParamFiltersItem `json:"filters,omitempty"`
-	Limit   *int64                                     `json:"limit,omitempty"`
-	Offset  *int64                                     `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionSearchParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -2025,8 +2052,10 @@ func (c *Client) GetMyFactionTerritory(ctx context.Context, params GetMyFactionT
 
 // GetTerritoryOwnershipParams contains documented parameters for GET /faction/territoryownership.
 type GetTerritoryOwnershipParams struct {
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTerritoryOwnershipParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -2072,8 +2101,9 @@ type GetMyFactionTerritoryWarsHistoryParams struct {
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort  *models.GetMyFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
-	Limit *int64                                            `json:"limit,omitempty"`
+	Sort *models.GetMyFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyFactionTerritoryWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -2194,8 +2224,10 @@ func (c *Client) GetMyFactionUpgrades(ctx context.Context, params GetMyFactionUp
 
 // GetWarfareParams contains documented parameters for GET /faction/warfare.
 type GetWarfareParams struct {
-	Cat   models.FactionWarfareTypeEnum `json:"cat"`
-	Limit *int64                        `json:"limit,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.FactionWarfareTypeEnum `json:"cat"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetWarfareParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -2247,8 +2279,10 @@ func (c *Client) GetWarfarePager(params GetWarfareParams, opts ...PageOptions) *
 
 // GetWarfareChainsParams contains documented parameters for GET /faction/warfarechains.
 type GetWarfareChainsParams struct {
-	Cat   models.GetWarfareChainsParamCat `json:"cat"`
-	Limit *int64                          `json:"limit,omitempty"`
+	// Cat is the query parameter "cat".
+	Cat models.GetWarfareChainsParamCat `json:"cat"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetWarfareChainsParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -2305,6 +2339,7 @@ func (c *Client) GetWarfareChainsItems(ctx context.Context, params GetWarfareCha
 
 // GetWarfareRaidsParams contains documented parameters for GET /faction/warfareraids.
 type GetWarfareRaidsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetWarfareRaidsParamSort `json:"sort,omitempty"`
@@ -2362,6 +2397,7 @@ func (c *Client) GetWarfareRaidsItems(ctx context.Context, params GetWarfareRaid
 
 // GetWarfareRankedWarsParams contains documented parameters for GET /faction/warfareranked.
 type GetWarfareRankedWarsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetWarfareRankedWarsParamSort `json:"sort,omitempty"`
@@ -2419,6 +2455,7 @@ func (c *Client) GetWarfareRankedWarsItems(ctx context.Context, params GetWarfar
 
 // GetWarfareTerritoryWarsParams contains documented parameters for GET /faction/warfareterritory.
 type GetWarfareTerritoryWarsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetWarfareTerritoryWarsParamSort `json:"sort,omitempty"`
@@ -2687,8 +2724,9 @@ func (c *Client) GetFactionChain(ctx context.Context, params GetFactionChainPara
 // GetFactionCompletedChainsParams contains documented parameters for GET /faction/{id}/chains.
 type GetFactionCompletedChainsParams struct {
 	// ID is the path parameter "id".
-	ID    models.FactionId `json:"id" path:"id"`
-	Limit *int64           `json:"limit,omitempty"`
+	ID models.FactionId `json:"id" path:"id"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetFactionCompletedChainsParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -2838,8 +2876,9 @@ type GetFactionRaidsHistoryParams struct {
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort  *models.GetFactionRaidsHistoryParamSort `json:"sort,omitempty"`
-	Limit *int64                                  `json:"limit,omitempty"`
+	Sort *models.GetFactionRaidsHistoryParamSort `json:"sort,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionRaidsHistoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -2891,9 +2930,11 @@ func (c *Client) GetFactionRaidsHistoryItems(ctx context.Context, params GetFact
 // GetFactionRankedWarsHistoryParams contains documented parameters for GET /faction/{id}/rankedwars.
 type GetFactionRankedWarsHistoryParams struct {
 	// ID is the path parameter "id".
-	ID     models.FactionId `json:"id" path:"id"`
-	Offset *int64           `json:"offset,omitempty"`
-	Limit  *int64           `json:"limit,omitempty"`
+	ID models.FactionId `json:"id" path:"id"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionRankedWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -2995,8 +3036,9 @@ type GetFactionTerritoryWarsHistoryParams struct {
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort  *models.GetFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
-	Limit *int64                                          `json:"limit,omitempty"`
+	Sort *models.GetFactionTerritoryWarsHistoryParamSort `json:"sort,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetFactionTerritoryWarsHistoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -3211,13 +3253,15 @@ type GetForumGenericParams struct {
 	ID *models.GetForumGenericParamID `json:"id,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetForumGenericParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                                `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetForumGenericParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
-	To     *int64 `json:"to,omitempty"`
+	To *int64 `json:"to,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetForumGenericParamTimestamp `json:"timestamp,omitempty"`
@@ -3339,6 +3383,7 @@ func (c *Client) GetForumLookup(ctx context.Context, params GetForumLookupParams
 
 // GetForumAllThreadsParams contains documented parameters for GET /forum/threads.
 type GetForumAllThreadsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetForumAllThreadsParamSort `json:"sort,omitempty"`
@@ -3436,6 +3481,7 @@ func (c *Client) GetForumTimestamp(ctx context.Context, params GetForumTimestamp
 
 // GetForumThreadsParams contains documented parameters for GET /forum/{categoryIds}/threads.
 type GetForumThreadsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetForumThreadsParamSort `json:"sort,omitempty"`
@@ -3497,7 +3543,8 @@ func (c *Client) GetForumThreadsItems(ctx context.Context, params GetForumThread
 type GetForumThreadPostsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetForumThreadPostsParamStriptags `json:"striptags,omitempty"`
-	Offset    *int64                                    `json:"offset,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetForumThreadPostsParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -3600,8 +3647,10 @@ func (c *Client) GetForumThread(ctx context.Context, params GetForumThreadParams
 type GetKeyGenericParams struct {
 	// Selections is the query parameter "selections".
 	Selections *[]models.KeySelectionName `json:"selections,omitempty"`
-	Limit      *int64                     `json:"limit,omitempty"`
-	Offset     *int64                     `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetKeyGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -3682,7 +3731,9 @@ func (c *Client) GetKeyInfo(ctx context.Context, params GetKeyInfoParams, opts .
 
 // GetKeyLogParams contains documented parameters for GET /key/log.
 type GetKeyLogParams struct {
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetKeyLogParamTimestamp `json:"timestamp,omitempty"`
@@ -3735,9 +3786,11 @@ type GetMarketGenericParams struct {
 	// Bonus is the query parameter "bonus".
 	Bonus *models.WeaponBonusEnum `json:"bonus,omitempty"`
 	// Sort is the query parameter "sort".
-	Sort   *models.GetMarketGenericParamSort `json:"sort,omitempty"`
-	Offset *int64                            `json:"offset,omitempty"`
-	Limit  *int64                            `json:"limit,omitempty"`
+	Sort *models.GetMarketGenericParamSort `json:"sort,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -3778,6 +3831,7 @@ func (c *Client) GetMarketGeneric(ctx context.Context, params GetMarketGenericPa
 
 // GetMarketAuctionHouseParams contains documented parameters for GET /market/auctionhouse.
 type GetMarketAuctionHouseParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMarketAuctionHouseParamSort `json:"sort,omitempty"`
@@ -3998,8 +4052,9 @@ func (c *Client) GetMarketTimestamp(ctx context.Context, params GetMarketTimesta
 // GetMarketAuctionHouseItemParams contains documented parameters for GET /market/{id}/auctionhouse.
 type GetMarketAuctionHouseItemParams struct {
 	// ID is the path parameter "id".
-	ID    models.ItemId `json:"id" path:"id"`
-	Limit *int64        `json:"limit,omitempty"`
+	ID models.ItemId `json:"id" path:"id"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMarketAuctionHouseItemParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -4143,9 +4198,11 @@ type GetMarketItemMarketItemParams struct {
 	// ID is the path parameter "id".
 	ID models.ItemId `json:"id" path:"id"`
 	// Bonus is the query parameter "bonus".
-	Bonus  *models.WeaponBonusEnum `json:"bonus,omitempty"`
-	Limit  *int64                  `json:"limit,omitempty"`
-	Offset *int64                  `json:"offset,omitempty"`
+	Bonus *models.WeaponBonusEnum `json:"bonus,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMarketItemMarketItemParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -4193,8 +4250,10 @@ func (c *Client) GetMarketItemMarketItemPager(params GetMarketItemMarketItemPara
 type GetMarketPropertiesParams struct {
 	// PropertyTypeId is the path parameter "propertyTypeId".
 	PropertyTypeId models.PropertyTypeId `json:"propertyTypeId" path:"propertyTypeId"`
-	Offset         *int64                `json:"offset,omitempty"`
-	Limit          *int64                `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMarketPropertiesParamSort `json:"sort,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -4244,8 +4303,10 @@ func (c *Client) GetMarketPropertiesPager(params GetMarketPropertiesParams, opts
 type GetMarketPropertiesRentalParams struct {
 	// PropertyTypeId is the path parameter "propertyTypeId".
 	PropertyTypeId models.PropertyTypeId `json:"propertyTypeId" path:"propertyTypeId"`
-	Offset         *int64                `json:"offset,omitempty"`
-	Limit          *int64                `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMarketPropertiesRentalParamSort `json:"sort,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -4462,8 +4523,9 @@ type GetRacingGenericParams struct {
 	// Selections is the query parameter "selections".
 	Selections *[]models.RacingSelectionName `json:"selections,omitempty"`
 	// ID is the query parameter "id".
-	ID    *models.GetRacingGenericParamID `json:"id,omitempty"`
-	Limit *int64                          `json:"limit,omitempty"`
+	ID *models.GetRacingGenericParamID `json:"id,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetRacingGenericParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -4471,8 +4533,9 @@ type GetRacingGenericParams struct {
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// Cat is the query parameter "cat".
-	Cat    *models.GetRacingGenericParamCat `json:"cat,omitempty"`
-	Offset *int64                           `json:"offset,omitempty"`
+	Cat *models.GetRacingGenericParamCat `json:"cat,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -4633,6 +4696,7 @@ func (c *Client) GetRacingLookup(ctx context.Context, params GetRacingLookupPara
 
 // GetRacingRacesParams contains documented parameters for GET /racing/races.
 type GetRacingRacesParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetRacingRacesParamSort `json:"sort,omitempty"`
@@ -4866,7 +4930,8 @@ type GetTornGenericParams struct {
 	Legacy *[]models.TornSelectionName `json:"legacy,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetTornGenericParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                               `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// From is the query parameter "from".
@@ -4874,8 +4939,9 @@ type GetTornGenericParams struct {
 	// Sort is the query parameter "sort".
 	Sort *models.GetTornGenericParamSort `json:"sort,omitempty"`
 	// Cat is the query parameter "cat".
-	Cat    *models.GetTornGenericParamCat `json:"cat,omitempty"`
-	Offset *int64                         `json:"offset,omitempty"`
+	Cat *models.GetTornGenericParamCat `json:"cat,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -4917,8 +4983,9 @@ func (c *Client) GetTornGeneric(ctx context.Context, params GetTornGenericParams
 // GetTornAttackLogParams contains documented parameters for GET /torn/attacklog.
 type GetTornAttackLogParams struct {
 	// Log is the query parameter "log".
-	Log    models.AttackCode `json:"log"`
-	Offset *int64            `json:"offset,omitempty"`
+	Log models.AttackCode `json:"log"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetTornAttackLogParamSort `json:"sort,omitempty"`
 	// Striptags is the query parameter "striptags".
@@ -5008,7 +5075,9 @@ func (c *Client) GetTornBank(ctx context.Context, params GetTornBankParams, opts
 
 // GetTornBountiesParams contains documented parameters for GET /torn/bounties.
 type GetTornBountiesParams struct {
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornBountiesParamTimestamp `json:"timestamp,omitempty"`
@@ -5340,7 +5409,9 @@ func (c *Client) GetTornElimination(ctx context.Context, params GetTornEliminati
 
 // GetTornFactionHoFParams contains documented parameters for GET /torn/factionhof.
 type GetTornFactionHoFParams struct {
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Cat is the query parameter "cat".
 	Cat models.TornFactionHofCategory `json:"cat"`
@@ -5514,7 +5585,9 @@ func (c *Client) GetTornHalloween(ctx context.Context, params GetTornHalloweenPa
 
 // GetTornHoFParams contains documented parameters for GET /torn/hof.
 type GetTornHoFParams struct {
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Cat is the query parameter "cat".
 	Cat models.TornHofCategory `json:"cat"`
@@ -5568,7 +5641,9 @@ func (c *Client) GetTornHoFItems(ctx context.Context, params GetTornHoFParams, o
 
 // GetTornHonorsParams contains documented parameters for GET /torn/honors.
 type GetTornHonorsParams struct {
-	Limit  *int64 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetTornHonorsParamSort `json:"sort,omitempty"`
@@ -6297,9 +6372,11 @@ func (c *Client) GetTornStocks(ctx context.Context, params GetTornStocksParams, 
 // GetTornTerritoryParams contains documented parameters for GET /torn/territory.
 type GetTornTerritoryParams struct {
 	// Ids is the query parameter "ids".
-	Ids    *[]models.FactionTerritoryEnum `json:"ids,omitempty"`
-	Offset *int64                         `json:"offset,omitempty"`
-	Limit  *int64                         `json:"limit,omitempty"`
+	Ids *[]models.FactionTerritoryEnum `json:"ids,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornTerritoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -6645,9 +6722,11 @@ func (c *Client) GetTornMedalsSpecific(ctx context.Context, params GetTornMedals
 // GetTornEliminationTeamParams contains documented parameters for GET /torn/{id}/eliminationteam.
 type GetTornEliminationTeamParams struct {
 	// ID is the path parameter "id".
-	ID     models.EliminationTeamId `json:"id" path:"id"`
-	Limit  *int64                   `json:"limit,omitempty"`
-	Offset *int64                   `json:"offset,omitempty"`
+	ID models.EliminationTeamId `json:"id" path:"id"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetTornEliminationTeamParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -6874,7 +6953,8 @@ type GetUserGenericParams struct {
 	ID *models.GetUserGenericParamID `json:"id,omitempty"`
 	// Legacy is the query parameter "legacy".
 	Legacy *[]models.UserSelectionName `json:"legacy,omitempty"`
-	Limit  *int64                      `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
@@ -6889,7 +6969,8 @@ type GetUserGenericParams struct {
 	Filters *models.GetUserGenericParamFilters `json:"filters,omitempty"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetUserGenericParamStriptags `json:"striptags,omitempty"`
-	Offset    *int64                               `json:"offset,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserGenericParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -6972,7 +7053,8 @@ func (c *Client) GetMyAmmo(ctx context.Context, params GetMyAmmoParams, opts ...
 type GetMyAttacksParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyAttacksParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -7031,7 +7113,8 @@ func (c *Client) GetMyAttacksItems(ctx context.Context, params GetMyAttacksParam
 type GetMyAttacksSimplifiedParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyAttacksSimplifiedParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -7572,7 +7655,8 @@ func (c *Client) GetMyEquipment(ctx context.Context, params GetMyEquipmentParams
 type GetMyEventsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyEventsParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                            `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// To is the query parameter "to".
@@ -7749,7 +7833,8 @@ func (c *Client) GetMyForumFriendsUpdates(ctx context.Context, params GetMyForum
 type GetMyForumPostsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyForumPostsParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                                `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyForumPostsParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -7846,6 +7931,7 @@ func (c *Client) GetMyForumSubscribedThreads(ctx context.Context, params GetMyFo
 
 // GetMyForumThreadsParams contains documented parameters for GET /user/forumthreads.
 type GetMyForumThreadsParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyForumThreadsParamSort `json:"sort,omitempty"`
@@ -8104,9 +8190,11 @@ func (c *Client) GetMyIcons(ctx context.Context, params GetMyIconsParams, opts .
 // GetMyInventoryParams contains documented parameters for GET /user/inventory.
 type GetMyInventoryParams struct {
 	// Cat is the query parameter "cat".
-	Cat    *models.TornInventoryItemType `json:"cat,omitempty"`
-	Offset *int64                        `json:"offset,omitempty"`
-	Limit  *int64                        `json:"limit,omitempty"`
+	Cat *models.TornInventoryItemType `json:"cat,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyInventoryParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -8152,6 +8240,7 @@ func (c *Client) GetMyInventoryPager(params GetMyInventoryParams, opts ...PageOp
 
 // GetMyItemMarketListingsParams contains documented parameters for GET /user/itemmarket.
 type GetMyItemMarketListingsParams struct {
+	// Offset is the query parameter "offset".
 	Offset *int64 `json:"offset,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyItemMarketListingsParamTimestamp `json:"timestamp,omitempty"`
@@ -8367,8 +8456,10 @@ type GetMyContactsListParams struct {
 	Cat models.UserListEnum `json:"cat"`
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetMyContactsListParamStriptags `json:"striptags,omitempty"`
-	Limit     *int64                                  `json:"limit,omitempty"`
-	Offset    *int64                                  `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyContactsListParamSort `json:"sort,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -8427,7 +8518,8 @@ type GetMyLogsParams struct {
 	Cat *models.LogCategoryId `json:"cat,omitempty"`
 	// Target is the query parameter "target".
 	Target *models.UserId `json:"target,omitempty"`
-	Limit  *int64         `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// To is the query parameter "to".
 	To *int64 `json:"to,omitempty"`
 	// From is the query parameter "from".
@@ -8604,6 +8696,7 @@ func (c *Client) GetMyMerits(ctx context.Context, params GetMyMeritsParams, opts
 
 // GetMyMessagesParams contains documented parameters for GET /user/messages.
 type GetMyMessagesParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
@@ -9111,8 +9204,10 @@ func (c *Client) GetMyProfile(ctx context.Context, params GetMyProfileParams, op
 type GetMyPropertiesParams struct {
 	// Filters is the query parameter "filters".
 	Filters *models.GetMyPropertiesParamFilters `json:"filters,omitempty"`
-	Offset  *int64                              `json:"offset,omitempty"`
-	Limit   *int64                              `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetMyPropertiesParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -9205,6 +9300,7 @@ func (c *Client) GetMyProperty(ctx context.Context, params GetMyPropertyParams, 
 
 // GetMyRacesParams contains documented parameters for GET /user/races.
 type GetMyRacesParams struct {
+	// Limit is the query parameter "limit".
 	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyRacesParamSort `json:"sort,omitempty"`
@@ -9348,8 +9444,10 @@ type GetMyReportsParams struct {
 	Cat *models.ReportTypeEnum `json:"cat,omitempty"`
 	// Target is the query parameter "target".
 	Target *models.UserId `json:"target,omitempty"`
-	Limit  *int64         `json:"limit,omitempty"`
-	Offset *int64         `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyReportsParamSort `json:"sort,omitempty"`
 	// Timestamp is the query parameter "timestamp".
@@ -9404,7 +9502,8 @@ func (c *Client) GetMyReportsItems(ctx context.Context, params GetMyReportsParam
 type GetMyRevivesParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyRevivesParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -9465,7 +9564,8 @@ func (c *Client) GetMyRevivesItems(ctx context.Context, params GetMyRevivesParam
 type GetMyRevivesSimplifiedParams struct {
 	// Filters is the query parameter "filters".
 	Filters *[]models.ApiFiltersAttacksRevivesEnum `json:"filters,omitempty"`
-	Limit   *int64                                 `json:"limit,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyRevivesSimplifiedParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -9528,7 +9628,8 @@ type GetUsersSearchParams struct {
 	Name *string `json:"name,omitempty"`
 	// Filters is the query parameter "filters".
 	Filters *[]models.GetUsersSearchParamFiltersItem `json:"filters,omitempty"`
-	Offset  *int64                                   `json:"offset,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetUsersSearchParamSort `json:"sort,omitempty"`
 	// Cursor is the query parameter "cursor".
@@ -9744,8 +9845,9 @@ func (c *Client) GetUserTimestamp(ctx context.Context, params GetUserTimestampPa
 // GetMyTradesParams contains documented parameters for GET /user/trades.
 type GetMyTradesParams struct {
 	// Cat is the query parameter "cat".
-	Cat   *models.TradeCategoryEnum `json:"cat,omitempty"`
-	Limit *int64                    `json:"limit,omitempty"`
+	Cat *models.TradeCategoryEnum `json:"cat,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetMyTradesParamSort `json:"sort,omitempty"`
 	// To is the query parameter "to".
@@ -10259,8 +10361,9 @@ type GetUserForumPostsParams struct {
 	// Striptags is the query parameter "striptags".
 	Striptags *models.GetUserForumPostsParamStriptags `json:"striptags,omitempty"`
 	// ID is the path parameter "id".
-	ID    models.UserDiscordPathId `json:"id" path:"id"`
-	Limit *int64                   `json:"limit,omitempty"`
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetUserForumPostsParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -10318,8 +10421,9 @@ func (c *Client) GetUserForumPostsItems(ctx context.Context, params GetUserForum
 // GetUserForumThreadsParams contains documented parameters for GET /user/{id}/forumthreads.
 type GetUserForumThreadsParams struct {
 	// ID is the path parameter "id".
-	ID    models.UserDiscordPathId `json:"id" path:"id"`
-	Limit *int64                   `json:"limit,omitempty"`
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Sort is the query parameter "sort".
 	Sort *models.GetUserForumThreadsParamSort `json:"sort,omitempty"`
 	// From is the query parameter "from".
@@ -10545,7 +10649,8 @@ func (c *Client) GetUserMedals(ctx context.Context, params GetUserMedalsParams, 
 // GetUserPersonalStatsParams contains documented parameters for GET /user/{id}/personalstats.
 type GetUserPersonalStatsParams struct {
 	// ID is the path parameter "id".
-	ID  models.UserDiscordPathId          `json:"id" path:"id"`
+	ID models.UserDiscordPathId `json:"id" path:"id"`
+	// Cat is the query parameter "cat".
 	Cat *models.PersonalStatsCategoryEnum `json:"cat,omitempty"`
 	// Stat is the query parameter "stat".
 	Stat *[]models.PersonalStatsStatName `json:"stat,omitempty"`
@@ -10637,8 +10742,10 @@ type GetUserPropertiesParams struct {
 	ID models.UserDiscordPathId `json:"id" path:"id"`
 	// Filters is the query parameter "filters".
 	Filters *models.GetUserPropertiesParamFilters `json:"filters,omitempty"`
-	Offset  *int64                                `json:"offset,omitempty"`
-	Limit   *int64                                `json:"limit,omitempty"`
+	// Offset is the query parameter "offset".
+	Offset *int64 `json:"offset,omitempty"`
+	// Limit is the query parameter "limit".
+	Limit *int64 `json:"limit,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetUserPropertiesParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".

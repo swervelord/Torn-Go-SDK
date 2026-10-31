@@ -110,7 +110,7 @@ func operations(spec S, g *generator, check bool) {
 				}
 				if key == "key" {
 					fmt.Fprintln(&b, "// Deprecated: configure keys on the Client. A key set here is sent for this\n// request in the Authorization header, never in the URL (PARITY_SPEC P2.1).")
-				} else if d := strings.TrimSpace(str(m["description"])); d != "" {
+				} else {
 					fmt.Fprintf(&b, "// %s is the %s parameter %q.\n", name(key), str(m["in"]), key)
 				}
 				fmt.Fprintf(&b, "%s %s `json:%q%s`\n", name(key), t, tag, extra)
