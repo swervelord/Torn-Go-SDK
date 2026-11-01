@@ -187,7 +187,8 @@ callers (P1):
   `IsKnown() == false`; `<Enum>Values()` lists known values.
 - Undocumented properties are kept in `AdditionalProperties`.
 - `spec/shared/spec-overrides.json` relaxes required properties that Torn
-  omits live (`TornHalloweenUpgrade.type`, `UserTrade.items`).
+  omits live (`TornHalloweenUpgrade.type`, `UserTrade.items`,
+  `UserPropertyDetailsExtendedWithRent.status`).
 - Unknown selections are sent as v2 generic selections and unknown query
   parameters (and `comment`) are forwarded verbatim, on v1 and v2.
 - Strict validation is opt-in: `Config.StrictDecoding`,

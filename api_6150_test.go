@@ -280,3 +280,29 @@ func TestTravelInventoryRoutingAndTypedBatch(t *testing.T) {
 		t.Fatalf("exact operation path: %v", paths)
 	}
 }
+
+// spec-overrides.json: GET /v2/property/{id}/property omits the allOf-branch
+// property status, so tolerant decoding accepts it and strict mode reports it (P1.2).
+func TestPropertyStatusOverride(t *testing.T) {
+	doc := loadContract(t, "6.15.0")
+	sample := contractSample(doc.Components.Schemas["UserPropertyDetailsExtendedWithRent"], doc.Components.Schemas, 0, 0).(map[string]any)
+	present, _ := json.Marshal(sample)
+	delete(sample, "status")
+	missing, _ := json.Marshal(sample)
+	var withStatus, without models.UserPropertyDetailsExtendedWithRent
+	if err := json.Unmarshal(present, &withStatus); err != nil || !withStatus.Status.Present || !withStatus.Status.Value.IsKnown() {
+		t.Fatalf("status present: %v %+v", err, withStatus.Status)
+	}
+	if err := json.Unmarshal(missing, &without); err != nil || without.Status.Present {
+		t.Fatalf("status absent: %v %+v", err, without.Status)
+	}
+	if err := models.Validate("UserPropertyDetailsExtendedWithRent", missing); err != nil {
+		t.Fatalf("tolerant validation: %v", err)
+	}
+	if err := models.ValidateStrict("UserPropertyDetailsExtendedWithRent", missing); err == nil || !strings.Contains(err.Error(), "spec-overrides") {
+		t.Fatalf("strict validation: %v", err)
+	}
+	if out, _ := json.Marshal(without); bytes.Contains(out, []byte(`"status"`)) {
+		t.Fatalf("absent status re-encoded: %s", out)
+	}
+}

@@ -103,6 +103,10 @@ func (g *generator) flatten(s S, seen map[string]bool) S {
 			if r, ok := m["required"].([]any); ok {
 				out["required"] = append(out["required"].([]any), r...)
 			}
+			if r, ok := m[relaxedKey].([]any); ok {
+				relaxed, _ := out[relaxedKey].([]any)
+				out[relaxedKey] = append(relaxed, r...)
+			}
 		}
 		return out
 	}
@@ -465,23 +469,48 @@ func applyOverrides(schemas map[string]S, path string) {
 		if o.Change != "optional" {
 			panic("unsupported spec override change " + o.Change)
 		}
-		req, _ := s["required"].([]any)
-		kept := []any{}
-		found := false
-		for _, r := range req {
-			if r == o.Property {
-				found = true
-				continue
+		// The property may be required by the schema itself or by one of its
+		// inline allOf branches; $ref branches are shared components and are
+		// never edited for another schema's override.
+		targets := []S{s}
+		if a, ok := s["allOf"].([]any); ok {
+			for _, b := range a {
+				if branch := obj(b); str(branch["$ref"]) == "" {
+					targets = append(targets, branch)
+				}
 			}
-			kept = append(kept, r)
+		}
+		found := false
+		for _, t := range targets {
+			if relaxRequired(t, o.Property) {
+				found = true
+			}
 		}
 		if !found {
 			panic("spec override property is not required: " + o.Schema + "." + o.Property)
 		}
-		s["required"] = kept
-		relaxed, _ := s[relaxedKey].([]any)
-		s[relaxedKey] = append(relaxed, o.Property)
 	}
+}
+
+// relaxRequired moves property from s's required list to relaxedKey.
+func relaxRequired(s S, property string) bool {
+	req, _ := s["required"].([]any)
+	kept := []any{}
+	found := false
+	for _, r := range req {
+		if r == property {
+			found = true
+			continue
+		}
+		kept = append(kept, r)
+	}
+	if !found {
+		return false
+	}
+	s["required"] = kept
+	relaxed, _ := s[relaxedKey].([]any)
+	s[relaxedKey] = append(relaxed, property)
+	return true
 }
 
 func main() {

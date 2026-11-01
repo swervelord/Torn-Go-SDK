@@ -11,7 +11,9 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
   validation opt-in through `models.ValidateStrict`, `Config.StrictDecoding` and
   `RequestOptions.Strict` (P1.1, P1.3).
 - `spec/shared/spec-overrides.json` applied by the generator:
-  `TornHalloweenUpgrade.type` and `UserTrade.items` may be absent (P1.2).
+  `TornHalloweenUpgrade.type`, `UserTrade.items` and
+  `UserPropertyDetailsExtendedWithRent.status` may be absent (P1.2). Overrides
+  also apply to properties required by an inline `allOf` branch.
 - `models.DecodeError` / `torn.DecodeError` with operation, JSON path,
   expected rule, redacted value excerpt and `Raw()` body; `FetchPair` reports
   per-selection errors (`FirstErr`, `SecondErr`) (P1.4).
@@ -77,6 +79,9 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
   is sent in the `Authorization` header, never in the URL (P2.1).
 
 ### Breaking changes and migration
+- `UserPropertyDetailsExtendedWithRent.Status` is now
+  `models.Optional[UserPropertyDetailsExtendedWithRentStatus]` because Torn omits
+  it (spec override); read `.Status.Value` after checking `.Status.Present`.
 - `OperationMetadata.AccessLevel` is now `torn.AccessLevel` with lowercase
   values (`"limited"` instead of `"Limited"`). Compare with `torn.AccessLimited`.
 - `models.Validate` / `legacy.Validate` and model decoding accept unknown enum

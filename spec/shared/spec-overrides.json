@@ -14,6 +14,13 @@
       "change": "optional",
       "evidence": "GET /v2/user/trades omits 'items' on some trades (live sweep, spec 6.15.0, 2026-10-30)",
       "since": "6.15.0"
+    },
+    {
+      "schema": "UserPropertyDetailsExtendedWithRent",
+      "property": "status",
+      "change": "optional",
+      "evidence": "GET /v2/property/{id}/property omits 'status' (Rust SDK live sweep, verified 2026-11-01, spec 6.15.0)",
+      "since": "6.15.0"
     }
   ]
 }

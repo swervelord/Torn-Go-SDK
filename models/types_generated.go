@@ -51165,9 +51165,10 @@ type UserPropertyDetailsExtendedWithRent struct {
 	Property      BasicProperty                                  `json:"property"`
 	RentedBy      Optional[BasicUser]                            `json:"rented_by"`
 	Staff         []UserPropertyDetailsExtendedWithRentStaffItem `json:"staff"`
-	Status        UserPropertyDetailsExtendedWithRentStatus      `json:"status"`
-	Upkeep        UserPropertyDetailsExtendedWithRentUpkeep      `json:"upkeep"`
-	UsedBy        []BasicUser                                    `json:"used_by"`
+	// Status may be absent although the official contract requires it (spec/shared/spec-overrides.json).
+	Status Optional[UserPropertyDetailsExtendedWithRentStatus] `json:"status"`
+	Upkeep UserPropertyDetailsExtendedWithRentUpkeep           `json:"upkeep"`
+	UsedBy []BasicUser                                         `json:"used_by"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -51243,12 +51244,10 @@ func (v *UserPropertyDetailsExtendedWithRent) UnmarshalJSON(data []byte) error {
 		return contract.Missing("staff")
 	}
 	if raw, ok := fields["status"]; ok {
-		if err := contract.DecodeString(raw, (*string)(&out.Status)); err != nil {
+		if err := contract.DecodeInto(raw, &out.Status); err != nil {
 			return contract.At(err, "status")
 		}
 		delete(fields, "status")
-	} else {
-		return contract.Missing("status")
 	}
 	if raw, ok := fields["upkeep"]; ok {
 		if err := contract.DecodeInto(raw, &out.Upkeep); err != nil {
@@ -51321,11 +51320,13 @@ func (v UserPropertyDetailsExtendedWithRent) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["staff"] = data
-	data, err = json.Marshal(v.Status)
-	if err != nil {
-		return nil, err
+	if v.Status.Present {
+		data, err = json.Marshal(v.Status)
+		if err != nil {
+			return nil, err
+		}
+		fields["status"] = data
 	}
-	fields["status"] = data
 	data, err = json.Marshal(v.Upkeep)
 	if err != nil {
 		return nil, err
@@ -53356,11 +53357,12 @@ type UserTradeDetailed struct {
 	Description string                       `json:"description"`
 	ExpiresAt   UserTradeDetailedExpiresAt   `json:"expires_at"`
 	ID          TradeId                      `json:"id"`
-	Items       []TradeItem                  `json:"items"`
-	ModifiedAt  UserTradeDetailedModifiedAt  `json:"modified_at"`
-	Timestamp   Optional[int64]              `json:"timestamp"`
-	Trader      UserTradeParticipant         `json:"trader"`
-	User        UserTradeParticipant         `json:"user"`
+	// Items may be absent although the official contract requires it (spec/shared/spec-overrides.json).
+	Items      Optional[[]TradeItem]       `json:"items"`
+	ModifiedAt UserTradeDetailedModifiedAt `json:"modified_at"`
+	Timestamp  Optional[int64]             `json:"timestamp"`
+	Trader     UserTradeParticipant        `json:"trader"`
+	User       UserTradeParticipant        `json:"user"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -53410,8 +53412,6 @@ func (v *UserTradeDetailed) UnmarshalJSON(data []byte) error {
 			return contract.At(err, "items")
 		}
 		delete(fields, "items")
-	} else {
-		return contract.Missing("items")
 	}
 	if raw, ok := fields["modified_at"]; ok {
 		if err := contract.DecodeInto(raw, &out.ModifiedAt); err != nil {
@@ -53476,11 +53476,13 @@ func (v UserTradeDetailed) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["id"] = data
-	data, err = json.Marshal(v.Items)
-	if err != nil {
-		return nil, err
+	if v.Items.Present {
+		data, err = json.Marshal(v.Items)
+		if err != nil {
+			return nil, err
+		}
+		fields["items"] = data
 	}
-	fields["items"] = data
 	data, err = json.Marshal(v.ModifiedAt)
 	if err != nil {
 		return nil, err

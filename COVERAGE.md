@@ -70,7 +70,8 @@ The official contract has four required properties without value schemas:
 `UserCrimeDetailsBootlegging.dvd_copies`, `UserTrade.items`, and
 `TornHalloweenUpgrade.type`. Their values remain exact raw JSON. Presence is
 validated except where the live sweep proved Torn omits the property
-(`TornHalloweenUpgrade.type`, `UserTrade.items`; see
+(`TornHalloweenUpgrade.type`, `UserTrade.items`,
+`UserPropertyDetailsExtendedWithRent.status`; see
 `spec/shared/spec-overrides.json`), which strict validation still reports. Unknown extension fields and
 unconstrained log maps also preserve raw JSON. The exhaustive descriptor paths
 are recorded in [typing-report.json](spec/typing-report.json).
