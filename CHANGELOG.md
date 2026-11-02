@@ -1,9 +1,9 @@
 # Changelog
 
-## Unreleased: 0.1.0, cross-SDK parity (2026-10-31)
+## 0.1.0 - 2026-11-01: cross-SDK parity
 
-Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
-`spec/shared/PARITY_SPEC.md`.
+First tagged release (`v0.1.0`); it also contains the untagged 6.14.0 and 6.15.0
+updates below. Requirement ids refer to `spec/shared/PARITY_SPEC.md`.
 
 ### Added
 - Tolerant decoding by default: open enums with `IsKnown()` and
@@ -99,7 +99,7 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
   `Config.RetryDelay` and `Config.Jitter` to restore custom behavior. HTTP 408
   is no longer retried.
 
-## Unreleased — Torn API 6.15.0 (2026-10-30)
+## Untagged — Torn API 6.15.0 (2026-10-30)
 
 - Refresh the official pinned contract to 6.15.0, with regenerated models, exact
   operations, selection tokens, helpers, manifests, typing report, and provenance.
@@ -122,7 +122,7 @@ Recommended first tag: `v0.1.0` (no tags exist yet). Requirement ids refer to
   capabilities, 210 typed helpers, and 205 raw helpers. Frozen 6.13.6 schemas and
   549 compatibility declarations remain available.
 
-## Unreleased — Torn API 6.14.0 (2026-10-27)
+## Untagged — Torn API 6.14.0 (2026-10-27)
 
 - Refresh the official pinned contract, generators, all current concrete models,
   exact operations, selection tokens, helpers, manifests, and provenance.
