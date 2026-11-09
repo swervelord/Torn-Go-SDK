@@ -6,7 +6,7 @@ request executor (key failover, sliding-window rate limits, retries with
 jitter, pagination, hooks and an optional cache). Zero third-party
 dependencies.
 
-The pinned contract is Torn **6.15.0**: **237 exact operations**, **724
+The pinned contract is Torn **6.15.7**: **237 exact operations**, **726
 component schemas**, **208 selection capabilities**, **210 typed convenience
 helpers**, **224 raw selection helpers** and **3 CSV operations**. An explicit
 **184-selection v1 catalog** supports legacy routing; the `legacy` package keeps
@@ -91,6 +91,18 @@ Union types expose `Which()` (1-based matching variant, 0 when empty),
 use `models.Optional[T]` to distinguish missing, null and value. See
 [model fidelity](MODELS.md) and [compatibility contracts](COMPATIBILITY.md).
 
+Torn 6.15.7 additions: `UserGym` / `GetMyGym` return `Gym.UnlockedGyms`
+(`[]models.UserUnlockedGym` with `ID`, `Name`, `Available`; public key, batches
+with other user selections). `TornCalendarActivity` carries `EarliestStart`,
+`LatestEnd` and a required `FixedStartTime`. `GetRacingRaces` and the racing
+`races` selection accept `cat=available` (`models.RacingRacesCategoryEnumAvailable`:
+races not yet started; `from`/`to` are ignored and `Schedule.End` is null).
+Attack log participants are the `models.AttackLogAttacker`,
+`AttackLogDefender` and `AttackLogItem` components behind nullable unions
+(`AsVariant2` is a stealthed attack), and stock analysis reports add a nullable
+`RestockTimestamp`. Array path parameters stay comma-joined
+(`/torn/1,2/items`).
+
 ## Batching
 
 ```go
@@ -126,7 +138,9 @@ page, ok, err := pager.Next(ctx) // also pager.Prev(ctx) and pager.All(ctx)
 `client.Pages(path, params, opts)` pages raw JSON, `Paginate[T]` works for any
 operation and `RawItems` iterates a raw page's list. Links are validated
 against the configured API host, keys in link URLs are dropped and every page
-goes through the executor (rate limits, retries, cancellation).
+goes through the executor (rate limits, retries, cancellation). For
+`GetMyLogsPager`, `Prev` follows Torn's `prev` link, which carries the
+`_metadata.nanostamp` cursor, so older logs page without gaps or repeats.
 
 ## Errors
 
@@ -223,7 +237,7 @@ The repository gate is offline and needs no credential:
 ```sh
 go run ./cmd/check   # gofmt, snapshot provenance, generator drift (-check)
 go vet ./...
-go test ./...        # includes the 30 shared conformance scenarios (P9.1)
+go test ./...        # includes the 32 shared conformance scenarios (P9.1)
 go test -race ./...  # runners with a C compiler
 go build ./...
 ```

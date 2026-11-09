@@ -132,4 +132,4 @@ func ErrorCodes() []ErrorCode {
 	return []ErrorCode{CodeUnknown, CodeKeyEmpty, CodeIncorrectKey, CodeWrongType, CodeWrongFields, CodeTooManyRequests, CodeIncorrectId, CodeIncorrectIdEntityRelation, CodeIpBlocked, CodeApiDisabled, CodeKeyOwnerInFederalJail, CodeKeyChangeCooldown, CodeKeyReadError, CodeKeyTemporaryDisabled, CodeDailyReadLimitReached, CodeLogUnavailable, CodeAccessLevelTooLow, CodeBackendError, CodeApiKeyPaused, CodeMustMigrateToCrimesV2, CodeRaceNotFinished, CodeIncorrectCategory, CodeOnlyAvailableInApiV1, CodeOnlyAvailableInApiV2, CodeClosedTemporarily, CodeInvalidStatRequested, CodeOnlyCategoryOrStatsAllowed, CodeMustMigrateToOrganizedCrimesV2, CodeIncorrectLogId, CodeCategorySelectionUnavailableForInteractionLogs, CodeFileDoesNotExist, CodeCityStatsCronFailed, CodeEndpointClosedUntilAttackingPeriod, CodeNoCompetitionAvailable}
 }
 
-const errorCodesSpecVersion = "6.15.0"
+const errorCodesSpecVersion = "6.15.7"

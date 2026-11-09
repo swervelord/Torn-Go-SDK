@@ -2,11 +2,11 @@ package torn
 
 const (
 	// APIVersion is the pinned official contract used to generate this SDK.
-	APIVersion = "6.15.0"
+	APIVersion = "6.15.7"
 	// SpecVersion is the OpenAPI version of the pinned contract (P8.7).
 	SpecVersion = APIVersion
 	// SDKVersion is this module's release version (P8.7).
-	SDKVersion = "0.1.0"
+	SDKVersion = "0.2.0"
 	// UserInventoryCacheTTLSeconds is Torn's per-category server cache lifetime.
 	UserInventoryCacheTTLSeconds = 900
 	// FactionInventoryCacheTTLSeconds is Torn's server cache lifetime for all armory items.

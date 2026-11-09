@@ -25,7 +25,7 @@ func (f operationTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 // independently from the committed official specification, never from Operations
 // or generated metadata. The public typed method itself is invoked reflectively.
 func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
-	data, e := os.ReadFile("spec/openapi-6.15.0.json")
+	data, e := os.ReadFile("spec/openapi-6.15.7.json")
 	if e != nil {
 		t.Fatal(e)
 	}
@@ -36,7 +36,7 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 		t.Fatal(e)
 	}
 	components := doc["components"].(map[string]any)
-	definitions := loadContract(t, "6.15.0").Components.Schemas
+	definitions := loadContract(t, "6.15.7").Components.Schemas
 	paths := doc["paths"].(map[string]any)
 	ordered := make([]string, 0, len(paths))
 	for p := range paths {
@@ -83,7 +83,8 @@ func TestEveryExactOperationAgainstOfficialTransportContract(t *testing.T) {
 					args[key] = value
 					wire := contractWire(value)
 					if p["in"] == "path" {
-						expectedPath = strings.ReplaceAll(expectedPath, "{"+key+"}", url.PathEscape(wire))
+						// Array path parameters (style simple) keep literal commas.
+						expectedPath = strings.ReplaceAll(expectedPath, "{"+key+"}", strings.ReplaceAll(url.PathEscape(wire), "%2C", ","))
 					} else if p["in"] == "query" {
 						expectedQuery.Set(key, wire)
 					}

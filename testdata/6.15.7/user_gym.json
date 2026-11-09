@@ -1,0 +1,28 @@
+{
+  "gym": {
+    "id": 26,
+    "name": "Frontline Fitness",
+    "unlocked_gyms": [
+      {
+        "id": 1,
+        "name": "Premier Fitness",
+        "available": true
+      },
+      {
+        "id": 2,
+        "name": "Average Joes",
+        "available": true
+      },
+      {
+        "id": 3,
+        "name": "Woody's Workout Club",
+        "available": true
+      },
+      {
+        "id": 25,
+        "name": "Balboas Gym",
+        "available": false
+      }
+    ]
+  }
+}

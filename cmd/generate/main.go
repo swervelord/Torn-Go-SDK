@@ -516,7 +516,7 @@ func relaxRequired(s S, property string) bool {
 func main() {
 	check := flag.Bool("check", false, "verify generated files without writes")
 	flag.Parse()
-	current := load("spec/openapi-6.15.0.json")
+	current := load("spec/openapi-6.15.7.json")
 	frozen := load("spec/openapi-6.13.6.json")
 	g := models(current, "models", *check)
 	models(frozen, "legacy", *check)

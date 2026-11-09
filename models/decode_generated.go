@@ -32,6 +32,12 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(AttackId)
 	case "AttackLog":
 		out = new(AttackLog)
+	case "AttackLogAttacker":
+		out = new(AttackLogAttacker)
+	case "AttackLogDefender":
+		out = new(AttackLogDefender)
+	case "AttackLogItem":
+		out = new(AttackLogItem)
 	case "AttackLogResponse":
 		out = new(AttackLogResponse)
 	case "AttackLogSummary":
@@ -150,8 +156,6 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(CompanyProfileResponse)
 	case "CompanyProfileResponseMixed":
 		out = new(CompanyProfileResponseMixed)
-	case "CompanySearchParameter":
-		out = new(CompanySearchParameter)
 	case "CompanySearchProfile":
 		out = new(CompanySearchProfile)
 	case "CompanySelectionName":
@@ -634,8 +638,6 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(NewsResponse)
 	case "OrganizedCrimeName":
 		out = new(OrganizedCrimeName)
-	case "Parameters":
-		out = new(Parameters)
 	case "PersonalStatsAttackingExtended":
 		out = new(PersonalStatsAttackingExtended)
 	case "PersonalStatsAttackingPopular":
@@ -760,6 +762,8 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(RacingRaceDetailsResponse)
 	case "RacingRaceTypeEnum":
 		out = new(RacingRaceTypeEnum)
+	case "RacingRacesCategoryEnum":
+		out = new(RacingRacesCategoryEnum)
 	case "RacingRacesResponse":
 		out = new(RacingRacesResponse)
 	case "RacingSelectionName":
@@ -1398,8 +1402,6 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(UserRpsStatus)
 	case "UserSearch":
 		out = new(UserSearch)
-	case "UserSearchParameter":
-		out = new(UserSearchParameter)
 	case "UserSearchResponse":
 		out = new(UserSearchResponse)
 	case "UserSelectionName":
@@ -1446,6 +1448,8 @@ func DecodeSchema(name string, data []byte) (any, error) {
 		out = new(UserTravelInventorySlot)
 	case "UserTravelResponse":
 		out = new(UserTravelResponse)
+	case "UserUnlockedGym":
+		out = new(UserUnlockedGym)
 	case "UserVirus":
 		out = new(UserVirus)
 	case "UserVirusResponse":

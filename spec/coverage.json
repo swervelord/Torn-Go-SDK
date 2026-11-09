@@ -5046,7 +5046,7 @@
     }
   ],
   "current": {
-    "componentSchemaCount": 724,
+    "componentSchemaCount": 726,
     "operationCount": 237,
     "operations": [
       {
@@ -7730,6 +7730,9 @@
       "AttackFinishingHitEffect": "models.AttackFinishingHitEffect",
       "AttackId": "models.AttackId",
       "AttackLog": "models.AttackLog",
+      "AttackLogAttacker": "models.AttackLogAttacker",
+      "AttackLogDefender": "models.AttackLogDefender",
+      "AttackLogItem": "models.AttackLogItem",
       "AttackLogResponse": "models.AttackLogResponse",
       "AttackLogSummary": "models.AttackLogSummary",
       "AttackPlayer": "models.AttackPlayer",
@@ -7789,7 +7792,6 @@
       "CompanyProfileExtendedResponse": "models.CompanyProfileExtendedResponse",
       "CompanyProfileResponse": "models.CompanyProfileResponse",
       "CompanyProfileResponseMixed": "models.CompanyProfileResponseMixed",
-      "CompanySearchParameter": "models.CompanySearchParameter",
       "CompanySearchProfile": "models.CompanySearchProfile",
       "CompanySelectionName": "models.CompanySelectionName",
       "CompanySpecialId": "models.CompanySpecialId",
@@ -8031,7 +8033,6 @@
       "News": "models.News",
       "NewsResponse": "models.NewsResponse",
       "OrganizedCrimeName": "models.OrganizedCrimeName",
-      "Parameters": "models.Parameters",
       "PersonalStatsAttackingExtended": "models.PersonalStatsAttackingExtended",
       "PersonalStatsAttackingPopular": "models.PersonalStatsAttackingPopular",
       "PersonalStatsAttackingPublic": "models.PersonalStatsAttackingPublic",
@@ -8094,6 +8095,7 @@
       "RacingRaceDetails": "models.RacingRaceDetails",
       "RacingRaceDetailsResponse": "models.RacingRaceDetailsResponse",
       "RacingRaceTypeEnum": "models.RacingRaceTypeEnum",
+      "RacingRacesCategoryEnum": "models.RacingRacesCategoryEnum",
       "RacingRacesResponse": "models.RacingRacesResponse",
       "RacingSelectionName": "models.RacingSelectionName",
       "RacingTrackRecordsResponse": "models.RacingTrackRecordsResponse",
@@ -8413,7 +8415,6 @@
       "UserRoleEnum": "models.UserRoleEnum",
       "UserRpsStatus": "models.UserRpsStatus",
       "UserSearch": "models.UserSearch",
-      "UserSearchParameter": "models.UserSearchParameter",
       "UserSearchResponse": "models.UserSearchResponse",
       "UserSelectionName": "models.UserSelectionName",
       "UserSkillDetail": "models.UserSkillDetail",
@@ -8437,6 +8438,7 @@
       "UserTravelInventoryResponse": "models.UserTravelInventoryResponse",
       "UserTravelInventorySlot": "models.UserTravelInventorySlot",
       "UserTravelResponse": "models.UserTravelResponse",
+      "UserUnlockedGym": "models.UserUnlockedGym",
       "UserVirus": "models.UserVirus",
       "UserVirusResponse": "models.UserVirusResponse",
       "UserWeaponExp": "models.UserWeaponExp",
@@ -8444,7 +8446,7 @@
       "UserWorkStatsResponse": "models.UserWorkStatsResponse",
       "WeaponBonusEnum": "models.WeaponBonusEnum"
     },
-    "version": "6.15.0"
+    "version": "6.15.7"
   },
   "historical": {
     "schemas": {
@@ -15141,6 +15143,6 @@
       }
     ],
     "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
-    "version": "6.15.0"
+    "version": "6.15.7"
   }
 }

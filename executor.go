@@ -66,6 +66,13 @@ func takeKey(q url.Values) string {
 	return strings.TrimSpace(key)
 }
 
+// escapePathValue percent-encodes one path parameter value but keeps commas
+// literal: array path parameters use OpenAPI style "simple" and Torn expects
+// comma-joined ids such as /torn/1,2/items, not 1%2C2.
+func escapePathValue(value string) string {
+	return strings.ReplaceAll(url.PathEscape(value), "%2C", ",")
+}
+
 func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts RequestOptions, version string, selections []string, fallback bool, meta requestMeta) (json.RawMessage, ExecutionReport, error) {
 	report := ExecutionReport{}
 	if ctx == nil {
@@ -115,7 +122,7 @@ func (c *Client) doOperation(ctx context.Context, op Operation, params any, opts
 			return nil, report, validationf("missing required path parameter: %s", k)
 		}
 		q.Del(k)
-		path = path[:start] + url.PathEscape(value) + path[end+1:]
+		path = path[:start] + escapePathValue(value) + path[end+1:]
 	}
 	if len(selections) > 0 && q.Has("selections") {
 		q.Set("selections", strings.Join(selections, ","))

@@ -363,7 +363,7 @@ func endpointCall(ep SelectionEndpoint, selections []string, params map[string]a
 		if err != nil {
 			return PlannedCall{}, fmt.Errorf("path parameter %s: %w", name, err)
 		}
-		path = strings.ReplaceAll(path, "{"+name+"}", url.PathEscape(wire))
+		path = strings.ReplaceAll(path, "{"+name+"}", escapePathValue(wire))
 		delete(p, name)
 	}
 	return PlannedCall{Operation: Operation{ID: ep.ID, Path: path, Method: "GET"}, Selections: selections, Params: p, Version: "v2"}, nil

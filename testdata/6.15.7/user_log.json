@@ -1,0 +1,69 @@
+{
+  "log": [
+    {
+      "id": "LOGID000000000000000",
+      "timestamp": 1794237973,
+      "details": {
+        "id": 7420,
+        "title": "Forums rate",
+        "category": "Forums"
+      },
+      "data": {
+        "thread": 0,
+        "forum": 0,
+        "post": 0,
+        "type": "post in",
+        "rating": "liked",
+        "author": 0
+      },
+      "params": {}
+    },
+    {
+      "id": "LOGID000000000000001",
+      "timestamp": 1794235876,
+      "details": {
+        "id": 5300,
+        "title": "Gym train strength",
+        "category": "Gym"
+      },
+      "data": {
+        "trains": 6,
+        "energy_used": 150,
+        "strength_before": "491781189.64563",
+        "strength_after": 492255201.80884767,
+        "strength_increased": 474012.16321766784,
+        "happy_used": 78,
+        "gym": 26
+      },
+      "params": {
+        "color": "green",
+        "changed": 1591103100
+      }
+    },
+    {
+      "id": "LOGID000000000000002",
+      "timestamp": 1794235873,
+      "details": {
+        "id": 2190,
+        "title": "Item use feathery hotel coupon",
+        "category": "Item use"
+      },
+      "data": {
+        "item": 367,
+        "faction": 0,
+        "energy_increased": 150,
+        "happy_increased": 500
+      },
+      "params": {
+        "color": "green"
+      }
+    }
+  ],
+  "_metadata": {
+    "links": {
+      "prev": "https://api.torn.com/v2/user/log?&limit=3&nanostamp=1794235873988461998",
+      "next": null
+    },
+    "nanostamp": "1794235873988461998"
+  }
+}

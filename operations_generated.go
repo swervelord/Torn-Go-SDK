@@ -443,7 +443,7 @@ func (v GetCompaniesSearchParams) MarshalJSON() ([]byte, error) {
 type GetCompaniesSearchResponse = models.CompaniesSearchResponse
 
 var getCompaniesSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
-	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|type|daysOld|rating|dailyIncome|weeklyIncome|dailyCustomers|weeklyCustomers):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"CompanySearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|type|daysOld|rating|dailyIncome|weeklyIncome|dailyCustomers|weeklyCustomers):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}]},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
 })
 
 // GetCompaniesSearch executes operation getCompaniesSearch (GET /company/search; key access: public) using its exact documented path.
@@ -2631,7 +2631,7 @@ func (v GetFactionSearchParams) MarshalJSON() ([]byte, error) {
 type GetFactionSearchResponse = models.FactionSearchResponse
 
 var getFactionSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
-	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"destroyed\",\"notDestroyed\",\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|respect|members|membersMax):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}],\"schema\":\"Parameters\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"destroyed\",\"notDestroyed\",\"recruiting\",\"notRecruiting\"],\"type\":\"string\"},{\"pattern\":\"^(id|respect|members|membersMax):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"}]},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":20,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
 })
 
 // GetFactionSearch executes operation getFactionSearch (GET /faction/search; key access: public) using its exact documented path.
@@ -6309,7 +6309,7 @@ func (v GetRacingGenericParams) MarshalJSON() ([]byte, error) {
 type GetRacingGenericResponse = models.GetRacingGenericResponseBody
 
 var getRacingGenericParamsSchema = sync.OnceValue(func() models.CompiledSchema {
-	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},{\"$ref\":\"#/components/schemas/RaceClassEnum\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RaceId\"},{\"$ref\":\"#/components/schemas/RaceTrackId\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/RacingSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RacingRacesCategoryEnum\"},{\"$ref\":\"#/components/schemas/RaceClassEnum\"}]},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"id\":{\"oneOf\":[{\"$ref\":\"#/components/schemas/RaceId\"},{\"$ref\":\"#/components/schemas/RaceTrackId\"}]},\"key\":{\"type\":\"string\"},\"limit\":{\"format\":\"int32\",\"minimum\":1,\"type\":\"integer\"},\"offset\":{\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"selections\":{\"items\":{\"$ref\":\"#/components/schemas/RacingSelectionName\"},\"type\":\"array\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
 })
 
 // GetRacingGeneric executes operation getRacingGeneric (GET /racing; key access: public) using its exact documented path.
@@ -6518,7 +6518,7 @@ type GetRacingRacesParams struct {
 	// From is the query parameter "from".
 	From *int64 `json:"from,omitempty"`
 	// Cat is the query parameter "cat".
-	Cat *models.RacingRaceTypeEnum `json:"cat,omitempty"`
+	Cat *models.RacingRacesCategoryEnum `json:"cat,omitempty"`
 	// Timestamp is the query parameter "timestamp".
 	Timestamp *models.GetRacingRacesParamTimestamp `json:"timestamp,omitempty"`
 	// Comment is the query parameter "comment".
@@ -6549,7 +6549,7 @@ func (v GetRacingRacesParams) MarshalJSON() ([]byte, error) {
 type GetRacingRacesResponse = models.RacingRacesResponse
 
 var getRacingRacesParamsSchema = sync.OnceValue(func() models.CompiledSchema {
-	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRaceTypeEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
+	return models.CompileSchema("{\"properties\":{\"cat\":{\"$ref\":\"#/components/schemas/RacingRacesCategoryEnum\"},\"comment\":{\"type\":\"string\"},\"from\":{\"format\":\"int32\",\"type\":\"integer\"},\"key\":{\"type\":\"string\"},\"limit\":{\"default\":100,\"format\":\"int32\",\"maximum\":100,\"minimum\":1,\"type\":\"integer\"},\"sort\":{\"default\":\"DESC\",\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]},\"to\":{\"format\":\"int32\",\"type\":\"integer\"}},\"required\":[],\"type\":\"object\"}")
 })
 
 // GetRacingRaces executes operation getRacingRaces (GET /racing/races; key access: public) using its exact documented path.
@@ -13426,7 +13426,7 @@ func (v GetUsersSearchParams) MarshalJSON() ([]byte, error) {
 type GetUsersSearchResponse = models.UserSearchResponse
 
 var getUsersSearchParamsSchema = sync.OnceValue(func() models.CompiledSchema {
-	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"cursor\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"married\",\"notMarried\",\"traveling\",\"notTraveling\",\"inFaction\",\"notInFaction\",\"inCompany\",\"notInCompany\",\"inHospital\",\"notInHospital\",\"inJail\",\"notInJail\",\"inFederalJail\",\"notInFederalJail\",\"male\",\"female\",\"enby\",\"lastActionNow\",\"lastActionRecent\",\"lastActionHourAgo\",\"lastActionDayAgo\",\"lastActionWeekAgo\",\"lastActionMonthAgo\",\"lastActionYearAgo\"],\"type\":\"string\"},{\"pattern\":\"^(level|daysOld|offences):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"},{\"pattern\":\"^factions:\\\\d+(;\\\\d+)*$\",\"type\":\"string\"}],\"schema\":\"UserSearchParameter\"},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
+	return models.CompileSchema("{\"properties\":{\"comment\":{\"type\":\"string\"},\"cursor\":{\"type\":\"string\"},\"filters\":{\"items\":{\"oneOf\":[{\"enum\":[\"married\",\"notMarried\",\"traveling\",\"notTraveling\",\"inFaction\",\"notInFaction\",\"inCompany\",\"notInCompany\",\"inHospital\",\"notInHospital\",\"inJail\",\"notInJail\",\"inFederalJail\",\"notInFederalJail\",\"male\",\"female\",\"enby\",\"lastActionNow\",\"lastActionRecent\",\"lastActionHourAgo\",\"lastActionDayAgo\",\"lastActionWeekAgo\",\"lastActionMonthAgo\",\"lastActionYearAgo\"],\"type\":\"string\"},{\"pattern\":\"^(level|daysOld|offences):(=|!=|\\u003c|\\u003c=|\\u003e=|\\u003e|Equal|NotEqual|Less|LessOrEqual|GreaterOrEqual|Greater):\\\\d+$\",\"type\":\"string\"},{\"pattern\":\"^factions:\\\\d+(;\\\\d+)*$\",\"type\":\"string\"}]},\"type\":\"array\"},\"key\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"offset\":{\"default\":0,\"format\":\"int32\",\"minimum\":0,\"type\":\"integer\"},\"sort\":{\"enum\":[\"DESC\",\"ASC\"],\"type\":\"string\"},\"timestamp\":{\"oneOf\":[{\"format\":\"int32\",\"type\":\"integer\"},{\"type\":\"string\"}]}},\"required\":[],\"type\":\"object\"}")
 })
 
 // GetUsersSearch executes operation getUsersSearch (GET /user/search; key access: public) using its exact documented path.
@@ -15616,8 +15616,8 @@ var operationMetadata = map[string]OperationMetadata{
 	"getMyDetailedTrade":               {Stability: "Stable", CacheTTLSeconds: 0, AccessLevel: "limited", Paginated: false, ResponseSchema: "UserTradeResponse", Path: "/user/{tradeId}/trade"},
 }
 
-// SpecSHA256 is the SHA-256 of the pinned OpenAPI document spec/openapi-6.15.0.json (P8.7).
-const SpecSHA256 = "2b8205f8a3da430225e85df5d2d69d73a299296cfcae34809dfaff0c9d0ff872"
+// SpecSHA256 is the SHA-256 of the pinned OpenAPI document spec/openapi-6.15.7.json (P8.7).
+const SpecSHA256 = "4d26262dc69032a06457b4bb2a1d47ecf7f4f3a47ac7e980f1c545af4dc153a2"
 
 var operationDecoders = map[string]func([]byte) (any, error){
 	"getCompanyGeneric": func(raw []byte) (any, error) {

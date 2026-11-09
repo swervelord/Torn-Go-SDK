@@ -1,6 +1,6 @@
 # Models and wire fidelity
 
-The `models` package represents all 724 official 6.15.0 components. The `legacy` package independently represents all 711 components in the pinned 6.13.6 snapshot. Neither package aliases the other. Generation also names nested objects, parameter unions, inline enums, and exact-operation response bodies. These additional declarations express actual schemas; they are not an artificial declaration-count target.
+The `models` package represents all 726 official 6.15.7 components. The `legacy` package independently represents all 711 components in the pinned 6.13.6 snapshot. Neither package aliases the other. Generation also names nested objects, parameter unions, inline enums, and exact-operation response bodies. These additional declarations express actual schemas; they are not an artificial declaration-count target.
 
 ## Working with values
 
@@ -25,6 +25,21 @@ An upstream required property without a corresponding property schema remains re
 ## Current and historical elimination models
 
 `models.TornEliminationTeam` requires `captains`, with a nullable captain and at most five vice captains. `legacy.TornEliminationTeam` requires the historical `leaders` property. An old payload does not decode as a current team. The added current `ErrorNoCompetitionAvailable` type validates error code 33. Migration must explicitly choose the intended version's package and map changed fields.
+
+## Renamed and removed declarations
+
+Torn 6.15.7 promoted the inline attack log participants to the components
+`AttackLogAttacker`, `AttackLogDefender` and `AttackLogItem`. Those names now
+denote the objects; the nullable unions on `AttackLog.Attacker`,
+`AttackLog.Defender` and `AttackLogAttacker.Item` are `AttackLogAttackerField`,
+`AttackLogDefenderField` and `AttackLogAttackerItemField` (natural name taken by
+a component), and `AttackLog.AttackerItem` is `Optional[AttackLogAttackerItem]`.
+The same release removed the unreferenced `CompanySearchParameter`,
+`Parameters` and `UserSearchParameter` schemas. The hand-maintained
+`models/deprecated.go` keeps the old names as deprecated type aliases (plus
+their enum constants, `Values` functions and constructors) wherever an
+equivalent generated type exists; `Validate`/`DecodeSchema` no longer know the
+removed schema names.
 
 ## Verification
 

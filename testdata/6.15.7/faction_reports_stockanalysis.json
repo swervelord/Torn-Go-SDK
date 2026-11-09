@@ -1,0 +1,49 @@
+{
+  "reports": [
+    {
+      "type": "stockanalysis",
+      "target_id": null,
+      "reporter_id": 1001,
+      "faction_id": 2001,
+      "timestamp": 1794230000,
+      "report": {
+        "items": [
+          {
+            "country": "Mexico",
+            "item": {
+              "id": 260,
+              "name": "Dahlia",
+              "stock": 1520,
+              "price": 300,
+              "value": 2410,
+              "due": null
+            },
+            "trip_duration": 1560,
+            "hourly_profit": 384000,
+            "restock_timestamp": null
+          },
+          {
+            "country": "Japan",
+            "item": {
+              "id": 277,
+              "name": "Cherry Blossom",
+              "stock": 0,
+              "price": 500,
+              "value": 3700,
+              "due": 1794231200
+            },
+            "trip_duration": 4920,
+            "hourly_profit": 0,
+            "restock_timestamp": 1794231200
+          }
+        ]
+      }
+    }
+  ],
+  "_metadata": {
+    "links": {
+      "prev": null,
+      "next": null
+    }
+  }
+}

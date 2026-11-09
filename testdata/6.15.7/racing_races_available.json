@@ -1,0 +1,94 @@
+{
+  "races": [
+    {
+      "id": 21516466,
+      "title": "Revenant Racing",
+      "track_id": 7,
+      "creator_id": 1001,
+      "status": "open",
+      "laps": 20,
+      "participants": {
+        "minimum": 2,
+        "maximum": 100,
+        "current": 2
+      },
+      "schedule": {
+        "join_from": 1794217915,
+        "join_until": 1794337195,
+        "start": 1794337195,
+        "end": null
+      },
+      "requirements": {
+        "driver_class": null,
+        "car_class": "E",
+        "car_item_id": null,
+        "requires_stock_car": true,
+        "requires_password": true,
+        "join_fee": 0
+      },
+      "is_official": false
+    },
+    {
+      "id": 21519066,
+      "title": "Spider-Beagle 300",
+      "track_id": 6,
+      "creator_id": 1002,
+      "status": "open",
+      "laps": 25,
+      "participants": {
+        "minimum": 2,
+        "maximum": 36,
+        "current": 1
+      },
+      "schedule": {
+        "join_from": 1794233954,
+        "join_until": 1794333554,
+        "start": 1794333554,
+        "end": null
+      },
+      "requirements": {
+        "driver_class": null,
+        "car_class": null,
+        "car_item_id": 91,
+        "requires_stock_car": true,
+        "requires_password": true,
+        "join_fee": 1000000
+      },
+      "is_official": false
+    },
+    {
+      "id": 21518777,
+      "title": "TNL/Starlight",
+      "track_id": 20,
+      "creator_id": 1003,
+      "status": "open",
+      "laps": 100,
+      "participants": {
+        "minimum": 2,
+        "maximum": 100,
+        "current": 5
+      },
+      "schedule": {
+        "join_from": 1794232395,
+        "join_until": 1794311955,
+        "start": 1794311955,
+        "end": null
+      },
+      "requirements": {
+        "driver_class": null,
+        "car_class": null,
+        "car_item_id": null,
+        "requires_stock_car": false,
+        "requires_password": true,
+        "join_fee": 0
+      },
+      "is_official": false
+    }
+  ],
+  "_metadata": {
+    "links": {
+      "prev": null,
+      "next": null
+    }
+  }
+}

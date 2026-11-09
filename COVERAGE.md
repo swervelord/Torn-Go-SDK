@@ -1,8 +1,8 @@
 # API coverage and evidence
 
 The primary authority is the official [Torn OpenAPI specification](https://www.torn.com/swagger/openapi.json).
-The current snapshot was fetched on October 30, 2026 with a custom user agent.
-It reports version **6.15.0**. Versioned bytes, SHA-256 hashes, source URLs, and
+The current snapshot was fetched on November 9, 2026 with a custom user agent.
+It reports version **6.15.7**. Versioned bytes, SHA-256 hashes, source URLs, and
 inventories are committed in [provenance.json](spec/provenance.json).
 
 The historical 6.13.6 contract is semantically equal to the specification in
@@ -14,14 +14,14 @@ version; the SDK retains independent generated historical artifacts.
 | Public surface | Verified inventory | Evidence |
 | --- | ---: | --- |
 | Exact current operations | 237 | Every public exact method called through a mock HTTP transport with independently spec-derived paths, inputs, queries, response payloads, and media types |
-| Current component schemas | 724 | Three independent schema-boundary samples per component, concrete decoding, validated round-trips, and rejection boundaries |
+| Current component schemas | 726 | Three independent schema-boundary samples per component, concrete decoding, validated round-trips, and rejection boundaries |
 | Historical component schemas | 711 | Three historical spec-derived samples per component, independent concrete decoding and round-trips |
 | Compatibility declarations | 549 | Committed neutral contracts, typed declarations, defaults/aliases/extras/custom decoding, and handwritten boundary fixtures |
 | Selection capabilities | 208 | Official enums, exact endpoints, documented standalone/direct/legacy rules, current and historical selection tests |
 | Maintained v1 selection catalog | 184 | Explicit resource inventories, legacy-only routing, supported/unsupported fallback tests, and evidence limitations |
 | Typed convenience helpers | 210 | All JSON selection helpers, three CSV helpers, and two public aliases invoked through transport |
 | Raw convenience helpers | 224 | Every non-CSV capability (205) and every schema-less v1-only selection (19) has a raw helper and dispatch test |
-| Shared conformance scenarios | 30 | `spec/shared/conformance/*.json` run by `TestSharedConformance` through the mock transport and virtual clock |
+| Shared conformance scenarios | 32 | `spec/shared/conformance/*.json` run by `TestSharedConformance` through the mock transport and virtual clock |
 | Paginated operations | 58 | Generated `<Op>Pager` (and `<Op>Items` for single-list responses) |
 | Dedicated CSV operations | 3 | User, faction, and company exact text responses and facade dispatch |
 
@@ -35,7 +35,7 @@ Go API. More focused manifests describe [models and operations](spec/model-cover
 `schema_contract_test.go` constructs samples from the pinned specification's
 required/optional/nullable/enum/array/composition constraints. It does not call the
 decoder to manufacture expected acceptance. There are **2,133 frozen** and
-**2,172 current** acceptance samples. `concrete_models_test.go` also decodes those
+**2,178 current** acceptance samples. `concrete_models_test.go` also decodes those
 samples into their actual public Go types and verifies valid round-trips.
 
 `operations_contract_test.go` derives expected HTTP requests directly from the
@@ -57,7 +57,12 @@ The opt-in live profile/job and travel inventory/job tests were run successfully
 during implementation and verified exactly one actual HTTP request per batch.
 They read a credential only from the environment, save no private payload, and
 are skipped by normal CI. `api_6150_test.go` decodes a scrubbed live travel
-inventory sample offline, including a null item `uid`.
+inventory sample offline, including a null item `uid`. The 6.15.7 live tests
+(`TestLiveGymUnlockedGyms`, `TestLiveTornCalendarAndMultiIDPath`,
+`TestLiveRacingRacesAvailable`) bound each batch to one request, and
+`api_6157_test.go` decodes scrubbed live gym, calendar, available races, attack
+log and user log samples from `testdata/6.15.7` plus a schema-built faction
+stock analysis report.
 
 ## Boundaries and intentional choices
 
@@ -65,8 +70,7 @@ The official current contract adds `ErrorNoCompetitionAvailable` and changes
 elimination teams from `leaders` to required `captains`. Current and historical
 types remain distinct, with explicit migration tests. See [MODELS.md](MODELS.md).
 
-The official contract has four required properties without value schemas:
-`ReportStockAnalysis.items[].item.stock`,
+The official contract has three required properties without value schemas:
 `UserCrimeDetailsBootlegging.dvd_copies`, `UserTrade.items`, and
 `TornHalloweenUpgrade.type`. Their values remain exact raw JSON. Presence is
 validated except where the live sweep proved Torn omits the property

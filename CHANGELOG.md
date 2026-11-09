@@ -1,5 +1,83 @@
 # Changelog
 
+## Unreleased: 0.2.0 — Torn API 6.15.7 (2026-11-09)
+
+`SDKVersion` is `0.2.0`: the regenerated 6.15.7 models change several public
+field types (see Breaking changes), which is a minor release while the module
+is `v0`. Requirement ids refer to `spec/shared/PARITY_SPEC.md`.
+
+### Added
+- Refresh the official pinned contract to 6.15.7 with regenerated models, exact
+  operations, selection tokens, helpers, manifests, typing report and
+  provenance. `APIVersion`/`SpecVersion` are `6.15.7` (P8.7). None of these
+  changes had patch notes; all come from the spec diff and live probes.
+- `models.UserUnlockedGym` and the required `UserGymResponseGym.UnlockedGyms`
+  (`user/gym`: `UserGym`, `GetMyGym`, `UserSelections.Gym`).
+- `TornCalendarActivity.EarliestStart` and `LatestEnd` (required).
+- `models.RacingRacesCategoryEnum` (`official`, `custom`, `available`) for the
+  `cat` parameter of `GetRacingRaces` and the generic racing call;
+  `available` lists races that have not started and can still be joined
+  (`from`/`to` are ignored). `RacingRaceTypeEnum` is unchanged (P1.1).
+- `models.AttackLogAttacker`, `AttackLogDefender` and `AttackLogItem`
+  components (attack log participants, formerly inline objects).
+- `ReportStockAnalysisItemsItem.RestockTimestamp` (required, nullable union)
+  for faction stock analysis reports.
+- `models/deprecated.go` keeps deprecated aliases for renamed or removed
+  names: `AttackLogAttackerVariant1`, `AttackLogDefenderVariant1`,
+  `AttackLogAttackerVariant1Item`, `AttackLogAttackerVariant1ItemVariant1`,
+  `NewAttackLogAttackerVariant1ItemVariant1/2`, and `CompanySearchParameter`,
+  `Parameters`, `UserSearchParameter` (with their `Variant1` types, enum
+  constants, `Variant1Values` and constructors) aliased to the equivalent
+  generated search filter items.
+- Offline tests decode scrubbed live 6.15.7 samples (`testdata/6.15.7`: gym,
+  calendar, available races, attack log with a stealthed entry, user log) and
+  a schema-built stock analysis report; opt-in live tests cover `user/gym`,
+  `torn/calendar` with `/torn/1,2/items`, and `racing/races` with
+  `cat=available`, one request per batch.
+
+### Changed
+- Array path parameters keep literal commas (`/torn/1,2/items`,
+  `/forum/1,2/threads`) instead of `1%2C2`, matching the documented
+  `style: simple` serialisation; other characters are still escaped.
+- `user/log` `from`/`to` are documented inclusive bounds and
+  `_metadata.nanostamp` is the paging cursor; `GetMyLogsPager.Prev` follows
+  the `prev` link, which already carries `nanostamp` (P7.1). No wire change.
+- `ReportStockAnalysisItemsItemItem.Stock` is now typed `int64`: the contract
+  finally gives the required property a schema, so the official contract has
+  three (was four) required properties without value schemas.
+
+### Breaking changes and migration
+- `AttackLog.Attacker` and `AttackLog.Defender` are now
+  `AttackLogAttackerField` / `AttackLogDefenderField` because
+  `AttackLogAttacker` / `AttackLogDefender` name the new components.
+  `entry.Attacker.AsVariant1()` still compiles and returns the participant;
+  code naming the union types or calling `NewAttackLogAttackerVariantN` /
+  `NewAttackLogDefenderVariantN` must use `...FieldVariantN`.
+- `AttackLog.AttackerItem` is `Optional[AttackLogAttackerItem]`, where
+  `AttackLogAttackerItem` is now a nullable union (`AsVariant1()` returns
+  `AttackLogItem`, `AsVariant2()` means unresolved) instead of a struct.
+  The attacker's `Item.AsVariant1()` now returns `AttackLogItem` whose `ID`
+  and `Name` are plain values: drop `.Value`.
+- `TornCalendarActivity.FixedStartTime` is `bool` instead of
+  `Optional[bool]`: read it directly.
+- `GetRacingRacesParams.Cat` is `*models.RacingRacesCategoryEnum` and the
+  generic racing `cat` union's first variant is `RacingRacesCategoryEnum`
+  (`NewGetRacingGenericParamCatVariant1`, `AsVariant1`). Use
+  `models.RacingRacesCategoryEnumOfficial`/`Custom`/`Available` or convert
+  with `models.RacingRacesCategoryEnum(v)`.
+- `ReportStockAnalysisItemsItemItem.Stock` is `int64` instead of
+  `json.RawMessage`.
+- Newly required properties (`unlocked_gyms`, `earliest_start`, `latest_end`,
+  `fixed_start_time`, `restock_timestamp`) are rejected when missing, like
+  every required property; live responses carry them.
+- `models.Validate`, `ValidateStrict` and `DecodeSchema` no longer know
+  `CompanySearchParameter`, `Parameters`, `UserSearchParameter` or the old
+  inline `AttackLogAttackerVariant1...` / `AttackLogDefenderVariant1` names.
+
+Current inventory: 237 exact operations, 726 component schemas, 208 selection
+capabilities, 210 typed helpers, and 224 raw helpers. Frozen 6.13.6 schemas and
+549 compatibility declarations remain available.
+
 ## 0.1.0 - 2026-11-01: cross-SDK parity
 
 First tagged release (`v0.1.0`); it also contains the untagged 6.14.0 and 6.15.0

@@ -1350,9 +1350,9 @@ func (v *AttackId) UnmarshalJSON(data []byte) error { return contract.DecodeInt(
 // AttackLog is generated from the pinned official Torn contract.
 type AttackLog struct {
 	Action       AttackActionEnum                `json:"action"`
-	Attacker     AttackLogAttacker               `json:"attacker"`
+	Attacker     AttackLogAttackerField          `json:"attacker"`
 	AttackerItem Optional[AttackLogAttackerItem] `json:"attacker_item"`
-	Defender     AttackLogDefender               `json:"defender"`
+	Defender     AttackLogDefenderField          `json:"defender"`
 	Icon         string                          `json:"icon"`
 	Text         string                          `json:"text"`
 	Timestamp    int64                           `json:"timestamp"`
@@ -1472,6 +1472,194 @@ func (v AttackLog) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["timestamp"] = data
+	return json.Marshal(fields)
+}
+
+// AttackLogAttacker is generated from the pinned official Torn contract.
+type AttackLogAttacker struct {
+	ID   UserId                     `json:"id"`
+	Item AttackLogAttackerItemField `json:"item"`
+	Name string                     `json:"name"`
+	// AdditionalProperties keeps undocumented members byte-for-byte.
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
+func (v *AttackLogAttacker) UnmarshalJSON(data []byte) error {
+	fields, err := contract.SplitObject(data)
+	if err != nil {
+		return err
+	}
+	type plain AttackLogAttacker
+	var out plain
+	if raw, ok := fields["id"]; ok {
+		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
+			return contract.At(err, "id")
+		}
+		delete(fields, "id")
+	} else {
+		return contract.Missing("id")
+	}
+	if raw, ok := fields["item"]; ok {
+		if err := contract.DecodeInto(raw, &out.Item); err != nil {
+			return contract.At(err, "item")
+		}
+		delete(fields, "item")
+	} else {
+		return contract.Missing("item")
+	}
+	if raw, ok := fields["name"]; ok {
+		if err := contract.DecodeString(raw, &out.Name); err != nil {
+			return contract.At(err, "name")
+		}
+		delete(fields, "name")
+	} else {
+		return contract.Missing("name")
+	}
+	out.AdditionalProperties = fields
+	*v = AttackLogAttacker(out)
+	return nil
+}
+
+// MarshalJSON writes documented and additional members.
+func (v AttackLogAttacker) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+3)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Item)
+	if err != nil {
+		return nil, err
+	}
+	fields["item"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
+	return json.Marshal(fields)
+}
+
+// AttackLogDefender is generated from the pinned official Torn contract.
+type AttackLogDefender struct {
+	ID   UserId `json:"id"`
+	Name string `json:"name"`
+	// AdditionalProperties keeps undocumented members byte-for-byte.
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
+func (v *AttackLogDefender) UnmarshalJSON(data []byte) error {
+	fields, err := contract.SplitObject(data)
+	if err != nil {
+		return err
+	}
+	type plain AttackLogDefender
+	var out plain
+	if raw, ok := fields["id"]; ok {
+		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
+			return contract.At(err, "id")
+		}
+		delete(fields, "id")
+	} else {
+		return contract.Missing("id")
+	}
+	if raw, ok := fields["name"]; ok {
+		if err := contract.DecodeString(raw, &out.Name); err != nil {
+			return contract.At(err, "name")
+		}
+		delete(fields, "name")
+	} else {
+		return contract.Missing("name")
+	}
+	out.AdditionalProperties = fields
+	*v = AttackLogDefender(out)
+	return nil
+}
+
+// MarshalJSON writes documented and additional members.
+func (v AttackLogDefender) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
+	return json.Marshal(fields)
+}
+
+// AttackLogItem is generated from the pinned official Torn contract.
+type AttackLogItem struct {
+	ID   ItemId `json:"id"`
+	Name string `json:"name"`
+	// AdditionalProperties keeps undocumented members byte-for-byte.
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
+func (v *AttackLogItem) UnmarshalJSON(data []byte) error {
+	fields, err := contract.SplitObject(data)
+	if err != nil {
+		return err
+	}
+	type plain AttackLogItem
+	var out plain
+	if raw, ok := fields["id"]; ok {
+		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
+			return contract.At(err, "id")
+		}
+		delete(fields, "id")
+	} else {
+		return contract.Missing("id")
+	}
+	if raw, ok := fields["name"]; ok {
+		if err := contract.DecodeString(raw, &out.Name); err != nil {
+			return contract.At(err, "name")
+		}
+		delete(fields, "name")
+	} else {
+		return contract.Missing("name")
+	}
+	out.AdditionalProperties = fields
+	*v = AttackLogItem(out)
+	return nil
+}
+
+// MarshalJSON writes documented and additional members.
+func (v AttackLogItem) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
 	return json.Marshal(fields)
 }
 
@@ -6038,101 +6226,6 @@ func (v CompanyProfileResponseMixed) MarshalJSON() ([]byte, error) {
 	}
 	fields["profile"] = data
 	return json.Marshal(fields)
-}
-
-// CompanySearchParameter is generated from the pinned official Torn contract.
-// Which reports the matching variant and AsVariantN decodes it.
-type CompanySearchParameter struct {
-	raw   json.RawMessage
-	match contract.Mask
-}
-
-// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *CompanySearchParameter) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("CompanySearchParameter", data)
-	if err != nil {
-		return err
-	}
-	v.raw = append(v.raw[:0], data...)
-	v.match = match
-	return nil
-}
-
-// MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v CompanySearchParameter) MarshalJSON() ([]byte, error) {
-	if len(v.raw) == 0 {
-		return []byte("null"), nil
-	}
-	return v.raw, nil
-}
-
-// RawJSON returns a copy of the exact JSON value.
-func (v CompanySearchParameter) RawJSON() json.RawMessage {
-	return append(json.RawMessage(nil), v.raw...)
-}
-
-// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v CompanySearchParameter) Which() int { return v.match.First() + 1 }
-
-// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v CompanySearchParameter) Matches(i int) bool { return v.match.Has(i - 1) }
-
-// AsVariant1 decodes variant 1 (CompanySearchParameterVariant1); it fails when Matches(1) is false.
-func (v CompanySearchParameter) AsVariant1() (CompanySearchParameterVariant1, error) {
-	var out CompanySearchParameterVariant1
-	if !v.match.Has(0) {
-		return out, contract.NotVariant("CompanySearchParameter", 1, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, (*string)(&out))
-	return out, err
-}
-
-// NewCompanySearchParameterVariant1 builds a CompanySearchParameter from variant 1 (CompanySearchParameterVariant1); it fails when the value would decode as another variant.
-func NewCompanySearchParameterVariant1(value CompanySearchParameterVariant1) (CompanySearchParameter, error) {
-	var out CompanySearchParameter
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("CompanySearchParameter", 1, data)
-	}
-	return out, err
-}
-
-// AsVariant2 decodes variant 2 (string); it fails when Matches(2) is false.
-func (v CompanySearchParameter) AsVariant2() (string, error) {
-	var out string
-	if !v.match.Has(1) {
-		return out, contract.NotVariant("CompanySearchParameter", 2, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, &out)
-	return out, err
-}
-
-// NewCompanySearchParameterVariant2 builds a CompanySearchParameter from variant 2 (string); it fails when the value would decode as another variant.
-func NewCompanySearchParameterVariant2(value string) (CompanySearchParameter, error) {
-	var out CompanySearchParameter
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("CompanySearchParameter", 2, data)
-	}
-	return out, err
-}
-
-var companySearchParameterVariantNames = [...]string{"CompanySearchParameterVariant1", "string"}
-
-// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v CompanySearchParameter) WhichName() string {
-	if i := v.Which(); i > 0 {
-		return companySearchParameterVariantNames[i-1]
-	}
-	return ""
 }
 
 // CompanySearchProfile is generated from the pinned official Torn contract.
@@ -26252,99 +26345,6 @@ func (v *OrganizedCrimeName) UnmarshalJSON(data []byte) error {
 	return contract.DecodeString(data, (*string)(v))
 }
 
-// Parameters is generated from the pinned official Torn contract.
-// Which reports the matching variant and AsVariantN decodes it.
-type Parameters struct {
-	raw   json.RawMessage
-	match contract.Mask
-}
-
-// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *Parameters) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("Parameters", data)
-	if err != nil {
-		return err
-	}
-	v.raw = append(v.raw[:0], data...)
-	v.match = match
-	return nil
-}
-
-// MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v Parameters) MarshalJSON() ([]byte, error) {
-	if len(v.raw) == 0 {
-		return []byte("null"), nil
-	}
-	return v.raw, nil
-}
-
-// RawJSON returns a copy of the exact JSON value.
-func (v Parameters) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
-
-// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v Parameters) Which() int { return v.match.First() + 1 }
-
-// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v Parameters) Matches(i int) bool { return v.match.Has(i - 1) }
-
-// AsVariant1 decodes variant 1 (ParametersVariant1); it fails when Matches(1) is false.
-func (v Parameters) AsVariant1() (ParametersVariant1, error) {
-	var out ParametersVariant1
-	if !v.match.Has(0) {
-		return out, contract.NotVariant("Parameters", 1, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, (*string)(&out))
-	return out, err
-}
-
-// NewParametersVariant1 builds a Parameters from variant 1 (ParametersVariant1); it fails when the value would decode as another variant.
-func NewParametersVariant1(value ParametersVariant1) (Parameters, error) {
-	var out Parameters
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("Parameters", 1, data)
-	}
-	return out, err
-}
-
-// AsVariant2 decodes variant 2 (string); it fails when Matches(2) is false.
-func (v Parameters) AsVariant2() (string, error) {
-	var out string
-	if !v.match.Has(1) {
-		return out, contract.NotVariant("Parameters", 2, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, &out)
-	return out, err
-}
-
-// NewParametersVariant2 builds a Parameters from variant 2 (string); it fails when the value would decode as another variant.
-func NewParametersVariant2(value string) (Parameters, error) {
-	var out Parameters
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("Parameters", 2, data)
-	}
-	return out, err
-}
-
-var parametersVariantNames = [...]string{"ParametersVariant1", "string"}
-
-// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v Parameters) WhichName() string {
-	if i := v.Which(); i > 0 {
-		return parametersVariantNames[i-1]
-	}
-	return ""
-}
-
 // PersonalStatsAttackingExtended is generated from the pinned official Torn contract.
 type PersonalStatsAttackingExtended struct {
 	Attacking PersonalStatsAttackingExtendedAttacking `json:"attacking"`
@@ -29973,6 +29973,35 @@ func RacingRaceTypeEnumValues() []RacingRaceTypeEnum {
 	return []RacingRaceTypeEnum{RacingRaceTypeEnumOfficial, RacingRaceTypeEnumCustom}
 }
 
+// RacingRacesCategoryEnum is generated from the pinned official Torn contract.
+type RacingRacesCategoryEnum string
+
+// UnmarshalJSON decodes the string without enum or constraint checks (tolerant mode).
+func (v *RacingRacesCategoryEnum) UnmarshalJSON(data []byte) error {
+	return contract.DecodeString(data, (*string)(v))
+}
+
+// Known RacingRacesCategoryEnum values. Other values decode too; see IsKnown.
+const (
+	RacingRacesCategoryEnumOfficial  RacingRacesCategoryEnum = "official"
+	RacingRacesCategoryEnumCustom    RacingRacesCategoryEnum = "custom"
+	RacingRacesCategoryEnumAvailable RacingRacesCategoryEnum = "available"
+)
+
+// IsKnown reports whether v is a value of the pinned contract. Unknown values decode successfully and round-trip unchanged (P1.1).
+func (v RacingRacesCategoryEnum) IsKnown() bool {
+	switch v {
+	case RacingRacesCategoryEnumOfficial, RacingRacesCategoryEnumCustom, RacingRacesCategoryEnumAvailable:
+		return true
+	}
+	return false
+}
+
+// RacingRacesCategoryEnumValues returns every known RacingRacesCategoryEnum value in contract order.
+func RacingRacesCategoryEnumValues() []RacingRacesCategoryEnum {
+	return []RacingRacesCategoryEnum{RacingRacesCategoryEnumOfficial, RacingRacesCategoryEnumCustom, RacingRacesCategoryEnumAvailable}
+}
+
 // RacingRacesResponse is generated from the pinned official Torn contract.
 type RacingRacesResponse struct {
 	Metadata RequestMetadataWithLinks `json:"_metadata"`
@@ -32534,11 +32563,13 @@ func (v TornBountiesResponse) MarshalJSON() ([]byte, error) {
 
 // TornCalendarActivity is generated from the pinned official Torn contract.
 type TornCalendarActivity struct {
-	Description    string         `json:"description"`
-	End            int64          `json:"end"`
-	FixedStartTime Optional[bool] `json:"fixed_start_time"`
-	Start          int64          `json:"start"`
-	Title          string         `json:"title"`
+	Description    string `json:"description"`
+	EarliestStart  int64  `json:"earliest_start"`
+	End            int64  `json:"end"`
+	FixedStartTime bool   `json:"fixed_start_time"`
+	LatestEnd      int64  `json:"latest_end"`
+	Start          int64  `json:"start"`
+	Title          string `json:"title"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -32559,6 +32590,14 @@ func (v *TornCalendarActivity) UnmarshalJSON(data []byte) error {
 	} else {
 		return contract.Missing("description")
 	}
+	if raw, ok := fields["earliest_start"]; ok {
+		if err := contract.DecodeInt(raw, &out.EarliestStart); err != nil {
+			return contract.At(err, "earliest_start")
+		}
+		delete(fields, "earliest_start")
+	} else {
+		return contract.Missing("earliest_start")
+	}
 	if raw, ok := fields["end"]; ok {
 		if err := contract.DecodeInt(raw, &out.End); err != nil {
 			return contract.At(err, "end")
@@ -32568,10 +32607,20 @@ func (v *TornCalendarActivity) UnmarshalJSON(data []byte) error {
 		return contract.Missing("end")
 	}
 	if raw, ok := fields["fixed_start_time"]; ok {
-		if err := contract.DecodeInto(raw, &out.FixedStartTime); err != nil {
+		if err := contract.DecodeBool(raw, &out.FixedStartTime); err != nil {
 			return contract.At(err, "fixed_start_time")
 		}
 		delete(fields, "fixed_start_time")
+	} else {
+		return contract.Missing("fixed_start_time")
+	}
+	if raw, ok := fields["latest_end"]; ok {
+		if err := contract.DecodeInt(raw, &out.LatestEnd); err != nil {
+			return contract.At(err, "latest_end")
+		}
+		delete(fields, "latest_end")
+	} else {
+		return contract.Missing("latest_end")
 	}
 	if raw, ok := fields["start"]; ok {
 		if err := contract.DecodeInt(raw, &out.Start); err != nil {
@@ -32596,7 +32645,7 @@ func (v *TornCalendarActivity) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON writes documented and additional members.
 func (v TornCalendarActivity) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+5)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+7)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -32607,18 +32656,26 @@ func (v TornCalendarActivity) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["description"] = data
+	data, err = json.Marshal(v.EarliestStart)
+	if err != nil {
+		return nil, err
+	}
+	fields["earliest_start"] = data
 	data, err = json.Marshal(v.End)
 	if err != nil {
 		return nil, err
 	}
 	fields["end"] = data
-	if v.FixedStartTime.Present {
-		data, err = json.Marshal(v.FixedStartTime)
-		if err != nil {
-			return nil, err
-		}
-		fields["fixed_start_time"] = data
+	data, err = json.Marshal(v.FixedStartTime)
+	if err != nil {
+		return nil, err
 	}
+	fields["fixed_start_time"] = data
+	data, err = json.Marshal(v.LatestEnd)
+	if err != nil {
+		return nil, err
+	}
+	fields["latest_end"] = data
 	data, err = json.Marshal(v.Start)
 	if err != nil {
 		return nil, err
@@ -52242,123 +52299,6 @@ func (v UserSearch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fields)
 }
 
-// UserSearchParameter is generated from the pinned official Torn contract.
-// Which reports the matching variant and AsVariantN decodes it.
-type UserSearchParameter struct {
-	raw   json.RawMessage
-	match contract.Mask
-}
-
-// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *UserSearchParameter) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("UserSearchParameter", data)
-	if err != nil {
-		return err
-	}
-	v.raw = append(v.raw[:0], data...)
-	v.match = match
-	return nil
-}
-
-// MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v UserSearchParameter) MarshalJSON() ([]byte, error) {
-	if len(v.raw) == 0 {
-		return []byte("null"), nil
-	}
-	return v.raw, nil
-}
-
-// RawJSON returns a copy of the exact JSON value.
-func (v UserSearchParameter) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
-
-// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v UserSearchParameter) Which() int { return v.match.First() + 1 }
-
-// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v UserSearchParameter) Matches(i int) bool { return v.match.Has(i - 1) }
-
-// AsVariant1 decodes variant 1 (UserSearchParameterVariant1); it fails when Matches(1) is false.
-func (v UserSearchParameter) AsVariant1() (UserSearchParameterVariant1, error) {
-	var out UserSearchParameterVariant1
-	if !v.match.Has(0) {
-		return out, contract.NotVariant("UserSearchParameter", 1, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, (*string)(&out))
-	return out, err
-}
-
-// NewUserSearchParameterVariant1 builds a UserSearchParameter from variant 1 (UserSearchParameterVariant1); it fails when the value would decode as another variant.
-func NewUserSearchParameterVariant1(value UserSearchParameterVariant1) (UserSearchParameter, error) {
-	var out UserSearchParameter
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("UserSearchParameter", 1, data)
-	}
-	return out, err
-}
-
-// AsVariant2 decodes variant 2 (string); it fails when Matches(2) is false.
-func (v UserSearchParameter) AsVariant2() (string, error) {
-	var out string
-	if !v.match.Has(1) {
-		return out, contract.NotVariant("UserSearchParameter", 2, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, &out)
-	return out, err
-}
-
-// NewUserSearchParameterVariant2 builds a UserSearchParameter from variant 2 (string); it fails when the value would decode as another variant.
-func NewUserSearchParameterVariant2(value string) (UserSearchParameter, error) {
-	var out UserSearchParameter
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("UserSearchParameter", 2, data)
-	}
-	return out, err
-}
-
-// AsVariant3 decodes variant 3 (string); it fails when Matches(3) is false.
-func (v UserSearchParameter) AsVariant3() (string, error) {
-	var out string
-	if !v.match.Has(2) {
-		return out, contract.NotVariant("UserSearchParameter", 3, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeString(raw, &out)
-	return out, err
-}
-
-// NewUserSearchParameterVariant3 builds a UserSearchParameter from variant 3 (string); it fails when the value would decode as another variant.
-func NewUserSearchParameterVariant3(value string) (UserSearchParameter, error) {
-	var out UserSearchParameter
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(2) {
-		err = contract.NotVariant("UserSearchParameter", 3, data)
-	}
-	return out, err
-}
-
-var userSearchParameterVariantNames = [...]string{"UserSearchParameterVariant1", "string", "string"}
-
-// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v UserSearchParameter) WhichName() string {
-	if i := v.Which(); i > 0 {
-		return userSearchParameterVariantNames[i-1]
-	}
-	return ""
-}
-
 // UserSearchResponse is generated from the pinned official Torn contract.
 type UserSearchResponse struct {
 	Metadata RequestMetadataWithLinksAndTotal `json:"_metadata"`
@@ -54058,6 +53998,78 @@ func (v UserTravelResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fields)
 }
 
+// UserUnlockedGym is generated from the pinned official Torn contract.
+type UserUnlockedGym struct {
+	Available bool   `json:"available"`
+	ID        GymId  `json:"id"`
+	Name      string `json:"name"`
+	// AdditionalProperties keeps undocumented members byte-for-byte.
+	AdditionalProperties map[string]json.RawMessage `json:"-"`
+}
+
+// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
+func (v *UserUnlockedGym) UnmarshalJSON(data []byte) error {
+	fields, err := contract.SplitObject(data)
+	if err != nil {
+		return err
+	}
+	type plain UserUnlockedGym
+	var out plain
+	if raw, ok := fields["available"]; ok {
+		if err := contract.DecodeBool(raw, &out.Available); err != nil {
+			return contract.At(err, "available")
+		}
+		delete(fields, "available")
+	} else {
+		return contract.Missing("available")
+	}
+	if raw, ok := fields["id"]; ok {
+		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
+			return contract.At(err, "id")
+		}
+		delete(fields, "id")
+	} else {
+		return contract.Missing("id")
+	}
+	if raw, ok := fields["name"]; ok {
+		if err := contract.DecodeString(raw, &out.Name); err != nil {
+			return contract.At(err, "name")
+		}
+		delete(fields, "name")
+	} else {
+		return contract.Missing("name")
+	}
+	out.AdditionalProperties = fields
+	*v = UserUnlockedGym(out)
+	return nil
+}
+
+// MarshalJSON writes documented and additional members.
+func (v UserUnlockedGym) MarshalJSON() ([]byte, error) {
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+3)
+	for k, x := range v.AdditionalProperties {
+		fields[k] = x
+	}
+	var data []byte
+	var err error
+	data, err = json.Marshal(v.Available)
+	if err != nil {
+		return nil, err
+	}
+	fields["available"] = data
+	data, err = json.Marshal(v.ID)
+	if err != nil {
+		return nil, err
+	}
+	fields["id"] = data
+	data, err = json.Marshal(v.Name)
+	if err != nil {
+		return nil, err
+	}
+	fields["name"] = data
+	return json.Marshal(fields)
+}
+
 // UserVirus is generated from the pinned official Torn contract.
 type UserVirus struct {
 	Item  UserVirusItem `json:"item"`
@@ -54826,16 +54838,16 @@ func (v AttackTerritoryWarId) WhichName() string {
 	return ""
 }
 
-// AttackLogAttacker is generated from the pinned official Torn contract.
+// AttackLogAttackerField is generated from the pinned official Torn contract.
 // Which reports the matching variant and AsVariantN decodes it.
-type AttackLogAttacker struct {
+type AttackLogAttackerField struct {
 	raw   json.RawMessage
 	match contract.Mask
 }
 
 // UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *AttackLogAttacker) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("AttackLogAttacker", data)
+func (v *AttackLogAttackerField) UnmarshalJSON(data []byte) error {
+	match, err := registry.Match("AttackLogAttackerField", data)
 	if err != nil {
 		return err
 	}
@@ -54845,7 +54857,7 @@ func (v *AttackLogAttacker) UnmarshalJSON(data []byte) error {
 }
 
 // MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v AttackLogAttacker) MarshalJSON() ([]byte, error) {
+func (v AttackLogAttackerField) MarshalJSON() ([]byte, error) {
 	if len(v.raw) == 0 {
 		return []byte("null"), nil
 	}
@@ -54853,140 +54865,84 @@ func (v AttackLogAttacker) MarshalJSON() ([]byte, error) {
 }
 
 // RawJSON returns a copy of the exact JSON value.
-func (v AttackLogAttacker) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
+func (v AttackLogAttackerField) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
 
 // Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v AttackLogAttacker) Which() int { return v.match.First() + 1 }
+func (v AttackLogAttackerField) Which() int { return v.match.First() + 1 }
 
 // Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v AttackLogAttacker) Matches(i int) bool { return v.match.Has(i - 1) }
+func (v AttackLogAttackerField) Matches(i int) bool { return v.match.Has(i - 1) }
 
-// AsVariant1 decodes variant 1 (AttackLogAttackerVariant1); it fails when Matches(1) is false.
-func (v AttackLogAttacker) AsVariant1() (AttackLogAttackerVariant1, error) {
-	var out AttackLogAttackerVariant1
+// AsVariant1 decodes variant 1 (AttackLogAttacker); it fails when Matches(1) is false.
+func (v AttackLogAttackerField) AsVariant1() (AttackLogAttacker, error) {
+	var out AttackLogAttacker
 	if !v.match.Has(0) {
-		return out, contract.NotVariant("AttackLogAttacker", 1, v.raw)
+		return out, contract.NotVariant("AttackLogAttackerField", 1, v.raw)
 	}
 	raw := v.raw
 	err := contract.DecodeInto(raw, &out)
 	return out, err
 }
 
-// NewAttackLogAttackerVariant1 builds a AttackLogAttacker from variant 1 (AttackLogAttackerVariant1); it fails when the value would decode as another variant.
-func NewAttackLogAttackerVariant1(value AttackLogAttackerVariant1) (AttackLogAttacker, error) {
-	var out AttackLogAttacker
+// NewAttackLogAttackerFieldVariant1 builds a AttackLogAttackerField from variant 1 (AttackLogAttacker); it fails when the value would decode as another variant.
+func NewAttackLogAttackerFieldVariant1(value AttackLogAttacker) (AttackLogAttackerField, error) {
+	var out AttackLogAttackerField
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = out.UnmarshalJSON(data)
 	}
 	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("AttackLogAttacker", 1, data)
+		err = contract.NotVariant("AttackLogAttackerField", 1, data)
 	}
 	return out, err
 }
 
 // AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
-func (v AttackLogAttacker) AsVariant2() (json.RawMessage, error) {
+func (v AttackLogAttackerField) AsVariant2() (json.RawMessage, error) {
 	var out json.RawMessage
 	if !v.match.Has(1) {
-		return out, contract.NotVariant("AttackLogAttacker", 2, v.raw)
+		return out, contract.NotVariant("AttackLogAttackerField", 2, v.raw)
 	}
 	raw := v.raw
 	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
 	return out, err
 }
 
-// NewAttackLogAttackerVariant2 builds a AttackLogAttacker from variant 2 (null); it fails when the value would decode as another variant.
-func NewAttackLogAttackerVariant2(value json.RawMessage) (AttackLogAttacker, error) {
-	var out AttackLogAttacker
+// NewAttackLogAttackerFieldVariant2 builds a AttackLogAttackerField from variant 2 (null); it fails when the value would decode as another variant.
+func NewAttackLogAttackerFieldVariant2(value json.RawMessage) (AttackLogAttackerField, error) {
+	var out AttackLogAttackerField
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = out.UnmarshalJSON(data)
 	}
 	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("AttackLogAttacker", 2, data)
+		err = contract.NotVariant("AttackLogAttackerField", 2, data)
 	}
 	return out, err
 }
 
-var attackLogAttackerVariantNames = [...]string{"AttackLogAttackerVariant1", "null"}
+var attackLogAttackerFieldVariantNames = [...]string{"AttackLogAttacker", "null"}
 
 // WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v AttackLogAttacker) WhichName() string {
+func (v AttackLogAttackerField) WhichName() string {
 	if i := v.Which(); i > 0 {
-		return attackLogAttackerVariantNames[i-1]
+		return attackLogAttackerFieldVariantNames[i-1]
 	}
 	return ""
 }
 
 // AttackLogAttackerItem is generated from the pinned official Torn contract.
-type AttackLogAttackerItem struct {
-	ID   ItemId `json:"id"`
-	Name string `json:"name"`
-	// AdditionalProperties keeps undocumented members byte-for-byte.
-	AdditionalProperties map[string]json.RawMessage `json:"-"`
-}
-
-// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
-func (v *AttackLogAttackerItem) UnmarshalJSON(data []byte) error {
-	fields, err := contract.SplitObject(data)
-	if err != nil {
-		return err
-	}
-	type plain AttackLogAttackerItem
-	var out plain
-	if raw, ok := fields["id"]; ok {
-		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
-			return contract.At(err, "id")
-		}
-		delete(fields, "id")
-	} else {
-		return contract.Missing("id")
-	}
-	if raw, ok := fields["name"]; ok {
-		if err := contract.DecodeString(raw, &out.Name); err != nil {
-			return contract.At(err, "name")
-		}
-		delete(fields, "name")
-	} else {
-		return contract.Missing("name")
-	}
-	out.AdditionalProperties = fields
-	*v = AttackLogAttackerItem(out)
-	return nil
-}
-
-// MarshalJSON writes documented and additional members.
-func (v AttackLogAttackerItem) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
-	for k, x := range v.AdditionalProperties {
-		fields[k] = x
-	}
-	var data []byte
-	var err error
-	data, err = json.Marshal(v.ID)
-	if err != nil {
-		return nil, err
-	}
-	fields["id"] = data
-	data, err = json.Marshal(v.Name)
-	if err != nil {
-		return nil, err
-	}
-	fields["name"] = data
-	return json.Marshal(fields)
-}
-
-// AttackLogDefender is generated from the pinned official Torn contract.
 // Which reports the matching variant and AsVariantN decodes it.
-type AttackLogDefender struct {
+type AttackLogAttackerItem struct {
 	raw   json.RawMessage
 	match contract.Mask
 }
 
 // UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *AttackLogDefender) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("AttackLogDefender", data)
+func (v *AttackLogAttackerItem) UnmarshalJSON(data []byte) error {
+	match, err := registry.Match("AttackLogAttackerItem", data)
 	if err != nil {
 		return err
 	}
@@ -54996,7 +54952,7 @@ func (v *AttackLogDefender) UnmarshalJSON(data []byte) error {
 }
 
 // MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v AttackLogDefender) MarshalJSON() ([]byte, error) {
+func (v AttackLogAttackerItem) MarshalJSON() ([]byte, error) {
 	if len(v.raw) == 0 {
 		return []byte("null"), nil
 	}
@@ -55004,68 +54960,260 @@ func (v AttackLogDefender) MarshalJSON() ([]byte, error) {
 }
 
 // RawJSON returns a copy of the exact JSON value.
-func (v AttackLogDefender) RawJSON() json.RawMessage { return append(json.RawMessage(nil), v.raw...) }
+func (v AttackLogAttackerItem) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
 
 // Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v AttackLogDefender) Which() int { return v.match.First() + 1 }
+func (v AttackLogAttackerItem) Which() int { return v.match.First() + 1 }
 
 // Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v AttackLogDefender) Matches(i int) bool { return v.match.Has(i - 1) }
+func (v AttackLogAttackerItem) Matches(i int) bool { return v.match.Has(i - 1) }
 
-// AsVariant1 decodes variant 1 (AttackLogDefenderVariant1); it fails when Matches(1) is false.
-func (v AttackLogDefender) AsVariant1() (AttackLogDefenderVariant1, error) {
-	var out AttackLogDefenderVariant1
+// AsVariant1 decodes variant 1 (AttackLogItem); it fails when Matches(1) is false.
+func (v AttackLogAttackerItem) AsVariant1() (AttackLogItem, error) {
+	var out AttackLogItem
 	if !v.match.Has(0) {
-		return out, contract.NotVariant("AttackLogDefender", 1, v.raw)
+		return out, contract.NotVariant("AttackLogAttackerItem", 1, v.raw)
 	}
 	raw := v.raw
 	err := contract.DecodeInto(raw, &out)
 	return out, err
 }
 
-// NewAttackLogDefenderVariant1 builds a AttackLogDefender from variant 1 (AttackLogDefenderVariant1); it fails when the value would decode as another variant.
-func NewAttackLogDefenderVariant1(value AttackLogDefenderVariant1) (AttackLogDefender, error) {
-	var out AttackLogDefender
+// NewAttackLogAttackerItemVariant1 builds a AttackLogAttackerItem from variant 1 (AttackLogItem); it fails when the value would decode as another variant.
+func NewAttackLogAttackerItemVariant1(value AttackLogItem) (AttackLogAttackerItem, error) {
+	var out AttackLogAttackerItem
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = out.UnmarshalJSON(data)
 	}
 	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("AttackLogDefender", 1, data)
+		err = contract.NotVariant("AttackLogAttackerItem", 1, data)
 	}
 	return out, err
 }
 
 // AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
-func (v AttackLogDefender) AsVariant2() (json.RawMessage, error) {
+func (v AttackLogAttackerItem) AsVariant2() (json.RawMessage, error) {
 	var out json.RawMessage
 	if !v.match.Has(1) {
-		return out, contract.NotVariant("AttackLogDefender", 2, v.raw)
+		return out, contract.NotVariant("AttackLogAttackerItem", 2, v.raw)
 	}
 	raw := v.raw
 	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
 	return out, err
 }
 
-// NewAttackLogDefenderVariant2 builds a AttackLogDefender from variant 2 (null); it fails when the value would decode as another variant.
-func NewAttackLogDefenderVariant2(value json.RawMessage) (AttackLogDefender, error) {
-	var out AttackLogDefender
+// NewAttackLogAttackerItemVariant2 builds a AttackLogAttackerItem from variant 2 (null); it fails when the value would decode as another variant.
+func NewAttackLogAttackerItemVariant2(value json.RawMessage) (AttackLogAttackerItem, error) {
+	var out AttackLogAttackerItem
 	data, err := json.Marshal(value)
 	if err == nil {
 		err = out.UnmarshalJSON(data)
 	}
 	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("AttackLogDefender", 2, data)
+		err = contract.NotVariant("AttackLogAttackerItem", 2, data)
 	}
 	return out, err
 }
 
-var attackLogDefenderVariantNames = [...]string{"AttackLogDefenderVariant1", "null"}
+var attackLogAttackerItemVariantNames = [...]string{"AttackLogItem", "null"}
 
 // WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v AttackLogDefender) WhichName() string {
+func (v AttackLogAttackerItem) WhichName() string {
 	if i := v.Which(); i > 0 {
-		return attackLogDefenderVariantNames[i-1]
+		return attackLogAttackerItemVariantNames[i-1]
+	}
+	return ""
+}
+
+// AttackLogDefenderField is generated from the pinned official Torn contract.
+// Which reports the matching variant and AsVariantN decodes it.
+type AttackLogDefenderField struct {
+	raw   json.RawMessage
+	match contract.Mask
+}
+
+// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
+func (v *AttackLogDefenderField) UnmarshalJSON(data []byte) error {
+	match, err := registry.Match("AttackLogDefenderField", data)
+	if err != nil {
+		return err
+	}
+	v.raw = append(v.raw[:0], data...)
+	v.match = match
+	return nil
+}
+
+// MarshalJSON returns the exact JSON that was decoded or constructed.
+func (v AttackLogDefenderField) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+
+// RawJSON returns a copy of the exact JSON value.
+func (v AttackLogDefenderField) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+
+// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
+func (v AttackLogDefenderField) Which() int { return v.match.First() + 1 }
+
+// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
+func (v AttackLogDefenderField) Matches(i int) bool { return v.match.Has(i - 1) }
+
+// AsVariant1 decodes variant 1 (AttackLogDefender); it fails when Matches(1) is false.
+func (v AttackLogDefenderField) AsVariant1() (AttackLogDefender, error) {
+	var out AttackLogDefender
+	if !v.match.Has(0) {
+		return out, contract.NotVariant("AttackLogDefenderField", 1, v.raw)
+	}
+	raw := v.raw
+	err := contract.DecodeInto(raw, &out)
+	return out, err
+}
+
+// NewAttackLogDefenderFieldVariant1 builds a AttackLogDefenderField from variant 1 (AttackLogDefender); it fails when the value would decode as another variant.
+func NewAttackLogDefenderFieldVariant1(value AttackLogDefender) (AttackLogDefenderField, error) {
+	var out AttackLogDefenderField
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(0) {
+		err = contract.NotVariant("AttackLogDefenderField", 1, data)
+	}
+	return out, err
+}
+
+// AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
+func (v AttackLogDefenderField) AsVariant2() (json.RawMessage, error) {
+	var out json.RawMessage
+	if !v.match.Has(1) {
+		return out, contract.NotVariant("AttackLogDefenderField", 2, v.raw)
+	}
+	raw := v.raw
+	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
+	return out, err
+}
+
+// NewAttackLogDefenderFieldVariant2 builds a AttackLogDefenderField from variant 2 (null); it fails when the value would decode as another variant.
+func NewAttackLogDefenderFieldVariant2(value json.RawMessage) (AttackLogDefenderField, error) {
+	var out AttackLogDefenderField
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(1) {
+		err = contract.NotVariant("AttackLogDefenderField", 2, data)
+	}
+	return out, err
+}
+
+var attackLogDefenderFieldVariantNames = [...]string{"AttackLogDefender", "null"}
+
+// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
+func (v AttackLogDefenderField) WhichName() string {
+	if i := v.Which(); i > 0 {
+		return attackLogDefenderFieldVariantNames[i-1]
+	}
+	return ""
+}
+
+// AttackLogAttackerItemField is generated from the pinned official Torn contract.
+// Which reports the matching variant and AsVariantN decodes it.
+type AttackLogAttackerItemField struct {
+	raw   json.RawMessage
+	match contract.Mask
+}
+
+// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
+func (v *AttackLogAttackerItemField) UnmarshalJSON(data []byte) error {
+	match, err := registry.Match("AttackLogAttackerItemField", data)
+	if err != nil {
+		return err
+	}
+	v.raw = append(v.raw[:0], data...)
+	v.match = match
+	return nil
+}
+
+// MarshalJSON returns the exact JSON that was decoded or constructed.
+func (v AttackLogAttackerItemField) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+
+// RawJSON returns a copy of the exact JSON value.
+func (v AttackLogAttackerItemField) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+
+// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
+func (v AttackLogAttackerItemField) Which() int { return v.match.First() + 1 }
+
+// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
+func (v AttackLogAttackerItemField) Matches(i int) bool { return v.match.Has(i - 1) }
+
+// AsVariant1 decodes variant 1 (AttackLogItem); it fails when Matches(1) is false.
+func (v AttackLogAttackerItemField) AsVariant1() (AttackLogItem, error) {
+	var out AttackLogItem
+	if !v.match.Has(0) {
+		return out, contract.NotVariant("AttackLogAttackerItemField", 1, v.raw)
+	}
+	raw := v.raw
+	err := contract.DecodeInto(raw, &out)
+	return out, err
+}
+
+// NewAttackLogAttackerItemFieldVariant1 builds a AttackLogAttackerItemField from variant 1 (AttackLogItem); it fails when the value would decode as another variant.
+func NewAttackLogAttackerItemFieldVariant1(value AttackLogItem) (AttackLogAttackerItemField, error) {
+	var out AttackLogAttackerItemField
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(0) {
+		err = contract.NotVariant("AttackLogAttackerItemField", 1, data)
+	}
+	return out, err
+}
+
+// AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
+func (v AttackLogAttackerItemField) AsVariant2() (json.RawMessage, error) {
+	var out json.RawMessage
+	if !v.match.Has(1) {
+		return out, contract.NotVariant("AttackLogAttackerItemField", 2, v.raw)
+	}
+	raw := v.raw
+	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
+	return out, err
+}
+
+// NewAttackLogAttackerItemFieldVariant2 builds a AttackLogAttackerItemField from variant 2 (null); it fails when the value would decode as another variant.
+func NewAttackLogAttackerItemFieldVariant2(value json.RawMessage) (AttackLogAttackerItemField, error) {
+	var out AttackLogAttackerItemField
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(1) {
+		err = contract.NotVariant("AttackLogAttackerItemField", 2, data)
+	}
+	return out, err
+}
+
+var attackLogAttackerItemFieldVariantNames = [...]string{"AttackLogItem", "null"}
+
+// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
+func (v AttackLogAttackerItemField) WhichName() string {
+	if i := v.Which(); i > 0 {
+		return attackLogAttackerItemFieldVariantNames[i-1]
 	}
 	return ""
 }
@@ -56658,34 +56806,6 @@ func (v CompanyProfileResponseMixedProfile) WhichName() string {
 		return companyProfileResponseMixedProfileVariantNames[i-1]
 	}
 	return ""
-}
-
-// CompanySearchParameterVariant1 is generated from the pinned official Torn contract.
-type CompanySearchParameterVariant1 string
-
-// UnmarshalJSON decodes the string without enum or constraint checks (tolerant mode).
-func (v *CompanySearchParameterVariant1) UnmarshalJSON(data []byte) error {
-	return contract.DecodeString(data, (*string)(v))
-}
-
-// Known CompanySearchParameterVariant1 values. Other values decode too; see IsKnown.
-const (
-	CompanySearchParameterVariant1Recruiting    CompanySearchParameterVariant1 = "recruiting"
-	CompanySearchParameterVariant1NotRecruiting CompanySearchParameterVariant1 = "notRecruiting"
-)
-
-// IsKnown reports whether v is a value of the pinned contract. Unknown values decode successfully and round-trip unchanged (P1.1).
-func (v CompanySearchParameterVariant1) IsKnown() bool {
-	switch v {
-	case CompanySearchParameterVariant1Recruiting, CompanySearchParameterVariant1NotRecruiting:
-		return true
-	}
-	return false
-}
-
-// CompanySearchParameterVariant1Values returns every known CompanySearchParameterVariant1 value in contract order.
-func CompanySearchParameterVariant1Values() []CompanySearchParameterVariant1 {
-	return []CompanySearchParameterVariant1{CompanySearchParameterVariant1Recruiting, CompanySearchParameterVariant1NotRecruiting}
 }
 
 // CompanySearchProfileImage is generated from the pinned official Torn contract.
@@ -63934,36 +64054,6 @@ func (v MissionRewardDetailsItemSubType) WhichName() string {
 	return ""
 }
 
-// ParametersVariant1 is generated from the pinned official Torn contract.
-type ParametersVariant1 string
-
-// UnmarshalJSON decodes the string without enum or constraint checks (tolerant mode).
-func (v *ParametersVariant1) UnmarshalJSON(data []byte) error {
-	return contract.DecodeString(data, (*string)(v))
-}
-
-// Known ParametersVariant1 values. Other values decode too; see IsKnown.
-const (
-	ParametersVariant1Destroyed     ParametersVariant1 = "destroyed"
-	ParametersVariant1NotDestroyed  ParametersVariant1 = "notDestroyed"
-	ParametersVariant1Recruiting    ParametersVariant1 = "recruiting"
-	ParametersVariant1NotRecruiting ParametersVariant1 = "notRecruiting"
-)
-
-// IsKnown reports whether v is a value of the pinned contract. Unknown values decode successfully and round-trip unchanged (P1.1).
-func (v ParametersVariant1) IsKnown() bool {
-	switch v {
-	case ParametersVariant1Destroyed, ParametersVariant1NotDestroyed, ParametersVariant1Recruiting, ParametersVariant1NotRecruiting:
-		return true
-	}
-	return false
-}
-
-// ParametersVariant1Values returns every known ParametersVariant1 value in contract order.
-func ParametersVariant1Values() []ParametersVariant1 {
-	return []ParametersVariant1{ParametersVariant1Destroyed, ParametersVariant1NotDestroyed, ParametersVariant1Recruiting, ParametersVariant1NotRecruiting}
-}
-
 // PersonalStatsAttackingExtendedAttacking is generated from the pinned official Torn contract.
 type PersonalStatsAttackingExtendedAttacking struct {
 	Ammunition         PersonalStatsAttackingExtendedAttackingAmmunition `json:"ammunition"`
@@ -70518,10 +70608,11 @@ func (v ReportStatsTotal) WhichName() string {
 
 // ReportStockAnalysisItemsItem is generated from the pinned official Torn contract.
 type ReportStockAnalysisItemsItem struct {
-	Country      CountryEnum                      `json:"country"`
-	HourlyProfit int64                            `json:"hourly_profit"`
-	Item         ReportStockAnalysisItemsItemItem `json:"item"`
-	TripDuration int64                            `json:"trip_duration"`
+	Country          CountryEnum                                  `json:"country"`
+	HourlyProfit     int64                                        `json:"hourly_profit"`
+	Item             ReportStockAnalysisItemsItemItem             `json:"item"`
+	RestockTimestamp ReportStockAnalysisItemsItemRestockTimestamp `json:"restock_timestamp"`
+	TripDuration     int64                                        `json:"trip_duration"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -70558,6 +70649,14 @@ func (v *ReportStockAnalysisItemsItem) UnmarshalJSON(data []byte) error {
 	} else {
 		return contract.Missing("item")
 	}
+	if raw, ok := fields["restock_timestamp"]; ok {
+		if err := contract.DecodeInto(raw, &out.RestockTimestamp); err != nil {
+			return contract.At(err, "restock_timestamp")
+		}
+		delete(fields, "restock_timestamp")
+	} else {
+		return contract.Missing("restock_timestamp")
+	}
 	if raw, ok := fields["trip_duration"]; ok {
 		if err := contract.DecodeInt(raw, &out.TripDuration); err != nil {
 			return contract.At(err, "trip_duration")
@@ -70573,7 +70672,7 @@ func (v *ReportStockAnalysisItemsItem) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON writes documented and additional members.
 func (v ReportStockAnalysisItemsItem) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+4)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+5)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -70594,6 +70693,11 @@ func (v ReportStockAnalysisItemsItem) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["item"] = data
+	data, err = json.Marshal(v.RestockTimestamp)
+	if err != nil {
+		return nil, err
+	}
+	fields["restock_timestamp"] = data
 	data, err = json.Marshal(v.TripDuration)
 	if err != nil {
 		return nil, err
@@ -78585,8 +78689,9 @@ func (v UserFactionResponseFaction) WhichName() string {
 
 // UserGymResponseGym is generated from the pinned official Torn contract.
 type UserGymResponseGym struct {
-	ID   GymId  `json:"id"`
-	Name string `json:"name"`
+	ID           GymId             `json:"id"`
+	Name         string            `json:"name"`
+	UnlockedGyms []UserUnlockedGym `json:"unlocked_gyms"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
 }
@@ -78615,6 +78720,14 @@ func (v *UserGymResponseGym) UnmarshalJSON(data []byte) error {
 	} else {
 		return contract.Missing("name")
 	}
+	if raw, ok := fields["unlocked_gyms"]; ok {
+		if err := contract.DecodeInto(raw, &out.UnlockedGyms); err != nil {
+			return contract.At(err, "unlocked_gyms")
+		}
+		delete(fields, "unlocked_gyms")
+	} else {
+		return contract.Missing("unlocked_gyms")
+	}
 	out.AdditionalProperties = fields
 	*v = UserGymResponseGym(out)
 	return nil
@@ -78622,7 +78735,7 @@ func (v *UserGymResponseGym) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON writes documented and additional members.
 func (v UserGymResponseGym) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
+	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+3)
 	for k, x := range v.AdditionalProperties {
 		fields[k] = x
 	}
@@ -78638,6 +78751,11 @@ func (v UserGymResponseGym) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["name"] = data
+	data, err = json.Marshal(v.UnlockedGyms)
+	if err != nil {
+		return nil, err
+	}
+	fields["unlocked_gyms"] = data
 	return json.Marshal(fields)
 }
 
@@ -84230,56 +84348,6 @@ func (v UserRefillsResponseRefills) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fields)
 }
 
-// UserSearchParameterVariant1 is generated from the pinned official Torn contract.
-type UserSearchParameterVariant1 string
-
-// UnmarshalJSON decodes the string without enum or constraint checks (tolerant mode).
-func (v *UserSearchParameterVariant1) UnmarshalJSON(data []byte) error {
-	return contract.DecodeString(data, (*string)(v))
-}
-
-// Known UserSearchParameterVariant1 values. Other values decode too; see IsKnown.
-const (
-	UserSearchParameterVariant1Married            UserSearchParameterVariant1 = "married"
-	UserSearchParameterVariant1NotMarried         UserSearchParameterVariant1 = "notMarried"
-	UserSearchParameterVariant1Traveling          UserSearchParameterVariant1 = "traveling"
-	UserSearchParameterVariant1NotTraveling       UserSearchParameterVariant1 = "notTraveling"
-	UserSearchParameterVariant1InFaction          UserSearchParameterVariant1 = "inFaction"
-	UserSearchParameterVariant1NotInFaction       UserSearchParameterVariant1 = "notInFaction"
-	UserSearchParameterVariant1InCompany          UserSearchParameterVariant1 = "inCompany"
-	UserSearchParameterVariant1NotInCompany       UserSearchParameterVariant1 = "notInCompany"
-	UserSearchParameterVariant1InHospital         UserSearchParameterVariant1 = "inHospital"
-	UserSearchParameterVariant1NotInHospital      UserSearchParameterVariant1 = "notInHospital"
-	UserSearchParameterVariant1InJail             UserSearchParameterVariant1 = "inJail"
-	UserSearchParameterVariant1NotInJail          UserSearchParameterVariant1 = "notInJail"
-	UserSearchParameterVariant1InFederalJail      UserSearchParameterVariant1 = "inFederalJail"
-	UserSearchParameterVariant1NotInFederalJail   UserSearchParameterVariant1 = "notInFederalJail"
-	UserSearchParameterVariant1Male               UserSearchParameterVariant1 = "male"
-	UserSearchParameterVariant1Female             UserSearchParameterVariant1 = "female"
-	UserSearchParameterVariant1Enby               UserSearchParameterVariant1 = "enby"
-	UserSearchParameterVariant1LastActionNow      UserSearchParameterVariant1 = "lastActionNow"
-	UserSearchParameterVariant1LastActionRecent   UserSearchParameterVariant1 = "lastActionRecent"
-	UserSearchParameterVariant1LastActionHourAgo  UserSearchParameterVariant1 = "lastActionHourAgo"
-	UserSearchParameterVariant1LastActionDayAgo   UserSearchParameterVariant1 = "lastActionDayAgo"
-	UserSearchParameterVariant1LastActionWeekAgo  UserSearchParameterVariant1 = "lastActionWeekAgo"
-	UserSearchParameterVariant1LastActionMonthAgo UserSearchParameterVariant1 = "lastActionMonthAgo"
-	UserSearchParameterVariant1LastActionYearAgo  UserSearchParameterVariant1 = "lastActionYearAgo"
-)
-
-// IsKnown reports whether v is a value of the pinned contract. Unknown values decode successfully and round-trip unchanged (P1.1).
-func (v UserSearchParameterVariant1) IsKnown() bool {
-	switch v {
-	case UserSearchParameterVariant1Married, UserSearchParameterVariant1NotMarried, UserSearchParameterVariant1Traveling, UserSearchParameterVariant1NotTraveling, UserSearchParameterVariant1InFaction, UserSearchParameterVariant1NotInFaction, UserSearchParameterVariant1InCompany, UserSearchParameterVariant1NotInCompany, UserSearchParameterVariant1InHospital, UserSearchParameterVariant1NotInHospital, UserSearchParameterVariant1InJail, UserSearchParameterVariant1NotInJail, UserSearchParameterVariant1InFederalJail, UserSearchParameterVariant1NotInFederalJail, UserSearchParameterVariant1Male, UserSearchParameterVariant1Female, UserSearchParameterVariant1Enby, UserSearchParameterVariant1LastActionNow, UserSearchParameterVariant1LastActionRecent, UserSearchParameterVariant1LastActionHourAgo, UserSearchParameterVariant1LastActionDayAgo, UserSearchParameterVariant1LastActionWeekAgo, UserSearchParameterVariant1LastActionMonthAgo, UserSearchParameterVariant1LastActionYearAgo:
-		return true
-	}
-	return false
-}
-
-// UserSearchParameterVariant1Values returns every known UserSearchParameterVariant1 value in contract order.
-func UserSearchParameterVariant1Values() []UserSearchParameterVariant1 {
-	return []UserSearchParameterVariant1{UserSearchParameterVariant1Married, UserSearchParameterVariant1NotMarried, UserSearchParameterVariant1Traveling, UserSearchParameterVariant1NotTraveling, UserSearchParameterVariant1InFaction, UserSearchParameterVariant1NotInFaction, UserSearchParameterVariant1InCompany, UserSearchParameterVariant1NotInCompany, UserSearchParameterVariant1InHospital, UserSearchParameterVariant1NotInHospital, UserSearchParameterVariant1InJail, UserSearchParameterVariant1NotInJail, UserSearchParameterVariant1InFederalJail, UserSearchParameterVariant1NotInFederalJail, UserSearchParameterVariant1Male, UserSearchParameterVariant1Female, UserSearchParameterVariant1Enby, UserSearchParameterVariant1LastActionNow, UserSearchParameterVariant1LastActionRecent, UserSearchParameterVariant1LastActionHourAgo, UserSearchParameterVariant1LastActionDayAgo, UserSearchParameterVariant1LastActionWeekAgo, UserSearchParameterVariant1LastActionMonthAgo, UserSearchParameterVariant1LastActionYearAgo}
-}
-
 // UserSelectionNameVariant1 is generated from the pinned official Torn contract.
 type UserSelectionNameVariant1 string
 
@@ -85928,136 +85996,6 @@ func (v UserWorkStatsResponseWorkstats) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	fields["total"] = data
-	return json.Marshal(fields)
-}
-
-// AttackLogAttackerVariant1 is generated from the pinned official Torn contract.
-type AttackLogAttackerVariant1 struct {
-	ID   UserId                        `json:"id"`
-	Item AttackLogAttackerVariant1Item `json:"item"`
-	Name string                        `json:"name"`
-	// AdditionalProperties keeps undocumented members byte-for-byte.
-	AdditionalProperties map[string]json.RawMessage `json:"-"`
-}
-
-// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
-func (v *AttackLogAttackerVariant1) UnmarshalJSON(data []byte) error {
-	fields, err := contract.SplitObject(data)
-	if err != nil {
-		return err
-	}
-	type plain AttackLogAttackerVariant1
-	var out plain
-	if raw, ok := fields["id"]; ok {
-		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
-			return contract.At(err, "id")
-		}
-		delete(fields, "id")
-	} else {
-		return contract.Missing("id")
-	}
-	if raw, ok := fields["item"]; ok {
-		if err := contract.DecodeInto(raw, &out.Item); err != nil {
-			return contract.At(err, "item")
-		}
-		delete(fields, "item")
-	} else {
-		return contract.Missing("item")
-	}
-	if raw, ok := fields["name"]; ok {
-		if err := contract.DecodeString(raw, &out.Name); err != nil {
-			return contract.At(err, "name")
-		}
-		delete(fields, "name")
-	} else {
-		return contract.Missing("name")
-	}
-	out.AdditionalProperties = fields
-	*v = AttackLogAttackerVariant1(out)
-	return nil
-}
-
-// MarshalJSON writes documented and additional members.
-func (v AttackLogAttackerVariant1) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+3)
-	for k, x := range v.AdditionalProperties {
-		fields[k] = x
-	}
-	var data []byte
-	var err error
-	data, err = json.Marshal(v.ID)
-	if err != nil {
-		return nil, err
-	}
-	fields["id"] = data
-	data, err = json.Marshal(v.Item)
-	if err != nil {
-		return nil, err
-	}
-	fields["item"] = data
-	data, err = json.Marshal(v.Name)
-	if err != nil {
-		return nil, err
-	}
-	fields["name"] = data
-	return json.Marshal(fields)
-}
-
-// AttackLogDefenderVariant1 is generated from the pinned official Torn contract.
-type AttackLogDefenderVariant1 struct {
-	ID   UserId `json:"id"`
-	Name string `json:"name"`
-	// AdditionalProperties keeps undocumented members byte-for-byte.
-	AdditionalProperties map[string]json.RawMessage `json:"-"`
-}
-
-// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
-func (v *AttackLogDefenderVariant1) UnmarshalJSON(data []byte) error {
-	fields, err := contract.SplitObject(data)
-	if err != nil {
-		return err
-	}
-	type plain AttackLogDefenderVariant1
-	var out plain
-	if raw, ok := fields["id"]; ok {
-		if err := contract.DecodeInt(raw, (*int64)(&out.ID)); err != nil {
-			return contract.At(err, "id")
-		}
-		delete(fields, "id")
-	} else {
-		return contract.Missing("id")
-	}
-	if raw, ok := fields["name"]; ok {
-		if err := contract.DecodeString(raw, &out.Name); err != nil {
-			return contract.At(err, "name")
-		}
-		delete(fields, "name")
-	} else {
-		return contract.Missing("name")
-	}
-	out.AdditionalProperties = fields
-	*v = AttackLogDefenderVariant1(out)
-	return nil
-}
-
-// MarshalJSON writes documented and additional members.
-func (v AttackLogDefenderVariant1) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
-	for k, x := range v.AdditionalProperties {
-		fields[k] = x
-	}
-	var data []byte
-	var err error
-	data, err = json.Marshal(v.ID)
-	if err != nil {
-		return nil, err
-	}
-	fields["id"] = data
-	data, err = json.Marshal(v.Name)
-	if err != nil {
-		return nil, err
-	}
-	fields["name"] = data
 	return json.Marshal(fields)
 }
 
@@ -91886,7 +91824,7 @@ type ReportStockAnalysisItemsItemItem struct {
 	ID    ItemId                              `json:"id"`
 	Name  string                              `json:"name"`
 	Price int64                               `json:"price"`
-	Stock json.RawMessage                     `json:"stock"`
+	Stock int64                               `json:"stock"`
 	Value int64                               `json:"value"`
 	// AdditionalProperties keeps undocumented members byte-for-byte.
 	AdditionalProperties map[string]json.RawMessage `json:"-"`
@@ -91933,7 +91871,7 @@ func (v *ReportStockAnalysisItemsItemItem) UnmarshalJSON(data []byte) error {
 		return contract.Missing("price")
 	}
 	if raw, ok := fields["stock"]; ok {
-		if err := func() error { out.Stock = append(json.RawMessage(nil), raw...); return nil }(); err != nil {
+		if err := contract.DecodeInt(raw, &out.Stock); err != nil {
 			return contract.At(err, "stock")
 		}
 		delete(fields, "stock")
@@ -91992,6 +91930,101 @@ func (v ReportStockAnalysisItemsItemItem) MarshalJSON() ([]byte, error) {
 	}
 	fields["value"] = data
 	return json.Marshal(fields)
+}
+
+// ReportStockAnalysisItemsItemRestockTimestamp is generated from the pinned official Torn contract.
+// Which reports the matching variant and AsVariantN decodes it.
+type ReportStockAnalysisItemsItemRestockTimestamp struct {
+	raw   json.RawMessage
+	match contract.Mask
+}
+
+// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
+func (v *ReportStockAnalysisItemsItemRestockTimestamp) UnmarshalJSON(data []byte) error {
+	match, err := registry.Match("ReportStockAnalysisItemsItemRestockTimestamp", data)
+	if err != nil {
+		return err
+	}
+	v.raw = append(v.raw[:0], data...)
+	v.match = match
+	return nil
+}
+
+// MarshalJSON returns the exact JSON that was decoded or constructed.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) MarshalJSON() ([]byte, error) {
+	if len(v.raw) == 0 {
+		return []byte("null"), nil
+	}
+	return v.raw, nil
+}
+
+// RawJSON returns a copy of the exact JSON value.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) RawJSON() json.RawMessage {
+	return append(json.RawMessage(nil), v.raw...)
+}
+
+// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) Which() int { return v.match.First() + 1 }
+
+// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) Matches(i int) bool { return v.match.Has(i - 1) }
+
+// AsVariant1 decodes variant 1 (int64); it fails when Matches(1) is false.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) AsVariant1() (int64, error) {
+	var out int64
+	if !v.match.Has(0) {
+		return out, contract.NotVariant("ReportStockAnalysisItemsItemRestockTimestamp", 1, v.raw)
+	}
+	raw := v.raw
+	err := contract.DecodeInt(raw, &out)
+	return out, err
+}
+
+// NewReportStockAnalysisItemsItemRestockTimestampVariant1 builds a ReportStockAnalysisItemsItemRestockTimestamp from variant 1 (int64); it fails when the value would decode as another variant.
+func NewReportStockAnalysisItemsItemRestockTimestampVariant1(value int64) (ReportStockAnalysisItemsItemRestockTimestamp, error) {
+	var out ReportStockAnalysisItemsItemRestockTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(0) {
+		err = contract.NotVariant("ReportStockAnalysisItemsItemRestockTimestamp", 1, data)
+	}
+	return out, err
+}
+
+// AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) AsVariant2() (json.RawMessage, error) {
+	var out json.RawMessage
+	if !v.match.Has(1) {
+		return out, contract.NotVariant("ReportStockAnalysisItemsItemRestockTimestamp", 2, v.raw)
+	}
+	raw := v.raw
+	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
+	return out, err
+}
+
+// NewReportStockAnalysisItemsItemRestockTimestampVariant2 builds a ReportStockAnalysisItemsItemRestockTimestamp from variant 2 (null); it fails when the value would decode as another variant.
+func NewReportStockAnalysisItemsItemRestockTimestampVariant2(value json.RawMessage) (ReportStockAnalysisItemsItemRestockTimestamp, error) {
+	var out ReportStockAnalysisItemsItemRestockTimestamp
+	data, err := json.Marshal(value)
+	if err == nil {
+		err = out.UnmarshalJSON(data)
+	}
+	if err == nil && !out.match.Has(1) {
+		err = contract.NotVariant("ReportStockAnalysisItemsItemRestockTimestamp", 2, data)
+	}
+	return out, err
+}
+
+var reportStockAnalysisItemsItemRestockTimestampVariantNames = [...]string{"int64", "null"}
+
+// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
+func (v ReportStockAnalysisItemsItemRestockTimestamp) WhichName() string {
+	if i := v.Which(); i > 0 {
+		return reportStockAnalysisItemsItemRestockTimestampVariantNames[i-1]
+	}
+	return ""
 }
 
 // ReviveReviverFaction is generated from the pinned official Torn contract.
@@ -103202,101 +103235,6 @@ func (v UserTravelResponseTravelMethod) WhichName() string {
 	return ""
 }
 
-// AttackLogAttackerVariant1Item is generated from the pinned official Torn contract.
-// Which reports the matching variant and AsVariantN decodes it.
-type AttackLogAttackerVariant1Item struct {
-	raw   json.RawMessage
-	match contract.Mask
-}
-
-// UnmarshalJSON keeps the exact JSON and records every variant that accepts it.
-func (v *AttackLogAttackerVariant1Item) UnmarshalJSON(data []byte) error {
-	match, err := registry.Match("AttackLogAttackerVariant1Item", data)
-	if err != nil {
-		return err
-	}
-	v.raw = append(v.raw[:0], data...)
-	v.match = match
-	return nil
-}
-
-// MarshalJSON returns the exact JSON that was decoded or constructed.
-func (v AttackLogAttackerVariant1Item) MarshalJSON() ([]byte, error) {
-	if len(v.raw) == 0 {
-		return []byte("null"), nil
-	}
-	return v.raw, nil
-}
-
-// RawJSON returns a copy of the exact JSON value.
-func (v AttackLogAttackerVariant1Item) RawJSON() json.RawMessage {
-	return append(json.RawMessage(nil), v.raw...)
-}
-
-// Which returns the 1-based number of the first matching variant (the AsVariantN to call), or 0 for an empty value.
-func (v AttackLogAttackerVariant1Item) Which() int { return v.match.First() + 1 }
-
-// Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
-func (v AttackLogAttackerVariant1Item) Matches(i int) bool { return v.match.Has(i - 1) }
-
-// AsVariant1 decodes variant 1 (AttackLogAttackerVariant1ItemVariant1); it fails when Matches(1) is false.
-func (v AttackLogAttackerVariant1Item) AsVariant1() (AttackLogAttackerVariant1ItemVariant1, error) {
-	var out AttackLogAttackerVariant1ItemVariant1
-	if !v.match.Has(0) {
-		return out, contract.NotVariant("AttackLogAttackerVariant1Item", 1, v.raw)
-	}
-	raw := v.raw
-	err := contract.DecodeInto(raw, &out)
-	return out, err
-}
-
-// NewAttackLogAttackerVariant1ItemVariant1 builds a AttackLogAttackerVariant1Item from variant 1 (AttackLogAttackerVariant1ItemVariant1); it fails when the value would decode as another variant.
-func NewAttackLogAttackerVariant1ItemVariant1(value AttackLogAttackerVariant1ItemVariant1) (AttackLogAttackerVariant1Item, error) {
-	var out AttackLogAttackerVariant1Item
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(0) {
-		err = contract.NotVariant("AttackLogAttackerVariant1Item", 1, data)
-	}
-	return out, err
-}
-
-// AsVariant2 decodes variant 2 (null); it fails when Matches(2) is false.
-func (v AttackLogAttackerVariant1Item) AsVariant2() (json.RawMessage, error) {
-	var out json.RawMessage
-	if !v.match.Has(1) {
-		return out, contract.NotVariant("AttackLogAttackerVariant1Item", 2, v.raw)
-	}
-	raw := v.raw
-	err := func() error { out = append(json.RawMessage(nil), raw...); return nil }()
-	return out, err
-}
-
-// NewAttackLogAttackerVariant1ItemVariant2 builds a AttackLogAttackerVariant1Item from variant 2 (null); it fails when the value would decode as another variant.
-func NewAttackLogAttackerVariant1ItemVariant2(value json.RawMessage) (AttackLogAttackerVariant1Item, error) {
-	var out AttackLogAttackerVariant1Item
-	data, err := json.Marshal(value)
-	if err == nil {
-		err = out.UnmarshalJSON(data)
-	}
-	if err == nil && !out.match.Has(1) {
-		err = contract.NotVariant("AttackLogAttackerVariant1Item", 2, data)
-	}
-	return out, err
-}
-
-var attackLogAttackerVariant1ItemVariantNames = [...]string{"AttackLogAttackerVariant1ItemVariant1", "null"}
-
-// WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
-func (v AttackLogAttackerVariant1Item) WhichName() string {
-	if i := v.Which(); i > 0 {
-		return attackLogAttackerVariant1ItemVariantNames[i-1]
-	}
-	return ""
-}
-
 // FactionApplicationUserStatsVariant1 is generated from the pinned official Torn contract.
 type FactionApplicationUserStatsVariant1 struct {
 	Defense   int64 `json:"defense"`
@@ -110633,64 +110571,6 @@ func (v UserPersonalStatsPopularPersonalstatsOtherRefills) MarshalJSON() ([]byte
 		return nil, err
 	}
 	fields["nerve"] = data
-	return json.Marshal(fields)
-}
-
-// AttackLogAttackerVariant1ItemVariant1 is generated from the pinned official Torn contract.
-type AttackLogAttackerVariant1ItemVariant1 struct {
-	ID   Optional[ItemId] `json:"id"`
-	Name Optional[string] `json:"name"`
-	// AdditionalProperties keeps undocumented members byte-for-byte.
-	AdditionalProperties map[string]json.RawMessage `json:"-"`
-}
-
-// UnmarshalJSON decodes tolerantly: undocumented members are kept and enum values are open.
-func (v *AttackLogAttackerVariant1ItemVariant1) UnmarshalJSON(data []byte) error {
-	fields, err := contract.SplitObject(data)
-	if err != nil {
-		return err
-	}
-	type plain AttackLogAttackerVariant1ItemVariant1
-	var out plain
-	if raw, ok := fields["id"]; ok {
-		if err := contract.DecodeInto(raw, &out.ID); err != nil {
-			return contract.At(err, "id")
-		}
-		delete(fields, "id")
-	}
-	if raw, ok := fields["name"]; ok {
-		if err := contract.DecodeInto(raw, &out.Name); err != nil {
-			return contract.At(err, "name")
-		}
-		delete(fields, "name")
-	}
-	out.AdditionalProperties = fields
-	*v = AttackLogAttackerVariant1ItemVariant1(out)
-	return nil
-}
-
-// MarshalJSON writes documented and additional members.
-func (v AttackLogAttackerVariant1ItemVariant1) MarshalJSON() ([]byte, error) {
-	fields := make(map[string]json.RawMessage, len(v.AdditionalProperties)+2)
-	for k, x := range v.AdditionalProperties {
-		fields[k] = x
-	}
-	var data []byte
-	var err error
-	if v.ID.Present {
-		data, err = json.Marshal(v.ID)
-		if err != nil {
-			return nil, err
-		}
-		fields["id"] = data
-	}
-	if v.Name.Present {
-		data, err = json.Marshal(v.Name)
-		if err != nil {
-			return nil, err
-		}
-		fields["name"] = data
-	}
 	return json.Marshal(fields)
 }
 
@@ -125216,9 +125096,9 @@ func (v GetRacingGenericParamCat) Which() int { return v.match.First() + 1 }
 // Matches reports whether variant i (1-based) accepts the value; overlapping variants can all match.
 func (v GetRacingGenericParamCat) Matches(i int) bool { return v.match.Has(i - 1) }
 
-// AsVariant1 decodes variant 1 (RacingRaceTypeEnum); it fails when Matches(1) is false.
-func (v GetRacingGenericParamCat) AsVariant1() (RacingRaceTypeEnum, error) {
-	var out RacingRaceTypeEnum
+// AsVariant1 decodes variant 1 (RacingRacesCategoryEnum); it fails when Matches(1) is false.
+func (v GetRacingGenericParamCat) AsVariant1() (RacingRacesCategoryEnum, error) {
+	var out RacingRacesCategoryEnum
 	if !v.match.Has(0) {
 		return out, contract.NotVariant("GetRacingGenericParamCat", 1, v.raw)
 	}
@@ -125227,8 +125107,8 @@ func (v GetRacingGenericParamCat) AsVariant1() (RacingRaceTypeEnum, error) {
 	return out, err
 }
 
-// NewGetRacingGenericParamCatVariant1 builds a GetRacingGenericParamCat from variant 1 (RacingRaceTypeEnum); it fails when the value would decode as another variant.
-func NewGetRacingGenericParamCatVariant1(value RacingRaceTypeEnum) (GetRacingGenericParamCat, error) {
+// NewGetRacingGenericParamCatVariant1 builds a GetRacingGenericParamCat from variant 1 (RacingRacesCategoryEnum); it fails when the value would decode as another variant.
+func NewGetRacingGenericParamCatVariant1(value RacingRacesCategoryEnum) (GetRacingGenericParamCat, error) {
 	var out GetRacingGenericParamCat
 	data, err := json.Marshal(value)
 	if err == nil {
@@ -125264,7 +125144,7 @@ func NewGetRacingGenericParamCatVariant2(value RaceClassEnum) (GetRacingGenericP
 	return out, err
 }
 
-var getRacingGenericParamCatVariantNames = [...]string{"RacingRaceTypeEnum", "RaceClassEnum"}
+var getRacingGenericParamCatVariantNames = [...]string{"RacingRacesCategoryEnum", "RaceClassEnum"}
 
 // WhichName returns the schema or Go type name of the variant reported by Which ("null" for JSON null), or "" for an empty value.
 func (v GetRacingGenericParamCat) WhichName() string {

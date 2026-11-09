@@ -19,7 +19,10 @@ import (
 // It contains no credential and covers both a concrete and a null item uid.
 const travelInventorySample = `{"travelinventory":{"capacity":{"base":28,"special":0},"inventory":[{"id":732365689,"item":{"id":177,"uid":18545986362,"name":"Cobra Derringer","type":"Secondary","is_equipped":true,"is_faction_owned":false,"is_permanent":true}},{"id":742823284,"item":{"id":738,"uid":null,"name":"Blood Bag : O+","type":"Medical","is_equipped":false,"is_faction_owned":false,"is_permanent":true}}]}}`
 
-func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
+// TestOperationMetadataMatches6150Contract proves operations of the historical
+// 6.15.0 contract still carry matching metadata; the current contract is
+// checked in api_6157_test.go.
+func TestOperationMetadataMatches6150Contract(t *testing.T) {
 	data, err := os.ReadFile("spec/openapi-6.15.0.json")
 	if err != nil {
 		t.Fatal(err)
@@ -72,8 +75,8 @@ func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
 			}
 		}
 	}
-	if count != 237 || len(torn.Operations) != 237 {
-		t.Fatalf("metadata inventory: %d spec, %d SDK", count, len(torn.Operations))
+	if count != 237 {
+		t.Fatalf("metadata inventory: %d spec", count)
 	}
 	if levels[""] != 0 || levels["public"] == 0 || levels["minimal"] == 0 || levels["limited"] == 0 || levels["full"] == 0 {
 		t.Fatalf("access level inventory: %v", levels)
@@ -81,9 +84,6 @@ func TestCurrentOperationMetadataMatchesOfficialContract(t *testing.T) {
 	got, _ := torn.MetadataForOperation("getMyTravelInventory")
 	if got != (torn.OperationMetadata{Stability: "Unstable", AccessLevel: torn.AccessLimited, ResponseSchema: "UserTravelInventoryResponse", Path: "/user/travelinventory"}) {
 		t.Fatalf("travel inventory metadata: %#v", got)
-	}
-	if torn.APIVersion != "6.15.0" {
-		t.Fatalf("APIVersion %q", torn.APIVersion)
 	}
 }
 

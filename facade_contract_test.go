@@ -19,8 +19,8 @@ import (
 // custom decoders, mixed-shape endpoints, aliases, and CSV helpers. Response
 // acceptance remains covered independently by model/compatibility contract tests.
 func TestEveryTypedFacadeReachesTransport(t *testing.T) {
-	definitions := loadContract(t, "6.15.0").Components.Schemas
-	data, e := os.ReadFile("spec/openapi-6.15.0.json")
+	definitions := loadContract(t, "6.15.7").Components.Schemas
+	data, e := os.ReadFile("spec/openapi-6.15.7.json")
 	if e != nil {
 		t.Fatal(e)
 	}

@@ -1,0 +1,166 @@
+{
+  "attacklog": {
+    "log": [
+      {
+        "text": "PlayerA initiated an attack against PlayerB",
+        "timestamp": 1794227652,
+        "action": "startfight",
+        "icon": "attacking-events-attack-join",
+        "attacker": {
+          "id": 1001,
+          "name": "PlayerA",
+          "item": {
+            "id": 999,
+            "name": "Fists"
+          }
+        },
+        "defender": {
+          "id": 1002,
+          "name": "PlayerB"
+        }
+      },
+      {
+        "text": "PlayerC joined the fight against PlayerB",
+        "timestamp": 1794227652,
+        "action": "joinfight",
+        "icon": "attacking-events-attack-join",
+        "attacker": {
+          "id": 1003,
+          "name": "PlayerC",
+          "item": {
+            "id": 999,
+            "name": "Fists"
+          }
+        },
+        "defender": {
+          "id": 1002,
+          "name": "PlayerB"
+        }
+      },
+      {
+        "text": "PlayerD joined the fight against PlayerB",
+        "timestamp": 1794227652,
+        "action": "joinfight",
+        "icon": "attacking-events-attack-join",
+        "attacker": {
+          "id": 1004,
+          "name": "PlayerD",
+          "item": {
+            "id": 999,
+            "name": "Fists"
+          }
+        },
+        "defender": {
+          "id": 1002,
+          "name": "PlayerB"
+        }
+      },
+      {
+        "text": "PlayerA fired 1 PI round of his Cobra Derringer hitting PlayerB in the Stomach for 1861",
+        "timestamp": 1794227652,
+        "action": "hit",
+        "icon": "attacking-events-assassinate",
+        "attacker": {
+          "id": 1001,
+          "name": "PlayerA",
+          "item": {
+            "id": 177,
+            "name": "Cobra Derringer"
+          }
+        },
+        "defender": {
+          "id": 1002,
+          "name": "PlayerB"
+        }
+      },
+      {
+        "text": "PlayerB injected a syringe of Tyrosine into his arm",
+        "timestamp": 1794227652,
+        "action": "specialTemp",
+        "icon": "attacking-events-booster-use",
+        "attacker": {
+          "id": 1002,
+          "name": "PlayerB",
+          "item": {
+            "id": 814,
+            "name": "Tyrosine"
+          }
+        },
+        "defender": {
+          "id": 1001,
+          "name": "PlayerA"
+        }
+      },
+      {
+        "text": "PlayerC fired 2 IN rounds of his ArmaLite M-15A4 missing PlayerB",
+        "timestamp": 1794227652,
+        "action": "missed",
+        "icon": "attacking-events-miss",
+        "attacker": {
+          "id": 1003,
+          "name": "PlayerC",
+          "item": {
+            "id": 399,
+            "name": "ArmaLite M-15A4"
+          }
+        },
+        "defender": {
+          "id": 1002,
+          "name": "PlayerB"
+        }
+      },
+      {
+        "text": "Someone hit PlayerB",
+        "timestamp": 1794227660,
+        "action": "hit",
+        "icon": "attacking-events-hit",
+        "attacker": null,
+        "attacker_item": null,
+        "defender": null
+      }
+    ],
+    "summary": [
+      {
+        "id": 1003,
+        "name": "PlayerC",
+        "hits": 2,
+        "misses": 1,
+        "damage": 3252
+      },
+      {
+        "id": 1001,
+        "name": "PlayerA",
+        "hits": 1,
+        "misses": 2,
+        "damage": 1861
+      },
+      {
+        "id": 1004,
+        "name": "PlayerD",
+        "hits": 1,
+        "misses": 1,
+        "damage": 1224
+      },
+      {
+        "id": 1002,
+        "name": "PlayerB",
+        "hits": 1,
+        "misses": 0,
+        "damage": 503
+      },
+      {
+        "id": 1005,
+        "name": "PlayerE",
+        "hits": 0,
+        "misses": 0,
+        "damage": 0
+      }
+    ]
+  },
+  "_metadata": {
+    "links": {
+      "prev": null,
+      "next": null
+    }
+  }
+}

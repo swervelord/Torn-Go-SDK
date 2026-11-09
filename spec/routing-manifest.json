@@ -5976,5 +5976,5 @@
     }
   ],
   "v1_evidence": "Maintained SDK compatibility selection inventory. Current official schema descriptions corroborate legacy-only names and fallback notes; current v2 path/enum membership corroborates migrated names. A complete authenticated v1 specification is unavailable, so catalog membership is a compatibility routing promise, not authoritative validation of every v1 payload schema. Resources without explicit entries never receive automatic v1 fallback.",
-  "version": "6.15.0"
+  "version": "6.15.7"
 }
