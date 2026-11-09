@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased: 0.2.0 — Torn API 6.15.7 (2026-11-09)
+## 0.2.0 - 2026-11-09: Torn API 6.15.7
 
 `SDKVersion` is `0.2.0`: the regenerated 6.15.7 models change several public
 field types (see Breaking changes), which is a minor release while the module
